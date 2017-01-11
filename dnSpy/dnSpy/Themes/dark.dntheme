@@ -122,7 +122,7 @@
 		<color name="hexascii" fg="#FF87E587" />
 		<color name="hexcaret" bg="#6691F291" />
 		<color name="hexinactivecaret" bg="#FF007ACC" />
-		<color name="hexselection" bg="#66405935" />
+		<color name="hexselection" bg="#FF405935" />
 		<color name="replprompt1" fg="#DCDCDC" />
 		<color name="replprompt2" fg="#DCDCDC" />
 		<color name="reploutputtext" fg="#DCDCDC" />
@@ -227,6 +227,23 @@
 		<color name="gacmatchhighlight" bg="#FF773800" />
 		<color name="appsettingstreeviewnodematchhighlight" bg="#FF773800" />
 		<color name="appsettingstextmatchhighlight" bg="#FF773800" />
+		<color name="hexcurrentline" fg="#606060" />
+		<color name="hexcurrentlinenofocus" fg="#606060" />
+		<color name="hexinactiveselectedtext" bg="#FF565656" />
+		<color name="hexcolumnline0" fg="#FFA0A0A0" />
+		<color name="hexcolumnline1" fg="#FFA0A0A0" />
+		<color name="hexcolumnlinegroup0" fg="#FFA8C462" />
+		<color name="hexcolumnlinegroup1" fg="#FFA8C462" />
+		<color name="hexhighlightedvaluescolumn" bg="#FF262626" />
+		<color name="hexhighlightedasciicolumn" bg="#FF262626" />
+		<color name="hexglyphmargin" bg="#FF333333" />
+		<color name="hexcurrentvaluecell" bg="#FF404040" />
+		<color name="hexcurrentasciicell" bg="#FF505050" />
+		<color name="outputwindowtext" fg="#DCDCDC" bg="#1E1E1E" />
+		<color name="hexfindmatchhighlightmarker" bg="#FF751500" />
+		<color name="hextooltipservicefield0" bg="#FF4C1D4C" fg="#FFCE4CCE" />
+		<color name="hextooltipservicefield1" bg="#FF491C1C" fg="#FFEA5B5B" />
+		<color name="hextooltipservicecurrentfield" bg="#FF082949" fg="#FFADC0D3" />
 
 		<color name="systemcolorscontrol" bg="#303030" />
 		<color name="systemcolorscontroldark" bg="#606060" />
@@ -648,5 +665,8 @@
 		<color name="environmenticongeneralfill" bg="#FFC8C8C8" />
 		<color name="environmenticonactionfill" bg="#FF7AC1FF" />
 		<color name="searchcontrolmouseoverdropdownbuttonglyph" bg="#FF007ACC" />
+		<color name="hexsearchcontrolmouseoverdropdownbuttonglyph" bg="#FF007ACC" />
+		<color name="hexsearchingtextbox" fg="#FFC1C1C1" bg="#FF000000" />
+		<color name="hexsearchingtextboxborder" bg="#FFC1C1C1" />
 	</colors>
 </theme>

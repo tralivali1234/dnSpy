@@ -1249,4 +1249,422 @@ Filtro pode ser alterado nas opções do Explorador Assembly.</value>
   <data name="ShortCutKeyCtrlShiftK" xml:space="preserve">
     <value>CTRL+Shift+K</value>
   </data>
+  <data name="BgImgDisplayName_HexEditor" xml:space="preserve">
+    <value>Hex Editor</value>
+  </data>
+  <data name="HexEditorGroup_Default" xml:space="preserve">
+    <value>Padrão</value>
+  </data>
+  <data name="HexEditorSettings" xml:space="preserve">
+    <value>Hex Editor</value>
+  </data>
+  <data name="HexEditorEncoding" xml:space="preserve">
+    <value>Codificação</value>
+  </data>
+  <data name="HexEditorGroupSizeInBytes" xml:space="preserve">
+    <value>Tamanho do grupo</value>
+  </data>
+  <data name="HexEditorHighlightCurrentValue" xml:space="preserve">
+    <value>Realçar linha atual</value>
+  </data>
+  <data name="HexEditorOffsetFormat" xml:space="preserve">
+    <value>Offset</value>
+  </data>
+  <data name="HexEditorOffsetLowerCaseHex" xml:space="preserve">
+    <value>Letra minúscula hex (offset)</value>
+  </data>
+  <data name="HexEditorValuesLowerCaseHex" xml:space="preserve">
+    <value>Letra minúscula hex (valores)</value>
+  </data>
+  <data name="BlockStructureLineKind_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="HexEditorShowColumnLineSeparators" xml:space="preserve">
+    <value>Mostrar separador de linhas</value>
+  </data>
+  <data name="GoToOffset_Offset_Label" xml:space="preserve">
+    <value>O_ffset</value>
+  </data>
+  <data name="GoToOffset_Title" xml:space="preserve">
+    <value>Ir para Offset</value>
+  </data>
+  <data name="HexEditorSelect_End" xml:space="preserve">
+    <value>Fim</value>
+  </data>
+  <data name="HexEditorSelect_Start" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="HexEditorSelect_Title" xml:space="preserve">
+    <value>Selecionar</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>Valor inválido</value>
+  </data>
+  <data name="ValueMustBeWithinRange" xml:space="preserve">
+    <value>Valor deve estar entre {0} e {1}</value>
+  </data>
+  <data name="AnErrorOccurred" xml:space="preserve">
+    <value>Ocorreu um erro:{0}</value>
+  </data>
+  <data name="HexEditorSaveSelection_Title" xml:space="preserve">
+    <value>Guardar Seleção 0x{0:X}-0x{1:X}</value>
+  </data>
+  <data name="Button_DefaultSettings" xml:space="preserve">
+    <value>Definições Padrão</value>
+  </data>
+  <data name="Button_RestoreSettings" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="BytesPerLineCommand" xml:space="preserve">
+    <value>Bytes por Linha</value>
+  </data>
+  <data name="ClearByteCommand" xml:space="preserve">
+    <value>Limpar Byte</value>
+  </data>
+  <data name="ClearSelectedBytesCommand" xml:space="preserve">
+    <value>Limpar Bytes Selecionados</value>
+  </data>
+  <data name="CopyCSharpArrayCommand" xml:space="preserve">
+    <value>Copiar Array c#</value>
+  </data>
+  <data name="CopyOffsetCommand" xml:space="preserve">
+    <value>Copiar Offset</value>
+  </data>
+  <data name="CopySpecialCommand" xml:space="preserve">
+    <value>Copiar Especial</value>
+  </data>
+  <data name="CopyTextCommand" xml:space="preserve">
+    <value>Copiar Texto</value>
+  </data>
+  <data name="CopyUnicodeStringCommand" xml:space="preserve">
+    <value>Copiar String Unicode</value>
+  </data>
+  <data name="CopyUTF8StringCommand" xml:space="preserve">
+    <value>Copiar String UTF-8</value>
+  </data>
+  <data name="CopyVisualBasicArrayCommand" xml:space="preserve">
+    <value>Copiar Array Visual Basic</value>
+  </data>
+  <data name="FillSelectionCommand" xml:space="preserve">
+    <value>Preencher Seleção com Byte...</value>
+  </data>
+  <data name="FillSelection_Label" xml:space="preserve">
+    <value>Byte</value>
+  </data>
+  <data name="FillSelection_Title" xml:space="preserve">
+    <value>Inserir Valor</value>
+  </data>
+  <data name="GoToOffsetCommand" xml:space="preserve">
+    <value>Ir para Offset...</value>
+  </data>
+  <data name="HexEditorSaveSelectionCommand" xml:space="preserve">
+    <value>Guardar Seleção...</value>
+  </data>
+  <data name="HexEditorSelectCommand" xml:space="preserve">
+    <value>Selecionar...</value>
+  </data>
+  <data name="HexEditorSettingsCommand" xml:space="preserve">
+    <value>Definições...</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_16" xml:space="preserve">
+    <value>16 Bytes</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_32" xml:space="preserve">
+    <value>32 Bytes</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_48" xml:space="preserve">
+    <value>48 Bytes</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_64" xml:space="preserve">
+    <value>64 Bytes</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_8" xml:space="preserve">
+    <value>8 Bytes</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_FitToWidth" xml:space="preserve">
+    <value>Ajustar à Largura</value>
+  </data>
+  <data name="LocalHexSettings_BaseOffset" xml:space="preserve">
+    <value>Offset Base</value>
+  </data>
+  <data name="LocalHexSettings_BaseOffset_ToolTip" xml:space="preserve">
+    <value>Esse valor é adicionado para o offset de início antes dele ser mostrado no ecrã</value>
+  </data>
+  <data name="LocalHexSettings_BytesPerLine" xml:space="preserve">
+    <value>Bytes por Linha</value>
+  </data>
+  <data name="LocalHexSettings_EndOffset" xml:space="preserve">
+    <value>Offset Final</value>
+  </data>
+  <data name="LocalHexSettings_OffsetBitSize" xml:space="preserve">
+    <value>Offset Bi_t Size</value>
+  </data>
+  <data name="LocalHexSettings_ShowASCII" xml:space="preserve">
+    <value>Mostrar ASCII</value>
+  </data>
+  <data name="LocalHexSettings_ShowOffset" xml:space="preserve">
+    <value>Mostrar Offset</value>
+  </data>
+  <data name="LocalHexSettings_ShowValues" xml:space="preserve">
+    <value>Mostrar Valores</value>
+  </data>
+  <data name="LocalHexSettings_StartOffset" xml:space="preserve">
+    <value>Offset de Inicio</value>
+  </data>
+  <data name="LocalHexSettings_Title" xml:space="preserve">
+    <value>Configurações de Hex Editor Local</value>
+  </data>
+  <data name="LocalHexSettings_UseRelOffsets" xml:space="preserve">
+    <value>Usar Offsets Relativos</value>
+  </data>
+  <data name="LocalHexSettings_UseRelOffsets_ToolTip" xml:space="preserve">
+    <value>Todos os offsets são relativos para o offset de início</value>
+  </data>
+  <data name="LocalHexSettings_ValueFormat" xml:space="preserve">
+    <value>Formato do Valor</value>
+  </data>
+  <data name="PasteCommand" xml:space="preserve">
+    <value>Colar</value>
+  </data>
+  <data name="PasteDotNetMetaDataBlobCommand" xml:space="preserve">
+    <value>Colar (#Blob Data)</value>
+  </data>
+  <data name="PasteSpecialCommand" xml:space="preserve">
+    <value>Colar Especial</value>
+  </data>
+  <data name="PasteUnicodeCommand" xml:space="preserve">
+    <value>Colar (Unicode)</value>
+  </data>
+  <data name="PasteUTF8Command" xml:space="preserve">
+    <value>_Colar (UTF-8)</value>
+  </data>
+  <data name="ShortCutKeyCtrl8" xml:space="preserve">
+    <value>CTRL + 8</value>
+  </data>
+  <data name="ShortCutKeyCtrlAltO" xml:space="preserve">
+    <value>CTRL + Alt + O</value>
+  </data>
+  <data name="ShortCutKeyCtrlAltS" xml:space="preserve">
+    <value>CTRL + Alt + S</value>
+  </data>
+  <data name="ShortCutKeyCtrlB" xml:space="preserve">
+    <value>CTRL + B</value>
+  </data>
+  <data name="ShortCutKeyCtrlD" xml:space="preserve">
+    <value>CTRL + D</value>
+  </data>
+  <data name="ShortCutKeyCtrlG" xml:space="preserve">
+    <value>CTRL + G</value>
+  </data>
+  <data name="ShortCutKeyCtrlShift8" xml:space="preserve">
+    <value>CTRL + Shift + 8</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftB" xml:space="preserve">
+    <value>CTRL + Shift + B</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftC" xml:space="preserve">
+    <value>CTRL + Shift + C</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftD" xml:space="preserve">
+    <value>CTRL + Shift + D</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftH" xml:space="preserve">
+    <value>CTRL + Shift + H</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftU" xml:space="preserve">
+    <value>CTRL + Shift + U</value>
+  </data>
+  <data name="ShortCutKeyCtrlU" xml:space="preserve">
+    <value>CTRL + U</value>
+  </data>
+  <data name="ShortCutKeyCtrlV" xml:space="preserve">
+    <value>CTRL + V</value>
+  </data>
+  <data name="ShortCutKeyDelete" xml:space="preserve">
+    <value>Del</value>
+    <comment>the delete key</comment>
+  </data>
+  <data name="ShowAllBytesCommand" xml:space="preserve">
+    <value>Mostrar Todos os Bytes</value>
+  </data>
+  <data name="ShowOnlySelectedBytesCommand" xml:space="preserve">
+    <value>Mostrar Apenas Bytes Selecionados</value>
+  </data>
+  <data name="ValueFormatCommand" xml:space="preserve">
+    <value>Formato do Valor</value>
+  </data>
+  <data name="ShortCutKeyF5" xml:space="preserve">
+    <value>F5</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Atualizar</value>
+  </data>
+  <data name="TextEditor" xml:space="preserve">
+    <value>Editor de texto</value>
+  </data>
+  <data name="Search_BigEndian" xml:space="preserve">
+    <value>Endian grande (Alt + B)</value>
+  </data>
+  <data name="ShortCutKeyAlt8" xml:space="preserve">
+    <value>Alt + 8</value>
+  </data>
+  <data name="ShortCutKeyAltH" xml:space="preserve">
+    <value>Alt + H</value>
+  </data>
+  <data name="ShortCutKeyAltU" xml:space="preserve">
+    <value>Alt + U</value>
+  </data>
+  <data name="ShortCutKeyCtrlF" xml:space="preserve">
+    <value>CTRL + F</value>
+  </data>
+  <data name="PasteUnicodeAndLength7Command" xml:space="preserve">
+    <value>Colar (Unicode e comprimento)</value>
+  </data>
+  <data name="PasteUTF8AndLength7Command" xml:space="preserve">
+    <value>Colar (UTF-8 e comprimento)</value>
+  </data>
+  <data name="ShortCutKeyCtrlKCtrl8" xml:space="preserve">
+    <value>CTRL + K, CTRL + 8</value>
+  </data>
+  <data name="ShortCutKeyCtrlKCtrlU" xml:space="preserve">
+    <value>CTRL + K, CTRL + U</value>
+  </data>
+  <data name="HexGoToCodeOrStructure" xml:space="preserve">
+    <value>Ir para Código ou Estrutura</value>
+  </data>
+  <data name="ShortCutKeyF12" xml:space="preserve">
+    <value>F12</value>
+  </data>
+  <data name="HexEditorHighlightStructureUnderMouseCursor" xml:space="preserve">
+    <value>Realçar estrutura sob cursor do rato</value>
+  </data>
+  <data name="HexToolTipIndex" xml:space="preserve">
+    <value>índice</value>
+  </data>
+  <data name="HexToolTipOffset" xml:space="preserve">
+    <value>offset</value>
+  </data>
+  <data name="BigEndian" xml:space="preserve">
+    <value>Big Endian</value>
+  </data>
+  <data name="CopyDataCommand" xml:space="preserve">
+    <value>Copiar {0}</value>
+  </data>
+  <data name="CopyAbsoluteFileOffsetCommand" xml:space="preserve">
+    <value>Copiar Offset Absoluto</value>
+  </data>
+  <data name="CopyFileOffsetCommand" xml:space="preserve">
+    <value>Copiar offset do ficheiro</value>
+  </data>
+  <data name="CopyRVACommand" xml:space="preserve">
+    <value>Copiar RVA</value>
+  </data>
+  <data name="CopyValueCommand" xml:space="preserve">
+    <value>Copiar Valor</value>
+  </data>
+  <data name="ShortCutKeyCtrlShift3" xml:space="preserve">
+    <value>CTRL + Shift + 3</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftA" xml:space="preserve">
+    <value>CTRL + Shift + A</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftR" xml:space="preserve">
+    <value>CTRL+Shift+R</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftV" xml:space="preserve">
+    <value>CTRL + Shift + V</value>
+  </data>
+  <data name="GoToAbsolutePosition" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="GoToCurrentPosition" xml:space="preserve">
+    <value>Posição Atual</value>
+  </data>
+  <data name="GoToFilePosition" xml:space="preserve">
+    <value>Ficheiro</value>
+  </data>
+  <data name="ShortCutKeyCtrl1" xml:space="preserve">
+    <value>CTRL + 1</value>
+  </data>
+  <data name="ShortCutKeyCtrl2" xml:space="preserve">
+    <value>CTRL + 2</value>
+  </data>
+  <data name="ShortCutKeyCtrl3" xml:space="preserve">
+    <value>CTRL + 3</value>
+  </data>
+  <data name="ShortCutKeyCtrl4" xml:space="preserve">
+    <value>CTRL + 4</value>
+  </data>
+  <data name="SelectToNewPosition" xml:space="preserve">
+    <value>_Select to new position</value>
+  </data>
+  <data name="ShortCutKeyCtrlO" xml:space="preserve">
+    <value>CTRL + O</value>
+  </data>
+  <data name="SelectLength" xml:space="preserve">
+    <value>Comprimento</value>
+  </data>
+  <data name="GoToMetadata_Title" xml:space="preserve">
+    <value>Ir para Metadados</value>
+  </data>
+  <data name="GoToMetadata_Token_Label" xml:space="preserve">
+    <value>_Token</value>
+  </data>
+  <data name="ShortCutKeyCtrl5" xml:space="preserve">
+    <value>CTRL + 5</value>
+  </data>
+  <data name="ShortCutKeyCtrl6" xml:space="preserve">
+    <value>CTRL + 6</value>
+  </data>
+  <data name="GoToMetadataCommand" xml:space="preserve">
+    <value>Go to Metadata...</value>
+  </data>
+  <data name="ShortCutKeyCtrlM" xml:space="preserve">
+    <value>CTRL + M</value>
+  </data>
+  <data name="GoToMetadataInvalidOffsetOrToken" xml:space="preserve">
+    <value>Invalid offset or metadata token</value>
+  </data>
+  <data name="GoToMetadataMethodBody" xml:space="preserve">
+    <value>Method Body</value>
+  </data>
+  <data name="GoToMetadataToken" xml:space="preserve">
+    <value>Metadata Token</value>
+  </data>
+  <data name="GoToMetadata_Index_Label" xml:space="preserve">
+    <value>_Índice</value>
+  </data>
+  <data name="HexFollowFieldValueReference" xml:space="preserve">
+    <value>Follow Reference</value>
+  </data>
+  <data name="ShortCutKeyCtrlF12" xml:space="preserve">
+    <value>CTRL + F12</value>
+  </data>
+  <data name="HexEditorSelectFileCommand" xml:space="preserve">
+    <value>Selecionar Ficheiro</value>
+  </data>
+  <data name="HexEditorSelectNestedFileCommand" xml:space="preserve">
+    <value>Select Nested File</value>
+  </data>
+  <data name="SelectSpecialCommand" xml:space="preserve">
+    <value>Select Special</value>
+  </data>
+  <data name="ShortCutKeyCtrlECtrlF" xml:space="preserve">
+    <value>CTRL + E, Ctrl + F</value>
+  </data>
+  <data name="ShortCutKeyCtrlECtrlN" xml:space="preserve">
+    <value>CTRL + E, Ctrl + N</value>
+  </data>
+  <data name="HexEditorSelectStructureCommand" xml:space="preserve">
+    <value>Select Structure</value>
+  </data>
+  <data name="ShortCutKeyCtrlECtrlS" xml:space="preserve">
+    <value>CTRL + K, CTRL + S</value>
+  </data>
+  <data name="HexEditFieldCommand" xml:space="preserve">
+    <value>Editar Campo</value>
+  </data>
+  <data name="OptionColorizeText" xml:space="preserve">
+    <value>Colorize the text</value>
+  </data>
 </root>

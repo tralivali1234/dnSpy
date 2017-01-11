@@ -29,9 +29,9 @@ namespace dnSpy.Text.Editor {
 	[Export(typeof(IEditorOptionsFactoryService))]
 	sealed class EditorOptionsFactoryService : IEditorOptionsFactoryService {
 		IEditorOptions IEditorOptionsFactoryService.GlobalOptions => GlobalOptions;
-		public EditorOptions GlobalOptions { get; }
+		internal EditorOptions GlobalOptions { get; }
 
-		public IEnumerable<EditorOptionDefinition> EditorOptionDefinitions => editorOptionDefinitions.Values;
+		internal IEnumerable<EditorOptionDefinition> EditorOptionDefinitions => editorOptionDefinitions.Values;
 		readonly Dictionary<string, EditorOptionDefinition> editorOptionDefinitions;
 
 		[ImportingConstructor]
@@ -52,6 +52,6 @@ namespace dnSpy.Text.Editor {
 			return scope.Properties.GetOrCreateSingletonProperty(typeof(IEditorOptions), () => new EditorOptions(this, GlobalOptions, scope));
 		}
 
-		public EditorOptionDefinition GetOption(string optionId) => editorOptionDefinitions[optionId];
+		internal EditorOptionDefinition GetOption(string optionId) => editorOptionDefinitions[optionId];
 	}
 }

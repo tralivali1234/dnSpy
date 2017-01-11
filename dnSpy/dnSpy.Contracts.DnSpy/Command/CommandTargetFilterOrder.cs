@@ -60,5 +60,20 @@ namespace dnSpy.Contracts.Command {
 
 		/// <summary>Roslyn quick info</summary>
 		public const double IntellisenseRoslynQuickInfo = IntellisenseRoslynSignatureHelp - 1000;
+
+		/// <summary>Hex editor</summary>
+		public const double HexEditor = TextEditor;
+
+		/// <summary>Intellisense session stack</summary>
+		public const double HexIntellisenseSessionStack = HexEditor - 4000;
+
+		/// <summary>Default quick info</summary>
+		public const double HexDefaultIntellisenseQuickInfo = HexIntellisenseSessionStack - 1000;
+
+		/// <summary>Search service when UI is visible</summary>
+		public const double HexViewSearchServiceFocused = HexEditor - 1000000;
+
+		/// <summary>Search service</summary>
+		public const double HexViewSearchService = HexEditor - 1000;
 	}
 }

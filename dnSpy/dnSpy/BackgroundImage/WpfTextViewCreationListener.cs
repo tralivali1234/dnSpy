@@ -37,6 +37,6 @@ namespace dnSpy.BackgroundImage {
 		}
 
 		public void TextViewCreated(IWpfTextView textView) =>
-			BackgroundImageService.InstallService(textView, imageSourceServiceProvider.Create(textView));
+			TextViewBackgroundImageService.InstallService(textView, imageSourceServiceProvider.Create(textView));
 	}
 }

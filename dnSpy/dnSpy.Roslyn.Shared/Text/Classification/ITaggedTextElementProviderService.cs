@@ -17,7 +17,7 @@
     along with dnSpy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using dnSpy.Contracts.Text.Classification;
+using dnSpy.Contracts.Settings.AppearanceCategory;
 using Microsoft.VisualStudio.Utilities;
 
 namespace dnSpy.Roslyn.Shared.Text.Classification {
@@ -26,7 +26,7 @@ namespace dnSpy.Roslyn.Shared.Text.Classification {
 		/// Creates a <see cref="ITaggedTextElementProvider"/>
 		/// </summary>
 		/// <param name="contentType">Content type</param>
-		/// <param name="category">Category, eg. <see cref="AppearanceCategoryConstants.CodeCompletionToolTip"/></param>
+		/// <param name="category">Category, eg. <see cref="AppearanceCategoryConstants.TextEditor"/></param>
 		/// <returns></returns>
 		ITaggedTextElementProvider Create(IContentType contentType, string category);
 	}

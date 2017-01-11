@@ -44,11 +44,11 @@ namespace dnSpy.Text.Editor {
 			this.textView = textView;
 			this.snapshot = snapshot;
 			this.lines = new ReadOnlyCollection<IWpfTextViewLine>(lines);
-			this.IsValid = true;
+			IsValid = true;
 			if (lines.Count == 0)
-				this.formattedSpan = new SnapshotSpan(snapshot, new Span(0, 0));
+				formattedSpan = new SnapshotSpan(snapshot, new Span(0, 0));
 			else
-				this.formattedSpan = new SnapshotSpan(lines[0].Start, lines[lines.Count - 1].EndIncludingLineBreak);
+				formattedSpan = new SnapshotSpan(lines[0].Start, lines[lines.Count - 1].EndIncludingLineBreak);
 			Debug.Assert(this.lines.Count > 0);
 		}
 
@@ -164,7 +164,7 @@ namespace dnSpy.Text.Editor {
 			GetMarkerGeometry(bufferSpan, false, MarkerHelper.TextMarkerPadding, false);
 		public Geometry GetTextMarkerGeometry(SnapshotSpan bufferSpan, bool clipToViewport, Thickness padding) =>
 			GetMarkerGeometry(bufferSpan, clipToViewport, padding, false);
-	
+
 		Geometry GetMarkerGeometry(SnapshotSpan bufferSpan, bool clipToViewport, Thickness padding, bool isLineGeometry) {
 			if (bufferSpan.Snapshot != snapshot)
 				throw new ArgumentException();
@@ -172,7 +172,7 @@ namespace dnSpy.Text.Editor {
 			bool createOutlinedPath = false;
 			PathGeometry geo = null;
 			var textBounds = GetNormalizedTextBounds(bufferSpan);
-			MarkerHelper.AddGeometries(textView, textBounds, isLineGeometry, clipToViewport, padding, 0, ref geo, ref createOutlinedPath, false);
+			MarkerHelper.AddGeometries(textView, textBounds, isLineGeometry, clipToViewport, padding, 0, ref geo, ref createOutlinedPath);
 			if (createOutlinedPath)
 				geo = geo.GetOutlinedPathGeometry();
 			if (geo != null && geo.CanFreeze)
@@ -257,7 +257,7 @@ namespace dnSpy.Text.Editor {
 				if (line.Top <= y && y < line.Bottom)
 					return line;
 			}
-			return null;// Documented to return null, so don't throw AOOR
+			return null;
 		}
 
 		public Collection<ITextViewLine> GetTextViewLinesIntersectingSpan(SnapshotSpan bufferSpan) {

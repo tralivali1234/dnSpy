@@ -222,16 +222,19 @@ namespace dnSpy.MainApp.Settings {
 	sealed class UseNewRendererVM : ViewModelBase {
 		public bool? UseNewRenderer {
 			get {
-				const int MAX = 2;
-				int count = (UseNewRenderer_HexEditor ? 1 : 0) +
+				const int MAX = 1;
+				int count = /*(UseNewRenderer_TextEditor ? 1 : 0) +
+							(UseNewRenderer_HexEditor ? 1 : 0) +*/
 							(UseNewRenderer_DocumentTreeView ? 1 : 0);
 				return count == 0 ? false : count == MAX ? (bool?)true : null;
 			}
 			set {
 				if (value == null)
 					return;
+				/*TODO: The text formatter doesn't support the hex view and text view
 				UseNewRenderer_TextEditor = value.Value;
 				UseNewRenderer_HexEditor = value.Value;
+				*/
 				UseNewRenderer_DocumentTreeView = value.Value;
 			}
 		}
@@ -276,15 +279,15 @@ namespace dnSpy.MainApp.Settings {
 
 		public UseNewRendererVM(AppSettingsImpl appSettings) {
 			this.appSettings = appSettings;
-			this.UseNewRenderer_TextEditor = appSettings.UseNewRenderer_TextEditor;
-			this.UseNewRenderer_HexEditor = appSettings.UseNewRenderer_HexEditor;
-			this.UseNewRenderer_DocumentTreeView = appSettings.UseNewRenderer_DocumentTreeView;
+			UseNewRenderer_TextEditor = appSettings.UseNewRenderer_TextEditor;
+			UseNewRenderer_HexEditor = appSettings.UseNewRenderer_HexEditor;
+			UseNewRenderer_DocumentTreeView = appSettings.UseNewRenderer_DocumentTreeView;
 		}
 
 		public void Save() {
-			appSettings.UseNewRenderer_TextEditor = this.UseNewRenderer_TextEditor;
-			appSettings.UseNewRenderer_HexEditor = this.UseNewRenderer_HexEditor;
-			appSettings.UseNewRenderer_DocumentTreeView = this.UseNewRenderer_DocumentTreeView;
+			appSettings.UseNewRenderer_TextEditor = UseNewRenderer_TextEditor;
+			appSettings.UseNewRenderer_HexEditor = UseNewRenderer_HexEditor;
+			appSettings.UseNewRenderer_DocumentTreeView = UseNewRenderer_DocumentTreeView;
 		}
 	}
 }

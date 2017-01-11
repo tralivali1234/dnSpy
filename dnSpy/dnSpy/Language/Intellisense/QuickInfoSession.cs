@@ -38,7 +38,7 @@ namespace dnSpy.Language.Intellisense {
 		public event EventHandler Recalculated;
 		public event EventHandler Dismissed;
 		public bool IsDismissed { get; private set; }
-		public bool HasInteractiveContent { get; set; }
+		public bool HasInteractiveContent { get; private set; }
 		bool IsStarted { get; set; }
 
 		public ITrackingSpan ApplicableToSpan {
@@ -83,16 +83,19 @@ namespace dnSpy.Language.Intellisense {
 		}
 
 		IQuickInfoSource[] CreateQuickInfoSources() {
-			var list = new List<IQuickInfoSource>();
+			List<IQuickInfoSource> list = null;
 			var textBuffer = TextView.TextBuffer;
 			foreach (var provider in quickInfoSourceProviders) {
 				if (!TextView.TextDataModel.ContentType.IsOfAnyType(provider.Metadata.ContentTypes))
 					continue;
 				var source = provider.Value.TryCreateQuickInfoSource(textBuffer);
-				if (source != null)
+				if (source != null) {
+					if (list == null)
+						list = new List<IQuickInfoSource>();
 					list.Add(source);
+				}
 			}
-			return list.ToArray();
+			return list?.ToArray() ?? Array.Empty<IQuickInfoSource>();
 		}
 
 		void DisposeQuickInfoSources() {

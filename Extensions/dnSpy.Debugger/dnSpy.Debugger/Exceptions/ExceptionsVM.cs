@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 using dnSpy.Contracts.MVVM;
+using dnSpy.Contracts.Settings.AppearanceCategory;
 using dnSpy.Contracts.Text.Classification;
 using Microsoft.VisualStudio.Text.Classification;
 
@@ -112,16 +113,16 @@ namespace dnSpy.Debugger.Exceptions {
 
 		[ImportingConstructor]
 		ExceptionsVM(IDebuggerSettings debuggerSettings, IExceptionService exceptionService, IExceptionListSettings exceptionListSettings, IGetNewExceptionName getNewExceptionName, IClassificationFormatMapService classificationFormatMapService, ITextElementProvider textElementProvider) {
-			var classificationFormatMap = classificationFormatMapService.GetClassificationFormatMap(AppearanceCategoryConstants.ExceptionSettingsWindow);
+			var classificationFormatMap = classificationFormatMapService.GetClassificationFormatMap(AppearanceCategoryConstants.UIMisc);
 			this.debuggerSettings = debuggerSettings;
 			this.exceptionService = exceptionService;
 			this.exceptionListSettings = exceptionListSettings;
 			this.getNewExceptionName = getNewExceptionName;
-			this.exceptionContext = new ExceptionContext(exceptionService, classificationFormatMap, textElementProvider) {
+			exceptionContext = new ExceptionContext(exceptionService, classificationFormatMap, textElementProvider) {
 				SyntaxHighlight = debuggerSettings.SyntaxHighlightExceptions,
 			};
-			this.exceptionsList = new ObservableCollection<ExceptionVM>();
-			this.CollectionView = CollectionViewSource.GetDefaultView(exceptionsList);
+			exceptionsList = new ObservableCollection<ExceptionVM>();
+			CollectionView = CollectionViewSource.GetDefaultView(exceptionsList);
 			debuggerSettings.PropertyChanged += DebuggerSettings_PropertyChanged;
 			exceptionService.Changed += ExceptionService_Changed;
 			classificationFormatMap.ClassificationFormatMappingChanged += ClassificationFormatMap_ClassificationFormatMappingChanged;

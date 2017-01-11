@@ -29,11 +29,10 @@ namespace dnSpy.Themes {
 			new BrushColorInfo(ColorType.InactiveSelectedText, "Inactive Selected text") {
 				DefaultBackground = "#FFBFCDDB",
 			},
-			new BrushColorInfo(ColorType.HexSelection, "Selected text in hex editor") {
-				DefaultBackground = "#663399FF",
+			new BrushColorInfo(ColorType.HexSelection, "Selected text (Hex Editor)") {
+				DefaultBackground = "#FF3399FF",
 			},
 			new BrushColorInfo(ColorType.GlyphMargin, "Indicator Margin") {
-				BackgroundResourceKey = "GlyphMarginBackground",
 				DefaultBackground = "#FFE6E7E8",
 			},
 			new BrushColorInfo(ColorType.CurrentLine, "Current line") {
@@ -1832,6 +1831,20 @@ namespace dnSpy.Themes {
 				DefaultBackground = "#FF1E1E1E",
 				BackgroundResourceKey = "SearchControlMouseOverDropDownButtonGlyph",
 			},
+			new BrushColorInfo(ColorType.HexSearchControlMouseOverDropDownButtonGlyph, "SearchControl MouseOverDropDownButtonGlyph (Hex Editor)") {
+				DefaultBackground = "#FF1E1E1E",
+				BackgroundResourceKey = "HexSearchControlMouseOverDropDownButtonGlyph",
+			},
+			new BrushColorInfo(ColorType.HexSearchingTextBox, "Hex editor textbox (searching)") {
+				DefaultForeground = "#FF000000",
+				ForegroundResourceKey = "HexSearchingTextBoxForeground",
+				DefaultBackground = "#FFB7B7B7",
+				BackgroundResourceKey = "HexSearchingTextBoxBackground",
+			},
+			new BrushColorInfo(ColorType.HexSearchingTextBoxBorder, "Hex editor textbox border (searching)") {
+				DefaultBackground = "#FF0048B5",
+				BackgroundResourceKey = "HexSearchingTextBoxBorder",
+			},
 			new BrushColorInfo(ColorType.LineNumber, "Line number"),
 			new BrushColorInfo(ColorType.ReplLineNumberInput1, "REPL line number #1 (input)"),
 			new BrushColorInfo(ColorType.ReplLineNumberInput2, "REPL line number #2 (input)"),
@@ -1906,6 +1919,42 @@ namespace dnSpy.Themes {
 			new BrushColorInfo(ColorType.GacMatchHighlight, "GAC Match Highlight"),
 			new BrushColorInfo(ColorType.AppSettingsTreeViewNodeMatchHighlight, "AppSettings TreeView Node Match Highlight"),
 			new BrushColorInfo(ColorType.AppSettingsTextMatchHighlight, "AppSettings Text Match Highlight"),
+			new BrushColorInfo(ColorType.HexCurrentLine, "Current line (Hex Editor)") {
+				DefaultForeground = "#A0A0A0",
+			},
+			new BrushColorInfo(ColorType.HexCurrentLineNoFocus, "Current line (no keyboard focus) (Hex Editor)") {
+				DefaultForeground = "#A0A0A0",
+			},
+			new BrushColorInfo(ColorType.HexInactiveSelectedText, "Inactive Selected text (Hex Editor)") {
+				DefaultBackground = "#FFBFCDDB",
+			},
+			new BrushColorInfo(ColorType.HexColumnLine0, "Hex Column Line #0") {
+				DefaultForeground = "#FF000000",
+			},
+			new BrushColorInfo(ColorType.HexColumnLine1, "Hex Column Line #1") {
+				DefaultForeground = "#FF000000",
+			},
+			new BrushColorInfo(ColorType.HexColumnLineGroup0, "Hex Column Line Group #0") {
+				DefaultForeground = "#FF000000",
+			},
+			new BrushColorInfo(ColorType.HexColumnLineGroup1, "Hex Column Line Group #1") {
+				DefaultForeground = "#FF000000",
+			},
+			new BrushColorInfo(ColorType.HexHighlightedValuesColumn, "Hex Highlighted Values Column") {
+				DefaultForeground = "#FFFCFCFC",
+			},
+			new BrushColorInfo(ColorType.HexHighlightedAsciiColumn, "Hex Highlighted ASCII Column") {
+				DefaultForeground = "#FFFCFCFC",
+			},
+			new BrushColorInfo(ColorType.HexGlyphMargin, "Indicator Margin (Hex Editor)") {
+				DefaultBackground = "#FFE6E7E8",
+			},
+			new BrushColorInfo(ColorType.HexCurrentValueCell, "Current Value Cell"),
+			new BrushColorInfo(ColorType.HexCurrentAsciiCell, "Current Ascii Cell"),
+			new BrushColorInfo(ColorType.HexFindMatchHighlightMarker, "Find Match Highlight (Hex Editor)"),
+			new BrushColorInfo(ColorType.HexToolTipServiceField0, "ToolTip Field #0 (Hex Editor)"),
+			new BrushColorInfo(ColorType.HexToolTipServiceField1, "ToolTip Field #1 (Hex Editor)"),
+			new BrushColorInfo(ColorType.HexToolTipServiceCurrentField, "ToolTip Current Field (Hex Editor)"),
 			new BrushColorInfo(ColorType.XmlDocToolTipHeader, "XML doc tooltip"),
 			new BrushColorInfo(ColorType.DefaultText, "Default text") {
 				DefaultForeground = "Black",
@@ -2062,6 +2111,7 @@ namespace dnSpy.Themes {
 							new BrushColorInfo(ColorType.HexAscii, "Hex ASCII"),
 							new BrushColorInfo(ColorType.HexCaret, "Hex Caret"),
 							new BrushColorInfo(ColorType.HexInactiveCaret, "Hex Inactive Caret"),
+							new BrushColorInfo(ColorType.OutputWindowText, "Output window text"),
 						},
 					},
 				},

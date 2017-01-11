@@ -26,6 +26,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.TextFormatting;
 using dnSpy.Contracts.Text.Editor;
+using dnSpy.Contracts.Text.Editor.OptionsExtensionMethods;
 using dnSpy.Text.Formatting;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -60,13 +61,13 @@ namespace dnSpy.Text.Editor {
 				throw new ArgumentNullException(nameof(classificationFormatMapService));
 			if (textFormatterProvider == null)
 				throw new ArgumentNullException(nameof(textFormatterProvider));
-			this.identityTagToLine = new Dictionary<object, Line>();
+			identityTagToLine = new Dictionary<object, Line>();
 			this.marginName = marginName;
 			this.wpfTextViewHost = wpfTextViewHost;
-			this.classificationFormatMap = classificationFormatMapService.GetClassificationFormatMap(wpfTextViewHost.TextView);
-			this.textLayer = new Layer();
+			classificationFormatMap = classificationFormatMapService.GetClassificationFormatMap(wpfTextViewHost.TextView);
+			textLayer = new Layer();
 			this.textFormatterProvider = textFormatterProvider;
-			this.Children.Add(textLayer);
+			Children.Add(textLayer);
 			wpfTextViewHost.TextView.Options.OptionChanged += Options_OptionChanged;
 			IsVisibleChanged += LineNumberMargin_IsVisibleChanged;
 			ClipToBounds = true;
@@ -92,7 +93,7 @@ namespace dnSpy.Text.Editor {
 		}
 
 		void UpdateForceClearTypeIfNeeded() =>
-			TextFormattingUtilities.UpdateForceClearTypeIfNeeded(this, wpfTextViewHost.TextView.Options, classificationFormatMap);
+			TextFormattingUtilities.UpdateForceClearTypeIfNeeded(this, wpfTextViewHost.TextView.Options.IsForceClearTypeIfNeededEnabled(), classificationFormatMap);
 
 		void LineNumberMargin_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) {
 			if (Visibility == Visibility.Visible) {
@@ -343,7 +344,7 @@ namespace dnSpy.Text.Editor {
 			}
 
 			public LineCollection() {
-				this.lines = new List<LineInfo>();
+				lines = new List<LineInfo>();
 			}
 
 			protected override int VisualChildrenCount => lines.Count;
@@ -371,7 +372,7 @@ namespace dnSpy.Text.Editor {
 			readonly LineCollection lineCollection;
 
 			public Layer() {
-				this.lineCollection = new LineCollection();
+				lineCollection = new LineCollection();
 				Children.Add(lineCollection);
 			}
 

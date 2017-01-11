@@ -32,6 +32,7 @@ using dnSpy.Contracts.App;
 using dnSpy.Contracts.Menus;
 using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Output;
+using dnSpy.Contracts.Settings.AppearanceCategory;
 using dnSpy.Contracts.Text.Editor;
 using dnSpy.Output.Settings;
 using dnSpy.Properties;
@@ -122,11 +123,11 @@ namespace dnSpy.Output {
 			this.editorOperationsFactoryService = editorOperationsFactoryService;
 			this.logEditorProvider = logEditorProvider;
 			this.outputServiceSettingsImpl = outputServiceSettingsImpl;
-			this.prevSelectedGuid = outputServiceSettingsImpl.SelectedGuid;
+			prevSelectedGuid = outputServiceSettingsImpl.SelectedGuid;
 			this.pickSaveFilename = pickSaveFilename;
 			this.menuService = menuService;
-			this.outputBuffers = new ObservableCollection<OutputBufferVM>();
-			this.outputBuffers.CollectionChanged += OutputBuffers_CollectionChanged;
+			outputBuffers = new ObservableCollection<OutputBufferVM>();
+			outputBuffers.CollectionChanged += OutputBuffers_CollectionChanged;
 
 			var listeners = outputServiceListeners.OrderBy(a => a.Metadata.Order).ToArray();
 			Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Send, new Action(() => {
@@ -179,7 +180,7 @@ namespace dnSpy.Output {
 			};
 			logEditorOptions.ExtraRoles.Add(PredefinedDsTextViewRoles.OutputTextPane);
 			var logEditor = logEditorProvider.Create(logEditorOptions);
-			logEditor.TextView.Options.SetOptionValue(DefaultWpfViewOptions.AppearanceCategory, Constants.Output);
+			logEditor.TextView.Options.SetOptionValue(DefaultWpfViewOptions.AppearanceCategory, AppearanceCategoryConstants.OutputWindow);
 
 			// Prevent toolwindow's ctx menu from showing up when right-clicking in the left margin
 			menuService.InitializeContextMenu(logEditor.TextViewHost.HostControl, Guid.NewGuid());
@@ -216,7 +217,7 @@ namespace dnSpy.Output {
 			var vm = OutputBuffers.FirstOrDefault(a => a.Guid == guid);
 			Debug.Assert(vm != null);
 			if (vm != null)
-				this.SelectedOutputBufferVM = vm;
+				SelectedOutputBufferVM = vm;
 		}
 
 		public bool CanCopy => SelectedOutputBufferVM?.CanCopy == true;

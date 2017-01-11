@@ -26,7 +26,7 @@ namespace dnSpy.Text.Formatting {
 	sealed class TextAndAdornmentCollection : ReadOnlyCollection<ISequenceElement>, ITextAndAdornmentCollection {
 		public ITextAndAdornmentSequencer Sequencer { get; }
 
-		public TextAndAdornmentCollection(ITextAndAdornmentSequencer textAndAdornmentSequencer, List<ISequenceElement> list)
+		public TextAndAdornmentCollection(ITextAndAdornmentSequencer textAndAdornmentSequencer, IList<ISequenceElement> list)
 			: base(list) {
 			if (textAndAdornmentSequencer == null)
 				throw new ArgumentNullException(nameof(textAndAdornmentSequencer));

@@ -25,40 +25,19 @@ using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Editor;
 
 namespace dnSpy.Text.Classification {
-	[Export(typeof(IClassificationFormatMapService))]
-	sealed class ClassificationFormatMapService : IClassificationFormatMapService {
+	abstract class ClassificationFormatMapService {
 		readonly IThemeService themeService;
 		readonly IEditorFormatMapService editorFormatMapService;
 		readonly IEditorFormatDefinitionService editorFormatDefinitionService;
 		readonly IClassificationTypeRegistryService classificationTypeRegistryService;
 		readonly Dictionary<IEditorFormatMap, IClassificationFormatMap> toCategoryMap;
 
-		[ImportingConstructor]
-		ClassificationFormatMapService(IThemeService themeService, IEditorFormatMapService editorFormatMapService, IEditorFormatDefinitionService editorFormatDefinitionService, IClassificationTypeRegistryService classificationTypeRegistryService) {
+		protected ClassificationFormatMapService(IThemeService themeService, IEditorFormatMapService editorFormatMapService, IEditorFormatDefinitionService editorFormatDefinitionService, IClassificationTypeRegistryService classificationTypeRegistryService) {
 			this.themeService = themeService;
 			this.editorFormatMapService = editorFormatMapService;
 			this.editorFormatDefinitionService = editorFormatDefinitionService;
 			this.classificationTypeRegistryService = classificationTypeRegistryService;
-			this.toCategoryMap = new Dictionary<IEditorFormatMap, IClassificationFormatMap>();
-		}
-
-		public IClassificationFormatMap GetClassificationFormatMap(ITextView textView) {
-			if (textView == null)
-				throw new ArgumentNullException(nameof(textView));
-			return textView.Properties.GetOrCreateSingletonProperty(typeof(ViewClassificationFormatMap), () => CreateViewClassificationFormatMap(textView));
-		}
-
-		ViewClassificationFormatMap CreateViewClassificationFormatMap(ITextView textView) {
-			textView.Closed += TextView_Closed;
-			return new ViewClassificationFormatMap(this, textView);
-		}
-
-		static void TextView_Closed(object sender, EventArgs e) {
-			var textView = (ITextView)sender;
-			textView.Closed -= TextView_Closed;
-			var map = (ViewClassificationFormatMap)textView.Properties[typeof(ViewClassificationFormatMap)];
-			textView.Properties.RemoveProperty(typeof(ViewClassificationFormatMap));
-			map.Dispose();
+			toCategoryMap = new Dictionary<IEditorFormatMap, IClassificationFormatMap>();
 		}
 
 		public IClassificationFormatMap GetClassificationFormatMap(string category) {
@@ -71,6 +50,33 @@ namespace dnSpy.Text.Classification {
 			map = new CategoryClassificationFormatMap(themeService, editorFormatMap, editorFormatDefinitionService, classificationTypeRegistryService);
 			toCategoryMap.Add(editorFormatMap, map);
 			return map;
+		}
+	}
+
+	[Export(typeof(IClassificationFormatMapService))]
+	sealed class ClassificationFormatMapServiceImpl : ClassificationFormatMapService, IClassificationFormatMapService {
+		[ImportingConstructor]
+		ClassificationFormatMapServiceImpl(IThemeService themeService, IEditorFormatMapService editorFormatMapService, IEditorFormatDefinitionService editorFormatDefinitionService, IClassificationTypeRegistryService classificationTypeRegistryService)
+			: base(themeService, editorFormatMapService, editorFormatDefinitionService, classificationTypeRegistryService) {
+		}
+
+		public IClassificationFormatMap GetClassificationFormatMap(ITextView textView) {
+			if (textView == null)
+				throw new ArgumentNullException(nameof(textView));
+			return textView.Properties.GetOrCreateSingletonProperty(typeof(ViewClassificationFormatMap), () => CreateViewClassificationFormatMap(textView));
+		}
+
+		ViewClassificationFormatMap CreateViewClassificationFormatMap(ITextView textView) {
+			textView.Closed += TextView_Closed;
+			return new TextViewClassificationFormatMap(this, textView);
+		}
+
+		static void TextView_Closed(object sender, EventArgs e) {
+			var textView = (ITextView)sender;
+			textView.Closed -= TextView_Closed;
+			var map = (ViewClassificationFormatMap)textView.Properties[typeof(ViewClassificationFormatMap)];
+			textView.Properties.RemoveProperty(typeof(ViewClassificationFormatMap));
+			map.Dispose();
 		}
 	}
 }

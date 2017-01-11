@@ -51,6 +51,16 @@ namespace dnSpy.Contracts.BackgroundImage {
 		public const double AttrOrder_Logger = AttrOrder_Default + 4000;
 
 		/// <summary>
+		/// Order of hex editor definition
+		/// </summary>
+		public const double AttrOrder_HexEditor = AttrOrder_Default + 100000000;
+
+		/// <summary>
+		/// Order of hex editor (Debugger / Process Memory) definition
+		/// </summary>
+		public const double AttrOrder_HexEditorDebuggerMemory = AttrOrder_Default + 5000;
+
+		/// <summary>
 		/// UI order of <see cref="IDocumentViewer"/>
 		/// </summary>
 		public const double UIOrder_DocumentViewer = -1000;
@@ -69,5 +79,15 @@ namespace dnSpy.Contracts.BackgroundImage {
 		/// UI order of <see cref="ILogEditor"/>
 		/// </summary>
 		public const double UIOrder_Logger = 3000;
+
+		/// <summary>
+		/// UI order of hex editor
+		/// </summary>
+		public const double UIOrder_HexEditor = 4000;
+
+		/// <summary>
+		/// UI order of hex editor (Debugger / Process Memory)
+		/// </summary>
+		public const double UIOrder_HexEditorDebuggerMemory = 5000;
 	}
 }

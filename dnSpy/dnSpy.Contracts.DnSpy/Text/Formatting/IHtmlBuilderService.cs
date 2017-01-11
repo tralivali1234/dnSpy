@@ -27,6 +27,11 @@ namespace dnSpy.Contracts.Text.Formatting {
 	/// </summary>
 	interface IHtmlBuilderService {
 		/// <summary>
+		/// Gets the default delimiter
+		/// </summary>
+		string DefaultDelimiter { get; }
+
+		/// <summary>
 		/// Creates an HTML fragment that can be copied to the clipboard
 		/// </summary>
 		/// <param name="spans">Spans</param>

@@ -21,12 +21,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using dnSpy.Contracts.BackgroundImage;
+using dnSpy.Contracts.Hex.Editor;
 using dnSpy.Contracts.Themes;
 using Microsoft.VisualStudio.Text.Editor;
 
 namespace dnSpy.BackgroundImage {
 	interface IImageSourceServiceProvider {
 		IImageSourceService Create(IWpfTextView wpfTextView);
+		IImageSourceService Create(WpfHexView wpfHexView);
 	}
 
 	[Export(typeof(IImageSourceServiceProvider))]
@@ -41,13 +43,22 @@ namespace dnSpy.BackgroundImage {
 			this.themeService = themeService;
 			this.backgroundImageOptionDefinitionService = backgroundImageOptionDefinitionService;
 			this.backgroundImageSettingsService = backgroundImageSettingsService;
-			this.imageSourceServices = new Dictionary<IBackgroundImageOptionDefinition, IImageSourceService>();
+			imageSourceServices = new Dictionary<IBackgroundImageOptionDefinition, IImageSourceService>();
 		}
 
 		public IImageSourceService Create(IWpfTextView wpfTextView) {
 			if (wpfTextView == null)
 				throw new ArgumentNullException(nameof(wpfTextView));
-			var lazy = backgroundImageOptionDefinitionService.GetOptionDefinition(wpfTextView);
+			return Create(backgroundImageOptionDefinitionService.GetOptionDefinition(wpfTextView));
+		}
+
+		public IImageSourceService Create(WpfHexView wpfHexView) {
+			if (wpfHexView == null)
+				throw new ArgumentNullException(nameof(wpfHexView));
+			return Create(backgroundImageOptionDefinitionService.GetOptionDefinition(wpfHexView));
+		}
+
+		IImageSourceService Create(Lazy<IBackgroundImageOptionDefinition, IBackgroundImageOptionDefinitionMetadata> lazy) {
 			IImageSourceService imageSourceService;
 			if (!imageSourceServices.TryGetValue(lazy.Value, out imageSourceService))
 				imageSourceServices.Add(lazy.Value, imageSourceService = new ImageSourceService(themeService, backgroundImageSettingsService.GetSettings(lazy)));

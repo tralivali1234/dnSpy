@@ -252,6 +252,23 @@ namespace dnSpy.Contracts.Themes {
 		GacMatchHighlight,
 		AppSettingsTreeViewNodeMatchHighlight,
 		AppSettingsTextMatchHighlight,
+		HexCurrentLine,
+		HexCurrentLineNoFocus,
+		HexInactiveSelectedText,
+		HexColumnLine0,
+		HexColumnLine1,
+		HexColumnLineGroup0,
+		HexColumnLineGroup1,
+		HexHighlightedValuesColumn,
+		HexHighlightedAsciiColumn,
+		HexGlyphMargin,
+		HexCurrentValueCell,
+		HexCurrentAsciiCell,
+		OutputWindowText,
+		HexFindMatchHighlightMarker,
+		HexToolTipServiceField0,
+		HexToolTipServiceField1,
+		HexToolTipServiceCurrentField,
 
 		// Must be last in this group
 		LastNR,
@@ -688,6 +705,9 @@ namespace dnSpy.Contracts.Themes {
 		EnvironmentIconGeneralFill,
 		EnvironmentIconActionFill,
 		SearchControlMouseOverDropDownButtonGlyph,
+		HexSearchControlMouseOverDropDownButtonGlyph,
+		HexSearchingTextBox,
+		HexSearchingTextBoxBorder,
 
 		// Add new color types before this comment
 

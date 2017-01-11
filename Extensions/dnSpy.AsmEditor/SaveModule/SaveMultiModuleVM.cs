@@ -28,9 +28,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
-using dnSpy.AsmEditor.Hex;
 using dnSpy.AsmEditor.Properties;
 using dnSpy.Contracts.Documents;
+using dnSpy.Contracts.Hex;
 using dnSpy.Contracts.MVVM;
 
 namespace dnSpy.AsmEditor.SaveModule {
@@ -187,13 +187,13 @@ namespace dnSpy.AsmEditor.SaveModule {
 		public SaveMultiModuleVM(IMmapDisabler mmapDisabler, Dispatcher dispatcher, SaveOptionsVM options) {
 			this.mmapDisabler = mmapDisabler;
 			this.dispatcher = dispatcher;
-			this.Modules.Add(options);
+			Modules.Add(options);
 		}
 
 		public SaveMultiModuleVM(IMmapDisabler mmapDisabler, Dispatcher dispatcher, IEnumerable<object> objs) {
 			this.mmapDisabler = mmapDisabler;
 			this.dispatcher = dispatcher;
-			this.Modules.AddRange(objs.Select(m => Create(m)));
+			Modules.AddRange(objs.Select(m => Create(m)));
 		}
 
 		static SaveOptionsVM Create(object obj) {
@@ -201,9 +201,9 @@ namespace dnSpy.AsmEditor.SaveModule {
 			if (document != null)
 				return new SaveModuleOptionsVM(document);
 
-			var hexDocument = obj as AsmEdHexDocument;
-			if (hexDocument != null)
-				return new SaveHexOptionsVM(hexDocument);
+			var buffer = obj as HexBuffer;
+			if (buffer != null)
+				return new SaveHexOptionsVM(buffer);
 
 			throw new InvalidOperationException();
 		}
@@ -290,8 +290,8 @@ namespace dnSpy.AsmEditor.SaveModule {
 			double totalProgress = 100 * moduleSaver.TotalProgress;
 			double currentFileProgress = 100 * moduleSaver.CurrentFileProgress;
 			ExecInOldThread(() => {
-				this.TotalProgress = totalProgress;
-				this.CurrentFileProgress = currentFileProgress;
+				TotalProgress = totalProgress;
+				CurrentFileProgress = currentFileProgress;
 			});
 		}
 

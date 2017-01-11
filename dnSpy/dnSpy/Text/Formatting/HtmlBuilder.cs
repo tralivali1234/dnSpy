@@ -44,8 +44,8 @@ namespace dnSpy.Text.Formatting {
 				throw new ArgumentOutOfRangeException(nameof(tabSize));
 			this.classificationFormatMap = classificationFormatMap;
 			this.delimiter = delimiter;
-			this.htmlWriter = new HtmlClipboardFormatWriter() { TabSize = tabSize };
-			this.cssWriter = new StringBuilder();
+			htmlWriter = new HtmlClipboardFormatWriter() { TabSize = tabSize };
+			cssWriter = new StringBuilder();
 		}
 
 		public void Add(ISynchronousClassifier classifier, NormalizedSnapshotSpanCollection spans, CancellationToken cancellationToken) {

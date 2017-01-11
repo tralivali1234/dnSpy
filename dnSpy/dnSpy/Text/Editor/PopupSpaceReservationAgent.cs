@@ -60,7 +60,7 @@ namespace dnSpy.Text.Editor {
 			this.visualSpan = visualSpan;
 			this.style = style;
 			this.content = content;
-			this.popup = new Popup {
+			popup = new Popup {
 				PlacementTarget = wpfTextView.VisualElement,
 				Placement = PlacementMode.Relative,
 				Visibility = Visibility.Collapsed,
@@ -74,7 +74,7 @@ namespace dnSpy.Text.Editor {
 		void Content_GotFocus(object sender, RoutedEventArgs e) => GotFocus?.Invoke(this, EventArgs.Empty);
 		void Content_LostFocus(object sender, RoutedEventArgs e) => LostFocus?.Invoke(this, EventArgs.Empty);
 
-		public void Update(ITrackingSpan visualSpan, PopupStyles style) {
+		internal void Update(ITrackingSpan visualSpan, PopupStyles style) {
 			if (visualSpan == null)
 				throw new ArgumentNullException(nameof(visualSpan));
 			if ((style & (PopupStyles.DismissOnMouseLeaveText | PopupStyles.DismissOnMouseLeaveTextOrContent)) == (PopupStyles.DismissOnMouseLeaveText | PopupStyles.DismissOnMouseLeaveTextOrContent))

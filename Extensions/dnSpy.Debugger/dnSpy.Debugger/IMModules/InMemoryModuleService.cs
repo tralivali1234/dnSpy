@@ -30,6 +30,7 @@ using dnSpy.Contracts.App;
 using dnSpy.Contracts.Documents;
 using dnSpy.Contracts.Documents.Tabs;
 using dnSpy.Contracts.Documents.TreeView;
+using dnSpy.Debugger.Memory;
 
 namespace dnSpy.Debugger.IMModules {
 	interface IInMemoryModuleService {
@@ -69,15 +70,17 @@ namespace dnSpy.Debugger.IMModules {
 		readonly Lazy<IMethodAnnotations> methodAnnotations;
 		readonly IAppWindow appWindow;
 		readonly ITheDebugger theDebugger;
+		readonly SimpleProcessReader simpleProcessReader;
 
 		[ImportingConstructor]
-		InMemoryModuleService(ITheDebugger theDebugger, IDocumentTabService documentTabService, Lazy<IMethodAnnotations> methodAnnotations, IAppWindow appWindow) {
+		InMemoryModuleService(ITheDebugger theDebugger, IDocumentTabService documentTabService, Lazy<IMethodAnnotations> methodAnnotations, IAppWindow appWindow, SimpleProcessReader simpleProcessReader) {
 			this.documentTabService = documentTabService;
-			this.documentTreeView = documentTabService.DocumentTreeView;
-			this.documentService = this.documentTreeView.DocumentService;
+			documentTreeView = documentTabService.DocumentTreeView;
+			documentService = documentTreeView.DocumentService;
 			this.appWindow = appWindow;
 			this.methodAnnotations = methodAnnotations;
 			this.theDebugger = theDebugger;
+			this.simpleProcessReader = simpleProcessReader;
 			theDebugger.OnProcessStateChanged_First += TheDebugger_OnProcessStateChanged_First;
 		}
 
@@ -167,7 +170,7 @@ namespace dnSpy.Debugger.IMModules {
 					if (moduleNode == null) {
 						MemoryModuleDefFile newFile = null;
 						try {
-							newFile = MemoryModuleDefFile.Create(module, UseDebugSymbols);
+							newFile = MemoryModuleDefFile.Create(simpleProcessReader, module, UseDebugSymbols);
 						}
 						catch {
 						}
@@ -176,15 +179,19 @@ namespace dnSpy.Debugger.IMModules {
 						if (newFile != null) {
 							UpdateResolver(newFile.ModuleDef);
 							mmdf.Children.Add(newFile);
-							// It could be a netmodule that contains an AssemblyDef row, if so remove it from the assembly
-							if (newFile.ModuleDef.Assembly != null)
-								newFile.ModuleDef.Assembly.Modules.Remove(newFile.ModuleDef);
+							RemoveFromAssembly(newFile.ModuleDef);
 							asmNode.Document.ModuleDef.Assembly.Modules.Add(newFile.ModuleDef);
 							asmNode.TreeNode.Children.Add(documentTreeView.TreeView.Create(documentTreeView.CreateNode(asmNode, newFile)));
 						}
 					}
 				}
 			}
+		}
+
+		static void RemoveFromAssembly(ModuleDef module) {
+			// It could be a netmodule that contains an AssemblyDef row, if so remove it from the assembly
+			if (module.Assembly != null)
+				module.Assembly.Modules.Remove(module);
 		}
 
 		void DnDebugger_DebugCallbackEvent(DnDebugger dbg, DebugCallbackEventArgs e) {
@@ -384,7 +391,7 @@ namespace dnSpy.Debugger.IMModules {
 			foreach (var module in modules) {
 				MemoryModuleDefFile mfile;
 				try {
-					mfile = MemoryModuleDefFile.Create(module, UseDebugSymbols);
+					mfile = MemoryModuleDefFile.Create(simpleProcessReader, module, UseDebugSymbols);
 					UpdateResolver(mfile.ModuleDef);
 					if (module == dnModule)
 						result = mfile;
@@ -399,7 +406,7 @@ namespace dnSpy.Debugger.IMModules {
 			Debug.Assert(result != null);
 			if (files.Count == 0)
 				return null;
-			var asmFile = MemoryModuleDefFile.CreateAssembly(files);
+			var asmFile = MemoryModuleDefFile.CreateAssembly(simpleProcessReader, files);
 			var asm = files[0].AssemblyDef;
 			if (asm == null) {
 				if (files.Count > 1) {
@@ -408,8 +415,10 @@ namespace dnSpy.Debugger.IMModules {
 				}
 			}
 			asm.Modules.Clear();
-			for (int i = 0; i < files.Count; i++)
+			for (int i = 0; i < files.Count; i++) {
+				RemoveFromAssembly(files[i].ModuleDef);
 				asm.Modules.Add(files[i].ModuleDef);
+			}
 
 			var addedFile = documentService.GetOrAdd(asmFile);
 			Debug.Assert(addedFile == asmFile);

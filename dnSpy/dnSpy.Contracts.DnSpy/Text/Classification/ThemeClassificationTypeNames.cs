@@ -1166,5 +1166,90 @@ namespace dnSpy.Contracts.Text.Classification {
 		/// <see cref="TextColor.AppSettingsTextMatchHighlight"/>
 		/// </summary>
 		public const string AppSettingsTextMatchHighlight = "Theme-" + nameof(AppSettingsTextMatchHighlight);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentLine"/>
+		/// </summary>
+		public const string HexCurrentLine = "Theme-" + nameof(HexCurrentLine);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentLineNoFocus"/>
+		/// </summary>
+		public const string HexCurrentLineNoFocus = "Theme-" + nameof(HexCurrentLineNoFocus);
+
+		/// <summary>
+		/// <see cref="TextColor.HexInactiveSelectedText"/>
+		/// </summary>
+		public const string HexInactiveSelectedText = "Theme-" + nameof(HexInactiveSelectedText);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLine0"/>
+		/// </summary>
+		public const string HexColumnLine0 = "Theme-" + nameof(HexColumnLine0);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLine1"/>
+		/// </summary>
+		public const string HexColumnLine1 = "Theme-" + nameof(HexColumnLine1);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLineGroup0"/>
+		/// </summary>
+		public const string HexColumnLineGroup0 = "Theme-" + nameof(HexColumnLineGroup0);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLineGroup1"/>
+		/// </summary>
+		public const string HexColumnLineGroup1 = "Theme-" + nameof(HexColumnLineGroup1);
+
+		/// <summary>
+		/// <see cref="TextColor.HexHighlightedValuesColumn"/>
+		/// </summary>
+		public const string HexHighlightedValuesColumn = "Theme-" + nameof(HexHighlightedValuesColumn);
+
+		/// <summary>
+		/// <see cref="TextColor.HexHighlightedAsciiColumn"/>
+		/// </summary>
+		public const string HexHighlightedAsciiColumn = "Theme-" + nameof(HexHighlightedAsciiColumn);
+
+		/// <summary>
+		/// <see cref="TextColor.HexGlyphMargin"/>
+		/// </summary>
+		public const string HexGlyphMargin = "Theme-" + nameof(HexGlyphMargin);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentValueCell"/>
+		/// </summary>
+		public const string HexCurrentValueCell = "Theme-" + nameof(HexCurrentValueCell);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentAsciiCell"/>
+		/// </summary>
+		public const string HexCurrentAsciiCell = "Theme-" + nameof(HexCurrentAsciiCell);
+
+		/// <summary>
+		/// <see cref="TextColor.OutputWindowText"/>
+		/// </summary>
+		public const string OutputWindowText = "Theme-" + nameof(OutputWindowText);
+
+		/// <summary>
+		/// <see cref="TextColor.HexFindMatchHighlightMarker"/>
+		/// </summary>
+		public const string HexFindMatchHighlightMarker = "Theme-" + nameof(HexFindMatchHighlightMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.HexToolTipServiceField0"/>
+		/// </summary>
+		public const string HexToolTipServiceField0 = "Theme-" + nameof(HexToolTipServiceField0);
+
+		/// <summary>
+		/// <see cref="TextColor.HexToolTipServiceField1"/>
+		/// </summary>
+		public const string HexToolTipServiceField1 = "Theme-" + nameof(HexToolTipServiceField1);
+
+		/// <summary>
+		/// <see cref="TextColor.HexToolTipServiceCurrentField"/>
+		/// </summary>
+		public const string HexToolTipServiceCurrentField = "Theme-" + nameof(HexToolTipServiceCurrentField);
 	}
 }

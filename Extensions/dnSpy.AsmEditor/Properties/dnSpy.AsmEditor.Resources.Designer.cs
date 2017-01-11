@@ -548,6 +548,15 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close All Missing Files.
+        /// </summary>
+        public static string CloseAllMissingFilesCommand {
+            get {
+                return ResourceManager.GetString("CloseAllMissingFilesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close Old In-Memory Modules.
         /// </summary>
         public static string CloseOldInMemoryModules {
@@ -3041,24 +3050,6 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fill {0} bytes @ {1:X8}.
-        /// </summary>
-        public static string Hex_Undo_Message_FillBytesAtAddress {
-            get {
-                return ResourceManager.GetString("Hex_Undo_Message_FillBytesAtAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Insert ASCII.
-        /// </summary>
-        public static string Hex_Undo_Message_InsertASCII {
-            get {
-                return ResourceManager.GetString("Hex_Undo_Message_InsertASCII", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Insert Bytes.
         /// </summary>
         public static string Hex_Undo_Message_InsertBytes {
@@ -3068,74 +3059,11 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paste {0} {1} record @ {2:X8}, RID {3}.
-        /// </summary>
-        public static string Hex_Undo_Message_Paste_Record {
-            get {
-                return ResourceManager.GetString("Hex_Undo_Message_Paste_Record", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Paste {0} {1} records @ {2:X8}, RID {3}.
-        /// </summary>
-        public static string Hex_Undo_Message_Paste_Records {
-            get {
-                return ResourceManager.GetString("Hex_Undo_Message_Paste_Records", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Paste {0} bytes @ {1:X8}.
-        /// </summary>
-        public static string Hex_Undo_Message_PasteBytesAtAddress {
-            get {
-                return ResourceManager.GetString("Hex_Undo_Message_PasteBytesAtAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Write {0} bytes to offset {1:X8}.
-        /// </summary>
-        public static string Hex_Undo_Message_Write_Bytes {
-            get {
-                return ResourceManager.GetString("Hex_Undo_Message_Write_Bytes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hex Copy Method Body.
         /// </summary>
         public static string HexCopyMethodBodyCommand {
             get {
                 return ResourceManager.GetString("HexCopyMethodBodyCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} RVA.
-        /// </summary>
-        public static string HexField_RelativeVirtualAddress {
-            get {
-                return ResourceManager.GetString("HexField_RelativeVirtualAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} Size.
-        /// </summary>
-        public static string HexField_Size {
-            get {
-                return ResourceManager.GetString("HexField_Size", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Write {0}.{1}.
-        /// </summary>
-        public static string HexField_UndoMessage_Write_Parent_Field {
-            get {
-                return ResourceManager.GetString("HexField_UndoMessage_Write_Parent_Field", resourceCulture);
             }
         }
         
@@ -6566,29 +6494,11 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sort {0} table.
-        /// </summary>
-        public static string SortMetadataTableCommand2 {
-            get {
-                return ResourceManager.GetString("SortMetadataTableCommand2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to So_rt Selection.
         /// </summary>
         public static string SortSelectionCommand {
             get {
                 return ResourceManager.GetString("SortSelectionCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sort {0} table, RID {1} - {2}.
-        /// </summary>
-        public static string SortTable_RowIdentifier {
-            get {
-                return ResourceManager.GetString("SortTable_RowIdentifier", resourceCulture);
             }
         }
         

@@ -31,7 +31,7 @@ namespace dnSpy.Text.Classification {
 
 		[ImportingConstructor]
 		ThemeClassificationTypeService(IClassificationTypeRegistryService classificationTypeRegistryService) {
-			this.classificationTypes = new IClassificationType[(int)TextColor.Last] {
+			classificationTypes = new IClassificationType[(int)TextColor.Last] {
 				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.Text),
 				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.Operator),
 				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.Punctuation),
@@ -259,6 +259,23 @@ namespace dnSpy.Text.Classification {
 				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.GacMatchHighlight),
 				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.AppSettingsTreeViewNodeMatchHighlight),
 				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.AppSettingsTextMatchHighlight),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexCurrentLine),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexCurrentLineNoFocus),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexInactiveSelectedText),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexColumnLine0),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexColumnLine1),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexColumnLineGroup0),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexColumnLineGroup1),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexHighlightedValuesColumn),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexHighlightedAsciiColumn),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexGlyphMargin),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexCurrentValueCell),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexCurrentAsciiCell),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.OutputWindowText),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexFindMatchHighlightMarker),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexToolTipServiceField0),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexToolTipServiceField1),
+				classificationTypeRegistryService.GetClassificationType(ThemeClassificationTypeNames.HexToolTipServiceCurrentField),
 			};
 			foreach (var ct in classificationTypes) {
 				Debug.Assert(ct != null);

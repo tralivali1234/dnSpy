@@ -122,7 +122,7 @@
 		<color name="hexascii" fg="#FF000000" />
 		<color name="hexcaret" bg="#66000000" />
 		<color name="hexinactivecaret" bg="#FFFF0000" />
-		<color name="hexselection" bg="#663399FF" />
+		<color name="hexselection" bg="#FF3399FF" />
 		<color name="replprompt1" fg="Black" />
 		<color name="replprompt2" fg="Black" />
 		<color name="reploutputtext" fg="Black" />
@@ -227,6 +227,23 @@
 		<color name="gacmatchhighlight" bg="#FFF4A721" />
 		<color name="appsettingstreeviewnodematchhighlight" bg="#FFF4A721" />
 		<color name="appsettingstextmatchhighlight" bg="#FFF4A721" />
+		<color name="hexcurrentline" fg="#A0A0A0" />
+		<color name="hexcurrentlinenofocus" fg="#A0A0A0" />
+		<color name="hexinactiveselectedtext" bg="#FFBFCDDB" />
+		<color name="hexcolumnline0" fg="#FF000000" />
+		<color name="hexcolumnline1" fg="#FF000000" />
+		<color name="hexcolumnlinegroup0" fg="#FF000000" />
+		<color name="hexcolumnlinegroup1" fg="#FF000000" />
+		<color name="hexhighlightedvaluescolumn" bg="#FFFCFCFC" />
+		<color name="hexhighlightedasciicolumn" bg="#FFFCFCFC" />
+		<color name="hexglyphmargin" bg="#FFE6E7E8" />
+		<color name="hexcurrentvaluecell" bg="#FFDBE0CC" />
+		<color name="hexcurrentasciicell" bg="#FFDBE0CC" />
+		<color name="outputwindowtext" fg="Black" bg="White" />
+		<color name="hexFindMatchHighlightMarker" bg="#FFF4A721" />
+		<color name="hextooltipservicefield0" bg="#FFB3B6D3" fg="#FF888AA0" />
+		<color name="hextooltipservicefield1" bg="#FFDDCCAF" fg="#FFA09480" />
+		<color name="hextooltipservicecurrentfield" bg="#FFB8DB95" fg="#FF74895F" />
 
 		<color name="systemcolorscontrol" bg="#FFF0F0F0" />
 		<color name="systemcolorscontroldark" bg="#FFA0A0A0" />
@@ -648,5 +665,8 @@
 		<color name="environmenticongeneralfill" bg="#FF424242" />
 		<color name="environmenticonactionfill" bg="#FF00529B" />
 		<color name="searchcontrolmouseoverdropdownbuttonglyph" bg="#FF1E1E1E" />
+		<color name="hexsearchcontrolmouseoverdropdownbuttonglyph" bg="#FF1E1E1E" />
+		<color name="hexsearchingtextbox" fg="#FF000000" bg="#FFB7B7B7" />
+		<color name="hexsearchingtextboxborder" bg="#FF0048B5" />
 	</colors>
 </theme>

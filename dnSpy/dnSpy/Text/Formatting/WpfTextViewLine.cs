@@ -32,7 +32,7 @@ using TF = Microsoft.VisualStudio.Text.Formatting;
 
 namespace dnSpy.Text.Formatting {
 	sealed class WpfTextViewLine : IFormattedLine, IDsTextViewLine {
-		readonly IBufferGraph bufferGraph;
+		IBufferGraph bufferGraph;
 		readonly int endColumn, startColumn;
 		readonly int linePartsIndex, linePartsLength;
 		double top;
@@ -52,7 +52,7 @@ namespace dnSpy.Text.Formatting {
 		readonly bool isLastTextViewLineForSnapshotLine;
 		LineTransform lineTransform;
 		ReadOnlyCollection<TextLine> textLines;
-		readonly LinePartsCollection linePartsCollection;
+		LinePartsCollection linePartsCollection;
 		double realTopSpace, scaledTopSpace;
 		double realBottomSpace;
 		double realTextHeight, scaledTextHeight;
@@ -363,7 +363,7 @@ namespace dnSpy.Text.Formatting {
 			if (textLine == null)
 				throw new ArgumentNullException(nameof(textLine));
 
-			this.IsValid = true;
+			IsValid = true;
 			this.linePartsIndex = linePartsIndex;
 			this.linePartsLength = linePartsLength;
 			this.bufferGraph = bufferGraph;
@@ -371,12 +371,12 @@ namespace dnSpy.Text.Formatting {
 			this.startColumn = startColumn;
 			this.endColumn = endColumn;
 			this.visualSnapshot = visualSnapshot;
-			this.textLines = new ReadOnlyCollection<TextLine>(new[] { textLine });
+			textLines = new ReadOnlyCollection<TextLine>(new[] { textLine });
 			Debug.Assert(textLines.Count == 1);// Assumed by all code accessing TextLine prop
 
-			this.realTopSpace = 0;
-			this.realBottomSpace = 0;
-			this.realBaseline = TextLine.Baseline;
+			realTopSpace = 0;
+			realBottomSpace = 0;
+			realBaseline = TextLine.Baseline;
 			double baseLineHeight = TextLine.TextHeight - TextLine.Baseline;
 			var lineParts = linePartsCollection.LineParts;
 			for (int i = 0; i < linePartsLength; i++) {
@@ -393,19 +393,19 @@ namespace dnSpy.Text.Formatting {
 				if (adornmentElement.BottomSpace > realBottomSpace)
 					realBottomSpace = adornmentElement.BottomSpace;
 			}
-			this.realTextHeight = Math.Ceiling(baseLineHeight + realBaseline);
+			realTextHeight = Math.Ceiling(baseLineHeight + realBaseline);
 
-			this.isFirstTextViewLineForSnapshotLine = span.Start == bufferLine.Start;
-			this.isLastTextViewLineForSnapshotLine = span.End == bufferLine.EndIncludingLineBreak;
+			isFirstTextViewLineForSnapshotLine = span.Start == bufferLine.Start;
+			isLastTextViewLineForSnapshotLine = span.End == bufferLine.EndIncludingLineBreak;
 			IsLastVisualLine = bufferLine.LineNumber + 1 == bufferLine.Snapshot.LineCount && IsLastTextViewLineForSnapshotLine;
-			this.lineBreakLength = isLastTextViewLineForSnapshotLine ? bufferLine.LineBreakLength : 0;
+			lineBreakLength = isLastTextViewLineForSnapshotLine ? bufferLine.LineBreakLength : 0;
 			this.virtualSpaceWidth = virtualSpaceWidth;
-			this.textLeft = indentation;
-			this.textWidth = TextLine.WidthIncludingTrailingWhitespace;
-			this.extentIncludingLineBreak = span;
-			this.endOfLineWidth = Math.Floor(this.realTextHeight * 0.58333333333333337);// Same as VS
-			this.width = this.textWidth + (this.lineBreakLength == 0 ? 0 : this.endOfLineWidth);
-			this.change = TextViewLineChange.NewOrReformatted;
+			textLeft = indentation;
+			textWidth = TextLine.WidthIncludingTrailingWhitespace;
+			extentIncludingLineBreak = span;
+			endOfLineWidth = Math.Floor(realTextHeight * 0.58333333333333337);// Same as VS
+			width = textWidth + (lineBreakLength == 0 ? 0 : endOfLineWidth);
+			change = TextViewLineChange.NewOrReformatted;
 			SetLineTransform(DefaultLineTransform);
 		}
 		public const double DEFAULT_TOP_SPACE = 0.0;
@@ -665,8 +665,6 @@ namespace dnSpy.Text.Formatting {
 			if (span == null)
 				return new Collection<TF.TextBounds>(list);
 
-			//TODO: Handle RTL text and adornments
-
 			var startBounds = GetFirstTextBounds(span.Value.Start);
 			var endBounds = GetLastTextBounds(span.Value.End);
 			if (span.Value.End > End) {
@@ -794,13 +792,17 @@ namespace dnSpy.Text.Formatting {
 			if (!IsValid)
 				throw new ObjectDisposedException(nameof(WpfTextViewLine));
 			this.visibleArea = visibleArea;
-			this.visibilityState = CalculateVisibilityState();
+			visibilityState = CalculateVisibilityState();
 		}
 
 		public void Dispose() {
 			IsValid = false;
 			foreach (var t in textLines)
 				t.Dispose();
+			bufferGraph = null;
+			extentIncludingLineBreak = default(SnapshotSpan);
+			visualSnapshot = null;
+			linePartsCollection = null;
 			textLines = null;
 			drawingVisual = null;
 		}

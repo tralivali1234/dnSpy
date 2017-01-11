@@ -18,6 +18,7 @@
 */
 
 using System.ComponentModel.Composition;
+using dnSpy.Contracts.Hex.Editor;
 using dnSpy.Contracts.Text;
 using dnSpy.Contracts.Text.Classification;
 using dnSpy.Contracts.Text.Editor;
@@ -1189,6 +1190,91 @@ namespace dnSpy.Text.Classification {
 		[Name(ThemeClassificationTypeNames.AppSettingsTextMatchHighlight)]
 		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
 		static ClassificationTypeDefinition AppSettingsTextMatchHighlightClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexCurrentLine)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexCurrentLineClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexCurrentLineNoFocus)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexCurrentLineNoFocusClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexInactiveSelectedText)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexInactiveSelectedTextClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexColumnLine0)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexColumnLine0ClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexColumnLine1)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexColumnLine1ClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexColumnLineGroup0)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexColumnLineGroup0ClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexColumnLineGroup1)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexColumnLineGroup1ClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexHighlightedValuesColumn)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexHighlightedValuesColumnClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexHighlightedAsciiColumn)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexHighlightedAsciiColumnClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexGlyphMargin)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexGlyphMarginClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexCurrentValueCell)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexCurrentValueCellClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexCurrentAsciiCell)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexCurrentAsciiCellClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.OutputWindowText)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition OutputWindowTextClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexFindMatchHighlightMarker)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexFindMatchHighlightMarkerClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexToolTipServiceField0)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexToolTipServiceField0ClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexToolTipServiceField1)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexToolTipServiceField1ClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.HexToolTipServiceCurrentField)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition HexToolTipServiceCurrentFieldClassificationTypeDefinition;
 #pragma warning restore 0169
 
 		[Export(typeof(EditorFormatDefinition))]
@@ -2679,7 +2765,7 @@ namespace dnSpy.Text.Classification {
 		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexByteError)]
 		[Name(ThemeClassificationTypeNameKeys.HexByteError)]
 		[UserVisible(true)]
-		[Order(After = Priority.Default)]
+		[Order(After = Priority.High)]
 		sealed class HexByteError : ThemeClassificationFormatDefinition {
 			HexByteError() : base(TextColor.HexByteError) { }
 		}
@@ -3244,6 +3330,175 @@ namespace dnSpy.Text.Classification {
 		[Order(After = Priority.High)]
 		sealed class AppSettingsTextMatchHighlight : ThemeMarkerFormatDefinition {
 			AppSettingsTextMatchHighlight() : base(TextColor.AppSettingsTextMatchHighlight) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexCurrentLine)]
+		[Name(ThemeClassificationTypeNameKeys.HexCurrentLine)]
+		[UserVisible(true)]
+		[Order(Before = Priority.Default)]
+		sealed class HexCurrentLine : ThemeClassificationFormatDefinition {
+			HexCurrentLine() : base(TextColor.HexCurrentLine) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexCurrentLineNoFocus)]
+		[Name(ThemeClassificationTypeNameKeys.HexCurrentLineNoFocus)]
+		[UserVisible(true)]
+		[Order(Before = Priority.Default)]
+		sealed class HexCurrentLineNoFocus : ThemeClassificationFormatDefinition {
+			HexCurrentLineNoFocus() : base(TextColor.HexCurrentLineNoFocus) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexInactiveSelectedText)]
+		[Name(ThemeClassificationTypeNameKeys.HexInactiveSelectedText)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexInactiveSelectedText : ThemeClassificationFormatDefinition {
+			HexInactiveSelectedText() : base(TextColor.HexInactiveSelectedText) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexColumnLine0)]
+		[Name(ThemeClassificationTypeNameKeys.HexColumnLine0)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexColumnLine0 : ThemeClassificationFormatDefinition {
+			HexColumnLine0() : base(TextColor.HexColumnLine0) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexColumnLine1)]
+		[Name(ThemeClassificationTypeNameKeys.HexColumnLine1)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexColumnLine1 : ThemeClassificationFormatDefinition {
+			HexColumnLine1() : base(TextColor.HexColumnLine1) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexColumnLineGroup0)]
+		[Name(ThemeClassificationTypeNameKeys.HexColumnLineGroup0)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexColumnLineGroup0 : ThemeClassificationFormatDefinition {
+			HexColumnLineGroup0() : base(TextColor.HexColumnLineGroup0) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexColumnLineGroup1)]
+		[Name(ThemeClassificationTypeNameKeys.HexColumnLineGroup1)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexColumnLineGroup1 : ThemeClassificationFormatDefinition {
+			HexColumnLineGroup1() : base(TextColor.HexColumnLineGroup1) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexHighlightedValuesColumn)]
+		[Name(ThemeClassificationTypeNameKeys.HexHighlightedValuesColumn)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexHighlightedValuesColumn : ThemeClassificationFormatDefinition {
+			HexHighlightedValuesColumn() : base(TextColor.HexHighlightedValuesColumn) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexHighlightedAsciiColumn)]
+		[Name(ThemeClassificationTypeNameKeys.HexHighlightedAsciiColumn)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexHighlightedAsciiColumn : ThemeClassificationFormatDefinition {
+			HexHighlightedAsciiColumn() : base(TextColor.HexHighlightedAsciiColumn) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexGlyphMargin)]
+		[Name(ThemeClassificationTypeNameKeys.HexGlyphMargin)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexGlyphMargin : ThemeClassificationFormatDefinition {
+			HexGlyphMargin() : base(TextColor.HexGlyphMargin) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexCurrentValueCell)]
+		[Name(ThemeClassificationTypeNameKeys.HexCurrentValueCell)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexCurrentValueCell : ThemeMarkerFormatDefinition {
+			HexCurrentValueCell() : base(TextColor.HexCurrentValueCell) {
+				ZOrder = HexMarkerServiceZIndexes.CurrentValue;
+			}
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexCurrentAsciiCell)]
+		[Name(ThemeClassificationTypeNameKeys.HexCurrentAsciiCell)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class HexCurrentAsciiCell : ThemeMarkerFormatDefinition {
+			HexCurrentAsciiCell() : base(TextColor.HexCurrentAsciiCell) {
+				ZOrder = HexMarkerServiceZIndexes.CurrentValue;
+			}
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.OutputWindowText)]
+		[Name(ThemeClassificationTypeNameKeys.OutputWindowText)]
+		[UserVisible(true)]
+		[Order(After = Priority.Default)]
+		sealed class OutputWindowText : ThemeClassificationFormatDefinition {
+			OutputWindowText() : base(TextColor.OutputWindowText) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexFindMatchHighlightMarker)]
+		[Name(ThemeClassificationTypeNameKeys.HexFindMatchHighlightMarker)]
+		[UserVisible(true)]
+		[Order(After = Priority.High)]
+		sealed class HexFindMatchHighlightMarker : ThemeMarkerFormatDefinition {
+			HexFindMatchHighlightMarker() : base(TextColor.HexFindMatchHighlightMarker) {
+				ZOrder = HexMarkerServiceZIndexes.FindMatch;
+			}
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexToolTipServiceField0)]
+		[Name(ThemeClassificationTypeNameKeys.HexToolTipServiceField0)]
+		[UserVisible(true)]
+		[Order(After = Priority.High, Before = ThemeClassificationTypeNameKeys.HexToolTipServiceCurrentField)]
+		[Order(After = ThemeClassificationTypeNameKeys.HexFindMatchHighlightMarker, Before = ThemeClassificationTypeNameKeys.HexToolTipServiceField1)]
+		sealed class HexToolTipServiceField0 : ThemeMarkerFormatDefinition {
+			HexToolTipServiceField0() : base(TextColor.HexToolTipServiceField0) {
+				ZOrder = HexMarkerServiceZIndexes.ToolTipField0;
+			}
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexToolTipServiceField1)]
+		[Name(ThemeClassificationTypeNameKeys.HexToolTipServiceField1)]
+		[UserVisible(true)]
+		[Order(After = Priority.High, Before = ThemeClassificationTypeNameKeys.HexToolTipServiceCurrentField)]
+		[Order(After = ThemeClassificationTypeNameKeys.HexToolTipServiceField0)]
+		sealed class HexToolTipServiceField1 : ThemeMarkerFormatDefinition {
+			HexToolTipServiceField1() : base(TextColor.HexToolTipServiceField1) {
+				ZOrder = HexMarkerServiceZIndexes.ToolTipField1;
+			}
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.HexToolTipServiceCurrentField)]
+		[Name(ThemeClassificationTypeNameKeys.HexToolTipServiceCurrentField)]
+		[UserVisible(true)]
+		[Order(After = Priority.High)]
+		[Order(After = ThemeClassificationTypeNameKeys.HexToolTipServiceField0)]
+		[Order(After = ThemeClassificationTypeNameKeys.HexToolTipServiceField1)]
+		sealed class HexToolTipServiceCurrentField : ThemeMarkerFormatDefinition {
+			HexToolTipServiceCurrentField() : base(TextColor.HexToolTipServiceCurrentField) {
+				ZOrder = HexMarkerServiceZIndexes.ToolTipCurrentField;
+			}
 		}
 
 		[Export(typeof(EditorFormatDefinition))]

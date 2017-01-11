@@ -41,6 +41,7 @@ using dnSpy.Contracts.Documents.Tabs.DocViewer;
 using dnSpy.Contracts.Documents.TreeView;
 using dnSpy.Contracts.Menus;
 using dnSpy.Contracts.Metadata;
+using dnSpy.Contracts.Settings.AppearanceCategory;
 using dnSpy.Contracts.Text.Classification;
 using dnSpy.Contracts.TreeView;
 using dnSpy.Debugger.CallStack;
@@ -120,9 +121,9 @@ namespace dnSpy.Debugger {
 			this.appWindow = appWindow;
 			this.documentTabService = documentTabService;
 			this.messageBoxService = messageBoxService;
-			this.DebuggerSettings = debuggerSettings;
+			DebuggerSettings = debuggerSettings;
 			this.theDebugger = theDebugger;
-			this.StackFrameService = stackFrameService;
+			StackFrameService = stackFrameService;
 			this.moduleLoader = moduleLoader;
 			this.inMemoryModuleService = inMemoryModuleService;
 			this.moduleIdProvider = moduleIdProvider;
@@ -737,7 +738,7 @@ namespace dnSpy.Debugger {
 			opts.Filename = vm.Filename;
 			opts.CommandLine = vm.CommandLine;
 			opts.BreakProcessKind = vm.BreakProcessKind;
-			opts.DebugOptions.IgnoreBreakInstructions = this.DebuggerSettings.IgnoreBreakInstructions;
+			opts.DebugOptions.IgnoreBreakInstructions = DebuggerSettings.IgnoreBreakInstructions;
 			lastDebugProcessVM = vm;
 			return opts;
 		}
@@ -775,7 +776,7 @@ namespace dnSpy.Debugger {
 			if (!CanAttach)
 				return false;
 
-			var classificationFormatMap = classificationFormatMapService.GetClassificationFormatMap(AppearanceCategoryConstants.AttachToProcessWindow);
+			var classificationFormatMap = classificationFormatMapService.GetClassificationFormatMap(AppearanceCategoryConstants.UIMisc);
 			var data = new AttachProcessVM(Dispatcher.CurrentDispatcher, DebuggerSettings.SyntaxHighlightAttach, classificationFormatMap, textElementProvider);
 			var win = new AttachProcessDlg();
 			win.DataContext = data;
@@ -983,9 +984,9 @@ namespace dnSpy.Debugger {
 			}
 
 			public CodeLocation(CorFunction func, uint offset, CorDebugMappingResult mapping) {
-				this.Function = func;
-				this.Offset = offset;
-				this.Mapping = mapping;
+				Function = func;
+				Offset = offset;
+				Mapping = mapping;
 			}
 
 			public static bool SameMethod(CodeLocation a, CodeLocation b) => a.Function == b.Function;

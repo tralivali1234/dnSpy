@@ -83,11 +83,11 @@ namespace dnSpy.Text.Editor {
 				throw new ArgumentNullException(nameof(editorFormatMapService));
 			this.wpfTextView = wpfTextView;
 			this.editorFormatMapService = editorFormatMapService;
-			this.blockStructureServiceDataProvider = NullBlockStructureServiceDataProvider.Instance;
-			this.onRemovedDelegate = OnRemoved;
-			this.lineElements = new List<LineElement>();
-			this.xPosCache = new XPosCache(wpfTextView);
-			this.lineColorInfos = new LineColorInfo[TextColor.BlockStructureXaml - TextColor.BlockStructureNamespace + 1] {
+			blockStructureServiceDataProvider = NullBlockStructureServiceDataProvider.Instance;
+			onRemovedDelegate = OnRemoved;
+			lineElements = new List<LineElement>();
+			xPosCache = new XPosCache(wpfTextView);
+			lineColorInfos = new LineColorInfo[TextColor.BlockStructureXaml - TextColor.BlockStructureNamespace + 1] {
 				new LineColorInfo(ThemeClassificationTypeNameKeys.BlockStructureNamespace),
 				new LineColorInfo(ThemeClassificationTypeNameKeys.BlockStructureType),
 				new LineColorInfo(ThemeClassificationTypeNameKeys.BlockStructureModule),
@@ -169,7 +169,7 @@ namespace dnSpy.Text.Editor {
 		}
 
 		const double PEN_THICKNESS = 1.0;
-		Pen GetPen(ResourceDictionary props, BlockStructureLineKind lineKind) {
+		static Pen GetPen(ResourceDictionary props, BlockStructureLineKind lineKind) {
 			Color? color;
 			SolidColorBrush scBrush;
 
@@ -194,7 +194,7 @@ namespace dnSpy.Text.Editor {
 			return newPen;
 		}
 
-		Pen InitializePen(Pen pen, BlockStructureLineKind lineKind) {
+		static Pen InitializePen(Pen pen, BlockStructureLineKind lineKind) {
 			switch (lineKind) {
 			case BlockStructureLineKind.Solid:
 				break;
@@ -262,7 +262,7 @@ namespace dnSpy.Text.Editor {
 		public void SetDataProvider(IBlockStructureServiceDataProvider dataProvider) {
 			if (wpfTextView.IsClosed)
 				return;
-			this.blockStructureServiceDataProvider = dataProvider ?? NullBlockStructureServiceDataProvider.Instance;
+			blockStructureServiceDataProvider = dataProvider ?? NullBlockStructureServiceDataProvider.Instance;
 			if (enabled) {
 				ClearXPosCache();
 				RepaintAllLines();
@@ -442,7 +442,7 @@ namespace dnSpy.Text.Editor {
 
 			public XPosCache(IWpfTextView wpfTextView) {
 				this.wpfTextView = wpfTextView;
-				this.toXPosDict = new Dictionary<int, double>();
+				toXPosDict = new Dictionary<int, double>();
 			}
 
 			public double GetXPosition(BlockStructureData data) {

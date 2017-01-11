@@ -35,7 +35,7 @@ namespace dnSpy.Language.Intellisense {
 			: base(session) {
 			wpfTextView = session.TextView as IWpfTextView;
 			Debug.Assert(wpfTextView != null);
-			this.popup = new Popup {
+			popup = new Popup {
 				PlacementTarget = wpfTextView?.VisualElement,
 				Placement = PlacementMode.Relative,
 				Visibility = Visibility.Collapsed,
@@ -103,7 +103,7 @@ namespace dnSpy.Language.Intellisense {
 		Point? GetMousePoint(MouseDevice device) {
 			if (wpfTextView == null)
 				return null;
-			var mousePos = Mouse.PrimaryDevice.GetPosition(wpfTextView.VisualElement);
+			var mousePos = device.GetPosition(wpfTextView.VisualElement);
 			mousePos.X += wpfTextView.ViewportLeft;
 			mousePos.Y += wpfTextView.ViewportTop;
 			return mousePos;
@@ -117,7 +117,7 @@ namespace dnSpy.Language.Intellisense {
 			var lines = session.TextView.TextViewLines.GetTextViewLinesIntersectingSpan(span);
 			foreach (var line in lines) {
 				foreach (var bounds in line.GetNormalizedTextBounds(span)) {
-					if (bounds.Left <= mousePos.X && mousePos.X < bounds.Right && bounds.TextTop <= mousePos.Y && mousePos.Y < bounds.TextBottom)
+					if (bounds.Left <= mousePos.X && mousePos.X < bounds.Right && bounds.Top <= mousePos.Y && mousePos.Y < bounds.Bottom)
 						return true;
 				}
 			}

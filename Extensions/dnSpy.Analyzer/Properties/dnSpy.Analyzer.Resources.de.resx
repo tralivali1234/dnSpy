@@ -199,13 +199,13 @@
     <value>Strg+C</value>
   </data>
   <data name="ShortCutKeyCtrlShiftR" xml:space="preserve">
-    <value>Ctrl+Shift+R</value>
+    <value>Strg+Umschalt+R</value>
   </data>
   <data name="ShortCutKeyDelete" xml:space="preserve">
     <value>Löschen</value>
   </data>
   <data name="ShowMetadataTokensCommand" xml:space="preserve">
-    <value>Zeige Tokens</value>
+    <value>Tokens zeigen</value>
   </data>
   <data name="SyntaxHighlightCommand" xml:space="preserve">
     <value>Syntax hervorheben</value>

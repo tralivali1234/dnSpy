@@ -33,7 +33,7 @@ namespace dnSpy.Contracts.Text.Editor {
 		public const string TopLayer = "dnSpy-" + nameof(TopLayer);
 
 		/// <summary>
-		/// Text marker layer for markers with a negative z-index
+		/// Text marker adornment layer for markers with a negative z-index
 		/// </summary>
 		public const string NegativeTextMarkerLayer = "negativetextmarkerlayer";
 

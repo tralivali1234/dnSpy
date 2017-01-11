@@ -1293,4 +1293,10 @@ Are you sure you want to expand it?</value>
   <data name="AddMethodBreakpointCommand" xml:space="preserve">
     <value>Add Method Breakpoint</value>
   </data>
+  <data name="HexEditorGroup_DebuggerMemory" xml:space="preserve">
+    <value>Memory Window</value>
+  </data>
+  <data name="BgImgDisplayName_DebuggerMemory" xml:space="preserve">
+    <value>Hex Editor (Memory Window)</value>
+  </data>
 </root>

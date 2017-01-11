@@ -48,8 +48,8 @@ namespace dnSpy.Roslyn.Shared.Text.Classification {
 		/// <param name="span">Span</param>
 		/// <param name="type">Classification type</param>
 		public ClassifierResult(Span span, IClassificationType type) {
-			this.Span = span;
-			this.Type = type;
+			Span = span;
+			Type = type;
 		}
 	}
 
@@ -186,6 +186,7 @@ the_switch:
 				case MethodKind.PropertySet:
 				case MethodKind.BuiltinOperator:
 				case MethodKind.DeclareMethod:
+				case MethodKind.LocalFunction:
 				default:
 					if (methSym.IsExtensionMethod)
 						return roslynClassificationTypes.ExtensionMethod;

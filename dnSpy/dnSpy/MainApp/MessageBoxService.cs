@@ -21,7 +21,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -55,7 +54,7 @@ namespace dnSpy.MainApp {
 		MessageBoxService(IAppWindow appWindow, ISettingsService settingsService) {
 			this.appWindow = appWindow;
 			this.settingsService = settingsService;
-			this.ignoredMessages = new HashSet<Guid>();
+			ignoredMessages = new HashSet<Guid>();
 			ReadSettings();
 		}
 

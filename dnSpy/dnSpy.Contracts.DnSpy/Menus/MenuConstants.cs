@@ -17,8 +17,10 @@
     along with dnSpy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System;
 using System.Windows.Controls;
 using dnSpy.Contracts.Documents.Tabs.DocViewer;
+using dnSpy.Contracts.Hex.Editor;
 using dnSpy.Contracts.Output;
 using dnSpy.Contracts.Search;
 using dnSpy.Contracts.Tabs;
@@ -120,8 +122,18 @@ namespace dnSpy.Contracts.Menus {
 		/// <summary><see cref="TextEditorPosition"/></summary>
 		public static readonly string GUIDOBJ_TEXTEDITORPOSITION_GUID = "F093458D-C95B-4745-8388-047DE348B500";
 
-		/// <summary><c>HexBox</c></summary>
+		/// <summary><see cref="HexCaretPosition"/></summary>
+		public static readonly string GUIDOBJ_HEXEDITORPOSITION_GUID = "DF87FB1F-D902-4365-BA52-655A7B27C94A";
+
+		/// <summary>Asm editor's hex view</summary>
+		public static readonly string GUIDOBJ_ASMEDITOR_HEXVIEW_GUID = "95F0CEE5-44D0-468A-B214-69F91B76A84C";
+
+		/// <summary><c>HexBox</c>, it's now obsolete</summary>
+		[Obsolete("Use eg. " + nameof(GUIDOBJ_ASMEDITOR_HEXVIEW_GUID) + " instead of this guid", true)]
 		public static readonly string GUIDOBJ_HEXBOX_GUID = "6D0D8103-1D91-4815-94C3-9AAB41D3175B";
+
+		/// <summary>Debugger's memory hex view</summary>
+		public static readonly string GUIDOBJ_DEBUGGER_MEMORY_HEXVIEW_GUID = "8AD6778E-015E-4520-8B77-A6A2E23FFCFF";
 
 		/// <summary>Glyph margin</summary>
 		public static readonly string GUIDOBJ_GLYPHMARGIN_GUID = "60A3ECC3-3714-418E-8C26-D33F00EA31B4";
@@ -141,7 +153,16 @@ namespace dnSpy.Contracts.Menus {
 		/// <summary><see cref="IWpfTextViewMargin"/></summary>
 		public static readonly string GUIDOBJ_WPF_TEXTVIEW_MARGIN_GUID = "36C94DC4-05AA-4F2B-A6C4-02EFE187AAA3";
 
-		/// <summary>Point of mouse relative to <see cref="IWpfTextViewMargin"/></summary>
+		/// <summary><see cref="WpfHexViewHost"/></summary>
+		public static readonly string GUIDOBJ_WPF_HEXVIEW_HOST_GUID = "D63537FA-9D09-44E0-A345-41B7457CFD69";
+
+		/// <summary><see cref="WpfHexView"/></summary>
+		public static readonly string GUIDOBJ_WPF_HEXVIEW_GUID = "2A57190E-B129-4083-8427-EC2DC6C53D55";
+
+		/// <summary><see cref="WpfHexViewMargin"/></summary>
+		public static readonly string GUIDOBJ_WPF_HEXVIEW_MARGIN_GUID = "9CFD1794-C39A-4529-89BF-03C0C6E1714F";
+
+		/// <summary>Point of mouse relative to a <see cref="IWpfTextViewMargin"/> or a <see cref="WpfHexViewMargin"/></summary>
 		public static readonly string GUIDOBJ_MARGIN_POINT_GUID = "FEAC116C-FA91-42D9-A646-BD8F3A6A6EFD";
 
 		/// <summary>Log text editor control</summary>
@@ -291,16 +312,38 @@ namespace dnSpy.Contracts.Menus {
 		/// <summary>Group: Context Menu, Type: Document Viewer, Group: Editor</summary>
 		public const string GROUP_CTX_DOCVIEWER_EDITOR = "15000,FD52ABD1-6DB2-48C3-A5DB-809ECE5EBBB2";
 
+		/// <summary>Group: Context Menu, Type: HexView, Group: Show commands</summary>
+		public const string GROUP_CTX_HEXVIEW_SHOW = "0,261BB98C-6C43-4258-9C4E-7A3702298DE0";
+
+		/// <summary>Group: Context Menu, Type: HexView, Group: Edit</summary>
+		public const string GROUP_CTX_HEXVIEW_EDIT = "1000,63AE7AC9-B507-4474-9BB3-9B64B2036D34";
+
+		/// <summary>Group: Context Menu, Type: HexView, Group: Misc</summary>
+		public const string GROUP_CTX_HEXVIEW_MISC = "10000,73D6E16B-6AF4-4F6D-8515-6D63ECDBFA3F";
+
+		/// <summary>Group: Context Menu, Type: HexView, Group: Copy</summary>
+		public const string GROUP_CTX_HEXVIEW_COPY = "99000,34DCFAE6-7D6A-428A-8E71-5151616A08A3";
+
+		/// <summary>Group: Context Menu, Type: HexView, Group: Options</summary>
+		public const string GROUP_CTX_HEXVIEW_OPTS = "100000,0794156A-1EDE-45EC-9C41-48E27DE14085";
+
+		/// <summary>Group: Context Menu, Type: HexView, Group: Find</summary>
+		public const string GROUP_CTX_HEXVIEW_FIND = "101000,8BD504DA-A927-4CBC-9E77-C873560C530F";
+
 		/// <summary>Group: Context Menu, Type: HexBox, Group: Show commands</summary>
+		[Obsolete("Use " + nameof(GROUP_CTX_HEXVIEW_SHOW), true)]
 		public const string GROUP_CTX_HEXBOX_SHOW = "0,D49C0D59-BAC6-476C-B5C7-66E8CE6CBD83";
 
 		/// <summary>Group: Context Menu, Type: HexBox, Group: Edit</summary>
+		[Obsolete("Use " + nameof(GROUP_CTX_HEXVIEW_EDIT), true)]
 		public const string GROUP_CTX_HEXBOX_EDIT = "1000,05719F94-21C1-4C73-8931-929E6A9B6A69";
 
 		/// <summary>Group: Context Menu, Type: HexBox, Group: Options</summary>
+		[Obsolete("Use " + nameof(GROUP_CTX_HEXVIEW_OPTS), true)]
 		public const string GROUP_CTX_HEXBOX_OPTS = "2000,DFE105B4-78B1-4227-8A91-A7C8D4B00495";
 
 		/// <summary>Group: Context Menu, Type: HexBox, Group: Copy</summary>
+		[Obsolete("Use " + nameof(GROUP_CTX_HEXVIEW_COPY), true)]
 		public const string GROUP_CTX_HEXBOX_COPY = "3000,CD7D55BB-5ED8-4E8D-B588-AD19AB771105";
 
 		/// <summary>Group: Context Menu, Type: Tabs, Group: Close/New commands</summary>

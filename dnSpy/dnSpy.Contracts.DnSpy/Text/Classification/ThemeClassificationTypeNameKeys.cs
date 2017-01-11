@@ -1166,5 +1166,90 @@ namespace dnSpy.Contracts.Text.Classification {
 		/// <see cref="TextColor.AppSettingsTextMatchHighlight"/>
 		/// </summary>
 		public const string AppSettingsTextMatchHighlight = nameof(AppSettingsTextMatchHighlight);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentLine"/>
+		/// </summary>
+		public const string HexCurrentLine = nameof(HexCurrentLine);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentLineNoFocus"/>
+		/// </summary>
+		public const string HexCurrentLineNoFocus = nameof(HexCurrentLineNoFocus);
+
+		/// <summary>
+		/// <see cref="TextColor.HexInactiveSelectedText"/>
+		/// </summary>
+		public const string HexInactiveSelectedText = nameof(HexInactiveSelectedText);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLine0"/>
+		/// </summary>
+		public const string HexColumnLine0 = nameof(HexColumnLine0);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLine1"/>
+		/// </summary>
+		public const string HexColumnLine1 = nameof(HexColumnLine1);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLineGroup0"/>
+		/// </summary>
+		public const string HexColumnLineGroup0 = nameof(HexColumnLineGroup0);
+
+		/// <summary>
+		/// <see cref="TextColor.HexColumnLineGroup1"/>
+		/// </summary>
+		public const string HexColumnLineGroup1 = nameof(HexColumnLineGroup1);
+
+		/// <summary>
+		/// <see cref="TextColor.HexHighlightedValuesColumn"/>
+		/// </summary>
+		public const string HexHighlightedValuesColumn = nameof(HexHighlightedValuesColumn);
+
+		/// <summary>
+		/// <see cref="TextColor.HexHighlightedAsciiColumn"/>
+		/// </summary>
+		public const string HexHighlightedAsciiColumn = nameof(HexHighlightedAsciiColumn);
+
+		/// <summary>
+		/// <see cref="TextColor.HexGlyphMargin"/>
+		/// </summary>
+		public const string HexGlyphMargin = nameof(HexGlyphMargin);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentValueCell"/>
+		/// </summary>
+		public const string HexCurrentValueCell = nameof(HexCurrentValueCell);
+
+		/// <summary>
+		/// <see cref="TextColor.HexCurrentAsciiCell"/>
+		/// </summary>
+		public const string HexCurrentAsciiCell = nameof(HexCurrentAsciiCell);
+
+		/// <summary>
+		/// <see cref="TextColor.OutputWindowText"/>
+		/// </summary>
+		public const string OutputWindowText = nameof(OutputWindowText);
+
+		/// <summary>
+		/// <see cref="TextColor.HexFindMatchHighlightMarker"/>
+		/// </summary>
+		public const string HexFindMatchHighlightMarker = nameof(HexFindMatchHighlightMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.HexToolTipServiceField0"/>
+		/// </summary>
+		public const string HexToolTipServiceField0 = nameof(HexToolTipServiceField0);
+
+		/// <summary>
+		/// <see cref="TextColor.HexToolTipServiceField1"/>
+		/// </summary>
+		public const string HexToolTipServiceField1 = nameof(HexToolTipServiceField1);
+
+		/// <summary>
+		/// <see cref="TextColor.HexToolTipServiceCurrentField"/>
+		/// </summary>
+		public const string HexToolTipServiceCurrentField = nameof(HexToolTipServiceCurrentField);
 	}
 }

@@ -316,7 +316,7 @@
     <value>_Помощь</value>
   </data>
   <data name="Menu_Themes" xml:space="preserve">
-    <value>_Theme</value>
+    <value>_Тема</value>
   </data>
   <data name="Menu_View" xml:space="preserve">
     <value>_Вид</value>
@@ -517,7 +517,7 @@
     <value>_Искать в сборках</value>
   </data>
   <data name="SearchAssembliesToolBarToolTip" xml:space="preserve">
-    <value>Search Assemblies ({0})</value>
+    <value>Сборки поиска ({0})</value>
   </data>
   <data name="Searching" xml:space="preserve">
     <value>Поиск...</value>
@@ -1152,7 +1152,7 @@
     <value>Размер отступа</value>
   </data>
   <data name="TextEditorTabSize" xml:space="preserve">
-    <value>Размер интервала табудяции</value>
+    <value>Размер интервала табуляции</value>
   </data>
   <data name="TextViewerSettings" xml:space="preserve">
     <value>Просмотр текста</value>
@@ -1227,28 +1227,447 @@
     <value>REPL</value>
   </data>
   <data name="AssemblyExplorerSettings_Filter" xml:space="preserve">
-    <value>Dragged items filter</value>
+    <value>Фильтр перетаскиваемых элементов</value>
   </data>
   <data name="DocumentFilterType_All" xml:space="preserve">
     <value>Все</value>
   </data>
   <data name="DocumentFilterType_AllSupported" xml:space="preserve">
-    <value>All supported</value>
+    <value>Все поддерживаемые</value>
   </data>
   <data name="DocumentFilterType_DotNetOnly" xml:space="preserve">
-    <value>.NET only</value>
+    <value>Только .NET</value>
   </data>
   <data name="AssemblyExplorer_AllFilesFilteredOut" xml:space="preserve">
-    <value>All files have been filtered out.
-Filter can be changed in Assembly Explorer options.</value>
+    <value>Все файлы были отфильтрованы. Фильтр можно изменить в опциях Assembly Explorer.</value>
   </data>
   <data name="BlockStructureLineKind_DashedLines" xml:space="preserve">
-    <value>Dashed lines</value>
+    <value>Штриховые линии</value>
   </data>
   <data name="BlockStructureLineKind_SolidLines" xml:space="preserve">
-    <value>Solid lines</value>
+    <value>Сплошные линии</value>
   </data>
   <data name="ShortCutKeyCtrlShiftK" xml:space="preserve">
     <value>Ctrl+Shift+K</value>
+  </data>
+  <data name="BgImgDisplayName_HexEditor" xml:space="preserve">
+    <value>Hex-редактор</value>
+  </data>
+  <data name="HexEditorGroup_Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="HexEditorSettings" xml:space="preserve">
+    <value>Hex-редактор</value>
+  </data>
+  <data name="HexEditorEncoding" xml:space="preserve">
+    <value>Кодировка</value>
+  </data>
+  <data name="HexEditorGroupSizeInBytes" xml:space="preserve">
+    <value>Размер группы</value>
+  </data>
+  <data name="HexEditorHighlightCurrentValue" xml:space="preserve">
+    <value>Выделить текущее значение</value>
+  </data>
+  <data name="HexEditorOffsetFormat" xml:space="preserve">
+    <value>Смещение</value>
+  </data>
+  <data name="HexEditorOffsetLowerCaseHex" xml:space="preserve">
+    <value>Hex в нижнем регистре (смещение)</value>
+  </data>
+  <data name="HexEditorValuesLowerCaseHex" xml:space="preserve">
+    <value>Hex в нижнем регистре (значения)</value>
+  </data>
+  <data name="BlockStructureLineKind_None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="HexEditorShowColumnLineSeparators" xml:space="preserve">
+    <value>Показать разделители столбцов</value>
+  </data>
+  <data name="GoToOffset_Offset_Label" xml:space="preserve">
+    <value>С_мещение</value>
+  </data>
+  <data name="GoToOffset_Title" xml:space="preserve">
+    <value>Переход по смещению</value>
+  </data>
+  <data name="HexEditorSelect_End" xml:space="preserve">
+    <value>Кон_ец</value>
+  </data>
+  <data name="HexEditorSelect_Start" xml:space="preserve">
+    <value>_Начало</value>
+  </data>
+  <data name="HexEditorSelect_Title" xml:space="preserve">
+    <value>Выбор</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>Неверное значение</value>
+  </data>
+  <data name="ValueMustBeWithinRange" xml:space="preserve">
+    <value>Значение должно быть между {0} и {1}</value>
+  </data>
+  <data name="AnErrorOccurred" xml:space="preserve">
+    <value>Произошла ошибка:
+
+{0}</value>
+  </data>
+  <data name="HexEditorSaveSelection_Title" xml:space="preserve">
+    <value>Сохранение выбранного 0x{0:X}-0x{1:X}</value>
+  </data>
+  <data name="Button_DefaultSettings" xml:space="preserve">
+    <value>Настройки _по умолчанию</value>
+  </data>
+  <data name="Button_RestoreSettings" xml:space="preserve">
+    <value>Сброс</value>
+  </data>
+  <data name="BytesPerLineCommand" xml:space="preserve">
+    <value>Байтов в строке</value>
+  </data>
+  <data name="ClearByteCommand" xml:space="preserve">
+    <value>Стереть байт</value>
+  </data>
+  <data name="ClearSelectedBytesCommand" xml:space="preserve">
+    <value>Стереть выбранные байты</value>
+  </data>
+  <data name="CopyCSharpArrayCommand" xml:space="preserve">
+    <value>Копировать массив C#</value>
+  </data>
+  <data name="CopyOffsetCommand" xml:space="preserve">
+    <value>Копировать смещение</value>
+  </data>
+  <data name="CopySpecialCommand" xml:space="preserve">
+    <value>Специальное копирование</value>
+  </data>
+  <data name="CopyTextCommand" xml:space="preserve">
+    <value>Копировать текст</value>
+  </data>
+  <data name="CopyUnicodeStringCommand" xml:space="preserve">
+    <value>Копировать строку Unicode</value>
+  </data>
+  <data name="CopyUTF8StringCommand" xml:space="preserve">
+    <value>Копировать строку UTF-8</value>
+  </data>
+  <data name="CopyVisualBasicArrayCommand" xml:space="preserve">
+    <value>Копировать массив VB</value>
+  </data>
+  <data name="FillSelectionCommand" xml:space="preserve">
+    <value>Заполнить выделенное байтом...</value>
+  </data>
+  <data name="FillSelection_Label" xml:space="preserve">
+    <value>_Байт</value>
+  </data>
+  <data name="FillSelection_Title" xml:space="preserve">
+    <value>Введите значение</value>
+  </data>
+  <data name="GoToOffsetCommand" xml:space="preserve">
+    <value>Перейти по смещению...</value>
+  </data>
+  <data name="HexEditorSaveSelectionCommand" xml:space="preserve">
+    <value>Сохранить вы_бранное...</value>
+  </data>
+  <data name="HexEditorSelectCommand" xml:space="preserve">
+    <value>Выбрать...</value>
+  </data>
+  <data name="HexEditorSettingsCommand" xml:space="preserve">
+    <value>Настройки...</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_16" xml:space="preserve">
+    <value>_16 байт</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_32" xml:space="preserve">
+    <value>_32 байта</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_48" xml:space="preserve">
+    <value>_48 байтов</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_64" xml:space="preserve">
+    <value>_64 байта</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_8" xml:space="preserve">
+    <value>_8 байтов</value>
+  </data>
+  <data name="HexEditor_BytesPerLine_FitToWidth" xml:space="preserve">
+    <value>_Растянуть по ширине</value>
+  </data>
+  <data name="LocalHexSettings_BaseOffset" xml:space="preserve">
+    <value>_Базовое смещение</value>
+  </data>
+  <data name="LocalHexSettings_BaseOffset_ToolTip" xml:space="preserve">
+    <value>Это значение добавляется по начальному смещению, прежде чем оно отображается на экране</value>
+  </data>
+  <data name="LocalHexSettings_BytesPerLine" xml:space="preserve">
+    <value>Б_айтов в строке</value>
+  </data>
+  <data name="LocalHexSettings_EndOffset" xml:space="preserve">
+    <value>Смещение _конца</value>
+  </data>
+  <data name="LocalHexSettings_OffsetBitSize" xml:space="preserve">
+    <value>Количество би_тов смещения</value>
+  </data>
+  <data name="LocalHexSettings_ShowASCII" xml:space="preserve">
+    <value>Пока_зать ASCII</value>
+  </data>
+  <data name="LocalHexSettings_ShowOffset" xml:space="preserve">
+    <value>Пок_азать смещение</value>
+  </data>
+  <data name="LocalHexSettings_ShowValues" xml:space="preserve">
+    <value>Показать з_начения</value>
+  </data>
+  <data name="LocalHexSettings_StartOffset" xml:space="preserve">
+    <value>_Стартовое смещение</value>
+  </data>
+  <data name="LocalHexSettings_Title" xml:space="preserve">
+    <value>Настройки локального Hex-редактора</value>
+  </data>
+  <data name="LocalHexSettings_UseRelOffsets" xml:space="preserve">
+    <value>Использовать _относительные смещения</value>
+  </data>
+  <data name="LocalHexSettings_UseRelOffsets_ToolTip" xml:space="preserve">
+    <value>Все смещения указаны относительно стартового смещения</value>
+  </data>
+  <data name="LocalHexSettings_ValueFormat" xml:space="preserve">
+    <value>_Формат значения</value>
+  </data>
+  <data name="PasteCommand" xml:space="preserve">
+    <value>_Вставить</value>
+  </data>
+  <data name="PasteDotNetMetaDataBlobCommand" xml:space="preserve">
+    <value>_Вставить (#Blob Data)</value>
+  </data>
+  <data name="PasteSpecialCommand" xml:space="preserve">
+    <value>Специальная вставка</value>
+  </data>
+  <data name="PasteUnicodeCommand" xml:space="preserve">
+    <value>Вставить (Unicode)</value>
+  </data>
+  <data name="PasteUTF8Command" xml:space="preserve">
+    <value>Вставить (UTF-8)</value>
+  </data>
+  <data name="ShortCutKeyCtrl8" xml:space="preserve">
+    <value>Ctrl+8</value>
+  </data>
+  <data name="ShortCutKeyCtrlAltO" xml:space="preserve">
+    <value>Ctrl+Alt+O</value>
+  </data>
+  <data name="ShortCutKeyCtrlAltS" xml:space="preserve">
+    <value>Ctrl+Alt+S</value>
+  </data>
+  <data name="ShortCutKeyCtrlB" xml:space="preserve">
+    <value>Ctrl+B</value>
+  </data>
+  <data name="ShortCutKeyCtrlD" xml:space="preserve">
+    <value>Ctrl+D</value>
+  </data>
+  <data name="ShortCutKeyCtrlG" xml:space="preserve">
+    <value>Ctrl+G</value>
+  </data>
+  <data name="ShortCutKeyCtrlShift8" xml:space="preserve">
+    <value>Ctrl+Shift+8</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftB" xml:space="preserve">
+    <value>Ctrl+Shift+B</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftC" xml:space="preserve">
+    <value>Ctrl+Shift+C</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftD" xml:space="preserve">
+    <value>Ctrl+Shift+D</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftH" xml:space="preserve">
+    <value>Ctrl+Shift+H</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftU" xml:space="preserve">
+    <value>Ctrl+Shift+U</value>
+  </data>
+  <data name="ShortCutKeyCtrlU" xml:space="preserve">
+    <value>Ctrl+U</value>
+  </data>
+  <data name="ShortCutKeyCtrlV" xml:space="preserve">
+    <value>Ctrl+V</value>
+  </data>
+  <data name="ShortCutKeyDelete" xml:space="preserve">
+    <value>Del</value>
+    <comment>the delete key</comment>
+  </data>
+  <data name="ShowAllBytesCommand" xml:space="preserve">
+    <value>Показать все байты</value>
+  </data>
+  <data name="ShowOnlySelectedBytesCommand" xml:space="preserve">
+    <value>Показать только выбранные байты</value>
+  </data>
+  <data name="ValueFormatCommand" xml:space="preserve">
+    <value>Формат значения</value>
+  </data>
+  <data name="ShortCutKeyF5" xml:space="preserve">
+    <value>F5</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="TextEditor" xml:space="preserve">
+    <value>Текстовый редактор</value>
+  </data>
+  <data name="Search_BigEndian" xml:space="preserve">
+    <value>Прямой порядок байт (Alt+B)</value>
+  </data>
+  <data name="ShortCutKeyAlt8" xml:space="preserve">
+    <value>Alt+8</value>
+  </data>
+  <data name="ShortCutKeyAltH" xml:space="preserve">
+    <value>ALT+H</value>
+  </data>
+  <data name="ShortCutKeyAltU" xml:space="preserve">
+    <value>ALT+U</value>
+  </data>
+  <data name="ShortCutKeyCtrlF" xml:space="preserve">
+    <value>Ctrl+F</value>
+  </data>
+  <data name="PasteUnicodeAndLength7Command" xml:space="preserve">
+    <value>Вставить (Unicode и длина)</value>
+  </data>
+  <data name="PasteUTF8AndLength7Command" xml:space="preserve">
+    <value>Вставить (UTF-8 и длина)</value>
+  </data>
+  <data name="ShortCutKeyCtrlKCtrl8" xml:space="preserve">
+    <value>CTRL+K, Ctrl+8</value>
+  </data>
+  <data name="ShortCutKeyCtrlKCtrlU" xml:space="preserve">
+    <value>CTRL+K, Ctrl+U</value>
+  </data>
+  <data name="HexGoToCodeOrStructure" xml:space="preserve">
+    <value>Go to Code or Structure</value>
+  </data>
+  <data name="ShortCutKeyF12" xml:space="preserve">
+    <value>F12</value>
+  </data>
+  <data name="HexEditorHighlightStructureUnderMouseCursor" xml:space="preserve">
+    <value>Highlight structure under mouse cursor</value>
+  </data>
+  <data name="HexToolTipIndex" xml:space="preserve">
+    <value>index</value>
+  </data>
+  <data name="HexToolTipOffset" xml:space="preserve">
+    <value>offset</value>
+  </data>
+  <data name="BigEndian" xml:space="preserve">
+    <value>Big Endian</value>
+  </data>
+  <data name="CopyDataCommand" xml:space="preserve">
+    <value>Copy {0}</value>
+  </data>
+  <data name="CopyAbsoluteFileOffsetCommand" xml:space="preserve">
+    <value>Copy Absolute Offset</value>
+  </data>
+  <data name="CopyFileOffsetCommand" xml:space="preserve">
+    <value>Копировать смещение в файле</value>
+  </data>
+  <data name="CopyRVACommand" xml:space="preserve">
+    <value>Copy RVA</value>
+  </data>
+  <data name="CopyValueCommand" xml:space="preserve">
+    <value>Copy Value</value>
+  </data>
+  <data name="ShortCutKeyCtrlShift3" xml:space="preserve">
+    <value>Ctrl+Shift+3</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftA" xml:space="preserve">
+    <value>Ctrl+Shift+A</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftR" xml:space="preserve">
+    <value>Ctrl+Shift+R</value>
+  </data>
+  <data name="ShortCutKeyCtrlShiftV" xml:space="preserve">
+    <value>Ctrl+Shift+V</value>
+  </data>
+  <data name="GoToAbsolutePosition" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="GoToCurrentPosition" xml:space="preserve">
+    <value>Current Position</value>
+  </data>
+  <data name="GoToFilePosition" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="ShortCutKeyCtrl1" xml:space="preserve">
+    <value>Ctrl+1</value>
+  </data>
+  <data name="ShortCutKeyCtrl2" xml:space="preserve">
+    <value>Ctrl+2</value>
+  </data>
+  <data name="ShortCutKeyCtrl3" xml:space="preserve">
+    <value>Ctrl+3</value>
+  </data>
+  <data name="ShortCutKeyCtrl4" xml:space="preserve">
+    <value>Ctrl+4</value>
+  </data>
+  <data name="SelectToNewPosition" xml:space="preserve">
+    <value>_Select to new position</value>
+  </data>
+  <data name="ShortCutKeyCtrlO" xml:space="preserve">
+    <value>Ctrl+O</value>
+  </data>
+  <data name="SelectLength" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="GoToMetadata_Title" xml:space="preserve">
+    <value>Go to Metadata</value>
+  </data>
+  <data name="GoToMetadata_Token_Label" xml:space="preserve">
+    <value>_Token</value>
+  </data>
+  <data name="ShortCutKeyCtrl5" xml:space="preserve">
+    <value>Ctrl+5</value>
+  </data>
+  <data name="ShortCutKeyCtrl6" xml:space="preserve">
+    <value>Ctrl+6</value>
+  </data>
+  <data name="GoToMetadataCommand" xml:space="preserve">
+    <value>Go to Metadata...</value>
+  </data>
+  <data name="ShortCutKeyCtrlM" xml:space="preserve">
+    <value>Ctrl+M</value>
+  </data>
+  <data name="GoToMetadataInvalidOffsetOrToken" xml:space="preserve">
+    <value>Invalid offset or metadata token</value>
+  </data>
+  <data name="GoToMetadataMethodBody" xml:space="preserve">
+    <value>Method Body</value>
+  </data>
+  <data name="GoToMetadataToken" xml:space="preserve">
+    <value>Metadata Token</value>
+  </data>
+  <data name="GoToMetadata_Index_Label" xml:space="preserve">
+    <value>_Index</value>
+  </data>
+  <data name="HexFollowFieldValueReference" xml:space="preserve">
+    <value>Follow Reference</value>
+  </data>
+  <data name="ShortCutKeyCtrlF12" xml:space="preserve">
+    <value>Ctrl+F12</value>
+  </data>
+  <data name="HexEditorSelectFileCommand" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="HexEditorSelectNestedFileCommand" xml:space="preserve">
+    <value>Select Nested File</value>
+  </data>
+  <data name="SelectSpecialCommand" xml:space="preserve">
+    <value>Select Special</value>
+  </data>
+  <data name="ShortCutKeyCtrlECtrlF" xml:space="preserve">
+    <value>Ctrl+E, Ctrl+F</value>
+  </data>
+  <data name="ShortCutKeyCtrlECtrlN" xml:space="preserve">
+    <value>Ctrl+E, Ctrl+N</value>
+  </data>
+  <data name="HexEditorSelectStructureCommand" xml:space="preserve">
+    <value>Select Structure</value>
+  </data>
+  <data name="ShortCutKeyCtrlECtrlS" xml:space="preserve">
+    <value>Ctrl+E, Ctrl+S</value>
+  </data>
+  <data name="HexEditFieldCommand" xml:space="preserve">
+    <value>Изменить поле</value>
+  </data>
+  <data name="OptionColorizeText" xml:space="preserve">
+    <value>Colorize the text</value>
   </data>
 </root>

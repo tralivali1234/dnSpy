@@ -45,7 +45,7 @@ namespace dnSpy.Text.Editor {
 			TextView = textView;
 			this.layerKind = layerKind;
 			Info = info;
-			this.adornmentLayerElements = new List<AdornmentLayerElement>();
+			adornmentLayerElements = new List<AdornmentLayerElement>();
 		}
 
 		public bool AddAdornment(SnapshotSpan visualSpan, object tag, UIElement adornment) =>
@@ -166,7 +166,7 @@ namespace dnSpy.Text.Editor {
 			return new SnapshotSpan(span.Start, span.Start + 1);
 		}
 
-		public void OnLayoutChanged(TextViewLayoutChangedEventArgs e) {
+		internal void OnLayoutChanged(TextViewLayoutChangedEventArgs e) {
 			for (int i = adornmentLayerElements.Count - 1; i >= 0; i--) {
 				var elem = adornmentLayerElements[i];
 				elem.OnLayoutChanged(e.NewSnapshot);

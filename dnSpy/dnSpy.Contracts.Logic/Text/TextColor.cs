@@ -254,6 +254,23 @@ namespace dnSpy.Contracts.Text {
 		GacMatchHighlight,
 		AppSettingsTreeViewNodeMatchHighlight,
 		AppSettingsTextMatchHighlight,
+		HexCurrentLine,
+		HexCurrentLineNoFocus,
+		HexInactiveSelectedText,
+		HexColumnLine0,
+		HexColumnLine1,
+		HexColumnLineGroup0,
+		HexColumnLineGroup1,
+		HexHighlightedValuesColumn,
+		HexHighlightedAsciiColumn,
+		HexGlyphMargin,
+		HexCurrentValueCell,
+		HexCurrentAsciiCell,
+		OutputWindowText,
+		HexFindMatchHighlightMarker,
+		HexToolTipServiceField0,
+		HexToolTipServiceField1,
+		HexToolTipServiceCurrentField,
 
 		/// <summary>
 		/// Must be last
@@ -494,6 +511,23 @@ namespace dnSpy.Contracts.Text {
 		public static readonly object GacMatchHighlight = TextColor.GacMatchHighlight;
 		public static readonly object AppSettingsTreeViewNodeMatchHighlight = TextColor.AppSettingsTreeViewNodeMatchHighlight;
 		public static readonly object AppSettingsTextMatchHighlight = TextColor.AppSettingsTextMatchHighlight;
+		public static readonly object HexCurrentLine = TextColor.HexCurrentLine;
+		public static readonly object HexCurrentLineNoFocus = TextColor.HexCurrentLineNoFocus;
+		public static readonly object HexInactiveSelectedText = TextColor.HexInactiveSelectedText;
+		public static readonly object HexColumnLine0 = TextColor.HexColumnLine0;
+		public static readonly object HexColumnLine1 = TextColor.HexColumnLine1;
+		public static readonly object HexColumnLineGroup0 = TextColor.HexColumnLineGroup0;
+		public static readonly object HexColumnLineGroup1 = TextColor.HexColumnLineGroup1;
+		public static readonly object HexHighlightedValuesColumn = TextColor.HexHighlightedValuesColumn;
+		public static readonly object HexHighlightedAsciiColumn = TextColor.HexHighlightedAsciiColumn;
+		public static readonly object HexGlyphMargin = TextColor.HexGlyphMargin;
+		public static readonly object HexCurrentValueCell = TextColor.HexCurrentValueCell;
+		public static readonly object HexCurrentAsciiCell = TextColor.HexCurrentAsciiCell;
+		public static readonly object OutputWindowText = TextColor.OutputWindowText;
+		public static readonly object HexFindMatchHighlightMarker = TextColor.HexFindMatchHighlightMarker;
+		public static readonly object HexToolTipServiceField0 = TextColor.HexToolTipServiceField0;
+		public static readonly object HexToolTipServiceField1 = TextColor.HexToolTipServiceField1;
+		public static readonly object HexToolTipServiceCurrentField = TextColor.HexToolTipServiceCurrentField;
 
 		/// <summary>
 		/// Boxes <paramref name="color"/>
@@ -736,6 +770,23 @@ namespace dnSpy.Contracts.Text {
 			GacMatchHighlight,
 			AppSettingsTreeViewNodeMatchHighlight,
 			AppSettingsTextMatchHighlight,
+			HexCurrentLine,
+			HexCurrentLineNoFocus,
+			HexInactiveSelectedText,
+			HexColumnLine0,
+			HexColumnLine1,
+			HexColumnLineGroup0,
+			HexColumnLineGroup1,
+			HexHighlightedValuesColumn,
+			HexHighlightedAsciiColumn,
+			HexGlyphMargin,
+			HexCurrentValueCell,
+			HexCurrentAsciiCell,
+			OutputWindowText,
+			HexFindMatchHighlightMarker,
+			HexToolTipServiceField0,
+			HexToolTipServiceField1,
+			HexToolTipServiceCurrentField,
 		};
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}
