@@ -70,6 +70,9 @@ namespace dnSpy.Decompiler.ILSpy.Settings {
 			SortCustomAttributes = sect.Attribute<bool?>(nameof(SortCustomAttributes)) ?? SortCustomAttributes;
 			UseSourceCodeOrder = sect.Attribute<bool?>(nameof(UseSourceCodeOrder)) ?? UseSourceCodeOrder;
 			//this.AllowFieldInitializers = sect.Attribute<bool?>(nameof(AllowFieldInitializers)) ?? this.AllowFieldInitializers;
+			OneCustomAttributePerLine = sect.Attribute<bool?>(nameof(OneCustomAttributePerLine)) ?? OneCustomAttributePerLine;
+			TypeAddInternalModifier = sect.Attribute<bool?>(nameof(TypeAddInternalModifier)) ?? TypeAddInternalModifier;
+			MemberAddPrivateModifier = sect.Attribute<bool?>(nameof(MemberAddPrivateModifier)) ?? MemberAddPrivateModifier;
 			//TODO: CSharpFormattingOptions
 			disableSave = false;
 		}
@@ -115,6 +118,9 @@ namespace dnSpy.Decompiler.ILSpy.Settings {
 			sect.Attribute(nameof(SortCustomAttributes), SortCustomAttributes);
 			sect.Attribute(nameof(UseSourceCodeOrder), UseSourceCodeOrder);
 			//sect.Attribute(nameof(AllowFieldInitializers), AllowFieldInitializers);
+			sect.Attribute(nameof(OneCustomAttributePerLine), OneCustomAttributePerLine);
+			sect.Attribute(nameof(TypeAddInternalModifier), TypeAddInternalModifier);
+			sect.Attribute(nameof(MemberAddPrivateModifier), MemberAddPrivateModifier);
 			//TODO: CSharpFormattingOptions
 		}
 	}

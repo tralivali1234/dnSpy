@@ -216,7 +216,7 @@ namespace dnSpy.Decompiler.ILSpy.Core.VisualBasic {
 			if (type == null)
 				throw new ArgumentNullException(nameof(type));
 
-			TypeToString(output, ConvertTypeOptions.DoNotUsePrimitiveTypeNames | ConvertTypeOptions.IncludeTypeParameterDefinitions, type);
+			TypeToString(output, ConvertTypeOptions.DoNotUsePrimitiveTypeNames | ConvertTypeOptions.IncludeTypeParameterDefinitions | ConvertTypeOptions.DoNotIncludeEnclosingType, type);
 		}
 
 		protected override void TypeToString(IDecompilerOutput output, ITypeDefOrRef type, bool includeNamespace, IHasCustomAttribute typeAttributes = null) {
@@ -292,7 +292,7 @@ namespace dnSpy.Decompiler.ILSpy.Core.VisualBasic {
 		}
 
 		void DecompileTypeMethods(DecompileTypeMethods info) {
-			var state = CreateAstBuilder(info.Context, CSharpDecompiler.CreateDecompilerSettings_DecompileTypeMethods(langSettings.Settings, !info.DecompileHidden), currentType: info.Type);
+			var state = CreateAstBuilder(info.Context, CSharpDecompiler.CreateDecompilerSettings_DecompileTypeMethods(langSettings.Settings, !info.DecompileHidden, info.ShowAll), currentType: info.Type);
 			try {
 				state.AstBuilder.GetDecompiledBodyKind = (builder, method) => CSharpDecompiler.GetDecompiledBodyKind(info, builder, method);
 				state.AstBuilder.AddType(info.Type);

@@ -177,8 +177,14 @@
   <data name="DecompilerSettings_MaxArrayElements" xml:space="preserve">
     <value>Número máximo de elementos em array para mostrar</value>
   </data>
+  <data name="DecompilerSettings_MemberAddPrivateModifier" xml:space="preserve">
+    <value>Add 'private' modifier to type members</value>
+  </data>
   <data name="DecompilerSettings_ObjectOrCollectionInitializers" xml:space="preserve">
     <value>Descompilar objetos ou inicializadores de coleção</value>
+  </data>
+  <data name="DecompilerSettings_OneCustomAttributePerLine" xml:space="preserve">
+    <value>Show one custom attribute per line</value>
   </data>
   <data name="DecompilerSettings_RemoveEmptyDefaultCtors" xml:space="preserve">
     <value>Remover construtores padrão vazios</value>
@@ -206,6 +212,9 @@
   </data>
   <data name="DecompilerSettings_SortSystemFirst" xml:space="preserve">
     <value>Posicionar diretivas 'Sistema' primeiro ao ordenar usings</value>
+  </data>
+  <data name="DecompilerSettings_TypeAddInternalModifier" xml:space="preserve">
+    <value>Add 'internal' modifier to types</value>
   </data>
   <data name="DecompilerSettings_UseLocalNameFromSyms" xml:space="preserve">
     <value>Usar nomes de variáveis de símbolos de depuração, se disponível</value>
