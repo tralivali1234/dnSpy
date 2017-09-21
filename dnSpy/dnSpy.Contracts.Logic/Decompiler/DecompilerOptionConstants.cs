@@ -50,6 +50,11 @@ namespace dnSpy.Contracts.Decompiler {
 		public static readonly string SortMembers_NAME = "sort-members";
 
 		/// <summary />
+		public static readonly Guid ShowPdbInfo_GUID = new Guid("2E19D17C-1994-4CA3-914B-1D690E3EA29E");
+		/// <summary />
+		public static readonly string ShowPdbInfo_NAME = "pdb-info";
+
+		/// <summary />
 		public static readonly Guid MemberOrder_GUID = new Guid("8E6FE77A-2BCB-4F34-A41B-7F097560A211");
 		/// <summary />
 		public static readonly string MemberOrder_NAME = "member-order";
@@ -198,5 +203,10 @@ namespace dnSpy.Contracts.Decompiler {
 		public static readonly Guid MemberAddPrivateModifier_GUID = new Guid("2E764781-2075-47DC-BEE5-7F5F560BA726");
 		/// <summary />
 		public static readonly string MemberAddPrivateModifier_NAME = "private-modifier-member";
+
+		/// <summary />
+		public static readonly Guid RemoveNewDelegateClass_GUID = new Guid("BEC534D0-A231-4F65-BE2E-5CCC4A7CE1B2");
+		/// <summary />
+		public static readonly string RemoveNewDelegateClass_NAME = "remove-new-delegate-class";
 	}
 }
