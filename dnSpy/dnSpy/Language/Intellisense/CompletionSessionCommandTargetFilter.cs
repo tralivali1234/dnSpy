@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -31,9 +31,7 @@ namespace dnSpy.Language.Intellisense {
 		readonly int minimumCaretPosition;
 
 		public CompletionSessionCommandTargetFilter(ICompletionSession completionSession) {
-			if (completionSession == null)
-				throw new ArgumentNullException(nameof(completionSession));
-			this.completionSession = completionSession;
+			this.completionSession = completionSession ?? throw new ArgumentNullException(nameof(completionSession));
 			dsWpfTextView = completionSession.TextView as IDsWpfTextView;
 			Debug.Assert(dsWpfTextView != null);
 

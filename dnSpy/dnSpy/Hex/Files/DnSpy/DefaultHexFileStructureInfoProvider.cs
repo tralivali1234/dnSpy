@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -50,12 +50,8 @@ namespace dnSpy.Hex.Files.DnSpy {
 		readonly Lazy<HexFileImageReferenceProvider>[] hexFileImageReferenceProviders;
 
 		public DefaultHexFileStructureInfoProvider(ToolTipCreatorFactory toolTipCreatorFactory, Lazy<HexFileImageReferenceProvider>[] hexFileImageReferenceProviders) {
-			if (toolTipCreatorFactory == null)
-				throw new ArgumentNullException(nameof(toolTipCreatorFactory));
-			if (hexFileImageReferenceProviders == null)
-				throw new ArgumentNullException(nameof(hexFileImageReferenceProviders));
-			this.toolTipCreatorFactory = toolTipCreatorFactory;
-			this.hexFileImageReferenceProviders = hexFileImageReferenceProviders;
+			this.toolTipCreatorFactory = toolTipCreatorFactory ?? throw new ArgumentNullException(nameof(toolTipCreatorFactory));
+			this.hexFileImageReferenceProviders = hexFileImageReferenceProviders ?? throw new ArgumentNullException(nameof(hexFileImageReferenceProviders));
 		}
 
 		public override object GetToolTip(HexBufferFile file, ComplexData structure, HexPosition position) {

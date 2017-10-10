@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -54,11 +54,9 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 				throw new ArgumentNullException(nameof(fields));
 			if (fields.Length == 0)
 				throw new ArgumentOutOfRangeException(nameof(fields));
-			if (tablesHeap == null)
-				throw new ArgumentNullException(nameof(tablesHeap));
 			Token = token;
 			Fields = fields;
-			TablesHeap = tablesHeap;
+			TablesHeap = tablesHeap ?? throw new ArgumentNullException(nameof(tablesHeap));
 		}
 
 		/// <summary>

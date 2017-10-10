@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -125,8 +125,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 				throw new InvalidOperationException();
 			var newMethod = dnlibTypePicker.GetDnlibType<IMethod>(dnSpy_AsmEditor_Resources.Pick_Method, new FlagsDocumentTreeNodeFilter(VisibleMembersFlags.MethodDef), null, typeSigCreatorOptions.OwnerModule);
 			if (newMethod != null) {
-				var mr = typeSigCreatorOptions.OwnerModule.Import(newMethod) as MemberRef;
-				if (mr != null)
+				if (typeSigCreatorOptions.OwnerModule.Import(newMethod) is MemberRef mr)
 					InitializeFrom(new MemberRefOptions(mr));
 			}
 		}
@@ -142,8 +141,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		void PickTypeSpec() {
 			if (typeSigCreator == null)
 				throw new InvalidOperationException();
-			bool canceled;
-			var newType = typeSigCreator.Create(typeSigCreatorOptions.Clone(dnSpy_AsmEditor_Resources.CreateTypeSpec), (Class as ITypeDefOrRef).ToTypeSig(), out canceled);
+			var newType = typeSigCreator.Create(typeSigCreatorOptions.Clone(dnSpy_AsmEditor_Resources.CreateTypeSpec), (Class as ITypeDefOrRef).ToTypeSig(), out bool canceled);
 			if (!canceled)
 				Class = newType.ToTypeDefOrRef();
 		}

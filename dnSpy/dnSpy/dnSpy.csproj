@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{722257A9-1B14-4D63-B886-18A4229AF4EB}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>dnSpy</RootNamespace>
     <AssemblyName>dnSpy</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\dnSpy.snk</AssemblyOriginatorKeyFile>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Prefer32Bit>false</Prefer32Bit>
     <Features>strict</Features>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -80,6 +80,64 @@
     <Compile Include="BackgroundImage\TextViewBackgroundImageService.cs" />
     <Compile Include="BackgroundImage\WpfHexViewCreationListenerImpl.cs" />
     <Compile Include="BackgroundImage\WpfTextViewCreationListener.cs" />
+    <Compile Include="Bookmarks\BookmarkImageUtilities.cs" />
+    <Compile Include="Bookmarks\Commands\AppMenuCommands.cs" />
+    <Compile Include="Bookmarks\Commands\MainMenuOperations.cs" />
+    <Compile Include="Bookmarks\DotNet\BookmarkFormatterService.cs" />
+    <Compile Include="Bookmarks\DotNet\BookmarkLocationFormatterProviderImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\BookmarkLocationSerializerImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetBookmarkFactoryImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetBookmarkLocationFactory.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetBookmarkLocationFormatter.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetMethodBodyBookmarkLocationImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetReferenceConverter.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetTokenBookmarkLocationImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\IDotNetBookmarkLocation.cs" />
+    <Compile Include="Bookmarks\DotNet\TextEditor\BookmarkDocumentProviderImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\TextEditor\BookmarkGlyphTextMarkerLocationProviderImpl.cs" />
+    <Compile Include="Bookmarks\DotNet\TextEditor\DeleteBookmarksInRemovedModules.cs" />
+    <Compile Include="Bookmarks\DotNet\TextEditor\TextViewDotNetMethodBodyBookmarkLocationProvider.cs" />
+    <Compile Include="Bookmarks\DotNet\TextEditor\TextViewDotNetTokenBookmarkLocationProvider.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarkDisplaySettingsBase.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarkImpl.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarkLocationFormatterService.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarkLocationSerializerService.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarkSerializerService.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarksListSettings.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarksSerializer.cs" />
+    <Compile Include="Bookmarks\Impl\BookmarksServiceImpl.cs" />
+    <Compile Include="Bookmarks\Navigator\BookmarkNavigatorImpl.cs" />
+    <Compile Include="Bookmarks\Navigator\ViewBookmarkProvider.cs" />
+    <Compile Include="Bookmarks\Settings\BookmarksAppSettingsPage.cs" />
+    <Compile Include="Bookmarks\Settings\BookmarksSettingsImpl.cs" />
+    <Compile Include="Bookmarks\TextEditor\BookmarkGlyphTextMarkerHandler.cs" />
+    <Compile Include="Bookmarks\TextEditor\BookmarkGlyphTextMarkerLocationProviderService.cs" />
+    <Compile Include="Bookmarks\TextEditor\BookmarkInfo.cs" />
+    <Compile Include="Bookmarks\TextEditor\BookmarkMarker.cs" />
+    <Compile Include="Bookmarks\TextEditor\DocViewer\DocumentViewerBookmarksOperations.cs" />
+    <Compile Include="Bookmarks\TextEditor\DocViewer\DocumentViewerCommandInfoProvider.cs" />
+    <Compile Include="Bookmarks\TextEditor\DocViewer\DocumentViewerCommandTargetFilter.cs" />
+    <Compile Include="Bookmarks\TextEditor\DocViewer\DocumentViewerCommandTargetFilterProvider.cs" />
+    <Compile Include="Bookmarks\TextEditor\TextViewBookmarkService.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarkColumnConverter.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarkContext.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarkFormatter.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarksContent.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarksControl.xaml.cs">
+      <DependentUpon>BookmarksControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarksOperations.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarksToolWindowContent.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarksVM.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\BookmarkVM.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\Commands.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\SearchTextClassifierProvider.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\TextViewTaggers.cs" />
+    <Compile Include="Bookmarks\ToolWindows\Bookmarks\ViewBookmarkProviderImpl.cs" />
+    <Compile Include="Bookmarks\ToolWindows\LazyToolWindowVMHelper.cs" />
+    <Compile Include="Bookmarks\UI\BulkObservableCollection.cs" />
+    <Compile Include="Bookmarks\UI\ContentTypeDefinitions.cs" />
+    <Compile Include="Bookmarks\UI\FormatterObject.cs" />
     <Compile Include="Commands\CommandService.cs" />
     <Compile Include="Commands\DefaultCommandInfoProvider.cs" />
     <Compile Include="Commands\KeyShortcutCollection.cs" />
@@ -119,6 +177,7 @@
     <Compile Include="Documents\DsDocumentServiceSettings.cs" />
     <Compile Include="Documents\IDsDocumentLoader.cs" />
     <Compile Include="Documents\MethodAnnotations.cs" />
+    <Compile Include="Documents\ReferenceNavigatorServiceImpl.cs" />
     <Compile Include="Documents\Tabs\AppCommandLineArgsHandler.cs" />
     <Compile Include="Documents\Tabs\AsyncShowResult.cs" />
     <Compile Include="Documents\Tabs\Commands.cs" />
@@ -162,6 +221,7 @@
     <Compile Include="Documents\Tabs\Dialogs\TabsVM.cs" />
     <Compile Include="Documents\Tabs\Dialogs\TabsVMSettings.cs" />
     <Compile Include="Documents\Tabs\Dialogs\TabVM.cs" />
+    <Compile Include="Documents\Tabs\DocTabReferenceNavigator.cs" />
     <Compile Include="Documents\Tabs\DocumentList.cs" />
     <Compile Include="Documents\Tabs\DocumentListLoader.cs" />
     <Compile Include="Documents\Tabs\DocumentListService.cs" />
@@ -191,6 +251,7 @@
     <Compile Include="Documents\Tabs\DocViewer\DocumentViewerCommandTargetFilterProvider.cs" />
     <Compile Include="Documents\Tabs\DocViewer\DocumentViewerContentFactory.cs" />
     <Compile Include="Documents\Tabs\DocViewer\DocumentViewerControl.cs" />
+    <Compile Include="Documents\Tabs\DocViewer\DocumentViewerDotNetSpanMap.cs" />
     <Compile Include="Documents\Tabs\DocViewer\DocumentViewerHighlightReferencesTagger.cs" />
     <Compile Include="Documents\Tabs\DocViewer\DocumentViewerMouseProcessor.cs" />
     <Compile Include="Documents\Tabs\DocViewer\DocumentViewerOutput.cs" />
@@ -204,7 +265,6 @@
     <Compile Include="Documents\Tabs\DocViewer\LineSeparatorCollection.cs" />
     <Compile Include="Documents\Tabs\DocViewer\LineSeparatorDocumentViewerCustomDataProvider.cs" />
     <Compile Include="Documents\Tabs\DocViewer\LineSeparatorViewTagger.cs" />
-    <Compile Include="Documents\Tabs\DocViewer\MethodDebugInfoMethodOffsetSpanMap.cs" />
     <Compile Include="Documents\Tabs\DocViewer\OpCodeReferenceHandler.cs" />
     <Compile Include="Documents\Tabs\DocViewer\Settings\AdvancedAppSettingsPage.cs" />
     <Compile Include="Documents\Tabs\DocViewer\Settings\AppSettingsPageContainer.cs" />
@@ -655,6 +715,8 @@
       <DependentUpon>AskDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainApp\AskVM.cs" />
+    <Compile Include="MainApp\CachedMefInfo.cs" />
+    <None Include="MainApp\DevBuildWarning.cs" />
     <Compile Include="MainApp\DocumentTreeViewWindowContent.cs" />
     <Compile Include="MainApp\DsLoaderControl.xaml.cs">
       <DependentUpon>DsLoaderControl.xaml</DependentUpon>
@@ -670,6 +732,7 @@
       <DependentUpon>MsgBoxDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainApp\MsgBoxVM.cs" />
+    <Compile Include="MainApp\ResourceManagerTokenCacheImpl.cs" />
     <Compile Include="MainApp\SavedWindowState.cs" />
     <Compile Include="MainApp\Settings\EnvironmentAppSettingsPageContainer.cs" />
     <Compile Include="MainApp\Settings\FontAppSettingsPage.cs" />
@@ -778,6 +841,8 @@
     <Compile Include="Settings\SettingsSection.cs" />
     <Compile Include="Settings\SettingsSectionProvider.cs" />
     <Compile Include="Settings\SettingsService.cs" />
+    <Compile Include="Settings\SettingsService2.cs" />
+    <Compile Include="Settings\SettingsServiceFactory.cs" />
     <Compile Include="Settings\XmlSettingsConstants.cs" />
     <Compile Include="Settings\XmlSettingsReader.cs" />
     <Compile Include="Settings\XmlSettingsWriter.cs" />
@@ -1117,6 +1182,7 @@
     <Compile Include="TreeView\TreeNodeImpl.cs" />
     <Compile Include="TreeView\TreeViewImpl.cs" />
     <Compile Include="TreeView\TreeViewService.cs" />
+    <Compile Include="UI\UIDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\dnSpy.Resources.resx">
@@ -1142,6 +1208,14 @@
       <Project>{fdfc1237-143f-4919-8318-4926901f4639}</Project>
       <Name>dnlib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dnSpy.Contracts.Debugger.DotNet\dnSpy.Contracts.Debugger.DotNet.csproj">
+      <Project>{2376e072-101f-4900-8770-79c6dffbd0fb}</Project>
+      <Name>dnSpy.Contracts.Debugger.DotNet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dnSpy.Contracts.Debugger\dnSpy.Contracts.Debugger.csproj">
+      <Project>{C92217E8-A68E-4F8D-9B98-D7328E89DAF1}</Project>
+      <Name>dnSpy.Contracts.Debugger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dnSpy.Contracts.DnSpy\dnSpy.Contracts.DnSpy.csproj">
       <Project>{cb6f6372-9479-41e2-83a8-07854326bca8}</Project>
       <Name>dnSpy.Contracts.DnSpy</Name>
@@ -1154,11 +1228,11 @@
       <Project>{83bbd76b-4ecd-42e1-bf9c-af8114e52317}</Project>
       <Name>dnSpy.Images</Name>
     </ProjectReference>
-    <ProjectReference Include="..\dnSpy.Roslyn.EditorFeatures\dnSpy.Roslyn.EditorFeatures.csproj">
+    <ProjectReference Include="..\Roslyn\dnSpy.Roslyn.EditorFeatures\dnSpy.Roslyn.EditorFeatures.csproj">
       <Project>{f10a60da-4716-45f6-ab2e-4690440c0c7c}</Project>
       <Name>dnSpy.Roslyn.EditorFeatures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\dnSpy.Roslyn.Shared\dnSpy.Roslyn.Shared.csproj">
+    <ProjectReference Include="..\Roslyn\dnSpy.Roslyn.Shared\dnSpy.Roslyn.Shared.csproj">
       <Project>{844eef8a-c7b6-4299-8cf0-4bd21dddd4a8}</Project>
       <Name>dnSpy.Roslyn.Shared</Name>
     </ProjectReference>
@@ -1170,7 +1244,7 @@
       <Project>{dde2a481-8271-4eac-a330-8fa6a38d13d1}</Project>
       <Name>ICSharpCode.TreeView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\dnSpy.Roslyn.VisualBasic.EditorFeatures\dnSpy.Roslyn.VisualBasic.EditorFeatures.vbproj">
+    <ProjectReference Include="..\Roslyn\dnSpy.Roslyn.VisualBasic.EditorFeatures\dnSpy.Roslyn.VisualBasic.EditorFeatures.vbproj">
       <Project>{30057546-ded0-450e-89c3-0354b4ff9ccd}</Project>
       <Name>dnSpy.Roslyn.VisualBasic.EditorFeatures</Name>
     </ProjectReference>
@@ -1198,6 +1272,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Bookmarks\ToolWindows\Bookmarks\BookmarksControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Documents\Tabs\Dialogs\ExportToProjectDlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

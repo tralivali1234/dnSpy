@@ -19,7 +19,7 @@ namespace dnSpy.Debugger.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class dnSpy_Debugger_Resources {
@@ -79,6 +79,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string AddExceptionButton {
+            get {
+                return ResourceManager.GetString("AddExceptionButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add E_xception.
         /// </summary>
         public static string AddExceptionCommand {
@@ -102,6 +111,15 @@ namespace dnSpy.Debugger.Properties {
         public static string AllFiles {
             get {
                 return ResourceManager.GetString("AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;All {0} not in this list&gt;.
+        /// </summary>
+        public static string AllRemainingExceptionsNotInList {
+            get {
+                return ResourceManager.GetString("AllRemainingExceptionsNotInList", resourceCulture);
             }
         }
         
@@ -196,11 +214,29 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search for a process.
+        /// </summary>
+        public static string AttachToProcess_Search_ToolTip {
+            get {
+                return ResourceManager.GetString("AttachToProcess_Search_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Attach to _Process....
         /// </summary>
         public static string AttachToProcessCommand {
             get {
                 return ResourceManager.GetString("AttachToProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Autos.
+        /// </summary>
+        public static string AutosCommand {
+            get {
+                return ResourceManager.GetString("AutosCommand", resourceCulture);
             }
         }
         
@@ -214,11 +250,407 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Brea_k.
+        ///   Looks up a localized string similar to Brea_k All.
         /// </summary>
         public static string BreakCommand {
             get {
                 return ResourceManager.GetString("BreakCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditional expression:.
+        /// </summary>
+        public static string Breakpoint_Condition_ConditionalExpression {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_ConditionalExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is true.
+        /// </summary>
+        public static string Breakpoint_Condition_IsTrue {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_IsTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (no condition).
+        /// </summary>
+        public static string Breakpoint_Condition_NoCondition {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_NoCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When changed.
+        /// </summary>
+        public static string Breakpoint_Condition_WhenChanged {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_WhenChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to when &apos;{0}&apos; has changed.
+        /// </summary>
+        public static string Breakpoint_Condition_WhenConditionHasChanged {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_WhenConditionHasChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has changed.
+        /// </summary>
+        public static string Breakpoint_Condition_WhenConditionHasChanged2 {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_WhenConditionHasChanged2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to when &apos;{0}&apos; is true.
+        /// </summary>
+        public static string Breakpoint_Condition_WhenConditionIsTrue {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_WhenConditionIsTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; is true.
+        /// </summary>
+        public static string Breakpoint_Condition_WhenConditionIsTrue2 {
+            get {
+                return ResourceManager.GetString("Breakpoint_Condition_WhenConditionIsTrue2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter: &apos;{0}&apos;.
+        /// </summary>
+        public static string Breakpoint_Filter_Filter {
+            get {
+                return ResourceManager.GetString("Breakpoint_Filter_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (none).
+        /// </summary>
+        public static string Breakpoint_Filter_NoFilter {
+            get {
+                return ResourceManager.GetString("Breakpoint_Filter_NoFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to currently {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_CurrentHitCountValue {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_CurrentHitCountValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to when hit count is a multiple of {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_HitCountIsAMultipleOf {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_HitCountIsAMultipleOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hit count is a multiple of {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_HitCountIsAMultipleOf2 {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_HitCountIsAMultipleOf2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to when hit count is equal to {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_HitCountIsEqualTo {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_HitCountIsEqualTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hit count is equal to {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_HitCountIsEqualTo2 {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_HitCountIsEqualTo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to when hit count is greater than or equal to {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_HitCountIsGreaterThanOrEqualTo {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_HitCountIsGreaterThanOrEqualTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hit count is greater than or equal to {0}.
+        /// </summary>
+        public static string Breakpoint_HitCount_HitCountIsGreaterThanOrEqualTo2 {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_HitCountIsGreaterThanOrEqualTo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is a multiple of.
+        /// </summary>
+        public static string Breakpoint_HitCount_IsAMultipleOf {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_IsAMultipleOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to break always.
+        /// </summary>
+        public static string Breakpoint_HitCount_NoHitCount {
+            get {
+                return ResourceManager.GetString("Breakpoint_HitCount_NoHitCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Break and print message &apos;{0}&apos;.
+        /// </summary>
+        public static string Breakpoint_Tracepoint_BreakPrintMessage {
+            get {
+                return ResourceManager.GetString("Breakpoint_Tracepoint_BreakPrintMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Break.
+        /// </summary>
+        public static string Breakpoint_Tracepoint_NoTraceMessage {
+            get {
+                return ResourceManager.GetString("Breakpoint_Tracepoint_NoTraceMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Print message &apos;{0}&apos;.
+        /// </summary>
+        public static string Breakpoint_Tracepoint_PrintMessage {
+            get {
+                return ResourceManager.GetString("Breakpoint_Tracepoint_PrintMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log message &apos;{0}&apos;, to Output window.
+        /// </summary>
+        public static string Breakpoint_Tracepoint_PrintMessage2 {
+            get {
+                return ResourceManager.GetString("Breakpoint_Tracepoint_PrintMessage2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create the breakpoint..
+        /// </summary>
+        public static string BreakpointMessage_CouldNotCreateBreakpoint {
+            get {
+                return ResourceManager.GetString("BreakpointMessage_CouldNotCreateBreakpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The function cannot be found: {0}.
+        /// </summary>
+        public static string BreakpointMessage_TheFunctionCanNotBeFound {
+            get {
+                return ResourceManager.GetString("BreakpointMessage_TheFunctionCanNotBeFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add breakpoint.
+        /// </summary>
+        public static string Breakpoints_AddBreakpoint_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_AddBreakpoint_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The breakpoint will not currently be hit. {0}.
+        /// </summary>
+        public static string Breakpoints_BreakpointWillNotBeHit {
+            get {
+                return ResourceManager.GetString("Breakpoints_BreakpointWillNotBeHit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export all breakpoints matching the current search criteria.
+        /// </summary>
+        public static string Breakpoints_ExportMatchingBreakpoints_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_ExportMatchingBreakpoints_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Break.
+        /// </summary>
+        public static string Breakpoints_GlyphMargin_BreakWhenBreakpointHit {
+            get {
+                return ResourceManager.GetString("Breakpoints_GlyphMargin_BreakWhenBreakpointHit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable breakpoint.
+        /// </summary>
+        public static string Breakpoints_GlyphMargin_DisableBreakpoint {
+            get {
+                return ResourceManager.GetString("Breakpoints_GlyphMargin_DisableBreakpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable breakpoint.
+        /// </summary>
+        public static string Breakpoints_GlyphMargin_EnableBreakpoint {
+            get {
+                return ResourceManager.GetString("Breakpoints_GlyphMargin_EnableBreakpoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings....
+        /// </summary>
+        public static string Breakpoints_GlyphMargin_ShowSettingsToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_GlyphMargin_ShowSettingsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go To Disassembly.
+        /// </summary>
+        public static string Breakpoints_GoToDisassembly_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_GoToDisassembly_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go To Source Code.
+        /// </summary>
+        public static string Breakpoints_GoToSourceCode_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_GoToSourceCode_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import breakpoints from a file.
+        /// </summary>
+        public static string Breakpoints_ImportBreakpoints_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_ImportBreakpoints_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The module hasn&apos;t been loaded or no symbols have been loaded for this module..
+        /// </summary>
+        public static string Breakpoints_ModuleNotLoaded {
+            get {
+                return ResourceManager.GetString("Breakpoints_ModuleNotLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No breakpoints match your search filter..
+        /// </summary>
+        public static string Breakpoints_NoMatch {
+            get {
+                return ResourceManager.GetString("Breakpoints_NoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all breakpoints.
+        /// </summary>
+        public static string Breakpoints_RemoveAllBreakpoints_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_RemoveAllBreakpoints_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove breakpoint.
+        /// </summary>
+        public static string Breakpoints_RemoveBreakpoint_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_RemoveBreakpoint_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all breakpoints matching the current search criteria.
+        /// </summary>
+        public static string Breakpoints_RemoveMatchingBreakpoints_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_RemoveMatchingBreakpoints_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all search criteria so that all breakpoints are shown.
+        /// </summary>
+        public static string Breakpoints_ResetSearchSettings_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_ResetSearchSettings_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Breakpoints_Search {
+            get {
+                return ResourceManager.GetString("Breakpoints_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for a breakpoint.
+        /// </summary>
+        public static string Breakpoints_Search_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_Search_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable or disable all breakpoints matching the current search criteria.
+        /// </summary>
+        public static string Breakpoints_ToggleMatchingBreakpoints_ToolTip {
+            get {
+                return ResourceManager.GetString("Breakpoints_ToggleMatchingBreakpoints_ToolTip", resourceCulture);
             }
         }
         
@@ -232,11 +664,29 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Break Process.
+        /// </summary>
+        public static string BreakProcessCommand {
+            get {
+                return ResourceManager.GetString("BreakProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Break When Thrown.
         /// </summary>
         public static string BreakWhenExceptionThrownCommand {
             get {
                 return ResourceManager.GetString("BreakWhenExceptionThrownCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Add Condition.
+        /// </summary>
+        public static string Button_AddCondition {
+            get {
+                return ResourceManager.GetString("Button_AddCondition", resourceCulture);
             }
         }
         
@@ -286,11 +736,38 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Call _Stack.
+        ///   Looks up a localized string similar to _Breakpoint.
+        /// </summary>
+        public static string CallStackBreakpointCommand {
+            get {
+                return ResourceManager.GetString("CallStackBreakpointCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Call Stack.
         /// </summary>
         public static string CallStackCommand {
             get {
                 return ResourceManager.GetString("CallStackCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot obtain value of the local variable or argument because it is not available at this instruction pointer, possibly because it has been optimized away..
+        /// </summary>
+        public static string CannotReadLocalOrArgumentMaybeOptimizedAway {
+            get {
+                return ResourceManager.GetString("CannotReadLocalOrArgumentMaybeOptimizedAway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear All.
+        /// </summary>
+        public static string ClearAllCommand {
+            get {
+                return ResourceManager.GetString("ClearAllCommand", resourceCulture);
             }
         }
         
@@ -322,6 +799,51 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break When Thrown.
+        /// </summary>
+        public static string Column_BreakWhenThrown {
+            get {
+                return ResourceManager.GetString("Column_BreakWhenThrown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Column_Category {
+            get {
+                return ResourceManager.GetString("Column_Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Condition.
+        /// </summary>
+        public static string Column_Condition {
+            get {
+                return ResourceManager.GetString("Column_Condition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions.
+        /// </summary>
+        public static string Column_Conditions {
+            get {
+                return ResourceManager.GetString("Column_Conditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debugging.
+        /// </summary>
+        public static string Column_Debugging {
+            get {
+                return ResourceManager.GetString("Column_Debugging", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dynamic.
         /// </summary>
         public static string Column_DynamicModule {
@@ -340,11 +862,47 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filter.
+        /// </summary>
+        public static string Column_Filter {
+            get {
+                return ResourceManager.GetString("Column_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hit Count.
+        /// </summary>
+        public static string Column_HitCount {
+            get {
+                return ResourceManager.GetString("Column_HitCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        public static string Column_ID {
+            get {
+                return ResourceManager.GetString("Column_ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to InMemory.
         /// </summary>
         public static string Column_InMemoryModule {
             get {
                 return ResourceManager.GetString("Column_InMemoryModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels.
+        /// </summary>
+        public static string Column_Labels {
+            get {
+                return ResourceManager.GetString("Column_Labels", resourceCulture);
             }
         }
         
@@ -421,6 +979,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command Line.
+        /// </summary>
+        public static string Column_ProcessCommandLine {
+            get {
+                return ResourceManager.GetString("Column_ProcessCommandLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filename.
         /// </summary>
         public static string Column_ProcessFilename {
@@ -439,6 +1006,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Process Name.
+        /// </summary>
+        public static string Column_ProcessName {
+            get {
+                return ResourceManager.GetString("Column_ProcessName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Column_ProcessTitle {
@@ -453,6 +1029,15 @@ namespace dnSpy.Debugger.Properties {
         public static string Column_ProcessType {
             get {
                 return ResourceManager.GetString("Column_ProcessType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        public static string Column_State {
+            get {
+                return ResourceManager.GetString("Column_State", resourceCulture);
             }
         }
         
@@ -520,11 +1105,11 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Suspended.
+        ///   Looks up a localized string similar to Suspended Count.
         /// </summary>
-        public static string Column_ThreadSuspended {
+        public static string Column_ThreadSuspendedCount {
             get {
-                return ResourceManager.GetString("Column_ThreadSuspended", resourceCulture);
+                return ResourceManager.GetString("Column_ThreadSuspendedCount", resourceCulture);
             }
         }
         
@@ -534,6 +1119,15 @@ namespace dnSpy.Debugger.Properties {
         public static string Column_Timestamp {
             get {
                 return ResourceManager.GetString("Column_Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        public static string Column_Title {
+            get {
+                return ResourceManager.GetString("Column_Title", resourceCulture);
             }
         }
         
@@ -565,11 +1159,29 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When Hit.
+        /// </summary>
+        public static string Column_WhenHit {
+            get {
+                return ResourceManager.GetString("Column_WhenHit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Continue.
         /// </summary>
         public static string ContinueDebuggingCommand {
             get {
                 return ResourceManager.GetString("ContinueDebuggingCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Continue Process.
+        /// </summary>
+        public static string ContinueProcessCommand {
+            get {
+                return ResourceManager.GetString("ContinueProcessCommand", resourceCulture);
             }
         }
         
@@ -619,6 +1231,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Debug engine.
+        /// </summary>
+        public static string DbgAsm_DebugEngine {
+            get {
+                return ResourceManager.GetString("DbgAsm_DebugEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Host.
         /// </summary>
         public static string DbgAsm_Host {
@@ -637,7 +1258,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debug Assembly.
+        ///   Looks up a localized string similar to Debug Program.
         /// </summary>
         public static string DbgAsm_Title {
             get {
@@ -754,6 +1375,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break all processes when one process breaks.
+        /// </summary>
+        public static string DbgSettings_BreakAllProcesses {
+            get {
+                return ResourceManager.GetString("DbgSettings_BreakAllProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Break at.
         /// </summary>
         public static string DbgSettings_BreakAt {
@@ -781,6 +1411,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debug Engine.
+        /// </summary>
+        public static string DbgSettings_DebugEngine {
+            get {
+                return ResourceManager.GetString("DbgSettings_DebugEngine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DebuggerBrowsableAttributes can hide fields and properties.
         /// </summary>
         public static string DbgSettings_DebuggerBrowsableAttributesCanHidePropsFields {
@@ -799,11 +1438,56 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Managed Debugging Assistants (MDA).
+        /// </summary>
+        public static string DbgSettings_EnableManagedDebuggingAssistants {
+            get {
+                return ResourceManager.GetString("DbgSettings_EnableManagedDebuggingAssistants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group parameters and locals together.
+        /// </summary>
+        public static string DbgSettings_GroupParametersAndLocalsTogether {
+            get {
+                return ResourceManager.GetString("DbgSettings_GroupParametersAndLocalsTogether", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide compiler generated members.
+        /// </summary>
+        public static string DbgSettings_HideCompilerGeneratedMembers {
+            get {
+                return ResourceManager.GetString("DbgSettings_HideCompilerGeneratedMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight changed variables in variables windows.
+        /// </summary>
+        public static string DbgSettings_HighlightChangedVariables {
+            get {
+                return ResourceManager.GetString("DbgSettings_HighlightChangedVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore Debugger.Break() and break instructions.
         /// </summary>
         public static string DbgSettings_IgnoreBreakInstructions {
             get {
                 return ResourceManager.GetString("DbgSettings_IgnoreBreakInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string DbgSettings_Language {
+            get {
+                return ResourceManager.GetString("DbgSettings_Language", resourceCulture);
             }
         }
         
@@ -817,7 +1501,61 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Syntax highlight.
+        ///   Looks up a localized string similar to Respect attributes that hide members.
+        /// </summary>
+        public static string DbgSettings_RespectHideMemberAttributes {
+            get {
+                return ResourceManager.GetString("DbgSettings_RespectHideMemberAttributes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show compiler generated variables.
+        /// </summary>
+        public static string DbgSettings_ShowCompilerGeneratedVariables {
+            get {
+                return ResourceManager.GetString("DbgSettings_ShowCompilerGeneratedVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show decompiler generated variables.
+        /// </summary>
+        public static string DbgSettings_ShowDecompilerGeneratedVariables {
+            get {
+                return ResourceManager.GetString("DbgSettings_ShowDecompilerGeneratedVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show raw structure of objects in variables windows.
+        /// </summary>
+        public static string DbgSettings_ShowRawStructureOfObjects {
+            get {
+                return ResourceManager.GetString("DbgSettings_ShowRawStructureOfObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort locals.
+        /// </summary>
+        public static string DbgSettings_SortLocals {
+            get {
+                return ResourceManager.GetString("DbgSettings_SortLocals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort parameters.
+        /// </summary>
+        public static string DbgSettings_SortParameters {
+            get {
+                return ResourceManager.GetString("DbgSettings_SortParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syntax highlight.
         /// </summary>
         public static string DbgSettings_SyntaxHighlight {
             get {
@@ -1168,15 +1906,6 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debug an Assembl_y....
-        /// </summary>
-        public static string DebugAssemblyCommand2 {
-            get {
-                return ResourceManager.GetString("DebugAssemblyCommand2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Debug a CoreCLR Assembl_y....
         /// </summary>
         public static string DebugCoreCLRAssemblyCommand {
@@ -1249,7 +1978,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; ({1}: {2}): Loaded &apos;{3}&apos;..
+        ///   Looks up a localized string similar to Loaded &apos;{0}&apos;..
         /// </summary>
         public static string DebugLogLoadModule {
             get {
@@ -1267,7 +1996,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &apos;{0}&apos; ({1}: {2}): Unloaded &apos;{3}&apos;..
+        ///   Looks up a localized string similar to Unloaded &apos;{0}&apos;..
         /// </summary>
         public static string DebugLogUnloadModule {
             get {
@@ -1281,6 +2010,24 @@ namespace dnSpy.Debugger.Properties {
         public static string DebugProgramX {
             get {
                 return ResourceManager.GetString("DebugProgramX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not step: {0}.
+        /// </summary>
+        public static string DebugStepProcessError {
+            get {
+                return ResourceManager.GetString("DebugStepProcessError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Windows.
+        /// </summary>
+        public static string DebugWindows {
+            get {
+                return ResourceManager.GetString("DebugWindows", resourceCulture);
             }
         }
         
@@ -1330,11 +2077,56 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Detach.
+        ///   Looks up a localized string similar to Delete Object ID.
         /// </summary>
-        public static string DetachCommand {
+        public static string DeleteObjectIdCommand {
             get {
-                return ResourceManager.GetString("DetachCommand", resourceCulture);
+                return ResourceManager.GetString("DeleteObjectIdCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Delete Watch.
+        /// </summary>
+        public static string DeleteWatchCommand {
+            get {
+                return ResourceManager.GetString("DeleteWatchCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detach A_ll.
+        /// </summary>
+        public static string DetachAllCommand {
+            get {
+                return ResourceManager.GetString("DetachAllCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Detach Process.
+        /// </summary>
+        public static string DetachProcessCommand {
+            get {
+                return ResourceManager.GetString("DetachProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detach _When Debugging Stopped.
+        /// </summary>
+        public static string DetachWhenDebuggingStoppedCommand {
+            get {
+                return ResourceManager.GetString("DetachWhenDebuggingStoppedCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Digit Separators.
+        /// </summary>
+        public static string DigitSeparatorsCommand {
+            get {
+                return ResourceManager.GetString("DigitSeparatorsCommand", resourceCulture);
             }
         }
         
@@ -1366,11 +2158,155 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable Breakpoint.
+        /// </summary>
+        public static string DisableBreakpointCommand3 {
+            get {
+                return ResourceManager.GetString("DisableBreakpointCommand3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Disable Breakpoints.
         /// </summary>
         public static string DisableBreakpointsCommand2 {
             get {
                 return ResourceManager.GetString("DisableBreakpointsCommand2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit AppDomain Name.
+        /// </summary>
+        public static string EditAppDomainNameCommand {
+            get {
+                return ResourceManager.GetString("EditAppDomainNameCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditional _Expression.
+        /// </summary>
+        public static string EditBreakpointSettings_ConditionalExpression {
+            get {
+                return ResourceManager.GetString("EditBreakpointSettings_ConditionalExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Filter.
+        /// </summary>
+        public static string EditBreakpointSettings_Filter {
+            get {
+                return ResourceManager.GetString("EditBreakpointSettings_Filter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Hit Count.
+        /// </summary>
+        public static string EditBreakpointSettings_HitCount {
+            get {
+                return ResourceManager.GetString("EditBreakpointSettings_HitCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breakpoint Settings.
+        /// </summary>
+        public static string EditBreakpointSettings_Title {
+            get {
+                return ResourceManager.GetString("EditBreakpointSettings_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Log Message.
+        /// </summary>
+        public static string EditBreakpointSettings_Trace {
+            get {
+                return ResourceManager.GetString("EditBreakpointSettings_Trace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue execution.
+        /// </summary>
+        public static string EditBreakpointSettings_TraceContinue {
+            get {
+                return ResourceManager.GetString("EditBreakpointSettings_TraceContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Conditions.
+        /// </summary>
+        public static string EditConditions_Title {
+            get {
+                return ResourceManager.GetString("EditConditions_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Conditions....
+        /// </summary>
+        public static string EditConditionsCommand {
+            get {
+                return ResourceManager.GetString("EditConditionsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Labels.
+        /// </summary>
+        public static string EditLabelsCommand {
+            get {
+                return ResourceManager.GetString("EditLabelsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels.
+        /// </summary>
+        public static string EditLabelsMsgBoxLabel {
+            get {
+                return ResourceManager.GetString("EditLabelsMsgBoxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Labels.
+        /// </summary>
+        public static string EditLabelsTitle {
+            get {
+                return ResourceManager.GetString("EditLabelsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Module Name.
+        /// </summary>
+        public static string EditModuleNameCommand {
+            get {
+                return ResourceManager.GetString("EditModuleNameCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Module Load Order.
+        /// </summary>
+        public static string EditOrderCommand {
+            get {
+                return ResourceManager.GetString("EditOrderCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Process Name.
+        /// </summary>
+        public static string EditProcessNameCommand {
+            get {
+                return ResourceManager.GetString("EditProcessNameCommand", resourceCulture);
             }
         }
         
@@ -1407,6 +2343,15 @@ namespace dnSpy.Debugger.Properties {
         public static string EnableBreakpointCommand2 {
             get {
                 return ResourceManager.GetString("EnableBreakpointCommand2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Breakpoint.
+        /// </summary>
+        public static string EnableBreakpointCommand3 {
+            get {
+                return ResourceManager.GetString("EnableBreakpointCommand3", resourceCulture);
             }
         }
         
@@ -1648,6 +2593,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t evaluate the expression.
+        /// </summary>
+        public static string ErrorEvaluatingExpression {
+            get {
+                return ResourceManager.GetString("ErrorEvaluatingExpression", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred:
         ///
         ///{0}.
@@ -1655,6 +2609,51 @@ namespace dnSpy.Debugger.Properties {
         public static string ErrorOccurredX {
             get {
                 return ResourceManager.GetString("ErrorOccurredX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to And.
+        /// </summary>
+        public static string Exception_Conditions_And {
+            get {
+                return ResourceManager.GetString("Exception_Conditions_And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module name equals.
+        /// </summary>
+        public static string Exception_Conditions_ModuleNameEquals {
+            get {
+                return ResourceManager.GetString("Exception_Conditions_ModuleNameEquals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module name not equals.
+        /// </summary>
+        public static string Exception_Conditions_ModuleNameNotEquals {
+            get {
+                return ResourceManager.GetString("Exception_Conditions_ModuleNameNotEquals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name can&apos;t be empty.
+        /// </summary>
+        public static string Exception_Error_NameCanNotBeEmpty {
+            get {
+                return ResourceManager.GetString("Exception_Error_NameCanNotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception description.
+        /// </summary>
+        public static string ExceptionDescription {
+            get {
+                return ResourceManager.GetString("ExceptionDescription", resourceCulture);
             }
         }
         
@@ -1690,11 +2689,29 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message: {0}.
+        /// </summary>
+        public static string ExceptionMessage {
+            get {
+                return ResourceManager.GetString("ExceptionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;&lt;no exception message&gt;&quot;.
         /// </summary>
         public static string ExceptionMessageIsNull {
             get {
                 return ResourceManager.GetString("ExceptionMessageIsNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exception: {0}.
+        /// </summary>
+        public static string ExceptionName {
+            get {
+                return ResourceManager.GetString("ExceptionName", resourceCulture);
             }
         }
         
@@ -1735,6 +2752,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Exceptions_AllCategories {
+            get {
+                return ResourceManager.GetString("Exceptions_AllCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;All Common Language Runtime Exceptions not in this list&gt;.
         /// </summary>
         public static string Exceptions_AllCLRExceptionsNotInList {
@@ -1744,11 +2770,38 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit conditions.
+        /// </summary>
+        public static string Exceptions_EditConditions_ToolTip {
+            get {
+                return ResourceManager.GetString("Exceptions_EditConditions_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No exception types match your search filter..
+        /// </summary>
+        public static string Exceptions_NoMatch {
+            get {
+                return ResourceManager.GetString("Exceptions_NoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove an exception from the list.
         /// </summary>
         public static string Exceptions_Remove_ToolTip {
             get {
                 return ResourceManager.GetString("Exceptions_Remove_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all search criteria so that all exceptions are shown.
+        /// </summary>
+        public static string Exceptions_ResetSearchSettings_ToolTip {
+            get {
+                return ResourceManager.GetString("Exceptions_ResetSearchSettings_ToolTip", resourceCulture);
             }
         }
         
@@ -1771,7 +2824,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search for an exception (Ctrl+F).
+        ///   Looks up a localized string similar to Search for an exception.
         /// </summary>
         public static string Exceptions_Search_ToolTip {
             get {
@@ -1785,6 +2838,15 @@ namespace dnSpy.Debugger.Properties {
         public static string Exceptions_ShowOnlyEnabledExceptions_ToolTip {
             get {
                 return ResourceManager.GetString("Exceptions_ShowOnlyEnabledExceptions_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exceptions.
+        /// </summary>
+        public static string ExceptionsCommand {
+            get {
+                return ResourceManager.GetString("ExceptionsCommand", resourceCulture);
             }
         }
         
@@ -1809,11 +2871,119 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E_xport....
+        /// </summary>
+        public static string ExportCommand {
+            get {
+                return ResourceManager.GetString("ExportCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Export Selected....
+        /// </summary>
+        public static string ExportSelectedCommand {
+            get {
+                return ResourceManager.GetString("ExportSelectedCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This expression causes side effects and will not be evaluated.
+        /// </summary>
+        public static string ExpressionCausesSideEffectsNoEval {
+            get {
+                return ResourceManager.GetString("ExpressionCausesSideEffectsNoEval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variables that can be used:.
+        /// </summary>
+        public static string FilterExpression_AllVariables {
+            get {
+                return ResourceManager.GetString("FilterExpression_AllVariables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example: {0}.
+        /// </summary>
+        public static string FilterExpression_Example {
+            get {
+                return ResourceManager.GetString("FilterExpression_Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Find.
+        /// </summary>
+        public static string FindCommand {
+            get {
+                return ResourceManager.GetString("FindCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Freeze.
         /// </summary>
         public static string FreezeThreadCommand {
             get {
                 return ResourceManager.GetString("FreezeThreadCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The function evaluation requires all threads to run..
+        /// </summary>
+        public static string FuncEvalRequiresAllThreadsToRun {
+            get {
+                return ResourceManager.GetString("FuncEvalRequiresAllThreadsToRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implicit function evaluation is turned off by the user.
+        /// </summary>
+        public static string FunctionEvaluationDisabled {
+            get {
+                return ResourceManager.GetString("FunctionEvaluationDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is the next statement that will be executed..
+        /// </summary>
+        public static string GlyphMargin_CurrentStatementToolTip {
+            get {
+                return ResourceManager.GetString("GlyphMargin_CurrentStatementToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This is the next statement to execute when this thread returns from the current function..
+        /// </summary>
+        public static string GlyphMargin_ReturnStatementToolTip {
+            get {
+                return ResourceManager.GetString("GlyphMargin_ReturnStatementToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions:.
+        /// </summary>
+        public static string GlyphToolTip_Actions {
+            get {
+                return ResourceManager.GetString("GlyphToolTip_Actions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conditions:.
+        /// </summary>
+        public static string GlyphToolTip_Conditions {
+            get {
+                return ResourceManager.GetString("GlyphToolTip_Conditions", resourceCulture);
             }
         }
         
@@ -1890,6 +3060,24 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go To Source Code.
+        /// </summary>
+        public static string GoToSourceCodeCommand {
+            get {
+                return ResourceManager.GetString("GoToSourceCodeCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string HelpToolTip {
+            get {
+                return ResourceManager.GetString("HelpToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Hexadecimal Display.
         /// </summary>
         public static string HexDisplayCommand {
@@ -1904,6 +3092,42 @@ namespace dnSpy.Debugger.Properties {
         public static string HexEditorGroup_DebuggerMemory {
             get {
                 return ResourceManager.GetString("HexEditorGroup_DebuggerMemory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert B_reakpoint.
+        /// </summary>
+        public static string InsertBreakpointCommand {
+            get {
+                return ResourceManager.GetString("InsertBreakpointCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert _Tracepoint.
+        /// </summary>
+        public static string InsertTracepointCommand {
+            get {
+                return ResourceManager.GetString("InsertTracepointCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal debugger error.
+        /// </summary>
+        public static string InternalDebuggerError {
+            get {
+                return ResourceManager.GetString("InternalDebuggerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string LanguageCommand {
+            get {
+                return ResourceManager.GetString("LanguageCommand", resourceCulture);
             }
         }
         
@@ -2317,6 +3541,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Make Object ID.
+        /// </summary>
+        public static string MakeObjectIdCommand {
+            get {
+                return ResourceManager.GetString("MakeObjectIdCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Memory.
         /// </summary>
         public static string MemoryWindowCommand {
@@ -2344,11 +3577,74 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mod_ule Breakpoints.
+        /// </summary>
+        public static string ModuleBreakpointsCommand {
+            get {
+                return ResourceManager.GetString("ModuleBreakpointsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy Filename.
         /// </summary>
         public static string ModuleCopyFilenameCommand {
             get {
                 return ResourceManager.GetString("ModuleCopyFilenameCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Modules_AllProcesses {
+            get {
+                return ResourceManager.GetString("Modules_AllProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No modules match your search filter..
+        /// </summary>
+        public static string Modules_NoMatch {
+            get {
+                return ResourceManager.GetString("Modules_NoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string Modules_Process {
+            get {
+                return ResourceManager.GetString("Modules_Process", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all search criteria so that all modules are shown.
+        /// </summary>
+        public static string Modules_ResetSearchSettings_ToolTip {
+            get {
+                return ResourceManager.GetString("Modules_ResetSearchSettings_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Modules_Search {
+            get {
+                return ResourceManager.GetString("Modules_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for a module.
+        /// </summary>
+        public static string Modules_Search_ToolTip {
+            get {
+                return ResourceManager.GetString("Modules_Search_ToolTip", resourceCulture);
             }
         }
         
@@ -2371,7 +3667,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mod_ules.
+        ///   Looks up a localized string similar to M_odules.
         /// </summary>
         public static string ModulesCommand {
             get {
@@ -2398,7 +3694,34 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .NET debugger.
+        ///   Looks up a localized string similar to _Options....
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Output.
+        /// </summary>
+        public static string OutputCommand {
+            get {
+                return ResourceManager.GetString("OutputCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Paste.
+        /// </summary>
+        public static string PasteCommand {
+            get {
+                return ResourceManager.GetString("PasteCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debugger.
         /// </summary>
         public static string Plugin_ShortDescription {
             get {
@@ -2425,11 +3748,164 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Break.
+        /// </summary>
+        public static string Process_Paused {
+            get {
+                return ResourceManager.GetString("Process_Paused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        public static string Process_Running {
+            get {
+                return ResourceManager.GetString("Process_Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string ProcessCommand {
+            get {
+                return ResourceManager.GetString("ProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attach to Process.
+        /// </summary>
+        public static string Processes_AttachToProcessToolTip {
+            get {
+                return ResourceManager.GetString("Processes_AttachToProcessToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Break Process.
+        /// </summary>
+        public static string Processes_BreakProcessToolTip {
+            get {
+                return ResourceManager.GetString("Processes_BreakProcessToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue Process.
+        /// </summary>
+        public static string Processes_ContinueProcessToolTip {
+            get {
+                return ResourceManager.GetString("Processes_ContinueProcessToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detach Process.
+        /// </summary>
+        public static string Processes_DetachToolTip {
+            get {
+                return ResourceManager.GetString("Processes_DetachToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step Into.
+        /// </summary>
+        public static string Processes_StepIntoProcessToolTip {
+            get {
+                return ResourceManager.GetString("Processes_StepIntoProcessToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step Out.
+        /// </summary>
+        public static string Processes_StepOutProcessToolTip {
+            get {
+                return ResourceManager.GetString("Processes_StepOutProcessToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step Over.
+        /// </summary>
+        public static string Processes_StepOverProcessToolTip {
+            get {
+                return ResourceManager.GetString("Processes_StepOverProcessToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Terminate Process.
+        /// </summary>
+        public static string Processes_TerminateToolTip {
+            get {
+                return ResourceManager.GetString("Processes_TerminateToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Processes.
+        /// </summary>
+        public static string ProcessesCommand {
+            get {
+                return ResourceManager.GetString("ProcessesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process is not paused.
+        /// </summary>
+        public static string ProcessIsNotPaused {
+            get {
+                return ResourceManager.GetString("ProcessIsNotPaused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh.
+        /// </summary>
+        public static string Refresh {
+            get {
+                return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click this button to evaluate now..
+        /// </summary>
+        public static string RefreshExpressionButtonToolTip {
+            get {
+                return ResourceManager.GetString("RefreshExpressionButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reload All Method Bodies.
         /// </summary>
         public static string ReloadAllMethodBodiesCommand {
             get {
                 return ResourceManager.GetString("ReloadAllMethodBodiesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove All Breakpoints.
+        /// </summary>
+        public static string RemoveAllBreakpointsCommand {
+            get {
+                return ResourceManager.GetString("RemoveAllBreakpointsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Breakpoint.
+        /// </summary>
+        public static string RemoveBreakpointCommand {
+            get {
+                return ResourceManager.GetString("RemoveBreakpointCommand", resourceCulture);
             }
         }
         
@@ -2448,6 +3924,15 @@ namespace dnSpy.Debugger.Properties {
         public static string RenameThreadCommand {
             get {
                 return ResourceManager.GetString("RenameThreadCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Hit Count.
+        /// </summary>
+        public static string ResetBreakpointHitCountCommand {
+            get {
+                return ResourceManager.GetString("ResetBreakpointHitCountCommand", resourceCulture);
             }
         }
         
@@ -2497,6 +3982,24 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search column: {0}.
+        /// </summary>
+        public static string Search_SearchColumnHelpText {
+            get {
+                return ResourceManager.GetString("Search_SearchColumnHelpText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string SearchHelp_ToolTip {
+            get {
+                return ResourceManager.GetString("SearchHelp_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select _All.
         /// </summary>
         public static string SelectAllCommand {
@@ -2511,6 +4014,24 @@ namespace dnSpy.Debugger.Properties {
         public static string SetNextStatementCommand {
             get {
                 return ResourceManager.GetString("SetNextStatementCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Settings.
+        /// </summary>
+        public static string SettingsCommand {
+            get {
+                return ResourceManager.GetString("SettingsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Settings....
+        /// </summary>
+        public static string SettingsCommand2 {
+            get {
+                return ResourceManager.GetString("SettingsCommand2", resourceCulture);
             }
         }
         
@@ -2542,6 +4063,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt+Enter.
+        /// </summary>
+        public static string ShortCutKeyAltEnter {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl+{0}.
         /// </summary>
         public static string ShortCutKeyCtrl_DIGIT {
@@ -2569,6 +4099,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Alt+Break.
+        /// </summary>
+        public static string ShortCutKeyCtrlAltBreak {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlAltBreak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl+Alt+C.
         /// </summary>
         public static string ShortCutKeyCtrlAltC {
@@ -2583,6 +4122,24 @@ namespace dnSpy.Debugger.Properties {
         public static string ShortCutKeyCtrlAltE {
             get {
                 return ResourceManager.GetString("ShortCutKeyCtrlAltE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Alt+F10.
+        /// </summary>
+        public static string ShortCutKeyCtrlAltF10 {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlAltF10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Alt+F11.
+        /// </summary>
+        public static string ShortCutKeyCtrlAltF11 {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlAltF11", resourceCulture);
             }
         }
         
@@ -2614,11 +4171,29 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Break.
+        ///   Looks up a localized string similar to Ctrl+Alt+V, A.
         /// </summary>
-        public static string ShortCutKeyCtrlBreak {
+        public static string ShortCutKeyCtrlAltV_A {
             get {
-                return ResourceManager.GetString("ShortCutKeyCtrlBreak", resourceCulture);
+                return ResourceManager.GetString("ShortCutKeyCtrlAltV_A", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Alt+W, {0}.
+        /// </summary>
+        public static string ShortCutKeyCtrlAltW_DIGIT {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlAltW_DIGIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Alt+Z.
+        /// </summary>
+        public static string ShortCutKeyCtrlAltZ {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlAltZ", resourceCulture);
             }
         }
         
@@ -2637,6 +4212,15 @@ namespace dnSpy.Debugger.Properties {
         public static string ShortCutKeyCtrlEnter {
             get {
                 return ResourceManager.GetString("ShortCutKeyCtrlEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+F.
+        /// </summary>
+        public static string ShortCutKeyCtrlF {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlF", resourceCulture);
             }
         }
         
@@ -2677,6 +4261,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Shift+Alt+F11.
+        /// </summary>
+        public static string ShortCutKeyCtrlShiftAltF11 {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlShiftAltF11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl+Shift+C.
         /// </summary>
         public static string ShortCutKeyCtrlShiftC {
@@ -2709,6 +4302,15 @@ namespace dnSpy.Debugger.Properties {
         public static string ShortCutKeyCtrlShiftF9 {
             get {
                 return ResourceManager.GetString("ShortCutKeyCtrlShiftF9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+V.
+        /// </summary>
+        public static string ShortCutKeyCtrlV {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlV", resourceCulture);
             }
         }
         
@@ -2803,6 +4405,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Declaring Types.
+        /// </summary>
+        public static string ShowDeclaringTypesCommand {
+            get {
+                return ResourceManager.GetString("ShowDeclaringTypesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Exception Messages.
         /// </summary>
         public static string ShowExceptionMessages {
@@ -2826,6 +4437,15 @@ namespace dnSpy.Debugger.Properties {
         public static string ShowInstructionPointerCommand {
             get {
                 return ResourceManager.GetString("ShowInstructionPointerCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Intrinsic Type Keywords.
+        /// </summary>
+        public static string ShowIntrinsicTypeKeywordsCommand {
+            get {
+                return ResourceManager.GetString("ShowIntrinsicTypeKeywordsCommand", resourceCulture);
             }
         }
         
@@ -2880,15 +4500,6 @@ namespace dnSpy.Debugger.Properties {
         public static string ShowNextStatementCommand {
             get {
                 return ResourceManager.GetString("ShowNextStatementCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show Owner Types.
-        /// </summary>
-        public static string ShowOwnerTypesCommand {
-            get {
-                return ResourceManager.GetString("ShowOwnerTypesCommand", resourceCulture);
             }
         }
         
@@ -2983,11 +4594,20 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Type Keywords.
+        ///   Looks up a localized string similar to _Start Debugging....
         /// </summary>
-        public static string ShowTypeKeywordsCommand {
+        public static string StartDebugging2 {
             get {
-                return ResourceManager.GetString("ShowTypeKeywordsCommand", resourceCulture);
+                return ResourceManager.GetString("StartDebugging2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Debugging.
+        /// </summary>
+        public static string StartDebuggingCommand {
+            get {
+                return ResourceManager.GetString("StartDebuggingCommand", resourceCulture);
             }
         }
         
@@ -3037,6 +4657,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step Into (Current Process).
+        /// </summary>
+        public static string StepIntoCurrentProcessCommand {
+            get {
+                return ResourceManager.GetString("StepIntoCurrentProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step Ou_t.
         /// </summary>
         public static string StepOutCommand {
@@ -3046,11 +4675,38 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Step Out (Current Process).
+        /// </summary>
+        public static string StepOutCurrentProcessCommand {
+            get {
+                return ResourceManager.GetString("StepOutCurrentProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Step _Over.
         /// </summary>
         public static string StepOverCommand {
             get {
                 return ResourceManager.GetString("StepOverCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Step Over (Current Process).
+        /// </summary>
+        public static string StepOverCurrentProcessCommand {
+            get {
+                return ResourceManager.GetString("StepOverCurrentProcessCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steps only the current process.
+        /// </summary>
+        public static string StepsOnlyTheCurrentProcess {
+            get {
+                return ResourceManager.GetString("StepsOnlyTheCurrentProcess", resourceCulture);
             }
         }
         
@@ -3096,6 +4752,24 @@ namespace dnSpy.Debugger.Properties {
         public static string SwitchToThreadNewTabCommand {
             get {
                 return ResourceManager.GetString("SwitchToThreadNewTabCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ter_minate All.
+        /// </summary>
+        public static string TerminateAllCommand {
+            get {
+                return ResourceManager.GetString("TerminateAllCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ter_minate Process.
+        /// </summary>
+        public static string TerminateProcessCommand {
+            get {
+                return ResourceManager.GetString("TerminateProcessCommand", resourceCulture);
             }
         }
         
@@ -3253,6 +4927,78 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string Threads_AllProcesses {
+            get {
+                return ResourceManager.GetString("Threads_AllProcesses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Freeze Threads.
+        /// </summary>
+        public static string Threads_FreezeThreads_ToolTip {
+            get {
+                return ResourceManager.GetString("Threads_FreezeThreads_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No threads match your search filter..
+        /// </summary>
+        public static string Threads_NoMatch {
+            get {
+                return ResourceManager.GetString("Threads_NoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process.
+        /// </summary>
+        public static string Threads_Process {
+            get {
+                return ResourceManager.GetString("Threads_Process", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all search criteria so that all threads are shown.
+        /// </summary>
+        public static string Threads_ResetSearchSettings_ToolTip {
+            get {
+                return ResourceManager.GetString("Threads_ResetSearchSettings_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Threads_Search {
+            get {
+                return ResourceManager.GetString("Threads_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for a thread.
+        /// </summary>
+        public static string Threads_Search_ToolTip {
+            get {
+                return ResourceManager.GetString("Threads_Search_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thaw Threads.
+        /// </summary>
+        public static string Threads_ThawThreads_ToolTip {
+            get {
+                return ResourceManager.GetString("Threads_ThawThreads_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to T_hreads.
         /// </summary>
         public static string ThreadsCommand {
@@ -3325,11 +5071,11 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Break (Ctrl+Break).
+        ///   Looks up a localized string similar to Break All.
         /// </summary>
-        public static string ToolBarBreakToolTip {
+        public static string ToolBarBreakAllToolTip {
             get {
-                return ResourceManager.GetString("ToolBarBreakToolTip", resourceCulture);
+                return ResourceManager.GetString("ToolBarBreakAllToolTip", resourceCulture);
             }
         }
         
@@ -3343,7 +5089,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue (F5).
+        ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string ToolBarContinueDebuggingToolTip {
             get {
@@ -3352,7 +5098,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debug an Assembly (F5).
+        ///   Looks up a localized string similar to Debug a Program.
         /// </summary>
         public static string ToolBarDebugAssemblyToolTip {
             get {
@@ -3361,7 +5107,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Restart (Ctrl+Shift+F5).
+        ///   Looks up a localized string similar to Restart.
         /// </summary>
         public static string ToolBarRestartToolTip {
             get {
@@ -3370,7 +5116,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Next Statement (Alt+Num *).
+        ///   Looks up a localized string similar to Show Next Statement.
         /// </summary>
         public static string ToolBarShowNextStatementToolTip {
             get {
@@ -3388,7 +5134,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step Into (F11).
+        ///   Looks up a localized string similar to Step Into.
         /// </summary>
         public static string ToolBarStepIntoToolTip {
             get {
@@ -3397,7 +5143,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step Out (Shift+F11).
+        ///   Looks up a localized string similar to Step Out.
         /// </summary>
         public static string ToolBarStepOutToolTip {
             get {
@@ -3406,7 +5152,7 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Step Over (F10).
+        ///   Looks up a localized string similar to Step Over.
         /// </summary>
         public static string ToolBarStepOverToolTip {
             get {
@@ -3415,11 +5161,56 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop Debugging (Shift+F5).
+        ///   Looks up a localized string similar to Stop Debugging.
         /// </summary>
         public static string ToolBarStopDebuggingToolTip {
             get {
                 return ResourceManager.GetString("ToolBarStopDebuggingToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Escape sequences: {0}.
+        /// </summary>
+        public static string TracepointMessage_EscapeSequences {
+            get {
+                return ResourceManager.GetString("TracepointMessage_EscapeSequences", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use {xxx} to evaluate expression xxx.
+        /// </summary>
+        public static string TracepointMessage_EvaluateMessage {
+            get {
+                return ResourceManager.GetString("TracepointMessage_EvaluateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example: {0}.
+        /// </summary>
+        public static string TracepointMessage_Example {
+            get {
+                return ResourceManager.GetString("TracepointMessage_Example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following keywords can be used:.
+        /// </summary>
+        public static string TracepointMessage_ValidKeywords {
+            get {
+                return ResourceManager.GetString("TracepointMessage_ValidKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unhandled exception occurred in {0} ({1}).
+        /// </summary>
+        public static string UnhandledExceptionMessage_ProcessName_ProcessId {
+            get {
+                return ResourceManager.GetString("UnhandledExceptionMessage_ProcessName_ProcessId", resourceCulture);
             }
         }
         
@@ -3429,6 +5220,24 @@ namespace dnSpy.Debugger.Properties {
         public static string UnknownExceptionType {
             get {
                 return ResourceManager.GetString("UnknownExceptionType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Unknown&gt;.
+        /// </summary>
+        public static string UnknownValue {
+            get {
+                return ResourceManager.GetString("UnknownValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Unwind To This Frame.
+        /// </summary>
+        public static string UnwindToThisFrameCommand {
+            get {
+                return ResourceManager.GetString("UnwindToThisFrameCommand", resourceCulture);
             }
         }
         
@@ -3447,6 +5256,24 @@ namespace dnSpy.Debugger.Properties {
         public static string UseDnSpyExeToDebug64 {
             get {
                 return ResourceManager.GetString("UseDnSpyExeToDebug64", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Watch.
+        /// </summary>
+        public static string WatchCommand {
+            get {
+                return ResourceManager.GetString("WatchCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autos.
+        /// </summary>
+        public static string Window_Autos {
+            get {
+                return ResourceManager.GetString("Window_Autos", resourceCulture);
             }
         }
         
@@ -3523,6 +5350,15 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Module Breakpoints.
+        /// </summary>
+        public static string Window_ModuleBreakpoints {
+            get {
+                return ResourceManager.GetString("Window_ModuleBreakpoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modules.
         /// </summary>
         public static string Window_Modules {
@@ -3532,11 +5368,56 @@ namespace dnSpy.Debugger.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Processes.
+        /// </summary>
+        public static string Window_Processes {
+            get {
+                return ResourceManager.GetString("Window_Processes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Threads.
         /// </summary>
         public static string Window_Threads {
             get {
                 return ResourceManager.GetString("Window_Threads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch 1_0.
+        /// </summary>
+        public static string Window_Watch_10_MenuItem {
+            get {
+                return ResourceManager.GetString("Window_Watch_10_MenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch {0}.
+        /// </summary>
+        public static string Window_Watch_N {
+            get {
+                return ResourceManager.GetString("Window_Watch_N", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch _{0}.
+        /// </summary>
+        public static string Window_Watch_N_MenuItem {
+            get {
+                return ResourceManager.GetString("Window_Watch_N_MenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch {0}.
+        /// </summary>
+        public static string Window_Watch_N_MenuItem2 {
+            get {
+                return ResourceManager.GetString("Window_Watch_N_MenuItem2", resourceCulture);
             }
         }
         

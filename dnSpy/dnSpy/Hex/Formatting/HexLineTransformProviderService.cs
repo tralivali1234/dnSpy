@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.Hex.Formatting {
 		readonly Lazy<HexLineTransformSourceProvider, ITextViewRoleMetadata>[] lineTransformSourceProviders;
 
 		[ImportingConstructor]
-		HexLineTransformProviderServiceImpl([ImportMany] IEnumerable<Lazy<HexLineTransformSourceProvider, ITextViewRoleMetadata>> lineTransformSourceProviders) {
-			this.lineTransformSourceProviders = lineTransformSourceProviders.ToArray();
-		}
+		HexLineTransformProviderServiceImpl([ImportMany] IEnumerable<Lazy<HexLineTransformSourceProvider, ITextViewRoleMetadata>> lineTransformSourceProviders) => this.lineTransformSourceProviders = lineTransformSourceProviders.ToArray();
 
 		public override HexLineTransformProvider Create(WpfHexView hexView, bool removeExtraTextLineVerticalPixels) {
 			var list = new List<HexLineTransformSource>();
@@ -61,9 +59,7 @@ namespace dnSpy.Hex.Formatting {
 			readonly bool removeExtraTextLineVerticalPixels;
 
 			public HexLineTransformProviderImpl(HexLineTransformSource[] lineTransformSources, bool removeExtraTextLineVerticalPixels) {
-				if (lineTransformSources == null)
-					throw new ArgumentNullException(nameof(lineTransformSources));
-				this.lineTransformSources = lineTransformSources;
+				this.lineTransformSources = lineTransformSources ?? throw new ArgumentNullException(nameof(lineTransformSources));
 				this.removeExtraTextLineVerticalPixels = removeExtraTextLineVerticalPixels;
 			}
 

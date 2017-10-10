@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -61,10 +61,8 @@ namespace dnSpy.Hex.Editor {
 		readonly WpfHexViewHost wpfHexViewHost;
 
 		public SpacerMargin(WpfHexViewHost wpfHexViewHost) {
-			if (wpfHexViewHost == null)
-				throw new ArgumentNullException(nameof(wpfHexViewHost));
 			frameworkElement = new FrameworkElement();
-			this.wpfHexViewHost = wpfHexViewHost;
+			this.wpfHexViewHost = wpfHexViewHost ?? throw new ArgumentNullException(nameof(wpfHexViewHost));
 			wpfHexViewHost.HexView.Options.OptionChanged += Options_OptionChanged;
 			frameworkElement.Width = SELECTION_MARGIN_WIDTH;
 			frameworkElement.ClipToBounds = true;

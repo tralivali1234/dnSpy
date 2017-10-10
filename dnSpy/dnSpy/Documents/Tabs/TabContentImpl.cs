@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,6 +27,7 @@ using System.Windows;
 using dnSpy.Contracts.Controls;
 using dnSpy.Contracts.Documents.Tabs;
 using dnSpy.Contracts.Documents.TreeView;
+using dnSpy.Contracts.ETW;
 using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Settings;
 using dnSpy.Contracts.Tabs;
@@ -330,11 +331,11 @@ namespace dnSpy.Documents.Tabs {
 			Debug.Assert(tabContent.DocumentTab == this);
 
 			UpdateTitleAndToolTip();
+			DnSpyEventSource.Log.ShowDocumentTabContentStart();
 			var showCtx = new ShowContext(cachedUIContext, isRefresh);
 			tabContent.OnShow(showCtx);
 			bool asyncShow = false;
-			var asyncTabContent = tabContent as AsyncDocumentTabContent;
-			if (asyncTabContent != null) {
+			if (tabContent is AsyncDocumentTabContent asyncTabContent) {
 				if (asyncTabContent.NeedAsyncWork(showCtx)) {
 					asyncShow = true;
 					var ctx = new AsyncWorkerContext();
@@ -415,6 +416,7 @@ namespace dnSpy.Documents.Tabs {
 				onShownHandler?.Invoke(e);
 				showCtx.OnShown?.Invoke(e);
 			}
+			DnSpyEventSource.Log.ShowDocumentTabContentStop();
 		}
 
 		void RestoreUIState(object uiState) {
@@ -490,10 +492,9 @@ namespace dnSpy.Documents.Tabs {
 		public void OnSelected() => Content.OnSelected();
 		public void OnUnselected() => Content.OnUnselected();
 
-		internal void OnTabsLoaded() {
+		internal void OnTabsLoaded() =>
 			// Make sure that the tab initializes eg. Language to the language it's using.
 			OnSelected();
-		}
 
 		const string ZOOM_ATTR = "zoom";
 

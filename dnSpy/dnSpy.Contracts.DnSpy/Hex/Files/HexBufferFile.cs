@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -37,18 +37,12 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="filename">Filename if possible, otherwise any name</param>
 		/// <param name="tags">Tags, see eg. <see cref="PredefinedBufferFileTags"/></param>
 		protected HexBufferFile(HexBuffer buffer, HexSpan span, string name, string filename, string[] tags) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			if (name == null)
-				throw new ArgumentNullException(nameof(name));
-			if (filename == null)
-				throw new ArgumentNullException(nameof(filename));
 			if (tags == null)
 				throw new ArgumentNullException(nameof(tags));
-			Buffer = buffer;
+			Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			Span = span;
-			Name = name;
-			Filename = filename;
+			Name = name ?? throw new ArgumentNullException(nameof(name));
+			Filename = filename ?? throw new ArgumentNullException(nameof(filename));
 			Tags = new ReadOnlyCollection<string>(tags.ToArray());
 			Properties = new VSUTIL.PropertyCollection();
 		}

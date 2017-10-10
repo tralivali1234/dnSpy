@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -1251,5 +1251,270 @@ namespace dnSpy.Contracts.Text.Classification {
 		/// <see cref="TextColor.HexToolTipServiceCurrentField"/>
 		/// </summary>
 		public const string HexToolTipServiceCurrentField = nameof(HexToolTipServiceCurrentField);
+
+		/// <summary>
+		/// <see cref="TextColor.ListFindMatchHighlight"/>
+		/// </summary>
+		public const string ListFindMatchHighlight = nameof(ListFindMatchHighlight);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedBreakpointStatement"/>
+		/// </summary>
+		public const string AdvancedBreakpointStatement = nameof(AdvancedBreakpointStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedBreakpointStatementMarker"/>
+		/// </summary>
+		public const string AdvancedBreakpointStatementMarker = nameof(AdvancedBreakpointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedAdvancedBreakpointStatementMarker"/>
+		/// </summary>
+		public const string SelectedAdvancedBreakpointStatementMarker = nameof(SelectedAdvancedBreakpointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.DisabledAdvancedBreakpointStatement"/>
+		/// </summary>
+		public const string DisabledAdvancedBreakpointStatement = nameof(DisabledAdvancedBreakpointStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.DisabledAdvancedBreakpointStatementMarker"/>
+		/// </summary>
+		public const string DisabledAdvancedBreakpointStatementMarker = nameof(DisabledAdvancedBreakpointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedDisabledAdvancedBreakpointStatementMarker"/>
+		/// </summary>
+		public const string SelectedDisabledAdvancedBreakpointStatementMarker = nameof(SelectedDisabledAdvancedBreakpointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.BreakpointWarningStatement"/>
+		/// </summary>
+		public const string BreakpointWarningStatement = nameof(BreakpointWarningStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.BreakpointWarningStatementMarker"/>
+		/// </summary>
+		public const string BreakpointWarningStatementMarker = nameof(BreakpointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedBreakpointWarningStatementMarker"/>
+		/// </summary>
+		public const string SelectedBreakpointWarningStatementMarker = nameof(SelectedBreakpointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.BreakpointErrorStatement"/>
+		/// </summary>
+		public const string BreakpointErrorStatement = nameof(BreakpointErrorStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.BreakpointErrorStatementMarker"/>
+		/// </summary>
+		public const string BreakpointErrorStatementMarker = nameof(BreakpointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedBreakpointErrorStatementMarker"/>
+		/// </summary>
+		public const string SelectedBreakpointErrorStatementMarker = nameof(SelectedBreakpointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedBreakpointWarningStatement"/>
+		/// </summary>
+		public const string AdvancedBreakpointWarningStatement = nameof(AdvancedBreakpointWarningStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedBreakpointWarningStatementMarker"/>
+		/// </summary>
+		public const string AdvancedBreakpointWarningStatementMarker = nameof(AdvancedBreakpointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedAdvancedBreakpointWarningStatementMarker"/>
+		/// </summary>
+		public const string SelectedAdvancedBreakpointWarningStatementMarker = nameof(SelectedAdvancedBreakpointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedBreakpointErrorStatement"/>
+		/// </summary>
+		public const string AdvancedBreakpointErrorStatement = nameof(AdvancedBreakpointErrorStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedBreakpointErrorStatementMarker"/>
+		/// </summary>
+		public const string AdvancedBreakpointErrorStatementMarker = nameof(AdvancedBreakpointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedAdvancedBreakpointErrorStatementMarker"/>
+		/// </summary>
+		public const string SelectedAdvancedBreakpointErrorStatementMarker = nameof(SelectedAdvancedBreakpointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.TracepointStatement"/>
+		/// </summary>
+		public const string TracepointStatement = nameof(TracepointStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.TracepointStatementMarker"/>
+		/// </summary>
+		public const string TracepointStatementMarker = nameof(TracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedTracepointStatementMarker"/>
+		/// </summary>
+		public const string SelectedTracepointStatementMarker = nameof(SelectedTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.DisabledTracepointStatement"/>
+		/// </summary>
+		public const string DisabledTracepointStatement = nameof(DisabledTracepointStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.DisabledTracepointStatementMarker"/>
+		/// </summary>
+		public const string DisabledTracepointStatementMarker = nameof(DisabledTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedDisabledTracepointStatementMarker"/>
+		/// </summary>
+		public const string SelectedDisabledTracepointStatementMarker = nameof(SelectedDisabledTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedTracepointStatement"/>
+		/// </summary>
+		public const string AdvancedTracepointStatement = nameof(AdvancedTracepointStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedTracepointStatementMarker"/>
+		/// </summary>
+		public const string AdvancedTracepointStatementMarker = nameof(AdvancedTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedAdvancedTracepointStatementMarker"/>
+		/// </summary>
+		public const string SelectedAdvancedTracepointStatementMarker = nameof(SelectedAdvancedTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.DisabledAdvancedTracepointStatement"/>
+		/// </summary>
+		public const string DisabledAdvancedTracepointStatement = nameof(DisabledAdvancedTracepointStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.DisabledAdvancedTracepointStatementMarker"/>
+		/// </summary>
+		public const string DisabledAdvancedTracepointStatementMarker = nameof(DisabledAdvancedTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedDisabledAdvancedTracepointStatementMarker"/>
+		/// </summary>
+		public const string SelectedDisabledAdvancedTracepointStatementMarker = nameof(SelectedDisabledAdvancedTracepointStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.TracepointWarningStatement"/>
+		/// </summary>
+		public const string TracepointWarningStatement = nameof(TracepointWarningStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.TracepointWarningStatementMarker"/>
+		/// </summary>
+		public const string TracepointWarningStatementMarker = nameof(TracepointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedTracepointWarningStatementMarker"/>
+		/// </summary>
+		public const string SelectedTracepointWarningStatementMarker = nameof(SelectedTracepointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.TracepointErrorStatement"/>
+		/// </summary>
+		public const string TracepointErrorStatement = nameof(TracepointErrorStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.TracepointErrorStatementMarker"/>
+		/// </summary>
+		public const string TracepointErrorStatementMarker = nameof(TracepointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedTracepointErrorStatementMarker"/>
+		/// </summary>
+		public const string SelectedTracepointErrorStatementMarker = nameof(SelectedTracepointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedTracepointWarningStatement"/>
+		/// </summary>
+		public const string AdvancedTracepointWarningStatement = nameof(AdvancedTracepointWarningStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedTracepointWarningStatementMarker"/>
+		/// </summary>
+		public const string AdvancedTracepointWarningStatementMarker = nameof(AdvancedTracepointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedAdvancedTracepointWarningStatementMarker"/>
+		/// </summary>
+		public const string SelectedAdvancedTracepointWarningStatementMarker = nameof(SelectedAdvancedTracepointWarningStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedTracepointErrorStatement"/>
+		/// </summary>
+		public const string AdvancedTracepointErrorStatement = nameof(AdvancedTracepointErrorStatement);
+
+		/// <summary>
+		/// <see cref="TextColor.AdvancedTracepointErrorStatementMarker"/>
+		/// </summary>
+		public const string AdvancedTracepointErrorStatementMarker = nameof(AdvancedTracepointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.SelectedAdvancedTracepointErrorStatementMarker"/>
+		/// </summary>
+		public const string SelectedAdvancedTracepointErrorStatementMarker = nameof(SelectedAdvancedTracepointErrorStatementMarker);
+
+		/// <summary>
+		/// <see cref="TextColor.BookmarkName"/>
+		/// </summary>
+		public const string BookmarkName = nameof(BookmarkName);
+
+		/// <summary>
+		/// <see cref="TextColor.ActiveBookmarkName"/>
+		/// </summary>
+		public const string ActiveBookmarkName = nameof(ActiveBookmarkName);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugLogTrace"/>
+		/// </summary>
+		public const string DebugLogTrace = nameof(DebugLogTrace);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugLogExtensionMessage"/>
+		/// </summary>
+		public const string DebugLogExtensionMessage = nameof(DebugLogExtensionMessage);
+
+		/// <summary>
+		/// <see cref="TextColor.DebuggerValueChangedHighlight"/>
+		/// </summary>
+		public const string DebuggerValueChangedHighlight = nameof(DebuggerValueChangedHighlight);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugExceptionName"/>
+		/// </summary>
+		public const string DebugExceptionName = nameof(DebugExceptionName);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugStowedExceptionName"/>
+		/// </summary>
+		public const string DebugStowedExceptionName = nameof(DebugStowedExceptionName);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugReturnValueName"/>
+		/// </summary>
+		public const string DebugReturnValueName = nameof(DebugReturnValueName);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugVariableName"/>
+		/// </summary>
+		public const string DebugVariableName = nameof(DebugVariableName);
+
+		/// <summary>
+		/// <see cref="TextColor.DebugObjectIdName"/>
+		/// </summary>
+		public const string DebugObjectIdName = nameof(DebugObjectIdName);
 	}
 }

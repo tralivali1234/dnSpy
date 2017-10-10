@@ -127,13 +127,13 @@
     <value>В_ыключить оптимизатор JIT-компиляции</value>
   </data>
   <data name="AssemblyDlg_Main_CB_EnableJITCompTrck" xml:space="preserve">
-    <value>Включить отслеживание компиляции _JIT</value>
+    <value>Включить отслеживание _JIT-компиляции</value>
   </data>
   <data name="AssemblyDlg_Main_CB_ProcessArchSpec" xml:space="preserve">
-    <value>Указана архитектура проц_ессора</value>
+    <value>Архитектура проц_ессора указана</value>
   </data>
   <data name="AssemblyDlg_Main_CB_PublicKey" xml:space="preserve">
-    <value>Открытый _ключ</value>
+    <value>Публичный _ключ</value>
   </data>
   <data name="AssemblyDlg_Main_CB_Retargetable" xml:space="preserve">
     <value>_Retargetable</value>
@@ -508,12 +508,6 @@
   <data name="GP_Variance" xml:space="preserve">
     <value>_Вариантность</value>
   </data>
-  <data name="HexField_RelativeVirtualAddress" xml:space="preserve">
-    <value>{0} RVA</value>
-  </data>
-  <data name="HexField_Size" xml:space="preserve">
-    <value>{0} Размер</value>
-  </data>
   <data name="HexNode_Cor20Header_Flags_32BitPref" xml:space="preserve">
     <value>Предпочтительно 32-бит</value>
   </data>
@@ -557,7 +551,7 @@
     <value>_BestFit</value>
   </data>
   <data name="ImplMap_CallingConvention" xml:space="preserve">
-    <value>Вызо_в</value>
+    <value>Согл_Выз</value>
   </data>
   <data name="ImplMap_CharacterSet" xml:space="preserve">
     <value>Кодировка</value>
@@ -584,7 +578,7 @@
     <value>Бросать исключение каждый раз, когда маршаллер не может преобразовать Unicode в ANSI</value>
   </data>
   <data name="MainTab" xml:space="preserve">
-    <value>Основное</value>
+    <value>Основные</value>
   </data>
   <data name="MarshalType" xml:space="preserve">
     <value>Маршаллинг: {0}</value>
@@ -701,7 +695,7 @@
     <value>Типы методов создания экземпляров</value>
   </data>
   <data name="MethodSig_CallingConv" xml:space="preserve">
-    <value>Вызов</value>
+    <value>Сог_л. о вызове</value>
   </data>
   <data name="MethodSig_ExplicitThis" xml:space="preserve">
     <value>E_xplicitThis</value>
@@ -1040,10 +1034,10 @@
     <value>Этот тип может использоваться в какой-нибудь сборке. Вы уверены, что хотите удалить тип?</value>
   </data>
   <data name="AskExitUnsavedFile" xml:space="preserve">
-    <value>Файл не сохранен. Вы уверены, что хотите выйти?</value>
+    <value>Есть несохраненный файл. Вы хотите сохранить его перед выходом?</value>
   </data>
   <data name="AskExitUnsavedFiles" xml:space="preserve">
-    <value>{0} файлов не сохранено. Вы уверены, что хотите выйти?</value>
+    <value>Есть несохраненные файлы {0}. Вы хотите сохранить их перед выходом?</value>
   </data>
   <data name="AskLoadAssembliesLoseChanges" xml:space="preserve">
     <value>Вы уверены, что вы хотите загрузить новые сборки и потерять все изменения?</value>
@@ -1652,7 +1646,7 @@
     <value>Точка входа</value>
   </data>
   <data name="Module_EntryPoint_Managed" xml:space="preserve">
-    <value>Управ_ляемая</value>
+    <value>Mana_ged</value>
   </data>
   <data name="Module_EntryPoint_Native" xml:space="preserve">
     <value>Native</value>
@@ -1688,7 +1682,7 @@
     <value>Все нижележащие узлы используют Hex-редактор для изменения PE-файла</value>
   </data>
   <data name="NopInstrCommand" xml:space="preserve">
-    <value>_NOP Инструкция</value>
+    <value>_NOP-инструкция</value>
   </data>
   <data name="NopInstrsCommand" xml:space="preserve">
     <value>_NOP Инструкции</value>
@@ -1742,7 +1736,7 @@
     <value>Отменить</value>
   </data>
   <data name="RedoToolBarToolTip" xml:space="preserve">
-    <value>Отменить (Ctrl+Y)</value>
+    <value>Отменить</value>
   </data>
   <data name="RemoveAndAddPopsCommand" xml:space="preserve">
     <value>Убрать и добавить Pops</value>
@@ -1799,7 +1793,7 @@
     <value>Сохранить в_се...</value>
   </data>
   <data name="SaveAllToolBarToolTip" xml:space="preserve">
-    <value>Сохранить все (Ctrl+Shift+S)</value>
+    <value>Сохранить все</value>
   </data>
   <data name="SaveModuleCommand" xml:space="preserve">
     <value>Сохранить _модуль...</value>
@@ -2022,7 +2016,7 @@
     <value>Отменить</value>
   </data>
   <data name="UndoToolBarToolTip" xml:space="preserve">
-    <value>Отменить (Ctrl+Z)</value>
+    <value>Отменить</value>
   </data>
   <data name="UnsavedFile" xml:space="preserve">
     <value>Имеется несохраненный файл.</value>
@@ -2497,5 +2491,14 @@
   </data>
   <data name="CloseAllMissingFilesCommand" xml:space="preserve">
     <value>Закрыть все отсутствующие файлы</value>
+  </data>
+  <data name="CompileDiagnostics_Header_Severity" xml:space="preserve">
+    <value>Серьезность</value>
+  </data>
+  <data name="ParamDef_Flags_Lcid" xml:space="preserve">
+    <value>Lcid</value>
+  </data>
+  <data name="ParamDef_Flags_Retval" xml:space="preserve">
+    <value>Retval</value>
   </data>
 </root>

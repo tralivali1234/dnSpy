@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,6 +45,9 @@ namespace dnSpy.Contracts.Command {
 
 		/// <summary>Edit Code</summary>
 		public const double EditCode = TextEditor - 3000;
+
+		/// <summary>Document viewer</summary>
+		public const double Bookmarks = TextEditor - 4000;
 
 		/// <summary>Intellisense session stack</summary>
 		public const double IntellisenseSessionStack = TextEditor - 4000;

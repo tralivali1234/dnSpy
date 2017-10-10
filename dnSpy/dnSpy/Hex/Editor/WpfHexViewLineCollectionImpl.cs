@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,11 +35,9 @@ namespace dnSpy.Hex.Editor {
 		readonly ReadOnlyCollection<WpfHexViewLine> lines;
 
 		public WpfHexViewLineCollectionImpl(WpfHexView hexView, IList<WpfHexViewLine> lines) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
 			if (lines == null)
 				throw new ArgumentNullException(nameof(lines));
-			this.hexView = hexView;
+			this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
 			this.lines = new ReadOnlyCollection<WpfHexViewLine>(lines);
 			isValid = true;
 			if (lines.Count == 0)
@@ -256,8 +254,6 @@ namespace dnSpy.Hex.Editor {
 			return coll;
 		}
 
-		public void Invalidate() {
-			isValid = false;
-		}
+		public void Invalidate() => isValid = false;
 	}
 }

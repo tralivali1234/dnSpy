@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,9 +44,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexEditorFormatMapService editorFormatMapService;
 
 		[ImportingConstructor]
-		CurrentLineHighlighterWpfHexViewCreationListener(HexEditorFormatMapService editorFormatMapService) {
-			this.editorFormatMapService = editorFormatMapService;
-		}
+		CurrentLineHighlighterWpfHexViewCreationListener(HexEditorFormatMapService editorFormatMapService) => this.editorFormatMapService = editorFormatMapService;
 
 		public override void HexViewCreated(WpfHexView hexView) =>
 			hexView.Properties.GetOrCreateSingletonProperty(() => new CurrentLineHighlighter(hexView, editorFormatMapService.GetEditorFormatMap(hexView)));
@@ -78,12 +76,8 @@ namespace dnSpy.Hex.Editor {
 		bool enabled;
 
 		public CurrentLineHighlighter(WpfHexView wpfHexView, VSTC.IEditorFormatMap editorFormatMap) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			if (editorFormatMap == null)
-				throw new ArgumentNullException(nameof(editorFormatMap));
-			this.wpfHexView = wpfHexView;
-			this.editorFormatMap = editorFormatMap;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
+			this.editorFormatMap = editorFormatMap ?? throw new ArgumentNullException(nameof(editorFormatMap));
 			currentLineHighlighterElement = new CurrentLineHighlighterElement();
 			wpfHexView.Closed += WpfHexView_Closed;
 			wpfHexView.Options.OptionChanged += Options_OptionChanged;

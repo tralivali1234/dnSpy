@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -41,12 +41,8 @@ namespace dnSpy.Contracts.Settings.HexGroups {
 		/// <param name="subGroup">Sub group</param>
 		/// <param name="optionId">Option id, eg. <see cref="DefaultHexViewOptions.BytesPerLineName"/></param>
 		public HexViewOptionChangedEventArgs(string subGroup, string optionId) {
-			if (subGroup == null)
-				throw new ArgumentNullException(nameof(subGroup));
-			if (optionId == null)
-				throw new ArgumentNullException(nameof(optionId));
-			SubGroup = subGroup;
-			OptionId = optionId;
+			SubGroup = subGroup ?? throw new ArgumentNullException(nameof(subGroup));
+			OptionId = optionId ?? throw new ArgumentNullException(nameof(optionId));
 		}
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,6 +34,7 @@ using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Output;
 using dnSpy.Contracts.Settings.AppearanceCategory;
 using dnSpy.Contracts.Text.Editor;
+using dnSpy.Contracts.Utilities;
 using dnSpy.Output.Settings;
 using dnSpy.Properties;
 using dnSpy.Text.Editor;
@@ -63,6 +64,10 @@ namespace dnSpy.Output {
 	sealed class OutputService : ViewModelBase, IOutputServiceInternal {
 		public ICommand ClearAllCommand => new RelayCommand(a => ClearAll(), a => CanClearAll);
 		public ICommand SaveCommand => new RelayCommand(a => SaveText(), a => CanSaveText);
+
+		public string ClearAllToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Output_ClearAll_ToolTip, dnSpy_Resources.ShortCutKeyCtrlL);
+		public string SaveToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Output_Save_ToolTip, dnSpy_Resources.ShortCutKeyCtrlS);
+		public string WordWrapToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Output_WordWrap_ToolTip, dnSpy_Resources.ShortCutKeyCtrlECtrlW);
 
 		public bool WordWrap {
 			get { return (outputWindowOptionsService.Default.WordWrapStyle & WordWrapStyles.WordWrap) != 0; }
@@ -133,6 +138,7 @@ namespace dnSpy.Output {
 			Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Send, new Action(() => {
 				foreach (var lazy in outputServiceListeners) {
 					var l = lazy.Value;
+					(l as IOutputServiceListener2)?.Initialize(this);
 				}
 			}));
 		}
@@ -197,8 +203,7 @@ namespace dnSpy.Output {
 
 		IEnumerable<GuidObject> CreateGuidObjects(GuidObjectsProviderArgs args) {
 			yield return new GuidObject(MenuConstants.GUIDOBJ_OUTPUT_SERVICE_GUID, this);
-			var vm = SelectedOutputBufferVM as IOutputTextPane;
-			if (vm != null)
+			if (SelectedOutputBufferVM is IOutputTextPane vm)
 				yield return new GuidObject(MenuConstants.GUIDOBJ_ACTIVE_OUTPUT_TEXTPANE_GUID, vm);
 		}
 

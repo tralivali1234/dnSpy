@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Hex.Editor {
 		readonly OffsetCursorProviderService offsetCursorProviderService;
 
 		[ImportingConstructor]
-		OffsetHexMouseProcessorProvider(OffsetCursorProviderService offsetCursorProviderService) {
-			this.offsetCursorProviderService = offsetCursorProviderService;
-		}
+		OffsetHexMouseProcessorProvider(OffsetCursorProviderService offsetCursorProviderService) => this.offsetCursorProviderService = offsetCursorProviderService;
 
 		public override HexMouseProcessor GetAssociatedProcessor(WpfHexView wpfHexView) =>
 			new OffsetHexMouseProcessor(offsetCursorProviderService.Get(wpfHexView), wpfHexView);
@@ -47,12 +45,8 @@ namespace dnSpy.Hex.Editor {
 		readonly WpfHexView wpfHexView;
 
 		public OffsetHexMouseProcessor(OffsetCursorProvider offsetCursorProvider, WpfHexView wpfHexView) {
-			if (offsetCursorProvider == null)
-				throw new ArgumentNullException(nameof(offsetCursorProvider));
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			this.offsetCursorProvider = offsetCursorProvider;
-			this.wpfHexView = wpfHexView;
+			this.offsetCursorProvider = offsetCursorProvider ?? throw new ArgumentNullException(nameof(offsetCursorProvider));
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 		}
 
 		HexMouseLocation GetMouseLocation(MouseEventArgs e) => HexMouseLocation.Create(wpfHexView, e, insertionPosition: false);
@@ -70,7 +64,7 @@ namespace dnSpy.Hex.Editor {
 				ResetCursorInfo();
 		}
 
-		void ResetCursorInfo() => offsetCursorProvider.CursorInfo = default(HexCursorInfo);
+		void ResetCursorInfo() => offsetCursorProvider.CursorInfo = default;
 
 		public override void PostprocessMouseLeave(MouseEventArgs e) => ResetCursorInfo();
 	}
@@ -81,9 +75,7 @@ namespace dnSpy.Hex.Editor {
 		readonly OffsetCursorProviderService offsetCursorProviderService;
 
 		[ImportingConstructor]
-		OffsetHexCursorProviderFactory(OffsetCursorProviderService offsetCursorProviderService) {
-			this.offsetCursorProviderService = offsetCursorProviderService;
-		}
+		OffsetHexCursorProviderFactory(OffsetCursorProviderService offsetCursorProviderService) => this.offsetCursorProviderService = offsetCursorProviderService;
 
 		public override HexCursorProvider Create(WpfHexView wpfHexView) =>
 			new OffsetHexCursorProvider(offsetCursorProviderService.Get(wpfHexView));
@@ -95,9 +87,7 @@ namespace dnSpy.Hex.Editor {
 		readonly OffsetCursorProvider offsetCursorProvider;
 
 		public OffsetHexCursorProvider(OffsetCursorProvider offsetCursorProvider) {
-			if (offsetCursorProvider == null)
-				throw new ArgumentNullException(nameof(offsetCursorProvider));
-			this.offsetCursorProvider = offsetCursorProvider;
+			this.offsetCursorProvider = offsetCursorProvider ?? throw new ArgumentNullException(nameof(offsetCursorProvider));
 			offsetCursorProvider.CursorInfoChanged += OffsetCursorProvider_CursorInfoChanged;
 		}
 

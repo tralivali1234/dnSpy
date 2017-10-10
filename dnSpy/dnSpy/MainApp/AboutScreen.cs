@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -241,8 +241,7 @@ namespace dnSpy.MainApp {
 			var random = new Random();
 			foreach (var x in extensionService.LoadedExtensions.OrderBy(a => random.Next())) {
 				ExtensionInfo extensionInfo;
-				IExtension extension;
-				if (toExtension.TryGetValue(x.Assembly, out extension))
+				if (toExtension.TryGetValue(x.Assembly, out var extension))
 					extensionInfo = extension.ExtensionInfo;
 				else
 					extensionInfo = new ExtensionInfo();

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,10 +33,6 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// Constructor
 		/// </summary>
 		/// <param name="hexView">Hex view</param>
-		public HexViewCreatedEventArgs(HexView hexView) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			HexView = hexView;
-		}
+		public HexViewCreatedEventArgs(HexView hexView) => HexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
 	}
 }

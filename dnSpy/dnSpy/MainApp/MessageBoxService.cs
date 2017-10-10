@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.MainApp {
 	[ExportAutoLoaded(LoadType = AutoLoadedLoadType.BeforeExtensions, Order = double.MinValue)]
 	sealed class MessageBoxServiceLoader : IAutoLoaded {
 		[ImportingConstructor]
-		MessageBoxServiceLoader(IMessageBoxService messageBoxService) {
-			MsgBox.Instance = messageBoxService;
-		}
+		MessageBoxServiceLoader(IMessageBoxService messageBoxService) => MsgBox.Instance = messageBoxService;
 	}
 
 	[Export, Export(typeof(IMessageBoxService))]
@@ -62,8 +60,7 @@ namespace dnSpy.MainApp {
 			var sect = settingsService.GetOrCreateSection(SETTINGS_GUID);
 			foreach (var ignoredSect in sect.SectionsWithName(IGNORED_SECTION)) {
 				var id = ignoredSect.Attribute<string>(IGNORED_ATTR);
-				Guid guid;
-				if (!Guid.TryParse(id, out guid))
+				if (!Guid.TryParse(id, out var guid))
 					continue;
 				ignoredMessages.Add(guid);
 			}
@@ -85,9 +82,7 @@ namespace dnSpy.MainApp {
 		public MsgBoxButton? ShowIgnorableMessage(Guid guid, string message, MsgBoxButton buttons = MsgBoxButton.OK, Window ownerWindow = null) {
 			if (ignoredMessages.Contains(guid))
 				return null;
-			MsgBoxDlg win;
-			MsgBoxVM vm;
-			Create(message, buttons, true, ownerWindow, out win, out vm);
+			Create(message, buttons, true, ownerWindow, out var win, out var vm);
 			win.ShowDialog();
 			if (win.ClickedButton != MsgBoxButton.None && vm.DontShowAgain) {
 				ignoredMessages.Add(guid);
@@ -97,9 +92,7 @@ namespace dnSpy.MainApp {
 		}
 
 		public MsgBoxButton Show(string message, MsgBoxButton buttons = MsgBoxButton.OK, Window ownerWindow = null) {
-			MsgBoxDlg win;
-			MsgBoxVM vm;
-			Create(message, buttons, false, ownerWindow, out win, out vm);
+			Create(message, buttons, false, ownerWindow, out var win, out var vm);
 			win.ShowDialog();
 			return win.ClickedButton;
 		}
@@ -153,7 +146,7 @@ namespace dnSpy.MainApp {
 			if (!string.IsNullOrWhiteSpace(title))
 				win.Title = title;
 			if (win.ShowDialog() != true)
-				return default(T);
+				return default;
 			return (T)vm.Value;
 		}
 

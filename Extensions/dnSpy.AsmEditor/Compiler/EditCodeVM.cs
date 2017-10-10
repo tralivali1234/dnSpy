@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,6 +34,7 @@ using dnSpy.Contracts.App;
 using dnSpy.Contracts.AsmEditor.Compiler;
 using dnSpy.Contracts.Controls;
 using dnSpy.Contracts.Decompiler;
+using dnSpy.Contracts.ETW;
 using dnSpy.Contracts.Images;
 using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Text.Editor;
@@ -68,7 +69,7 @@ namespace dnSpy.AsmEditor.Compiler {
 		public ICommand GoToPreviousDiagnosticCommand => new RelayCommand(a => GoToPreviousDiagnostic(), a => CanGoToPreviousDiagnostic);
 
 		public bool CanCompile {
-			get { return canCompile; }
+			get => canCompile;
 			set {
 				if (canCompile != value) {
 					canCompile = value;
@@ -114,7 +115,7 @@ namespace dnSpy.AsmEditor.Compiler {
 
 		public ObservableCollection<CodeDocument> Documents { get; } = new ObservableCollection<CodeDocument>();
 		public CodeDocument SelectedDocument {
-			get { return selectedDocument; }
+			get => selectedDocument;
 			set {
 				if (selectedDocument != value) {
 					selectedDocument = value;
@@ -127,7 +128,7 @@ namespace dnSpy.AsmEditor.Compiler {
 		public ObservableCollection<CompilerDiagnosticVM> Diagnostics { get; } = new ObservableCollection<CompilerDiagnosticVM>();
 
 		public CompilerDiagnosticVM SelectedCompilerDiagnosticVM {
-			get { return selectedCompilerDiagnosticVM; }
+			get => selectedCompilerDiagnosticVM;
 			set {
 				if (selectedCompilerDiagnosticVM != value) {
 					selectedCompilerDiagnosticVM = value;
@@ -223,11 +224,9 @@ namespace dnSpy.AsmEditor.Compiler {
 
 		protected abstract class DecompileCodeState : AsyncStateBase {
 			public DecompilationContext DecompilationContext { get; }
-			protected DecompileCodeState() {
-				DecompilationContext = new DecompilationContext {
-					CancellationToken = CancellationToken,
-				};
-			}
+			protected DecompileCodeState() => DecompilationContext = new DecompilationContext {
+				CancellationToken = CancellationToken,
+			};
 		}
 		protected DecompileCodeState decompileCodeState;
 
@@ -235,12 +234,10 @@ namespace dnSpy.AsmEditor.Compiler {
 		}
 		CompileCodeState compileCodeState;
 
-		protected void StartDecompile() {
-			StartDecompileAsync().ContinueWith(t => {
-				var ex = t.Exception;
-				Debug.Assert(ex == null);
-			}, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
-		}
+		protected void StartDecompile() => StartDecompileAsync().ContinueWith(t => {
+			var ex = t.Exception;
+			Debug.Assert(ex == null);
+		}, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
 
 		protected struct SimpleDocument {
 			public string NameNoExtension { get; }
@@ -263,11 +260,11 @@ namespace dnSpy.AsmEditor.Compiler {
 		async Task StartDecompileAsync() {
 			bool canCompile = false, canceled = false;
 			var assemblyReferences = Array.Empty<CompilerMetadataReference>();
-			SimpleDocument[] simpleDocuments = Array.Empty<SimpleDocument>();
+			var simpleDocuments = Array.Empty<SimpleDocument>();
 			try {
 				var result = await DecompileAndGetRefsAsync();
-				assemblyReferences = result.Value;
-				simpleDocuments = result.Key.Documents.ToArray();
+				assemblyReferences = result.assemblyReferences;
+				simpleDocuments = result.result.Documents.ToArray();
 				canCompile = true;
 			}
 			catch (OperationCanceledException) {
@@ -313,16 +310,15 @@ namespace dnSpy.AsmEditor.Compiler {
 		static readonly object editCodeTextViewKey = new object();
 
 		internal static EditCodeVM TryGet(ITextView textView) {
-			EditCodeVM vm;
-			textView.Properties.TryGetProperty(editCodeTextViewKey, out vm);
+			textView.Properties.TryGetProperty(editCodeTextViewKey, out EditCodeVM vm);
 			return vm;
 		}
 
-		async Task<KeyValuePair<DecompileAsyncResult, CompilerMetadataReference[]>> DecompileAndGetRefsAsync() {
+		async Task<(DecompileAsyncResult result, CompilerMetadataReference[] assemblyReferences)> DecompileAndGetRefsAsync() {
 			var result = await DecompileAsync().ConfigureAwait(false);
 			decompileCodeState.CancellationToken.ThrowIfCancellationRequested();
 			var refs = await CreateCompilerMetadataReferencesAsync(languageCompiler.RequiredAssemblyReferences, decompileCodeState.CancellationToken).ConfigureAwait(false);
-			return new KeyValuePair<DecompileAsyncResult, CompilerMetadataReference[]>(result, refs);
+			return (result, refs);
 		}
 
 		Task<DecompileAsyncResult> DecompileAsync() {
@@ -338,8 +334,10 @@ namespace dnSpy.AsmEditor.Compiler {
 				return;
 			CanCompile = false;
 
+			DnSpyEventSource.Log.CompileStart();
 			ProfileOptimizationHelper.StartProfile("compile-" + decompiler.UniqueGuid.ToString());
 			StartCompileAsync().ContinueWith(t => {
+				DnSpyEventSource.Log.CompileStop();
 				var ex = t.Exception;
 				Debug.Assert(ex == null);
 			}, CancellationToken.None, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext());
@@ -454,7 +452,7 @@ namespace dnSpy.AsmEditor.Compiler {
 			Diagnostics.Clear();
 			Diagnostics.AddRange(diags.OrderBy(a => a, CompilerDiagnosticComparer.Instance).
 				Where(a => a.Severity != CompilerDiagnosticSeverity.Hidden).
-				Select(a => new CompilerDiagnosticVM(a, GetImageReference(a.Severity) ?? default(ImageReference))));
+				Select(a => new CompilerDiagnosticVM(a, GetImageReference(a.Severity) ?? default)));
 			SelectedCompilerDiagnosticVM = Diagnostics.FirstOrDefault();
 		}
 

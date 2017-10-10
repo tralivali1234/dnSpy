@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -23,6 +23,7 @@ using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Reflection;
+using System.Security.Principal;
 using System.Windows;
 using System.Windows.Input;
 using dnSpy.Contracts.App;
@@ -31,6 +32,7 @@ using dnSpy.Contracts.Documents.Tabs;
 using dnSpy.Contracts.Settings;
 using dnSpy.Controls;
 using dnSpy.Events;
+using dnSpy.Properties;
 
 namespace dnSpy.MainApp {
 	[Export, Export(typeof(IAppWindow))]
@@ -64,9 +66,7 @@ namespace dnSpy.MainApp {
 			public SavedWindowState SavedWindowState;
 			public MainWindowControlState MainWindowControlState;
 
-			public UISettings(ISettingsService settingsService) {
-				this.settingsService = settingsService;
-			}
+			public UISettings(ISettingsService settingsService) => this.settingsService = settingsService;
 
 			public void Read() {
 				var sect = settingsService.GetOrCreateSection(SETTINGS_GUID);
@@ -120,6 +120,8 @@ namespace dnSpy.MainApp {
 			sc.AddChild(statusBar, StackedContentChildInfo.CreateVertical(new GridLength(0, GridUnitType.Auto)));
 			mainWindow = new MainWindow(sc.UIObject);
 			AddTitleInfo(IntPtr.Size == 4 ? "x86" : "x64");
+			if (IsAdministrator())
+				AddTitleInfo(dnSpy_Resources.User_Administrator);
 			wpfCommandService.Add(ControlConstants.GUID_MAINWINDOW, mainWindow);
 			new SavedWindowStateRestorer(mainWindow, uiSettings.SavedWindowState, DefaultWindowLocation);
 			mainWindow.Closing += MainWindow_Closing;
@@ -127,6 +129,11 @@ namespace dnSpy.MainApp {
 			mainWindow.GotKeyboardFocus += MainWindow_GotKeyboardFocus;
 			RefreshToolBar();
 			return mainWindow;
+		}
+
+		static bool IsAdministrator() {
+			using (var id = WindowsIdentity.GetCurrent())
+				return new WindowsPrincipal(id).IsInRole(WindowsBuiltInRole.Administrator);
 		}
 
 		void IDsLoaderContentProvider.SetLoadingContent(object content) {
@@ -150,9 +157,7 @@ namespace dnSpy.MainApp {
 			uiSettings.Write();
 		}
 
-		void MainWindow_Closed(object sender, EventArgs e) {
-			mainWindowClosed.Raise(this, e);
-		}
+		void MainWindow_Closed(object sender, EventArgs e) => mainWindowClosed.Raise(this, e);
 
 		void MainWindow_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e) {
 			if (e.NewFocus == MainWindow) {

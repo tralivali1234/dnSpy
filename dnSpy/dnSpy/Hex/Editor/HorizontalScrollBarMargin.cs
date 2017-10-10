@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,9 +44,7 @@ namespace dnSpy.Hex.Editor {
 
 		sealed class TheScrollBar : TE.DsScrollBar {
 			readonly HorizontalScrollBarMargin owner;
-			public TheScrollBar(HorizontalScrollBarMargin owner) {
-				this.owner = owner;
-			}
+			public TheScrollBar(HorizontalScrollBarMargin owner) => this.owner = owner;
 			protected override void OnScroll(ScrollEventArgs e) => owner.OnScroll(Value);
 		}
 
@@ -54,10 +52,8 @@ namespace dnSpy.Hex.Editor {
 		readonly WpfHexViewHost wpfHexViewHost;
 
 		public HorizontalScrollBarMargin(WpfHexViewHost wpfHexViewHost) {
-			if (wpfHexViewHost == null)
-				throw new ArgumentNullException(nameof(wpfHexViewHost));
 			theScrollBar = new TheScrollBar(this);
-			this.wpfHexViewHost = wpfHexViewHost;
+			this.wpfHexViewHost = wpfHexViewHost ?? throw new ArgumentNullException(nameof(wpfHexViewHost));
 			theScrollBar.IsVisibleChanged += HorizontalScrollBarMargin_IsVisibleChanged;
 			wpfHexViewHost.HexView.Options.OptionChanged += Options_OptionChanged;
 			theScrollBar.SetResourceReference(FrameworkElement.StyleProperty, typeof(ScrollBar));

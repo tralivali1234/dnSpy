@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,7 +18,6 @@
 */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
@@ -48,16 +47,10 @@ namespace dnSpy.Hex.Editor {
 		readonly VSTC.IEditorFormatMap editorFormatMap;
 
 		public HexSelectionLayer(HexSelectionImpl hexSelection, HexAdornmentLayer layer, VSTC.IEditorFormatMap editorFormatMap) {
-			if (hexSelection == null)
-				throw new ArgumentNullException(nameof(hexSelection));
-			if (layer == null)
-				throw new ArgumentNullException(nameof(layer));
-			if (editorFormatMap == null)
-				throw new ArgumentNullException(nameof(editorFormatMap));
 			markerElementRemovedCallBack = (tag, element) => OnMarkerElementRemoved();
-			this.hexSelection = hexSelection;
-			this.layer = layer;
-			this.editorFormatMap = editorFormatMap;
+			this.hexSelection = hexSelection ?? throw new ArgumentNullException(nameof(hexSelection));
+			this.layer = layer ?? throw new ArgumentNullException(nameof(layer));
+			this.editorFormatMap = editorFormatMap ?? throw new ArgumentNullException(nameof(editorFormatMap));
 			hexSelection.HexView.Options.OptionChanged += Options_OptionChanged;
 			hexSelection.SelectionChanged += HexSelection_SelectionChanged;
 			hexSelection.HexView.LayoutChanged += HexView_LayoutChanged;
@@ -112,7 +105,7 @@ namespace dnSpy.Hex.Editor {
 			var info = CreateStreamSelection();
 			if (info == null)
 				return;
-			CreateMarkerElement(info.Value.Key, info.Value.Value);
+			CreateMarkerElement(info.Value.span, info.Value.geometry);
 		}
 
 		void CreateMarkerElement(HexBufferSpan fullSpan, Geometry geo) {
@@ -127,7 +120,7 @@ namespace dnSpy.Hex.Editor {
 
 		void OnMarkerElementRemoved() => markerElement = null;
 
-		KeyValuePair<HexBufferSpan, Geometry>? CreateStreamSelection() {
+		(HexBufferSpan span, Geometry geometry)? CreateStreamSelection() {
 			Debug.Assert(!hexSelection.IsEmpty);
 			var linesColl = (WpfHexViewLineCollection)hexSelection.HexView.HexViewLines;
 			var span = hexSelection.StreamSelectionSpan.Overlap(linesColl.FormattedSpan);
@@ -136,7 +129,7 @@ namespace dnSpy.Hex.Editor {
 			var geo = linesColl.GetMarkerGeometry(span.Value, HexSelectionImpl.SelectionFlags);
 			if (geo == null)
 				return null;
-			return new KeyValuePair<HexBufferSpan, Geometry>(span.Value, geo);
+			return (span.Value, geo);
 		}
 
 		public void OnModeUpdated() => SetNewSelection();
@@ -169,11 +162,7 @@ namespace dnSpy.Hex.Editor {
 			}
 			Pen pen;
 
-			public MarkerElement(Geometry geometry) {
-				if (geometry == null)
-					throw new ArgumentNullException(nameof(geometry));
-				this.geometry = geometry;
-			}
+			public MarkerElement(Geometry geometry) => this.geometry = geometry ?? throw new ArgumentNullException(nameof(geometry));
 
 			protected override void OnRender(DrawingContext drawingContext) {
 				base.OnRender(drawingContext);

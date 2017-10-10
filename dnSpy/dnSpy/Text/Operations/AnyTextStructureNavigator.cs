@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -29,19 +29,14 @@ namespace dnSpy.Text.Operations {
 		readonly ITextBuffer textBuffer;
 
 		public AnyTextStructureNavigator(ITextBuffer textBuffer, IContentType contentType) {
-			if (textBuffer == null)
-				throw new ArgumentNullException(nameof(textBuffer));
-			if (contentType == null)
-				throw new ArgumentNullException(nameof(contentType));
-			this.textBuffer = textBuffer;
-			ContentType = contentType;
+			this.textBuffer = textBuffer ?? throw new ArgumentNullException(nameof(textBuffer));
+			ContentType = contentType ?? throw new ArgumentNullException(nameof(contentType));
 		}
 
 		public TextExtent GetExtentOfWord(SnapshotPoint currentPosition) {
 			if (currentPosition.Snapshot?.TextBuffer != textBuffer)
 				throw new ArgumentException();
-			WordParser.WordKind kind;
-			var span = WordParser.GetWordSpan(currentPosition, out kind);
+			var span = WordParser.GetWordSpan(currentPosition, out var kind);
 			return new TextExtent(span, kind != WordParser.WordKind.Whitespace);
 		}
 

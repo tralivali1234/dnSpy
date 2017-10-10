@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -41,9 +41,7 @@ namespace dnSpy.Language.Intellisense {
 		readonly Lazy<IIntellisenseControllerProvider, IContentTypeMetadata>[] intellisenseControllerProviders;
 
 		[ImportingConstructor]
-		IntellisenseControllerService([ImportMany] IEnumerable<Lazy<IIntellisenseControllerProvider, IContentTypeMetadata>> intellisenseControllerProviders) {
-			this.intellisenseControllerProviders = intellisenseControllerProviders.ToArray();
-		}
+		IntellisenseControllerService([ImportMany] IEnumerable<Lazy<IIntellisenseControllerProvider, IContentTypeMetadata>> intellisenseControllerProviders) => this.intellisenseControllerProviders = intellisenseControllerProviders.ToArray();
 
 		sealed class TextViewState {
 			readonly IWpfTextView wpfTextView;
@@ -94,9 +92,7 @@ namespace dnSpy.Language.Intellisense {
 			public Lazy<IIntellisenseControllerProvider, IContentTypeMetadata> Lazy { get; }
 			public IIntellisenseController Controller { get; set; }
 
-			public ControllerInfo(Lazy<IIntellisenseControllerProvider, IContentTypeMetadata> lazy) {
-				Lazy = lazy;
-			}
+			public ControllerInfo(Lazy<IIntellisenseControllerProvider, IContentTypeMetadata> lazy) => Lazy = lazy;
 
 			public List<ITextBuffer> FilterBuffers(IList<ITextBuffer> buffers, List<ITextBuffer> filteredBuffers) {
 				filteredBuffers.Clear();

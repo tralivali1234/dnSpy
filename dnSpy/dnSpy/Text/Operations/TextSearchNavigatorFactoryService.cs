@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,9 +28,7 @@ namespace dnSpy.Text.Operations {
 		readonly ITextSearchService2 textSearchService2;
 
 		[ImportingConstructor]
-		TextSearchNavigatorFactoryService(ITextSearchService2 textSearchService2) {
-			this.textSearchService2 = textSearchService2;
-		}
+		TextSearchNavigatorFactoryService(ITextSearchService2 textSearchService2) => this.textSearchService2 = textSearchService2;
 
 		public ITextSearchNavigator CreateSearchNavigator(ITextBuffer buffer) {
 			if (buffer == null)

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,14 +35,10 @@ namespace dnSpy.Text.Editor {
 		readonly ITextSnapshot snapshot;
 
 		public WpfTextViewLineCollection(IWpfTextView textView, ITextSnapshot snapshot, IList<IWpfTextViewLine> lines) {
-			if (textView == null)
-				throw new ArgumentNullException(nameof(textView));
-			if (snapshot == null)
-				throw new ArgumentNullException(nameof(snapshot));
 			if (lines == null)
 				throw new ArgumentNullException(nameof(lines));
-			this.textView = textView;
-			this.snapshot = snapshot;
+			this.textView = textView ?? throw new ArgumentNullException(nameof(textView));
+			this.snapshot = snapshot ?? throw new ArgumentNullException(nameof(snapshot));
 			this.lines = new ReadOnlyCollection<IWpfTextViewLine>(lines);
 			IsValid = true;
 			if (lines.Count == 0)
@@ -286,31 +282,19 @@ namespace dnSpy.Text.Editor {
 		public bool Contains(ITextViewLine item) => IndexOf(item) >= 0;
 		public int IndexOf(ITextViewLine item) => lines.IndexOf(item as IWpfTextViewLine);
 
-		public void Add(ITextViewLine item) {
-			throw new NotSupportedException();
-		}
+		public void Add(ITextViewLine item) => throw new NotSupportedException();
 
-		public void Clear() {
-			throw new NotSupportedException();
-		}
+		public void Clear() => throw new NotSupportedException();
 
-		public void Insert(int index, ITextViewLine item) {
-			throw new NotSupportedException();
-		}
+		public void Insert(int index, ITextViewLine item) => throw new NotSupportedException();
 
-		public bool Remove(ITextViewLine item) {
-			throw new NotSupportedException();
-		}
+		public bool Remove(ITextViewLine item) => throw new NotSupportedException();
 
-		public void RemoveAt(int index) {
-			throw new NotSupportedException();
-		}
+		public void RemoveAt(int index) => throw new NotSupportedException();
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 		public IEnumerator<ITextViewLine> GetEnumerator() => lines.GetEnumerator();
 
-		public void Invalidate() {
-			IsValid = false;
-		}
+		public void Invalidate() => IsValid = false;
 	}
 }

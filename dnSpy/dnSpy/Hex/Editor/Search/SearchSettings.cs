@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,12 +45,8 @@ namespace dnSpy.Hex.Editor.Search {
 		HexDataKind dataKind = HexDataKind.Bytes;
 
 		public override void SaveSettings(string searchString, string replaceString, bool matchCase, bool bigEndian, HexDataKind dataKind) {
-			if (searchString == null)
-				throw new ArgumentNullException(nameof(searchString));
-			if (replaceString == null)
-				throw new ArgumentNullException(nameof(replaceString));
-			this.searchString = searchString;
-			this.replaceString = replaceString;
+			this.searchString = searchString ?? throw new ArgumentNullException(nameof(searchString));
+			this.replaceString = replaceString ?? throw new ArgumentNullException(nameof(replaceString));
 			this.matchCase = matchCase;
 			this.bigEndian = bigEndian;
 			this.dataKind = dataKind;

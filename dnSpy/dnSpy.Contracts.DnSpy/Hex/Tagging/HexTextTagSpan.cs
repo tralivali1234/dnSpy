@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -58,10 +58,8 @@ namespace dnSpy.Contracts.Hex.Tagging {
 		/// <param name="span"></param>
 		/// <param name="tag"></param>
 		public HexTextTagSpan(VST.Span span, T tag) {
-			if (tag == null)
-				throw new ArgumentNullException(nameof(tag));
 			Span = span;
-			Tag = tag;
+			Tag = tag ?? throw new ArgumentNullException(nameof(tag));
 		}
 	}
 }

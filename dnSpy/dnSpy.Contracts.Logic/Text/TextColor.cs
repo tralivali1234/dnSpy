@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -271,6 +271,59 @@ namespace dnSpy.Contracts.Text {
 		HexToolTipServiceField0,
 		HexToolTipServiceField1,
 		HexToolTipServiceCurrentField,
+		ListFindMatchHighlight,
+		AdvancedBreakpointStatement,
+		AdvancedBreakpointStatementMarker,
+		SelectedAdvancedBreakpointStatementMarker,
+		DisabledAdvancedBreakpointStatement,
+		DisabledAdvancedBreakpointStatementMarker,
+		SelectedDisabledAdvancedBreakpointStatementMarker,
+		BreakpointWarningStatement,
+		BreakpointWarningStatementMarker,
+		SelectedBreakpointWarningStatementMarker,
+		BreakpointErrorStatement,
+		BreakpointErrorStatementMarker,
+		SelectedBreakpointErrorStatementMarker,
+		AdvancedBreakpointWarningStatement,
+		AdvancedBreakpointWarningStatementMarker,
+		SelectedAdvancedBreakpointWarningStatementMarker,
+		AdvancedBreakpointErrorStatement,
+		AdvancedBreakpointErrorStatementMarker,
+		SelectedAdvancedBreakpointErrorStatementMarker,
+		TracepointStatement,
+		TracepointStatementMarker,
+		SelectedTracepointStatementMarker,
+		DisabledTracepointStatement,
+		DisabledTracepointStatementMarker,
+		SelectedDisabledTracepointStatementMarker,
+		AdvancedTracepointStatement,
+		AdvancedTracepointStatementMarker,
+		SelectedAdvancedTracepointStatementMarker,
+		DisabledAdvancedTracepointStatement,
+		DisabledAdvancedTracepointStatementMarker,
+		SelectedDisabledAdvancedTracepointStatementMarker,
+		TracepointWarningStatement,
+		TracepointWarningStatementMarker,
+		SelectedTracepointWarningStatementMarker,
+		TracepointErrorStatement,
+		TracepointErrorStatementMarker,
+		SelectedTracepointErrorStatementMarker,
+		AdvancedTracepointWarningStatement,
+		AdvancedTracepointWarningStatementMarker,
+		SelectedAdvancedTracepointWarningStatementMarker,
+		AdvancedTracepointErrorStatement,
+		AdvancedTracepointErrorStatementMarker,
+		SelectedAdvancedTracepointErrorStatementMarker,
+		BookmarkName,
+		ActiveBookmarkName,
+		DebugLogTrace,
+		DebugLogExtensionMessage,
+		DebuggerValueChangedHighlight,
+		DebugExceptionName,
+		DebugStowedExceptionName,
+		DebugReturnValueName,
+		DebugVariableName,
+		DebugObjectIdName,
 
 		/// <summary>
 		/// Must be last
@@ -528,6 +581,59 @@ namespace dnSpy.Contracts.Text {
 		public static readonly object HexToolTipServiceField0 = TextColor.HexToolTipServiceField0;
 		public static readonly object HexToolTipServiceField1 = TextColor.HexToolTipServiceField1;
 		public static readonly object HexToolTipServiceCurrentField = TextColor.HexToolTipServiceCurrentField;
+		public static readonly object ListFindMatchHighlight = TextColor.ListFindMatchHighlight;
+		public static readonly object AdvancedBreakpointStatement = TextColor.AdvancedBreakpointStatement;
+		public static readonly object AdvancedBreakpointStatementMarker = TextColor.AdvancedBreakpointStatementMarker;
+		public static readonly object SelectedAdvancedBreakpointStatementMarker = TextColor.SelectedAdvancedBreakpointStatementMarker;
+		public static readonly object DisabledAdvancedBreakpointStatement = TextColor.DisabledAdvancedBreakpointStatement;
+		public static readonly object DisabledAdvancedBreakpointStatementMarker = TextColor.DisabledAdvancedBreakpointStatementMarker;
+		public static readonly object SelectedDisabledAdvancedBreakpointStatementMarker = TextColor.SelectedDisabledAdvancedBreakpointStatementMarker;
+		public static readonly object BreakpointWarningStatement = TextColor.BreakpointWarningStatement;
+		public static readonly object BreakpointWarningStatementMarker = TextColor.BreakpointWarningStatementMarker;
+		public static readonly object SelectedBreakpointWarningStatementMarker = TextColor.SelectedBreakpointWarningStatementMarker;
+		public static readonly object BreakpointErrorStatement = TextColor.BreakpointErrorStatement;
+		public static readonly object BreakpointErrorStatementMarker = TextColor.BreakpointErrorStatementMarker;
+		public static readonly object SelectedBreakpointErrorStatementMarker = TextColor.SelectedBreakpointErrorStatementMarker;
+		public static readonly object AdvancedBreakpointWarningStatement = TextColor.AdvancedBreakpointWarningStatement;
+		public static readonly object AdvancedBreakpointWarningStatementMarker = TextColor.AdvancedBreakpointWarningStatementMarker;
+		public static readonly object SelectedAdvancedBreakpointWarningStatementMarker = TextColor.SelectedAdvancedBreakpointWarningStatementMarker;
+		public static readonly object AdvancedBreakpointErrorStatement = TextColor.AdvancedBreakpointErrorStatement;
+		public static readonly object AdvancedBreakpointErrorStatementMarker = TextColor.AdvancedBreakpointErrorStatementMarker;
+		public static readonly object SelectedAdvancedBreakpointErrorStatementMarker = TextColor.SelectedAdvancedBreakpointErrorStatementMarker;
+		public static readonly object TracepointStatement = TextColor.TracepointStatement;
+		public static readonly object TracepointStatementMarker = TextColor.TracepointStatementMarker;
+		public static readonly object SelectedTracepointStatementMarker = TextColor.SelectedTracepointStatementMarker;
+		public static readonly object DisabledTracepointStatement = TextColor.DisabledTracepointStatement;
+		public static readonly object DisabledTracepointStatementMarker = TextColor.DisabledTracepointStatementMarker;
+		public static readonly object SelectedDisabledTracepointStatementMarker = TextColor.SelectedDisabledTracepointStatementMarker;
+		public static readonly object AdvancedTracepointStatement = TextColor.AdvancedTracepointStatement;
+		public static readonly object AdvancedTracepointStatementMarker = TextColor.AdvancedTracepointStatementMarker;
+		public static readonly object SelectedAdvancedTracepointStatementMarker = TextColor.SelectedAdvancedTracepointStatementMarker;
+		public static readonly object DisabledAdvancedTracepointStatement = TextColor.DisabledAdvancedTracepointStatement;
+		public static readonly object DisabledAdvancedTracepointStatementMarker = TextColor.DisabledAdvancedTracepointStatementMarker;
+		public static readonly object SelectedDisabledAdvancedTracepointStatementMarker = TextColor.SelectedDisabledAdvancedTracepointStatementMarker;
+		public static readonly object TracepointWarningStatement = TextColor.TracepointWarningStatement;
+		public static readonly object TracepointWarningStatementMarker = TextColor.TracepointWarningStatementMarker;
+		public static readonly object SelectedTracepointWarningStatementMarker = TextColor.SelectedTracepointWarningStatementMarker;
+		public static readonly object TracepointErrorStatement = TextColor.TracepointErrorStatement;
+		public static readonly object TracepointErrorStatementMarker = TextColor.TracepointErrorStatementMarker;
+		public static readonly object SelectedTracepointErrorStatementMarker = TextColor.SelectedTracepointErrorStatementMarker;
+		public static readonly object AdvancedTracepointWarningStatement = TextColor.AdvancedTracepointWarningStatement;
+		public static readonly object AdvancedTracepointWarningStatementMarker = TextColor.AdvancedTracepointWarningStatementMarker;
+		public static readonly object SelectedAdvancedTracepointWarningStatementMarker = TextColor.SelectedAdvancedTracepointWarningStatementMarker;
+		public static readonly object AdvancedTracepointErrorStatement = TextColor.AdvancedTracepointErrorStatement;
+		public static readonly object AdvancedTracepointErrorStatementMarker = TextColor.AdvancedTracepointErrorStatementMarker;
+		public static readonly object SelectedAdvancedTracepointErrorStatementMarker = TextColor.SelectedAdvancedTracepointErrorStatementMarker;
+		public static readonly object BookmarkName = TextColor.BookmarkName;
+		public static readonly object ActiveBookmarkName = TextColor.ActiveBookmarkName;
+		public static readonly object DebugLogTrace = TextColor.DebugLogTrace;
+		public static readonly object DebugLogExtensionMessage = TextColor.DebugLogExtensionMessage;
+		public static readonly object DebuggerValueChangedHighlight = TextColor.DebuggerValueChangedHighlight;
+		public static readonly object DebugExceptionName = TextColor.DebugExceptionName;
+		public static readonly object DebugStowedExceptionName = TextColor.DebugStowedExceptionName;
+		public static readonly object DebugReturnValueName = TextColor.DebugReturnValueName;
+		public static readonly object DebugVariableName = TextColor.DebugVariableName;
+		public static readonly object DebugObjectIdName = TextColor.DebugObjectIdName;
 
 		/// <summary>
 		/// Boxes <paramref name="color"/>
@@ -787,6 +893,59 @@ namespace dnSpy.Contracts.Text {
 			HexToolTipServiceField0,
 			HexToolTipServiceField1,
 			HexToolTipServiceCurrentField,
+			ListFindMatchHighlight,
+			AdvancedBreakpointStatement,
+			AdvancedBreakpointStatementMarker,
+			SelectedAdvancedBreakpointStatementMarker,
+			DisabledAdvancedBreakpointStatement,
+			DisabledAdvancedBreakpointStatementMarker,
+			SelectedDisabledAdvancedBreakpointStatementMarker,
+			BreakpointWarningStatement,
+			BreakpointWarningStatementMarker,
+			SelectedBreakpointWarningStatementMarker,
+			BreakpointErrorStatement,
+			BreakpointErrorStatementMarker,
+			SelectedBreakpointErrorStatementMarker,
+			AdvancedBreakpointWarningStatement,
+			AdvancedBreakpointWarningStatementMarker,
+			SelectedAdvancedBreakpointWarningStatementMarker,
+			AdvancedBreakpointErrorStatement,
+			AdvancedBreakpointErrorStatementMarker,
+			SelectedAdvancedBreakpointErrorStatementMarker,
+			TracepointStatement,
+			TracepointStatementMarker,
+			SelectedTracepointStatementMarker,
+			DisabledTracepointStatement,
+			DisabledTracepointStatementMarker,
+			SelectedDisabledTracepointStatementMarker,
+			AdvancedTracepointStatement,
+			AdvancedTracepointStatementMarker,
+			SelectedAdvancedTracepointStatementMarker,
+			DisabledAdvancedTracepointStatement,
+			DisabledAdvancedTracepointStatementMarker,
+			SelectedDisabledAdvancedTracepointStatementMarker,
+			TracepointWarningStatement,
+			TracepointWarningStatementMarker,
+			SelectedTracepointWarningStatementMarker,
+			TracepointErrorStatement,
+			TracepointErrorStatementMarker,
+			SelectedTracepointErrorStatementMarker,
+			AdvancedTracepointWarningStatement,
+			AdvancedTracepointWarningStatementMarker,
+			SelectedAdvancedTracepointWarningStatementMarker,
+			AdvancedTracepointErrorStatement,
+			AdvancedTracepointErrorStatementMarker,
+			SelectedAdvancedTracepointErrorStatementMarker,
+			BookmarkName,
+			ActiveBookmarkName,
+			DebugLogTrace,
+			DebugLogExtensionMessage,
+			DebuggerValueChangedHighlight,
+			DebugExceptionName,
+			DebugStowedExceptionName,
+			DebugReturnValueName,
+			DebugVariableName,
+			DebugObjectIdName,
 		};
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}

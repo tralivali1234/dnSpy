@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -344,8 +344,6 @@ namespace dnSpy.Text.Formatting {
 		}
 
 		public WpfTextViewLine(IBufferGraph bufferGraph, LinePartsCollection linePartsCollection, int linePartsIndex, int linePartsLength, int startColumn, int endColumn, ITextSnapshotLine bufferLine, SnapshotSpan span, ITextSnapshot visualSnapshot, TextLine textLine, double indentation, double virtualSpaceWidth) {
-			if (bufferGraph == null)
-				throw new ArgumentNullException(nameof(bufferGraph));
 			if (linePartsCollection == null)
 				throw new ArgumentNullException(nameof(linePartsCollection));
 			if (linePartsIndex < 0)
@@ -358,19 +356,17 @@ namespace dnSpy.Text.Formatting {
 				throw new ArgumentNullException(nameof(bufferLine));
 			if (span.Snapshot != bufferLine.Snapshot)
 				throw new ArgumentException();
-			if (visualSnapshot == null)
-				throw new ArgumentNullException(nameof(visualSnapshot));
 			if (textLine == null)
 				throw new ArgumentNullException(nameof(textLine));
 
 			IsValid = true;
 			this.linePartsIndex = linePartsIndex;
 			this.linePartsLength = linePartsLength;
-			this.bufferGraph = bufferGraph;
+			this.bufferGraph = bufferGraph ?? throw new ArgumentNullException(nameof(bufferGraph));
 			this.linePartsCollection = linePartsCollection;
 			this.startColumn = startColumn;
 			this.endColumn = endColumn;
-			this.visualSnapshot = visualSnapshot;
+			this.visualSnapshot = visualSnapshot ?? throw new ArgumentNullException(nameof(visualSnapshot));
 			textLines = new ReadOnlyCollection<TextLine>(new[] { textLine });
 			Debug.Assert(textLines.Count == 1);// Assumed by all code accessing TextLine prop
 
@@ -800,7 +796,7 @@ namespace dnSpy.Text.Formatting {
 			foreach (var t in textLines)
 				t.Dispose();
 			bufferGraph = null;
-			extentIncludingLineBreak = default(SnapshotSpan);
+			extentIncludingLineBreak = default;
 			visualSnapshot = null;
 			linePartsCollection = null;
 			textLines = null;

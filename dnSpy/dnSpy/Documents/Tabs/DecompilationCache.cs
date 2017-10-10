@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -36,9 +36,7 @@ namespace dnSpy.Documents.Tabs {
 		readonly IDecompilationCache decompilationCache;
 
 		[ImportingConstructor]
-		DecompilationCacheDocumentListListener(IDecompilationCache decompilationCache) {
-			this.decompilationCache = decompilationCache;
-		}
+		DecompilationCacheDocumentListListener(IDecompilationCache decompilationCache) => this.decompilationCache = decompilationCache;
 
 		public bool CanLoad => true;
 		public bool CanReload => true;
@@ -144,7 +142,7 @@ namespace dnSpy.Documents.Tabs {
 
 		static void AddTimerWait(DecompilationCache dc) {
 			Timer timer = null;
-			WeakReference weakSelf = new WeakReference(dc);
+			var weakSelf = new WeakReference(dc);
 			timer = new Timer(a => {
 				timer.Dispose();
 				var self = (DecompilationCache)weakSelf.Target;
@@ -160,8 +158,7 @@ namespace dnSpy.Documents.Tabs {
 			lock (lockObj) {
 				var key = new Key(decompiler, nodes, settings);
 
-				Item item;
-				if (cachedItems.TryGetValue(key, out item)) {
+				if (cachedItems.TryGetValue(key, out var item)) {
 					contentType = item.ContentType;
 					item.Hit();
 					var content = item.Content;

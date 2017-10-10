@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -81,9 +81,7 @@ namespace dnSpy.Text.Tagging.Xml {
 			}
 		}
 
-		public XamlAttributeValueClassifier() {
-			buffer = new char[512];
-		}
+		public XamlAttributeValueClassifier() => buffer = new char[512];
 
 		public bool Initialize(SnapshotSpan span) {
 			// Quick check that will filter out many small strings

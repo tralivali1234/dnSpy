@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -59,13 +59,10 @@ namespace dnSpy.Controls {
 	sealed class StackedContentChildImpl : IStackedContentChild {
 		public object UIObject { get; }
 
-		public StackedContentChildImpl(object uiObject) {
-			UIObject = uiObject;
-		}
+		public StackedContentChildImpl(object uiObject) => UIObject = uiObject;
 
 		public static IStackedContentChild GetOrCreate(object uiObjectOwner, object uiObject) {
-			var scc = uiObjectOwner as IStackedContentChild;
-			if (scc != null)
+			if (uiObjectOwner is IStackedContentChild scc)
 				return scc;
 			return new StackedContentChildImpl(uiObject);
 		}

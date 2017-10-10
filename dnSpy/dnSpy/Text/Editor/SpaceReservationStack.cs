@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -52,12 +52,8 @@ namespace dnSpy.Text.Editor {
 		readonly SpaceReservationManager[] spaceReservationManagers;
 
 		public SpaceReservationStack(IWpfTextView wpfTextView, string[] spaceReservationManagerNames) {
-			if (wpfTextView == null)
-				throw new ArgumentNullException(nameof(wpfTextView));
-			if (spaceReservationManagerNames == null)
-				throw new ArgumentNullException(nameof(spaceReservationManagerNames));
-			this.wpfTextView = wpfTextView;
-			this.spaceReservationManagerNames = spaceReservationManagerNames;
+			this.wpfTextView = wpfTextView ?? throw new ArgumentNullException(nameof(wpfTextView));
+			this.spaceReservationManagerNames = spaceReservationManagerNames ?? throw new ArgumentNullException(nameof(spaceReservationManagerNames));
 			spaceReservationManagers = new SpaceReservationManager[spaceReservationManagerNames.Length];
 			wpfTextView.Closed += WpfTextView_Closed;
 		}

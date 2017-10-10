@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,9 +28,7 @@ namespace dnSpy.Hex.Classification {
 		readonly VSTC.IClassificationFormatMapService classificationFormatMapService;
 
 		[ImportingConstructor]
-		HexClassificationFormatMapServiceImpl(VSTC.IClassificationFormatMapService classificationFormatMapService) {
-			this.classificationFormatMapService = classificationFormatMapService;
-		}
+		HexClassificationFormatMapServiceImpl(VSTC.IClassificationFormatMapService classificationFormatMapService) => this.classificationFormatMapService = classificationFormatMapService;
 
 		public override VSTC.IClassificationFormatMap GetClassificationFormatMap(string category) => classificationFormatMapService.GetClassificationFormatMap(category);
 		public override VSTC.IClassificationFormatMap GetClassificationFormatMap(HexView hexView) => classificationFormatMapService.GetClassificationFormatMap(HexTextView.GetOrCreate(hexView));

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -55,9 +55,7 @@ namespace dnSpy.Hex.Settings {
 		readonly CommonEditorOptions options;
 
 		protected ScrollBarsAppSettingsPageBase(CommonEditorOptions options) {
-			if (options == null)
-				throw new ArgumentNullException(nameof(options));
-			this.options = options;
+			this.options = options ?? throw new ArgumentNullException(nameof(options));
 			HorizontalScrollBar = options.HorizontalScrollBar;
 			VerticalScrollBar = options.VerticalScrollBar;
 		}

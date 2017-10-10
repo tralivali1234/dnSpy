@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -31,9 +31,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexStructureInfoAggregatorFactory hexStructureInfoAggregatorFactory;
 
 		[ImportingConstructor]
-		HexToolTipStructureSpanTaggerProvider(HexStructureInfoAggregatorFactory hexStructureInfoAggregatorFactory) {
-			this.hexStructureInfoAggregatorFactory = hexStructureInfoAggregatorFactory;
-		}
+		HexToolTipStructureSpanTaggerProvider(HexStructureInfoAggregatorFactory hexStructureInfoAggregatorFactory) => this.hexStructureInfoAggregatorFactory = hexStructureInfoAggregatorFactory;
 
 		public override IHexTagger<T> CreateTagger<T>(HexView hexView, HexBuffer buffer) =>
 			new HexToolTipStructureSpanTagger(hexStructureInfoAggregatorFactory.Create(hexView)) as IHexTagger<T>;
@@ -42,11 +40,7 @@ namespace dnSpy.Hex.Editor {
 	sealed class HexToolTipStructureSpanTagger : HexTagger<HexToolTipStructureSpanTag> {
 		readonly HexStructureInfoAggregator hexStructureInfoAggregator;
 
-		public HexToolTipStructureSpanTagger(HexStructureInfoAggregator hexStructureInfoAggregator) {
-			if (hexStructureInfoAggregator == null)
-				throw new ArgumentNullException(nameof(hexStructureInfoAggregator));
-			this.hexStructureInfoAggregator = hexStructureInfoAggregator;
-		}
+		public HexToolTipStructureSpanTagger(HexStructureInfoAggregator hexStructureInfoAggregator) => this.hexStructureInfoAggregator = hexStructureInfoAggregator ?? throw new ArgumentNullException(nameof(hexStructureInfoAggregator));
 
 		public override event EventHandler<HexBufferSpanEventArgs> TagsChanged { add { } remove { } }
 

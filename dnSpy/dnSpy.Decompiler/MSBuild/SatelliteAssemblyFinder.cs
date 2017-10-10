@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -92,8 +92,7 @@ namespace dnSpy.Decompiler.MSBuild {
 
 		AssemblyDef TryOpenAssembly(string filename) {
 			lock (openedModules) {
-				ModuleDef mod;
-				if (openedModules.TryGetValue(filename, out mod))
+				if (openedModules.TryGetValue(filename, out var mod))
 					return mod.Assembly;
 				openedModules[filename] = null;
 				if (!File.Exists(filename))

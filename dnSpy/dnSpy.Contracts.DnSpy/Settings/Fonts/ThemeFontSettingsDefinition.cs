@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -47,9 +47,7 @@ namespace dnSpy.Contracts.Settings.Fonts {
 		/// <param name="name">Name</param>
 		/// <param name="fontType">Font type</param>
 		public ExportThemeFontSettingsDefinitionAttribute(string name, FontType fontType) {
-			if (name == null)
-				throw new ArgumentNullException(nameof(name));
-			Name = name;
+			Name = name ?? throw new ArgumentNullException(nameof(name));
 			FontType = fontType;
 		}
 

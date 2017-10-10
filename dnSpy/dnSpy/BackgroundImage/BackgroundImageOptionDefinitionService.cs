@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,9 +39,7 @@ namespace dnSpy.BackgroundImage {
 		public Lazy<IBackgroundImageOptionDefinition, IBackgroundImageOptionDefinitionMetadata>[] AllSettings => backgroundImageOptionDefinitions;
 
 		[ImportingConstructor]
-		BackgroundImageOptionDefinitionService([ImportMany] IEnumerable<Lazy<IBackgroundImageOptionDefinition, IBackgroundImageOptionDefinitionMetadata>> backgroundImageOptionDefinitions) {
-			this.backgroundImageOptionDefinitions = backgroundImageOptionDefinitions.OrderBy(a => a.Metadata.Order).ToArray();
-		}
+		BackgroundImageOptionDefinitionService([ImportMany] IEnumerable<Lazy<IBackgroundImageOptionDefinition, IBackgroundImageOptionDefinitionMetadata>> backgroundImageOptionDefinitions) => this.backgroundImageOptionDefinitions = backgroundImageOptionDefinitions.OrderBy(a => a.Metadata.Order).ToArray();
 
 		public Lazy<IBackgroundImageOptionDefinition, IBackgroundImageOptionDefinitionMetadata> GetOptionDefinition(IWpfTextView wpfTextView) {
 			foreach (var lz in backgroundImageOptionDefinitions) {

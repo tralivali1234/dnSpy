@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,8 +34,7 @@ namespace dnSpy.Tabs {
 			set {
 				if (isActive != value) {
 					isActive = value;
-					var hdr = Header as TheHeader;
-					if (hdr != null)
+					if (Header is TheHeader hdr)
 						hdr.IsActiveChanged();
 				}
 			}
@@ -137,14 +136,12 @@ namespace dnSpy.Tabs {
 		}
 
 		void AddEvents() {
-			var npc = tabContent as INotifyPropertyChanged;
-			if (npc != null)
+			if (tabContent is INotifyPropertyChanged npc)
 				npc.PropertyChanged += TabContent_PropertyChanged;
 		}
 
 		void RemoveEvents() {
-			var npc = tabContent as INotifyPropertyChanged;
-			if (npc != null)
+			if (tabContent is INotifyPropertyChanged npc)
 				npc.PropertyChanged -= TabContent_PropertyChanged;
 		}
 

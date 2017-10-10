@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,9 +35,7 @@ namespace dnSpy.Text.Formatting {
 		int linePartIndex;
 
 		public LinePartsTextSource(LinePartsCollection linePartsCollection) {
-			if (linePartsCollection == null)
-				throw new ArgumentNullException(nameof(linePartsCollection));
-			this.linePartsCollection = linePartsCollection;
+			this.linePartsCollection = linePartsCollection ?? throw new ArgumentNullException(nameof(linePartsCollection));
 			text = linePartsCollection.Span.GetText();
 		}
 

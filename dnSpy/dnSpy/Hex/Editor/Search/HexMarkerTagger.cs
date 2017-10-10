@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Hex.Editor.Search {
 		readonly HexViewSearchServiceProvider hexViewSearchServiceProvider;
 
 		[ImportingConstructor]
-		HexMarkerTaggerProvider(HexViewSearchServiceProvider hexViewSearchServiceProvider) {
-			this.hexViewSearchServiceProvider = hexViewSearchServiceProvider;
-		}
+		HexMarkerTaggerProvider(HexViewSearchServiceProvider hexViewSearchServiceProvider) => this.hexViewSearchServiceProvider = hexViewSearchServiceProvider;
 
 		public override IHexTagger<T> CreateTagger<T>(HexView hexView, HexBuffer buffer) {
 			var wpfHexView = hexView as WpfHexView;

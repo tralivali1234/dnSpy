@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -143,9 +143,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="span">Heap span</param>
 		/// <param name="tablesHeapType">Tables heap type</param>
 		protected TablesHeap(HexBufferSpan span, TablesHeapType tablesHeapType)
-			: base(span, DotNetHeapKind.Tables) {
-			TablesHeapType = tablesHeapType;
-		}
+			: base(span, DotNetHeapKind.Tables) => TablesHeapType = tablesHeapType;
 
 		/// <summary>
 		/// Gets a record or null if <paramref name="token"/> is invalid

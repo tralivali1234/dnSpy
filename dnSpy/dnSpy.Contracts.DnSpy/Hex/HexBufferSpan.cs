@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -71,9 +71,7 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="buffer">Buffer</param>
 		/// <param name="span">Span</param>
 		public HexBufferSpan(HexBuffer buffer, HexSpan span) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			Buffer = buffer;
+			Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			Span = span;
 		}
 
@@ -84,9 +82,7 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="start">Start point</param>
 		/// <param name="length">Length</param>
 		public HexBufferSpan(HexBuffer buffer, HexPosition start, ulong length) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			Buffer = buffer;
+			Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			Span = new HexSpan(start, length);
 		}
 

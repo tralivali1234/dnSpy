@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -49,9 +49,7 @@ namespace dnSpy.Hex.Editor {
 		readonly List<HexSpaceReservationAgent> spaceReservationAgents;
 
 		public HexSpaceReservationManagerImpl(WpfHexView wpfHexView) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			spaceReservationAgents = new List<HexSpaceReservationAgent>();
 			Agents = new ReadOnlyCollection<HexSpaceReservationAgent>(spaceReservationAgents);
 			wpfHexView.Closed += WpfHexView_Closed;

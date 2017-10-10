@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -180,13 +180,12 @@ namespace dnSpy.AsmEditor.Compiler {
 		public override bool IsVisible(IMenuItemContext context) => IsVisibleInternal(editCodeVMCreator, context);
 
 		internal static bool IsVisibleInternal(EditCodeVMCreator editCodeVMCreator, IMenuItemContext context) => IsVisible(editCodeVMCreator, BodyCommandUtils.GetStatements(context));
-		static bool IsVisible(EditCodeVMCreator editCodeVMCreator, IList<MethodSourceStatement> list) {
-			return editCodeVMCreator.CanCreate(CompilationKind.Method) &&
-				list != null &&
-				list.Count != 0 &&
-				list[0].Method.Body != null &&
-				list[0].Method.Body.Instructions.Count > 0;
-		}
+		static bool IsVisible(EditCodeVMCreator editCodeVMCreator, IList<MethodSourceStatement> list) =>
+			editCodeVMCreator.CanCreate(CompilationKind.Method) &&
+			list != null &&
+			list.Count != 0 &&
+			list[0].Method.Body != null &&
+			list[0].Method.Body.Instructions.Count > 0;
 
 		public override void Execute(IMenuItemContext context) => Execute(BodyCommandUtils.GetStatements(context));
 

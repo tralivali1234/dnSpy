@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -131,9 +131,7 @@ namespace dnSpy.Hex.Settings {
 		readonly CommonEditorOptions options;
 
 		protected AdvancedAppSettingsPageBase(CommonEditorOptions options) {
-			if (options == null)
-				throw new ArgumentNullException(nameof(options));
-			this.options = options;
+			this.options = options ?? throw new ArgumentNullException(nameof(options));
 			ColumnLine0VM = new EnumListVM(hexColumnLineKindList);
 			ColumnLine1VM = new EnumListVM(hexColumnLineKindList);
 			ColumnGroupLine0VM = new EnumListVM(hexColumnLineKindList);

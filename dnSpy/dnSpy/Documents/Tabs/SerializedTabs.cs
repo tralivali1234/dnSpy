@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -316,9 +316,7 @@ namespace dnSpy.Documents.Tabs {
 
 		public List<NodePathName> Names { get; }
 
-		SerializedPath() {
-			Names = new List<NodePathName>();
-		}
+		SerializedPath() => Names = new List<NodePathName>();
 
 		public static SerializedPath Load(ISettingsSection pathSection) {
 			var path = new SerializedPath();

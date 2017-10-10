@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -43,9 +43,7 @@ namespace dnSpy.Hex.Commands {
 		/// <param name="onUpdated">Called when value gets updated</param>
 		/// <param name="useDecimal">true to use decimal, false to use hex, or null if it depends on the value</param>
 		public HexPositionVM(HexPosition value, Action<DataFieldVM> onUpdated, bool? useDecimal = null)
-			: base(onUpdated, HexPosition.Zero, HexPosition.MaxEndPosition, useDecimal) {
-			SetValueFromConstructor(value);
-		}
+			: base(onUpdated, HexPosition.Zero, HexPosition.MaxEndPosition, useDecimal) => SetValueFromConstructor(value);
 
 		/// <inheritdoc/>
 		protected override string OnNewValue(HexPosition value) {

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -29,11 +29,7 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// Constructor
 		/// </summary>
 		/// <param name="marginName">Name of margin, eg. <see cref="PredefinedHexMarginNames.Glyph"/></param>
-		public HexMarginNameAttribute(string marginName) {
-			if (marginName == null)
-				throw new ArgumentNullException(nameof(marginName));
-			MarginName = marginName;
-		}
+		public HexMarginNameAttribute(string marginName) => MarginName = marginName ?? throw new ArgumentNullException(nameof(marginName));
 
 		/// <summary>
 		/// Name of margin, eg. <see cref="PredefinedHexMarginNames.Glyph"/>

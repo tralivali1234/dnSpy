@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Hex.Editor {
 		double thumbSize;
 
 		public HexScrollMapImpl(HexView hexView) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			HexView = hexView;
+			HexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
 			HexView.BufferLinesChanged += HexView_BufferLinesChanged;
 			HexView.LayoutChanged += HexView_LayoutChanged;
 			HexView.Closed += HexView_Closed;

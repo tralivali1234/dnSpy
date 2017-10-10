@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,11 +33,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// Constructor
 		/// </summary>
 		/// <param name="files">Files</param>
-		protected BufferFilesEventArgs(HexBufferFile[] files) {
-			if (files == null)
-				throw new ArgumentNullException(nameof(files));
-			Files = files;
-		}
+		protected BufferFilesEventArgs(HexBufferFile[] files) => Files = files ?? throw new ArgumentNullException(nameof(files));
 	}
 
 	/// <summary>

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,9 +27,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 		public abstract IEnumerable<HexField> HexFields { get; }
 		public HexSpan Span { get; }
 
-		protected HexVM(HexSpan span) {
-			Span = span;
-		}
+		protected HexVM(HexSpan span) => Span = span;
 
 		public virtual void OnBufferChanged(NormalizedHexChangeCollection changes) {
 			foreach (var field in HexFields)

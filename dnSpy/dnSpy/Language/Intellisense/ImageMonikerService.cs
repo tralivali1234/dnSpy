@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -56,10 +56,9 @@ namespace dnSpy.Language.Intellisense {
 
 		public ImageMoniker ToImageMoniker(ImageReference imageReference) {
 			if (imageReference.IsDefault)
-				return default(ImageMoniker);
+				return default;
 			lock (lockObj) {
-				ImageMoniker imageMoniker;
-				if (toImageMonikerDict.TryGetValue(imageReference, out imageMoniker))
+				if (toImageMonikerDict.TryGetValue(imageReference, out var imageMoniker))
 					return imageMoniker;
 				imageMoniker.Guid = imageMonikerGuid;
 				imageMoniker.Id = imageMonikerId++;
@@ -72,10 +71,9 @@ namespace dnSpy.Language.Intellisense {
 
 		public ImageReference ToImageReference(ImageMoniker imageMoniker) {
 			if (imageMoniker.Id == 0 && imageMoniker.Guid == Guid.Empty)
-				return default(ImageReference);
+				return default;
 			lock (lockObj) {
-				ImageReference imageReference;
-				bool b = toImageReferenceDict.TryGetValue(imageMoniker, out imageReference);
+				bool b = toImageReferenceDict.TryGetValue(imageMoniker, out var imageReference);
 				Debug.Assert(b, $"{nameof(ToImageMoniker)}() hasn't been called yet");
 				return imageReference;
 			}

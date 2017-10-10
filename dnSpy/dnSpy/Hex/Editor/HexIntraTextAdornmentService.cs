@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexIntraTextAdornmentServiceProvider intraTextAdornmentServiceProvider;
 
 		[ImportingConstructor]
-		IntraTextAdornmentServiceSpaceNegotiatingAdornmentTaggerProvider(HexIntraTextAdornmentServiceProvider intraTextAdornmentServiceProvider) {
-			this.intraTextAdornmentServiceProvider = intraTextAdornmentServiceProvider;
-		}
+		IntraTextAdornmentServiceSpaceNegotiatingAdornmentTaggerProvider(HexIntraTextAdornmentServiceProvider intraTextAdornmentServiceProvider) => this.intraTextAdornmentServiceProvider = intraTextAdornmentServiceProvider;
 
 		public override IHexTagger<T> CreateTagger<T>(HexView hexView, HexBuffer buffer) {
 			if (hexView.Buffer != buffer)
@@ -67,9 +65,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexIntraTextAdornmentService intraTextAdornmentService;
 
 		public IntraTextAdornmentServiceSpaceNegotiatingAdornmentTagger(HexIntraTextAdornmentService intraTextAdornmentService) {
-			if (intraTextAdornmentService == null)
-				throw new ArgumentNullException(nameof(intraTextAdornmentService));
-			this.intraTextAdornmentService = intraTextAdornmentService;
+			this.intraTextAdornmentService = intraTextAdornmentService ?? throw new ArgumentNullException(nameof(intraTextAdornmentService));
 			intraTextAdornmentService.RegisterTagger(this);
 		}
 
@@ -91,9 +87,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexViewTagAggregatorFactoryService viewTagAggregatorFactoryService;
 
 		[ImportingConstructor]
-		HexIntraTextAdornmentServiceProviderImpl(HexViewTagAggregatorFactoryService viewTagAggregatorFactoryService) {
-			this.viewTagAggregatorFactoryService = viewTagAggregatorFactoryService;
-		}
+		HexIntraTextAdornmentServiceProviderImpl(HexViewTagAggregatorFactoryService viewTagAggregatorFactoryService) => this.viewTagAggregatorFactoryService = viewTagAggregatorFactoryService;
 
 		public override HexIntraTextAdornmentService Get(WpfHexView wpfHexView) {
 			if (wpfHexView == null)
@@ -126,13 +120,11 @@ namespace dnSpy.Hex.Editor {
 		static readonly object providerTag = new object();
 
 		public HexIntraTextAdornmentServiceImpl(WpfHexView wpfHexView, HexViewTagAggregatorFactoryService viewTagAggregatorFactoryService) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
 			if (viewTagAggregatorFactoryService == null)
 				throw new ArgumentNullException(nameof(viewTagAggregatorFactoryService));
 			adornmentTagInfos = new List<AdornmentTagInfo>();
 			currentLineIdentityTags = new HashSet<object>();
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			tagAggregator = viewTagAggregatorFactoryService.CreateTagAggregator<HexIntraTextAdornmentTag>(wpfHexView);
 			tagAggregator.TagsChanged += TagAggregator_TagsChanged;
 			wpfHexView.Closed += WpfHexView_Closed;
@@ -321,9 +313,7 @@ namespace dnSpy.Hex.Editor {
 
 		sealed class ZoomingUIElement : ContentControl {
 			readonly UIElement uiElem;
-			public ZoomingUIElement(UIElement uiElem) {
-				this.uiElem = uiElem;
-			}
+			public ZoomingUIElement(UIElement uiElem) => this.uiElem = uiElem;
 			public void Initialize() => Content = uiElem;
 			public void SetScale(double value) =>
 				LayoutTransform = value == 1 ? ScaleTransform.Identity : new ScaleTransform(1, value);
@@ -334,9 +324,7 @@ namespace dnSpy.Hex.Editor {
 		public override void RegisterTagger(IIntraTextAdornmentServiceSpaceNegotiatingAdornmentTagger tagger) {
 			if (this.tagger != null)
 				throw new InvalidOperationException();
-			if (tagger == null)
-				throw new ArgumentNullException(nameof(tagger));
-			this.tagger = tagger;
+			this.tagger = tagger ?? throw new ArgumentNullException(nameof(tagger));
 		}
 
 		public override IEnumerable<IHexTagSpan<HexSpaceNegotiatingAdornmentTag>> GetTags(NormalizedHexBufferSpanCollection spans) {

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,12 +38,8 @@ namespace dnSpy.Hex.Files.PE {
 		readonly bool initFileLayout;
 
 		public PeHeadersReader(HexBufferFile file, Lazy<PeFileLayoutProvider, VSUTIL.IOrderable>[] peFileLayoutProviders) {
-			if (file == null)
-				throw new ArgumentNullException(nameof(file));
-			if (peFileLayoutProviders == null)
-				throw new ArgumentNullException(nameof(peFileLayoutProviders));
-			this.file = file;
-			this.peFileLayoutProviders = peFileLayoutProviders;
+			this.file = file ?? throw new ArgumentNullException(nameof(file));
+			this.peFileLayoutProviders = peFileLayoutProviders ?? throw new ArgumentNullException(nameof(peFileLayoutProviders));
 
 			if (file.Tags.Contains(PredefinedBufferFileTags.FileLayout))
 				IsFileLayout = true;

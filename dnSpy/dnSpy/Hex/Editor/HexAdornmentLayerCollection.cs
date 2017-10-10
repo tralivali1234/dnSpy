@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexLayerKind layerKind;
 
 		public HexAdornmentLayerCollection(WpfHexView wpfHexView, HexLayerKind layerKind) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			this.layerKind = layerKind;
 			adornmentLayers = new List<HexAdornmentLayerImpl>();
 			if (layerKind != HexLayerKind.Normal)
@@ -73,7 +71,7 @@ namespace dnSpy.Hex.Editor {
 				Height = wpfHexView.VisualElement.ActualHeight;
 				if (layerKind == HexLayerKind.Normal) {
 					// Needed when HW acceleration isn't enabled (virtual machine or remote desktop).
-					// https://msdn.microsoft.com/en-us/library/system.windows.media.visual.visualscrollableareaclip(VS.100).aspx
+					// https://msdn.microsoft.com/en-us/library/system.windows.media.visual.visualscrollableareaclip(v=vs.110).aspx
 					// It's ignored if HW acceleration is enabled.
 					// This will reduce the number of bytes sent over the network and should speed up the display
 					// if it's a slow connection.

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,9 +30,7 @@ namespace dnSpy.Text.Operations {
 		readonly IContentType contentType;
 
 		[ImportingConstructor]
-		AnyTextStructureNavigatorProvider(IContentTypeRegistryService contentTypeRegistryService) {
-			contentType = contentTypeRegistryService.GetContentType(ContentTypes.Any);
-		}
+		AnyTextStructureNavigatorProvider(IContentTypeRegistryService contentTypeRegistryService) => contentType = contentTypeRegistryService.GetContentType(ContentTypes.Any);
 
 		public ITextStructureNavigator CreateTextStructureNavigator(ITextBuffer textBuffer) =>
 			new AnyTextStructureNavigator(textBuffer, contentType);

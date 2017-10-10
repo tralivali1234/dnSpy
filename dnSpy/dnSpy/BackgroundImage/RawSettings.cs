@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -49,9 +49,7 @@ namespace dnSpy.BackgroundImage {
 		public string[] Images {
 			get { return images; }
 			set {
-				if (value == null)
-					throw new ArgumentNullException(nameof(value));
-				images = value;
+				images = value ?? throw new ArgumentNullException(nameof(value));
 			}
 		}
 		string[] images;
@@ -83,9 +81,7 @@ namespace dnSpy.BackgroundImage {
 		}
 
 		public RawSettings(string id, DefaultImageSettings defaultSettings) {
-			if (id == null)
-				throw new ArgumentNullException(nameof(id));
-			Id = id;
+			Id = id ?? throw new ArgumentNullException(nameof(id));
 			Images = defaultSettings.Images ?? Array.Empty<string>();
 			Stretch = defaultSettings.Stretch ?? DefaultRawSettings.DefaultStretch;
 			StretchDirection = defaultSettings.StretchDirection ?? DefaultRawSettings.DefaultStretchDirection;
@@ -106,15 +102,9 @@ namespace dnSpy.BackgroundImage {
 		}
 
 		public RawSettings(string id)
-			: this() {
-			if (id == null)
-				throw new ArgumentNullException(nameof(id));
-			Id = id;
-		}
+			: this() => Id = id ?? throw new ArgumentNullException(nameof(id));
 
-		public RawSettings(ISettingsSection section) {
-			ReadSettings(section);
-		}
+		public RawSettings(ISettingsSection section) => ReadSettings(section);
 
 		void ReadSettings(ISettingsSection section) {
 			Id = section.Attribute<string>(nameof(Id));

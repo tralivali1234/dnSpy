@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,12 +34,8 @@ namespace dnSpy.Hex.Formatting {
 		readonly HexView hexView;
 
 		public HexAndAdornmentSequencerImpl(HexView hexView, HexTagAggregator<HexSpaceNegotiatingAdornmentTag> hexTagAggregator) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			if (hexTagAggregator == null)
-				throw new ArgumentNullException(nameof(hexTagAggregator));
-			this.hexView = hexView;
-			this.hexTagAggregator = hexTagAggregator;
+			this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
+			this.hexTagAggregator = hexTagAggregator ?? throw new ArgumentNullException(nameof(hexTagAggregator));
 			hexView.Closed += HexView_Closed;
 			hexTagAggregator.TagsChanged += HexTagAggregator_TagsChanged;
 		}
@@ -146,20 +142,14 @@ namespace dnSpy.Hex.Formatting {
 
 			readonly IHexTextTagSpan<HexSpaceNegotiatingAdornmentTag> tagSpan;
 
-			public HexAdornmentElementImpl(IHexTextTagSpan<HexSpaceNegotiatingAdornmentTag> tagSpan) {
-				if (tagSpan == null)
-					throw new ArgumentNullException(nameof(tagSpan));
-				this.tagSpan = tagSpan;
-			}
+			public HexAdornmentElementImpl(IHexTextTagSpan<HexSpaceNegotiatingAdornmentTag> tagSpan) => this.tagSpan = tagSpan ?? throw new ArgumentNullException(nameof(tagSpan));
 		}
 
 		sealed class HexSequenceElementImpl : HexSequenceElement {
 			public override bool ShouldRenderText => true;
 			public override VST.Span Span { get; }
 
-			public HexSequenceElementImpl(VST.Span span) {
-				Span = span;
-			}
+			public HexSequenceElementImpl(VST.Span span) => Span = span;
 		}
 
 		sealed class HexAndAdornmentCollectionImpl : HexAndAdornmentCollection {
@@ -169,12 +159,8 @@ namespace dnSpy.Hex.Formatting {
 			readonly HexSequenceElement[] elements;
 
 			public HexAndAdornmentCollectionImpl(HexAndAdornmentSequencer sequencer, HexSequenceElement[] elements) {
-				if (sequencer == null)
-					throw new ArgumentNullException(nameof(sequencer));
-				if (elements == null)
-					throw new ArgumentNullException(nameof(elements));
-				Sequencer = sequencer;
-				this.elements = elements;
+				Sequencer = sequencer ?? throw new ArgumentNullException(nameof(sequencer));
+				this.elements = elements ?? throw new ArgumentNullException(nameof(elements));
 			}
 		}
 

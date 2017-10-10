@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,9 +28,7 @@ namespace dnSpy.Hex.Files {
 		bool Decimal => (options & HexNumberOptions.NumberBaseMask) == HexNumberOptions.Decimal;
 		bool MinimumDigits => (options & HexNumberOptions.MinimumDigits) != 0;
 
-		public NumberFormatter(HexNumberOptions options) {
-			this.options = options;
-		}
+		public NumberFormatter(HexNumberOptions options) => this.options = options;
 
 		string AddHexIndicator(string text, bool isSigned) {
 			switch (options & HexNumberOptions.NumberBaseMask) {

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -102,16 +102,12 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// <param name="newOrReformattedLines">New or reformatted lines</param>
 		/// <param name="translatedLines">Translated lines</param>
 		public HexViewLayoutChangedEventArgs(HexViewState oldState, HexViewState newState, IList<HexViewLine> newOrReformattedLines, IList<HexViewLine> translatedLines) {
-			if (oldState == null)
-				throw new ArgumentNullException(nameof(oldState));
-			if (newState == null)
-				throw new ArgumentNullException(nameof(newState));
 			if (newOrReformattedLines == null)
 				throw new ArgumentNullException(nameof(newOrReformattedLines));
 			if (translatedLines == null)
 				throw new ArgumentNullException(nameof(translatedLines));
-			OldViewState = oldState;
-			NewViewState = newState;
+			OldViewState = oldState ?? throw new ArgumentNullException(nameof(oldState));
+			NewViewState = newState ?? throw new ArgumentNullException(nameof(newState));
 			NewOrReformattedLines = new ReadOnlyCollection<HexViewLine>(newOrReformattedLines);
 			TranslatedLines = new ReadOnlyCollection<HexViewLine>(translatedLines);
 		}

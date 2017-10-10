@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -57,15 +57,11 @@ namespace dnSpy.Hex.Files {
 
 		public HexBufferFileImpl(HexBufferFile parentFile, Lazy<StructureProviderFactory, VSUTIL.IOrderable>[] structureProviderFactories, Lazy<BufferFileHeadersProviderFactory>[] bufferFileHeadersProviderFactories, HexBuffer buffer, HexSpan span, string name, string filename, string[] tags)
 			: base(buffer, span, name, filename, tags) {
-			if (structureProviderFactories == null)
-				throw new ArgumentNullException(nameof(structureProviderFactories));
-			if (bufferFileHeadersProviderFactories == null)
-				throw new ArgumentNullException(nameof(bufferFileHeadersProviderFactories));
 			if (parentFile?.Span.Contains(span) == false)
 				throw new ArgumentOutOfRangeException(nameof(span));
 			ParentFile = parentFile;
-			this.structureProviderFactories = structureProviderFactories;
-			this.bufferFileHeadersProviderFactories = bufferFileHeadersProviderFactories;
+			this.structureProviderFactories = structureProviderFactories ?? throw new ArgumentNullException(nameof(structureProviderFactories));
+			this.bufferFileHeadersProviderFactories = bufferFileHeadersProviderFactories ?? throw new ArgumentNullException(nameof(bufferFileHeadersProviderFactories));
 			files = new SpanDataCollection<HexBufferFileImpl>();
 		}
 

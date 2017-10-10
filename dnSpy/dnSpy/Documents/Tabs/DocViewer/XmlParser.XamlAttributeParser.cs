@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -85,11 +85,7 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 				}
 			}
 
-			public XamlAttributeParser(XmlParser owner) {
-				if (owner == null)
-					throw new ArgumentNullException(nameof(owner));
-				this.owner = owner;
-			}
+			public XamlAttributeParser(XmlParser owner) => this.owner = owner ?? throw new ArgumentNullException(nameof(owner));
 
 			public void Parse(string text, Span span) {
 				this.text = text;

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -57,9 +57,7 @@ namespace dnSpy.Hex.Files.DotNet {
 		sealed class ResourceInfoData : Data {
 			public ResourceInfo Owner { get; }
 			public ResourceInfoData(ResourceInfo owner, HexSpan span)
-				: base(DataKind.ResourceInfo, span) {
-				Owner = owner;
-			}
+				: base(DataKind.ResourceInfo, span) => Owner = owner;
 		}
 
 		readonly Data[] dataArray;
@@ -79,8 +77,7 @@ namespace dnSpy.Hex.Files.DotNet {
 			DataSectionPosition = dataSectionPosition;
 			var headerSpan = new HexBufferSpan(file.Buffer, HexSpan.FromBounds(file.Span.Start, nameSectionPosition));
 			Header = new DotNetMultiFileResourceHeaderDataImpl(headerSpan, resourceTypeSpan, resourceSetTypeSpan, versionPosition, paddingSpan, typeNames, numResources);
-			ResourceInfo[] resourceInfos;
-			dataArray = CreateDataArray(typeNames, numResources, paddingSpan.End, dataSectionPosition, nameSectionPosition, out resourceInfos);
+			dataArray = CreateDataArray(typeNames, numResources, paddingSpan.End, dataSectionPosition, nameSectionPosition, out var resourceInfos);
 
 			var files = new List<BufferFileOptions>(resourceInfos.Length);
 			foreach (var info in resourceInfos) {
@@ -212,9 +209,7 @@ namespace dnSpy.Hex.Files.DotNet {
 		sealed class StringResData : ResData {
 			public Bit7String Utf8StringValue { get; }
 			public StringResData(ResourceTypeCode typeCode, HexSpan codeSpan, HexSpan dataSpan, Bit7String utf8StringValue)
-				: base(typeCode, codeSpan, dataSpan, utf8StringValue.StringSpan) {
-				Utf8StringValue = utf8StringValue;
-			}
+				: base(typeCode, codeSpan, dataSpan, utf8StringValue.StringSpan) => Utf8StringValue = utf8StringValue;
 		}
 
 		sealed class ArrayResData : ResData {
@@ -226,9 +221,7 @@ namespace dnSpy.Hex.Files.DotNet {
 		sealed class TypeResData : ResData {
 			public Bit7String Utf8TypeName { get; }
 			public TypeResData(ResourceTypeCode typeCode, HexSpan codeSpan, HexSpan dataSpan, Bit7String utf8TypeName)
-				: base(typeCode, codeSpan, dataSpan, dataSpan) {
-				Utf8TypeName = utf8TypeName;
-			}
+				: base(typeCode, codeSpan, dataSpan, dataSpan) => Utf8TypeName = utf8TypeName;
 		}
 
 		ResData ReadData(Bit7String[] typeNames, HexPosition position, HexPosition endPosition) {

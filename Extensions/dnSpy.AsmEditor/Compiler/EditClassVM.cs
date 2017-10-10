@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.AsmEditor.Compiler {
 		sealed class EditMethodDecompileCodeState : DecompileCodeState {
 			public ReferenceDecompilerOutput MainOutput { get; }
 
-			public EditMethodDecompileCodeState(object referenceToEdit, MethodSourceStatement? methodSourceStatement) {
-				MainOutput = new ReferenceDecompilerOutput(referenceToEdit, methodSourceStatement);
-			}
+			public EditMethodDecompileCodeState(object referenceToEdit, MethodSourceStatement? methodSourceStatement) => MainOutput = new ReferenceDecompilerOutput(referenceToEdit, methodSourceStatement);
 		}
 
 		public EditClassVM(IRawModuleBytesProvider rawModuleBytesProvider, IOpenFromGAC openFromGAC, IOpenAssembly openAssembly, ILanguageCompiler languageCompiler, IDecompiler decompiler, IMemberDef defToEdit, IList<MethodSourceStatement> statementsInMethodToEdit)

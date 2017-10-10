@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -134,12 +134,8 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="file">File</param>
 		/// <param name="structure">Structure</param>
 		public FileAndStructure(HexBufferFile file, ComplexData structure) {
-			if (file == null)
-				throw new ArgumentNullException(nameof(file));
-			if (structure == null)
-				throw new ArgumentNullException(nameof(structure));
-			File = file;
-			Structure = structure;
+			File = file ?? throw new ArgumentNullException(nameof(file));
+			Structure = structure ?? throw new ArgumentNullException(nameof(structure));
 		}
 	}
 }

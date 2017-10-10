@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,7 +45,7 @@ namespace dnSpy.Scripting.Roslyn.VisualBasic {
 				MenuGuid = new Guid(MenuConstants.GUIDOBJ_REPL_TEXTEDITORCONTROL_GUID),
 				ContentTypeString = ContentTypes.ReplVisualBasicRoslyn,
 			};
-			options.Roles.Add(PredefinedDnSpyTextViewRoles.VisualBasicRepl);
+			options.Roles.Add(PredefinedDsTextViewRoles.VisualBasicRepl);
 			return options;
 		}
 	}

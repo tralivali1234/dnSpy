@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -556,11 +556,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="span">Data span</param>
 		/// <param name="flagInfos">Flag infos</param>
 		protected FlagsData(HexBufferSpan span, ReadOnlyCollection<FlagInfo> flagInfos)
-			: base(span) {
-			if (flagInfos == null)
-				throw new ArgumentNullException(nameof(flagInfos));
-			FlagInfos = flagInfos;
-		}
+			: base(span) => FlagInfos = flagInfos ?? throw new ArgumentNullException(nameof(flagInfos));
 	}
 
 	/// <summary>
@@ -730,11 +726,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="span">Data span</param>
 		/// <param name="enumFieldInfos">Enum field infos</param>
 		protected EnumData(HexBufferSpan span, ReadOnlyCollection<EnumFieldInfo> enumFieldInfos)
-			: base(span) {
-			if (enumFieldInfos == null)
-				throw new ArgumentNullException(nameof(enumFieldInfos));
-			EnumFieldInfos = enumFieldInfos;
-		}
+			: base(span) => EnumFieldInfos = enumFieldInfos ?? throw new ArgumentNullException(nameof(enumFieldInfos));
 	}
 
 	/// <summary>
@@ -904,11 +896,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="span">Data span</param>
 		/// <param name="encoding">Encoding</param>
 		public StringData(HexBufferSpan span, Encoding encoding)
-			: base(span) {
-			if (encoding == null)
-				throw new ArgumentNullException(nameof(encoding));
-			Encoding = encoding;
-		}
+			: base(span) => Encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
 
 		/// <summary>
 		/// Constructor

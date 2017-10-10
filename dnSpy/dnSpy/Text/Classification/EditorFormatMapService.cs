@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -48,8 +48,7 @@ namespace dnSpy.Text.Classification {
 			if (category == null)
 				throw new ArgumentNullException(nameof(category));
 			var textAppearanceCategory = textAppearanceCategoryService.GetSettings(category);
-			IEditorFormatMap map;
-			if (toCategoryMap.TryGetValue(textAppearanceCategory, out map))
+			if (toCategoryMap.TryGetValue(textAppearanceCategory, out var map))
 				return map;
 			map = new CategoryEditorFormatMap(dispatcher, editorFormatDefinitionService);
 			var updater = new CategoryEditorFormatMapUpdater(themeService, textAppearanceCategory, editorFormatDefinitionService, map);

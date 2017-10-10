@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -25,9 +25,7 @@ namespace dnSpy.Hex.Editor.Search {
 	sealed class CommandTargetFilter : ICommandTargetFilter {
 		readonly HexViewSearchService hexViewSearchService;
 
-		public CommandTargetFilter(HexViewSearchServiceProvider hexViewSearchServiceProvider, WpfHexView wpfHexView) {
-			hexViewSearchService = hexViewSearchServiceProvider.Get(wpfHexView);
-		}
+		public CommandTargetFilter(HexViewSearchServiceProvider hexViewSearchServiceProvider, WpfHexView wpfHexView) => hexViewSearchService = hexViewSearchServiceProvider.Get(wpfHexView);
 
 		public CommandTargetStatus CanExecute(Guid group, int cmdId) {
 			if (group == CommandConstants.StandardGroup) {
@@ -97,9 +95,7 @@ namespace dnSpy.Hex.Editor.Search {
 	sealed class CommandTargetFilterFocus : ICommandTargetFilter {
 		readonly HexViewSearchService hexViewSearchService;
 
-		public CommandTargetFilterFocus(HexViewSearchServiceProvider hexViewSearchServiceProvider, WpfHexView wpfHexView) {
-			hexViewSearchService = hexViewSearchServiceProvider.Get(wpfHexView);
-		}
+		public CommandTargetFilterFocus(HexViewSearchServiceProvider hexViewSearchServiceProvider, WpfHexView wpfHexView) => hexViewSearchService = hexViewSearchServiceProvider.Get(wpfHexView);
 
 		public CommandTargetStatus CanExecute(Guid group, int cmdId) => hexViewSearchService.CanExecuteSearchControl(group, cmdId);
 

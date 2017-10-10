@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		public ModuleDef OwnerModule {
 			get { return module; }
 			private set {
-				if (value == null)
-					throw new ArgumentNullException(nameof(value));
-				module = value;
+				module = value ?? throw new ArgumentNullException(nameof(value));
 			}
 		}
 		ModuleDef module;
@@ -50,9 +48,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		public IDecompiler Decompiler {
 			get { return decompiler; }
 			set {
-				if (value == null)
-					throw new ArgumentNullException(nameof(value));
-				decompiler = value;
+				decompiler = value ?? throw new ArgumentNullException(nameof(value));
 			}
 		}
 		IDecompiler decompiler;

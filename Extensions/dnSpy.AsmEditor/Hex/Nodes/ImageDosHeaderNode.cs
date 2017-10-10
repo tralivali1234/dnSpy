@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,9 +38,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		readonly ImageDosHeaderVM imageDosHeaderVM;
 
 		public ImageDosHeaderNode(ImageDosHeaderVM dosHeader)
-			: base(dosHeader.Span) {
-			imageDosHeaderVM = dosHeader;
-		}
+			: base(dosHeader.Span) => imageDosHeaderVM = dosHeader;
 
 		protected override void WriteCore(ITextColorWriter output, DocumentNodeWriteOptions options) =>
 			output.Write(BoxedTextColor.HexPeDosHeader, dnSpy_AsmEditor_Resources.HexNode_DOSHeader);

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -131,9 +131,7 @@ namespace dnSpy.AsmEditor.Module {
 			readonly Lazy<IUndoCommandService> undoCommandService;
 
 			[ImportingConstructor]
-			DocumentsCommand(Lazy<IUndoCommandService> undoCommandService) {
-				this.undoCommandService = undoCommandService;
-			}
+			DocumentsCommand(Lazy<IUndoCommandService> undoCommandService) => this.undoCommandService = undoCommandService;
 
 			public override bool IsVisible(AsmEditorContext context) => ConvertNetModuleToAssemblyCommand.CanExecute(context.Nodes);
 			public override void Execute(AsmEditorContext context) => ConvertNetModuleToAssemblyCommand.Execute(undoCommandService, context.Nodes);
@@ -145,9 +143,7 @@ namespace dnSpy.AsmEditor.Module {
 
 			[ImportingConstructor]
 			EditMenuCommand(Lazy<IUndoCommandService> undoCommandService, IDocumentTreeView documentTreeView)
-				: base(documentTreeView) {
-				this.undoCommandService = undoCommandService;
-			}
+				: base(documentTreeView) => this.undoCommandService = undoCommandService;
 
 			public override bool IsVisible(AsmEditorContext context) => ConvertNetModuleToAssemblyCommand.CanExecute(context.Nodes);
 			public override void Execute(AsmEditorContext context) => ConvertNetModuleToAssemblyCommand.Execute(undoCommandService, context.Nodes);
@@ -207,12 +203,14 @@ namespace dnSpy.AsmEditor.Module {
 					savedState.AssemblyFileNode = node.Context.DocumentTreeView.CreateAssembly(asmFile);
 				}
 
-				Debug.Assert(savedState.AssemblyFileNode.Document.Children.Count == 1);
-				savedState.AssemblyFileNode.Document.Children.Remove(node.Document);
-				Debug.Assert(savedState.AssemblyFileNode.Document.Children.Count == 0);
-				savedState.AssemblyFileNode.TreeNode.EnsureChildrenLoaded();
-				Debug.Assert(savedState.AssemblyFileNode.TreeNode.Children.Count == 0);
-				savedState.AssemblyFileNode.Document.Children.Add(node.Document);
+				lock (savedState.AssemblyFileNode.Document.Children.SyncRoot) {
+					Debug.Assert(savedState.AssemblyFileNode.Document.Children.Count == 1);
+					savedState.AssemblyFileNode.Document.Children.Remove(node.Document);
+					Debug.Assert(savedState.AssemblyFileNode.Document.Children.Count == 0);
+					savedState.AssemblyFileNode.TreeNode.EnsureChildrenLoaded();
+					Debug.Assert(savedState.AssemblyFileNode.TreeNode.Children.Count == 0);
+					savedState.AssemblyFileNode.Document.Children.Add(node.Document);
+				}
 
 				int index = node.Context.DocumentTreeView.TreeView.Root.DataChildren.ToList().IndexOf(node);
 				b = index >= 0;
@@ -266,9 +264,7 @@ namespace dnSpy.AsmEditor.Module {
 			readonly Lazy<IUndoCommandService> undoCommandService;
 
 			[ImportingConstructor]
-			DocumentsCommand(Lazy<IUndoCommandService> undoCommandService) {
-				this.undoCommandService = undoCommandService;
-			}
+			DocumentsCommand(Lazy<IUndoCommandService> undoCommandService) => this.undoCommandService = undoCommandService;
 
 			public override bool IsVisible(AsmEditorContext context) => ConvertAssemblyToNetModuleCommand.IsVisible(context.Nodes);
 			public override bool IsEnabled(AsmEditorContext context) => ConvertAssemblyToNetModuleCommand.CanExecute(context.Nodes);
@@ -281,9 +277,7 @@ namespace dnSpy.AsmEditor.Module {
 
 			[ImportingConstructor]
 			EditMenuCommand(Lazy<IUndoCommandService> undoCommandService, IDocumentTreeView documentTreeView)
-				: base(documentTreeView) {
-				this.undoCommandService = undoCommandService;
-			}
+				: base(documentTreeView) => this.undoCommandService = undoCommandService;
 
 			public override bool IsVisible(AsmEditorContext context) => ConvertAssemblyToNetModuleCommand.IsVisible(context.Nodes);
 			public override bool IsEnabled(AsmEditorContext context) => ConvertAssemblyToNetModuleCommand.CanExecute(context.Nodes);
@@ -318,9 +312,7 @@ namespace dnSpy.AsmEditor.Module {
 			public ModuleDocumentNode ModuleNode;
 		}
 
-		ConvertAssemblyToNetModuleCommand(DocumentTreeNodeData[] nodes) {
-			this.nodes = nodes.Cast<AssemblyDocumentNode>().ToArray();
-		}
+		ConvertAssemblyToNetModuleCommand(DocumentTreeNodeData[] nodes) => this.nodes = nodes.Cast<AssemblyDocumentNode>().ToArray();
 
 		public string Description => dnSpy_AsmEditor_Resources.ConvAssemblyToNetModuleCommand;
 
@@ -393,11 +385,10 @@ namespace dnSpy.AsmEditor.Module {
 	}
 
 	abstract class AddNetModuleToAssemblyCommand : IUndoCommand2 {
-		internal static bool CanExecute(DocumentTreeNodeData[] nodes) {
-			return nodes != null &&
-				nodes.Length == 1 &&
-				(nodes[0] is AssemblyDocumentNode || nodes[0] is ModuleDocumentNode);
-		}
+		internal static bool CanExecute(DocumentTreeNodeData[] nodes) =>
+			nodes != null &&
+			nodes.Length == 1 &&
+			(nodes[0] is AssemblyDocumentNode || nodes[0] is ModuleDocumentNode);
 
 		readonly IUndoCommandService undoCommandService;
 		readonly AssemblyDocumentNode asmNode;
@@ -563,8 +554,7 @@ namespace dnSpy.AsmEditor.Module {
 			var file = fm.CreateDocument(DsDocumentInfo.CreateDocument(dialog.FileName), dialog.FileName, true);
 			if (file.ModuleDef == null || file.AssemblyDef != null || !(file is IDsDotNetDocument)) {
 				MsgBox.Instance.Show(string.Format(dnSpy_AsmEditor_Resources.Error_NotNetModule, file.Filename), MsgBoxButton.OK);
-				var id = file as IDisposable;
-				if (id != null)
+				if (file is IDisposable id)
 					id.Dispose();
 				return;
 			}
@@ -621,21 +611,19 @@ namespace dnSpy.AsmEditor.Module {
 			public override void Execute(AsmEditorContext context) => RemoveNetModuleFromAssemblyCommand.Execute(undoCommandService, documentSaver, appService, context.Nodes);
 		}
 
-		static bool IsVisible(DocumentTreeNodeData[] nodes) {
-			return nodes != null &&
-				nodes.Length == 1 &&
-				nodes[0] is ModuleDocumentNode &&
-				nodes[0].TreeNode.Parent != null &&
-				nodes[0].TreeNode.Parent.Data is AssemblyDocumentNode;
-		}
+		static bool IsVisible(DocumentTreeNodeData[] nodes) =>
+			nodes != null &&
+			nodes.Length == 1 &&
+			nodes[0] is ModuleDocumentNode &&
+			nodes[0].TreeNode.Parent != null &&
+			nodes[0].TreeNode.Parent.Data is AssemblyDocumentNode;
 
-		static bool CanExecute(DocumentTreeNodeData[] nodes) {
-			return nodes != null &&
-				nodes.Length == 1 &&
-				nodes[0] is ModuleDocumentNode &&
-				nodes[0].TreeNode.Parent != null &&
-				nodes[0].TreeNode.Parent.DataChildren.ToList().IndexOf(nodes[0]) > 0;
-		}
+		static bool CanExecute(DocumentTreeNodeData[] nodes) =>
+			nodes != null &&
+			nodes.Length == 1 &&
+			nodes[0] is ModuleDocumentNode &&
+			nodes[0].TreeNode.Parent != null &&
+			nodes[0].TreeNode.Parent.DataChildren.ToList().IndexOf(nodes[0]) > 0;
 
 		static void Execute(Lazy<IUndoCommandService> undoCommandService, Lazy<IDocumentSaver> documentSaver, IAppService appService, DocumentTreeNodeData[] nodes) {
 			if (!CanExecute(nodes))
@@ -674,17 +662,19 @@ namespace dnSpy.AsmEditor.Module {
 				throw new InvalidOperationException();
 
 			var children = asmNode.TreeNode.DataChildren.ToArray();
-			bool b = removeIndex < children.Length && children[removeIndex] == modNode &&
-				removeIndex < asmNode.Document.AssemblyDef.Modules.Count &&
-				asmNode.Document.AssemblyDef.Modules[removeIndex] == modNode.Document.ModuleDef &&
-				removeIndexDocument < asmNode.Document.Children.Count &&
-				asmNode.Document.Children[removeIndexDocument] == modNode.Document;
-			Debug.Assert(b);
-			if (!b)
-				throw new InvalidOperationException();
-			asmNode.Document.AssemblyDef.Modules.RemoveAt(removeIndex);
-			asmNode.Document.Children.RemoveAt(removeIndexDocument);
-			asmNode.TreeNode.Children.RemoveAt(removeIndex);
+			lock (asmNode.Document.Children.SyncRoot) {
+				bool b = removeIndex < children.Length && children[removeIndex] == modNode &&
+					removeIndex < asmNode.Document.AssemblyDef.Modules.Count &&
+					asmNode.Document.AssemblyDef.Modules[removeIndex] == modNode.Document.ModuleDef &&
+					removeIndexDocument < asmNode.Document.Children.Count &&
+					asmNode.Document.Children[removeIndexDocument] == modNode.Document;
+				Debug.Assert(b);
+				if (!b)
+					throw new InvalidOperationException();
+				asmNode.Document.AssemblyDef.Modules.RemoveAt(removeIndex);
+				asmNode.Document.Children.RemoveAt(removeIndexDocument);
+				asmNode.TreeNode.Children.RemoveAt(removeIndex);
+			}
 			undoCommandService.Value.MarkAsModified(undoCommandService.Value.GetUndoObject(asmNode.Document));
 		}
 
@@ -739,11 +729,10 @@ namespace dnSpy.AsmEditor.Module {
 			public override void Execute(AsmEditorContext context) => ModuleSettingsCommand.Execute(undoCommandService, appService, context.Nodes);
 		}
 
-		static bool CanExecute(DocumentTreeNodeData[] nodes) {
-			return nodes != null &&
-				nodes.Length == 1 &&
-				nodes[0] is ModuleDocumentNode;
-		}
+		static bool CanExecute(DocumentTreeNodeData[] nodes) =>
+			nodes != null &&
+			nodes.Length == 1 &&
+			nodes[0] is ModuleDocumentNode;
 
 		static void Execute(Lazy<IUndoCommandService> undoCommandService, IAppService appService, DocumentTreeNodeData[] nodes) {
 			if (!CanExecute(nodes))

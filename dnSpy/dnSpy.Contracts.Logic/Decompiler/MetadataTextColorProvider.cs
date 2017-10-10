@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -48,8 +48,7 @@ namespace dnSpy.Contracts.Decompiler {
 			if (type.IsSealed && type.IsAbstract) {
 				var bt = type.BaseType;
 				if (bt != null && bt.DefinitionAssembly.IsCorLib()) {
-					var baseTr = bt as TypeRef;
-					if (baseTr != null) {
+					if (bt is TypeRef baseTr) {
 						if (baseTr.Namespace == systemString && baseTr.Name == objectString)
 							return BoxedTextColor.StaticType;
 					}
@@ -131,24 +130,19 @@ namespace dnSpy.Contracts.Decompiler {
 				return GetColor(e.AddMethod ?? e.RemoveMethod ?? e.InvokeMethod, BoxedTextColor.StaticEvent, BoxedTextColor.InstanceEvent);
 			}
 
-			var td = memberRef as TypeDef;
-			if (td != null)
+			if (memberRef is TypeDef td)
 				return GetColor(td);
 
-			var tr = memberRef as TypeRef;
-			if (tr != null)
+			if (memberRef is TypeRef tr)
 				return GetColor(tr);
 
-			var ts = memberRef as TypeSpec;
-			if (ts != null) {
-				var gsig = ts.TypeSig as GenericSig;
-				if (gsig != null)
+			if (memberRef is TypeSpec ts) {
+				if (ts.TypeSig is GenericSig gsig)
 					return GetColor(gsig);
 				return BoxedTextColor.Type;
 			}
 
-			var gp = memberRef as GenericParam;
-			if (gp != null)
+			if (memberRef is GenericParam gp)
 				return GetColor(gp);
 
 			// It can be a MemberRef if it doesn't have a field or method sig (invalid metadata)
@@ -218,12 +212,10 @@ namespace dnSpy.Contracts.Decompiler {
 			if (typeSig == null)
 				return BoxedTextColor.Text;
 
-			var tdr = typeSig as TypeDefOrRefSig;
-			if (tdr != null)
+			if (typeSig is TypeDefOrRefSig tdr)
 				return GetColor(tdr.TypeDefOrRef);
 
-			var gsig = typeSig as GenericSig;
-			if (gsig != null)
+			if (typeSig is GenericSig gsig)
 				return GetColor(gsig);
 
 			return BoxedTextColor.Text;
@@ -245,20 +237,16 @@ namespace dnSpy.Contracts.Decompiler {
 				obj is UIntPtr || obj is IntPtr)
 				return BoxedTextColor.Number;
 
-			var r = obj as IMemberRef;
-			if (r != null)
+			if (obj is IMemberRef r)
 				return GetColor(r);
 
-			var et = obj as ExportedType;
-			if (et != null)
+			if (obj is ExportedType et)
 				return GetColor(et);
 
-			var ts = obj as TypeSig;
-			if (ts != null)
+			if (obj is TypeSig ts)
 				return GetColor(ts);
 
-			var gp = obj as GenericParam;
-			if (gp != null)
+			if (obj is GenericParam gp)
 				return GetColor(gp);
 
 			if (obj is TextColor)
@@ -309,9 +297,14 @@ namespace dnSpy.Contracts.Decompiler {
 		/// <param name="type">Type</param>
 		/// <returns></returns>
 		public override object GetColor(TypeDef type) {
-			if (type != null && type.DeclaringType == null && type.IsSealed && type.IsAbstract)
+			if (IsModule(type))
 				return BoxedTextColor.Module;
 			return base.GetColor(type);
 		}
+
+		static bool IsModule(TypeDef type) =>
+			type != null && type.DeclaringType == null && type.IsSealed && type.IsDefined(stringMicrosoftVisualBasicCompilerServices, stringStandardModuleAttribute);
+		static readonly UTF8String stringMicrosoftVisualBasicCompilerServices = new UTF8String("Microsoft.VisualBasic.CompilerServices");
+		static readonly UTF8String stringStandardModuleAttribute = new UTF8String("StandardModuleAttribute");
 	}
 }

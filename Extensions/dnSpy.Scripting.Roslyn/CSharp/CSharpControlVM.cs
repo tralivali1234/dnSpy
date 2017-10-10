@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -63,7 +63,7 @@ namespace dnSpy.Scripting.Roslyn.CSharp {
 
 		protected override bool IsCompleteSubmission(string text) =>
 			SyntaxFactory.IsCompleteSubmission(SyntaxFactory.ParseSyntaxTree(text, parseOptions));
-		static readonly CSharpParseOptions parseOptions = new CSharpParseOptions(kind: SourceCodeKind.Script);
+		static readonly CSharpParseOptions parseOptions = new CSharpParseOptions(languageVersion: LanguageVersion.Latest, kind: SourceCodeKind.Script);
 
 		protected override SyntaxTree CreateSyntaxTree(string code, CancellationToken cancellationToken) =>
 			SyntaxFactory.ParseSyntaxTree(code, parseOptions, cancellationToken: cancellationToken);

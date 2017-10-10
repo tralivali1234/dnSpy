@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,6 +27,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Threading;
 using dnlib.DotNet;
+using dnSpy.Contracts.ETW;
 using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Text.Classification;
 using dnSpy.Contracts.Utilities;
@@ -40,6 +41,8 @@ namespace dnSpy.Documents.Tabs.Dialogs {
 		public bool SyntaxHighlight { get; }
 		public IClassificationFormatMap ClassificationFormatMap { get; }
 		public ITextElementProvider TextElementProvider { get; }
+
+		public string OpenGAC_Search_ToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.OpenGAC_Search_ToolTip, dnSpy_Resources.ShortCutKeyCtrlF);
 
 		readonly ObservableCollection<GACFileVM> gacFileList;
 		readonly ListCollectionView collectionView;
@@ -110,8 +113,10 @@ namespace dnSpy.Documents.Tabs.Dialogs {
 			uniqueFiles = new HashSet<GACFileVM>(new GACFileVM_EqualityComparer());
 
 			var dispatcher = Dispatcher.CurrentDispatcher;
+			DnSpyEventSource.Log.OpenFromGACStart();
 			Task.Factory.StartNew(() => new GACFileFinder(this, dispatcher, cancellationToken).Find(), cancellationToken)
 			.ContinueWith(t => {
+				DnSpyEventSource.Log.OpenFromGACStop();
 				var ex = t.Exception;
 				SearchingGAC = false;
 				Refilter();

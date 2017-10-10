@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.Text.Editor {
 		readonly LayerKind layerKind;
 
 		public AdornmentLayer(IWpfTextView textView, LayerKind layerKind, MetadataAndOrder<IAdornmentLayersMetadata> info) {
-			if (textView == null)
-				throw new ArgumentNullException(nameof(textView));
-			TextView = textView;
+			TextView = textView ?? throw new ArgumentNullException(nameof(textView));
 			this.layerKind = layerKind;
 			Info = info;
 			adornmentLayerElements = new List<AdornmentLayerElement>();

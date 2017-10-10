@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -105,7 +105,7 @@ namespace dnSpy.Hex.Editor {
 			yield return CommandShortcut.CtrlShift(Key.B, HexEditorIds.CopyVisualBasicArray.ToCommandInfo());
 			yield return CommandShortcut.CtrlAlt(Key.O, HexEditorIds.CopyOffset.ToCommandInfo());
 			yield return CommandShortcut.CtrlShift(Key.V, HexEditorIds.CopyValue.ToCommandInfo());
-			yield return CommandShortcut.CtrlShift(Key.D3, HexEditorIds.CopyUInt32.ToCommandInfo());
+			yield return CommandShortcut.CtrlShift(Key.Q, HexEditorIds.CopyUInt32.ToCommandInfo());
 			yield return CommandShortcut.CtrlShift(Key.O, HexEditorIds.CopyFileOffset.ToCommandInfo());
 			yield return CommandShortcut.CtrlShift(Key.A, HexEditorIds.CopyAbsoluteFileOffset.ToCommandInfo());
 			yield return CommandShortcut.CtrlShift(Key.R, HexEditorIds.CopyRVA.ToCommandInfo());

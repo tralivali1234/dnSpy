@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -97,9 +97,7 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 		}
 
 		public XmlParser(string text, bool isXaml) {
-			if (text == null)
-				throw new ArgumentNullException(nameof(text));
-			this.text = text;
+			this.text = text ?? throw new ArgumentNullException(nameof(text));
 			xamlAttributeParser = isXaml ? new XamlAttributeParser(this) : null;
 			blockFlags = isXaml ? CodeBracesRangeFlags.XamlBlockBraces : CodeBracesRangeFlags.XmlBlockBraces;
 			references = new List<ReferenceInfo>();
@@ -141,12 +139,8 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 			readonly XmlNameReferenceKind refKind;
 
 			public XmlNameTextViewerReference(XmlNamespaceReference nsRef, string name, XmlNameReferenceKind refKind) {
-				if (nsRef == null)
-					throw new ArgumentNullException(nameof(nsRef));
-				if (name == null)
-					throw new ArgumentNullException(nameof(name));
-				this.nsRef = nsRef;
-				this.name = name;
+				this.nsRef = nsRef ?? throw new ArgumentNullException(nameof(nsRef));
+				this.name = name ?? throw new ArgumentNullException(nameof(name));
 				this.refKind = refKind;
 			}
 
@@ -160,11 +154,7 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 
 		sealed class XmlNamespaceTextViewerReference {
 			public XmlNamespaceReference XmlNamespaceReference { get; }
-			public XmlNamespaceTextViewerReference(XmlNamespaceReference nsRef) {
-				if (nsRef == null)
-					throw new ArgumentNullException(nameof(nsRef));
-				XmlNamespaceReference = nsRef;
-			}
+			public XmlNamespaceTextViewerReference(XmlNamespaceReference nsRef) => XmlNamespaceReference = nsRef ?? throw new ArgumentNullException(nameof(nsRef));
 			public override bool Equals(object obj) {
 				var other = obj as XmlNamespaceTextViewerReference;
 				return other != null && XmlNamespaceReference.Equals(other.XmlNamespaceReference);
@@ -214,9 +204,8 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 		}
 
 		string GetSubstring(Span span) {
-			string s;
 			var key = new SubString(text, span.Start, span.Length);
-			if (subStringDict.TryGetValue(key, out s))
+			if (subStringDict.TryGetValue(key, out string s))
 				return s;
 			s = key.ToString();
 			subStringDict[key] = s;
@@ -432,9 +421,7 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 			XmlNamespaces previous;
 			readonly Dictionary<string, XmlNamespaceDefinition> namespaces;
 
-			public XmlNamespaces() {
-				namespaces = new Dictionary<string, XmlNamespaceDefinition>(StringComparer.Ordinal);
-			}
+			public XmlNamespaces() => namespaces = new Dictionary<string, XmlNamespaceDefinition>(StringComparer.Ordinal);
 
 			public void Clear() {
 				previous = null;
@@ -469,12 +456,8 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 			public string Alias { get; }
 			public string Name { get; }
 			public XmlNamespaceDefinition(string alias, string name) {
-				if (alias == null)
-					throw new ArgumentNullException(nameof(alias));
-				if (name == null)
-					throw new ArgumentNullException(nameof(name));
-				Alias = alias;
-				Name = name;
+				Alias = alias ?? throw new ArgumentNullException(nameof(alias));
+				Name = name ?? throw new ArgumentNullException(nameof(name));
 			}
 			public override bool Equals(object obj) {
 				var other = obj as XmlNamespaceDefinition;
@@ -486,11 +469,7 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 		sealed class XmlNamespaceReference : IEquatable<XmlNamespaceReference> {
 			public string Alias { get; }
 			public XmlNamespaceDefinition Definition { get; set; }
-			public XmlNamespaceReference(string alias) {
-				if (alias == null)
-					throw new ArgumentNullException(nameof(alias));
-				Alias = alias;
-			}
+			public XmlNamespaceReference(string alias) => Alias = alias ?? throw new ArgumentNullException(nameof(alias));
 			public bool Equals(XmlNamespaceReference other) => Equals(Definition, other.Definition);
 			public override bool Equals(object obj) => obj is XmlNamespaceReference && Equals((XmlNamespaceReference)obj);
 			public override int GetHashCode() => Definition?.GetHashCode() ?? 0;

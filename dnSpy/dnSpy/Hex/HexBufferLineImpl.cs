@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,26 +44,20 @@ namespace dnSpy.Hex {
 		readonly VST.Span visibleAsciiSpan;
 
 		public HexBufferLineImpl(HexBufferLineFormatter hexBufferLineFormatter, HexPosition lineNumber, ReadOnlyCollection<HexColumnType> columnOrder, HexBufferSpan bufferSpan, HexBytes hexBytes, string text, bool isOffsetColumnPresent, bool isValuesColumnPresent, bool isAsciiColumnPresent, HexPosition logicalOffset, HexCellCollection valueCells, HexCellCollection asciiCells, VST.Span offsetSpan, VST.Span fullValuesSpan, VST.Span visibleValuesSpan, VST.Span fullAsciiSpan, VST.Span visibleAsciiSpan) {
-			if (hexBufferLineFormatter == null)
-				throw new ArgumentNullException(nameof(hexBufferLineFormatter));
-			if (columnOrder == null)
-				throw new ArgumentNullException(nameof(columnOrder));
 			if (bufferSpan.IsDefault)
 				throw new ArgumentException();
 			if (hexBytes.IsDefault)
 				throw new ArgumentException();
-			if (text == null)
-				throw new ArgumentNullException(nameof(text));
 			if (valueCells.IsDefault)
 				throw new ArgumentNullException(nameof(valueCells));
 			if (asciiCells.IsDefault)
 				throw new ArgumentNullException(nameof(asciiCells));
-			LineProvider = hexBufferLineFormatter;
+			LineProvider = hexBufferLineFormatter ?? throw new ArgumentNullException(nameof(hexBufferLineFormatter));
 			LineNumber = lineNumber;
-			ColumnOrder = columnOrder;
+			ColumnOrder = columnOrder ?? throw new ArgumentNullException(nameof(columnOrder));
 			BufferSpan = bufferSpan;
 			HexBytes = hexBytes;
-			Text = text;
+			Text = text ?? throw new ArgumentNullException(nameof(text));
 			IsOffsetColumnPresent = isOffsetColumnPresent;
 			IsValuesColumnPresent = isValuesColumnPresent;
 			IsAsciiColumnPresent = isAsciiColumnPresent;

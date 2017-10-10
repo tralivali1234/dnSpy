@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -50,9 +50,7 @@ namespace dnSpy.Hex.Editor {
 		readonly CurrentValueHighlighterProvider currentValueHighlighterProvider;
 
 		[ImportingConstructor]
-		CurrentValueHighlighterHexViewTaggerProvider(CurrentValueHighlighterProvider currentValueHighlighterProvider) {
-			this.currentValueHighlighterProvider = currentValueHighlighterProvider;
-		}
+		CurrentValueHighlighterHexViewTaggerProvider(CurrentValueHighlighterProvider currentValueHighlighterProvider) => this.currentValueHighlighterProvider = currentValueHighlighterProvider;
 
 		public override IHexTagger<T> CreateTagger<T>(HexView hexView, HexBuffer buffer) {
 			var wpfHexView = hexView as WpfHexView;
@@ -70,9 +68,7 @@ namespace dnSpy.Hex.Editor {
 		readonly CurrentValueHighlighter currentValueHighlighter;
 
 		public CurrentValueHighlighterTagger(CurrentValueHighlighter currentValueHighlighter) {
-			if (currentValueHighlighter == null)
-				throw new ArgumentNullException(nameof(currentValueHighlighter));
-			this.currentValueHighlighter = currentValueHighlighter;
+			this.currentValueHighlighter = currentValueHighlighter ?? throw new ArgumentNullException(nameof(currentValueHighlighter));
 			currentValueHighlighter.Register(this);
 		}
 
@@ -88,9 +84,7 @@ namespace dnSpy.Hex.Editor {
 		bool enabled;
 
 		public CurrentValueHighlighter(WpfHexView wpfHexView) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			wpfHexView.Closed += WpfHexView_Closed;
 			wpfHexView.Selection.SelectionChanged += Selection_SelectionChanged;
 			wpfHexView.Options.OptionChanged += Options_OptionChanged;
@@ -363,11 +357,9 @@ namespace dnSpy.Hex.Editor {
 		}
 
 		internal void Register(CurrentValueHighlighterTagger currentValueHighlighterTagger) {
-			if (currentValueHighlighterTagger == null)
-				throw new ArgumentNullException(nameof(currentValueHighlighterTagger));
 			if (this.currentValueHighlighterTagger != null)
 				throw new InvalidOperationException();
-			this.currentValueHighlighterTagger = currentValueHighlighterTagger;
+			this.currentValueHighlighterTagger = currentValueHighlighterTagger ?? throw new ArgumentNullException(nameof(currentValueHighlighterTagger));
 		}
 		CurrentValueHighlighterTagger currentValueHighlighterTagger;
 

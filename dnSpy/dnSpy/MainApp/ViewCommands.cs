@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,9 +45,7 @@ namespace dnSpy.MainApp {
 
 		[ImportingConstructor]
 		public FullScreenCommand(IAppWindow appWindow)
-			: base(MetroWindow.FullScreenCommand) {
-			window = (MetroWindow)appWindow.MainWindow;
-		}
+			: base(MetroWindow.FullScreenCommand) => window = (MetroWindow)appWindow.MainWindow;
 
 		public override bool IsChecked(IMenuItemContext context) => window.IsFullScreen;
 		public void FullScreen() => window.IsFullScreen = !window.IsFullScreen;
@@ -65,9 +63,7 @@ namespace dnSpy.MainApp {
 		readonly IDocumentTreeView documentTreeView;
 
 		[ImportingConstructor]
-		CollapseTreeViewCommand(IDocumentTreeView documentTreeView) {
-			this.documentTreeView = documentTreeView;
-		}
+		CollapseTreeViewCommand(IDocumentTreeView documentTreeView) => this.documentTreeView = documentTreeView;
 
 		public override void Execute(IMenuItemContext context) => documentTreeView.TreeView.CollapseUnusedNodes();
 	}

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,9 +38,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexScrollMapFactoryService scrollMapFactoryService;
 
 		[ImportingConstructor]
-		VerticalScrollBarMarginProvider(HexScrollMapFactoryService scrollMapFactoryService) {
-			this.scrollMapFactoryService = scrollMapFactoryService;
-		}
+		VerticalScrollBarMarginProvider(HexScrollMapFactoryService scrollMapFactoryService) => this.scrollMapFactoryService = scrollMapFactoryService;
 
 		public override WpfHexViewMargin CreateMargin(WpfHexViewHost wpfHexViewHost, WpfHexViewMargin marginContainer) =>
 			new VerticalScrollBarMargin(scrollMapFactoryService, wpfHexViewHost);
@@ -68,11 +66,10 @@ namespace dnSpy.Hex.Editor {
 				Add(ScrollBar.PageDownCommand, ScrollEventType.LargeIncrement);
 			}
 
-			void Add(RoutedCommand routedCommand, ScrollEventType @event) {
+			void Add(RoutedCommand routedCommand, ScrollEventType @event) =>
 				CommandBindings.Add(new CommandBinding(routedCommand,
 					(s, e) => owner.OnScroll(new ScrollEventArgs(@event, Value)),
 					(s, e) => { e.CanExecute = true; }));
-			}
 
 			protected override void OnScroll(ScrollEventArgs e) => owner.OnScroll(e);
 		}
@@ -84,10 +81,8 @@ namespace dnSpy.Hex.Editor {
 		public VerticalScrollBarMargin(HexScrollMapFactoryService scrollMapFactoryService, WpfHexViewHost wpfHexViewHost) {
 			if (scrollMapFactoryService == null)
 				throw new ArgumentNullException(nameof(scrollMapFactoryService));
-			if (wpfHexViewHost == null)
-				throw new ArgumentNullException(nameof(wpfHexViewHost));
 			theScrollBar = new TheScrollBar(this);
-			this.wpfHexViewHost = wpfHexViewHost;
+			this.wpfHexViewHost = wpfHexViewHost ?? throw new ArgumentNullException(nameof(wpfHexViewHost));
 			scrollMap = scrollMapFactoryService.Create(wpfHexViewHost.HexView);
 			theScrollBar.IsVisibleChanged += VerticalScrollBarMargin_IsVisibleChanged;
 			wpfHexViewHost.HexView.Options.OptionChanged += Options_OptionChanged;

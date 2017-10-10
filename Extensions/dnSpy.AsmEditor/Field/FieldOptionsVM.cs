@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -238,9 +238,7 @@ namespace dnSpy.AsmEditor.Field {
 			HasErrorUpdated();
 		}
 
-		void Reinitialize() {
-			InitializeFrom(origOptions);
-		}
+		void Reinitialize() => InitializeFrom(origOptions);
 
 		public FieldDefOptions CreateFieldDefOptions() => CopyTo(new FieldDefOptions());
 

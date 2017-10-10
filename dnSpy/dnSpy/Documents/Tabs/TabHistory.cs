@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -46,19 +46,13 @@ namespace dnSpy.Documents.Tabs {
 		}
 
 		public void SetCurrent(DocumentTabContent content, bool saveCurrent) {
-			if (content == null)
-				throw new ArgumentNullException(nameof(content));
 			if (saveCurrent && current != null)
 				oldList.Add(new TabContentState(current, current.DocumentTab.UIContext.CreateUIState()));
-			current = content;
+			current = content ?? throw new ArgumentNullException(nameof(content));
 			newList.Clear();
 		}
 
-		public void OverwriteCurrent(DocumentTabContent content) {
-			if (content == null)
-				throw new ArgumentNullException(nameof(content));
-			current = content;
-		}
+		public void OverwriteCurrent(DocumentTabContent content) => current = content ?? throw new ArgumentNullException(nameof(content));
 
 		public bool CanNavigateBackward => oldList.Count > 0;
 		public bool CanNavigateForward => newList.Count > 0;

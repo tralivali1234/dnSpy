@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -48,9 +48,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="typeCode">Type code</param>
 		/// <param name="userTypeName">User type or null if it's not a <see cref="ResourceTypeCode.UserTypes"/></param>
 		public MultiResourceInfo(string name, ResourceTypeCode typeCode, string userTypeName) {
-			if (name == null)
-				throw new ArgumentNullException(nameof(name));
-			Name = name;
+			Name = name ?? throw new ArgumentNullException(nameof(name));
 			TypeCode = typeCode;
 			UserTypeName = userTypeName ?? string.Empty;
 		}
@@ -83,9 +81,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="span">Span</param>
 		protected MultiResourceDataHeaderData(DotNetMultiFileResources resourceProvider, MultiResourceInfo resourceInfo, HexBufferSpan span)
 			: base(NAME, span) {
-			if (resourceProvider == null)
-				throw new ArgumentNullException(nameof(resourceProvider));
-			ResourceProvider = resourceProvider;
+			ResourceProvider = resourceProvider ?? throw new ArgumentNullException(nameof(resourceProvider));
 			ResourceInfo = resourceInfo;
 		}
 	}

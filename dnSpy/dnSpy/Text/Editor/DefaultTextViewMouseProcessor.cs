@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.Text.Editor {
 		readonly IEditorOperations editorOperations;
 
 		public DefaultTextViewMouseProcessor(IWpfTextView wpfTextView, IEditorOperationsFactoryService editorOperationsFactoryService) {
-			if (wpfTextView == null)
-				throw new ArgumentNullException(nameof(wpfTextView));
-			this.wpfTextView = wpfTextView;
+			this.wpfTextView = wpfTextView ?? throw new ArgumentNullException(nameof(wpfTextView));
 			editorOperations = editorOperationsFactoryService.GetEditorOperations(wpfTextView);
 		}
 
@@ -167,8 +165,7 @@ namespace dnSpy.Text.Editor {
 		}
 
 		VirtualSnapshotSpan GetSelectionOrCaretIfNoSelection() {
-			VirtualSnapshotPoint start, end;
-			GetSelectionOrCaretIfNoSelection(out start, out end);
+			GetSelectionOrCaretIfNoSelection(out var start, out var end);
 			return new VirtualSnapshotSpan(start, end);
 		}
 
@@ -220,17 +217,17 @@ namespace dnSpy.Text.Editor {
 							editorOperations.SelectCurrentWord();
 						else
 							editorOperations.SelectLine(wpfTextView.Caret.ContainingTextViewLine, false);
-						VirtualSnapshotPoint selStart, selEnd;
-						GetSelectionOrCaretIfNoSelection(out selStart, out selEnd);
+						GetSelectionOrCaretIfNoSelection(out var selStart, out var selEnd);
 
 						VirtualSnapshotPoint anchorPoint, activePoint;
-						if (selStart < mouseLeftDownInfo.Value.Span.Start) {
+						var translatedSpan = mouseLeftDownInfo.Value.Span.TranslateTo(selStart.Position.Snapshot, SpanTrackingMode.EdgeExclusive);
+						if (selStart < translatedSpan.Start) {
 							activePoint = selStart;
-							anchorPoint = mouseLeftDownInfo.Value.Span.End;
+							anchorPoint = translatedSpan.End;
 						}
 						else {
 							activePoint = selEnd;
-							anchorPoint = mouseLeftDownInfo.Value.Span.Start;
+							anchorPoint = translatedSpan.Start;
 						}
 						wpfTextView.Selection.Select(anchorPoint, activePoint);
 						wpfTextView.Caret.MoveTo(activePoint);
@@ -256,8 +253,7 @@ namespace dnSpy.Text.Editor {
 		void UpdateScrolling(MouseEventArgs e) {
 			var mouseLoc = GetLocation(e);
 			dispatcherTimerXCoord = mouseLoc.Point.X;
-			TimeSpan interval;
-			var scrollDir = GetScrollDirection(mouseLoc, out interval);
+			var scrollDir = GetScrollDirection(mouseLoc, out var interval);
 			if (scrollDir == null) {
 				StopScrolling();
 				wpfTextView.Caret.EnsureVisible();

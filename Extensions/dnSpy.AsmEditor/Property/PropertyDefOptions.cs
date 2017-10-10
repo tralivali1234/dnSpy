@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -63,15 +63,13 @@ namespace dnSpy.AsmEditor.Property {
 
 		public PropertyDef CreatePropertyDef(ModuleDef ownerModule) => ownerModule.UpdateRowId(CopyTo(new PropertyDefUser()));
 
-		public static PropertyDefOptions Create(ModuleDef module, UTF8String name, bool isInstance) {
-			return new PropertyDefOptions {
-				Attributes = 0,
-				Name = name,
-				PropertySig = isInstance ?
+		public static PropertyDefOptions Create(ModuleDef module, UTF8String name, bool isInstance) => new PropertyDefOptions {
+			Attributes = 0,
+			Name = name,
+			PropertySig = isInstance ?
 								PropertySig.CreateInstance(module.CorLibTypes.Int32) :
 								PropertySig.CreateStatic(module.CorLibTypes.Int32),
-				Constant = null,
-			};
-		}
+			Constant = null,
+		};
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.Text.Editor {
 		public Point Point { get; }
 
 		MouseLocation(ITextViewLine textViewLine, VirtualSnapshotPoint position, Point point) {
-			if (textViewLine == null)
-				throw new ArgumentNullException(nameof(textViewLine));
-			TextViewLine = textViewLine;
+			TextViewLine = textViewLine ?? throw new ArgumentNullException(nameof(textViewLine));
 			Position = position;
 			Affinity = textViewLine.IsLastTextViewLineForSnapshotLine || position.Position != textViewLine.End ? PositionAffinity.Successor : PositionAffinity.Predecessor;
 			Debug.Assert(position.VirtualSpaces == 0 || Affinity == PositionAffinity.Successor);

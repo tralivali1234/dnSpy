@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -58,6 +58,8 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 					OnPropertyChanged(nameof(Attributes));
 					OnPropertyChanged(nameof(In));
 					OnPropertyChanged(nameof(Out));
+					OnPropertyChanged(nameof(Lcid));
+					OnPropertyChanged(nameof(Retval));
 					OnPropertyChanged(nameof(Optional));
 					OnPropertyChanged(nameof(HasDefault));
 					OnPropertyChanged(nameof(HasFieldMarshal));
@@ -77,6 +79,16 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		public bool Out {
 			get { return GetFlagValue(ParamAttributes.Out); }
 			set { SetFlagValue(ParamAttributes.Out, value); }
+		}
+
+		public bool Lcid {
+			get { return GetFlagValue(ParamAttributes.Lcid); }
+			set { SetFlagValue(ParamAttributes.Lcid, value); }
+		}
+
+		public bool Retval {
+			get { return GetFlagValue(ParamAttributes.Retval); }
+			set { SetFlagValue(ParamAttributes.Retval, value); }
 		}
 
 		public bool Optional {

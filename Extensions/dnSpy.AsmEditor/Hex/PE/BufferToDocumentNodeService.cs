@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -36,16 +36,14 @@ namespace dnSpy.AsmEditor.Hex.PE {
 		readonly IDocumentTabService documentTabService;
 
 		[ImportingConstructor]
-		BufferToDocumentNodeServiceImpl(IDocumentTabService documentTabService) {
-			this.documentTabService = documentTabService;
-		}
+		BufferToDocumentNodeServiceImpl(IDocumentTabService documentTabService) => this.documentTabService = documentTabService;
 
 		DsDocumentNode Find(HexBufferFile file) {
 			if (file == null)
 				throw new ArgumentNullException(nameof(file));
-			if (file.Name == string.Empty)
+			if (file.Filename == string.Empty)
 				return null;
-			var doc = documentTabService.DocumentTreeView.DocumentService.Find(new FilenameKey(file.Name));
+			var doc = documentTabService.DocumentTreeView.DocumentService.Find(new FilenameKey(file.Filename));
 			if (doc == null)
 				return null;
 			return documentTabService.DocumentTreeView.FindNode(doc);

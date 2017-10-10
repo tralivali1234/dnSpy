@@ -367,10 +367,10 @@
     <value>Move to P_revious Tab Group</value>
   </data>
   <data name="NavigateBackCommand" xml:space="preserve">
-    <value>Navigate Backward (Backspace)</value>
+    <value>Navigate Backward</value>
   </data>
   <data name="NavigateForwardCommand" xml:space="preserve">
-    <value>Navigate Forward (Alt+Right)</value>
+    <value>Navigate Forward</value>
   </data>
   <data name="NewDataIsNotAnImage" xml:space="preserve">
     <value>The new data is not an image.</value>
@@ -475,7 +475,7 @@
     <value>Open List</value>
   </data>
   <data name="OpenToolBarToolTip" xml:space="preserve">
-    <value>Open (Ctrl+O)</value>
+    <value>Open</value>
   </data>
   <data name="OptionsTitle" xml:space="preserve">
     <value>Options</value>
@@ -517,7 +517,7 @@
     <value>_Search Assemblies</value>
   </data>
   <data name="SearchAssembliesToolBarToolTip" xml:space="preserve">
-    <value>Search Assemblies ({0})</value>
+    <value>Search Assemblies</value>
   </data>
   <data name="Searching" xml:space="preserve">
     <value>Searching...</value>
@@ -754,7 +754,7 @@
     <value>_Light</value>
   </data>
   <data name="OpenGAC_Search_ToolTip" xml:space="preserve">
-    <value>Search (Ctrl+E or Ctrl+F)</value>
+    <value>Search</value>
   </data>
   <data name="LanguageCommand" xml:space="preserve">
     <value>Language</value>
@@ -897,13 +897,13 @@
     <value>Output</value>
   </data>
   <data name="Output_ClearAll_ToolTip" xml:space="preserve">
-    <value>Clear All (Ctrl+L)</value>
+    <value>Clear All</value>
   </data>
   <data name="Output_ShowOutputFrom" xml:space="preserve">
     <value>_Show output from:</value>
   </data>
   <data name="Output_WordWrap_ToolTip" xml:space="preserve">
-    <value>Toggle Word Wrap (Ctrl+E, Ctrl+W)</value>
+    <value>Toggle Word Wrap</value>
   </data>
   <data name="ShortCutKeyAlt2" xml:space="preserve">
     <value>Alt+2</value>
@@ -912,7 +912,7 @@
     <value>_Output</value>
   </data>
   <data name="Output_Save_ToolTip" xml:space="preserve">
-    <value>Save (Ctrl+S)</value>
+    <value>Save</value>
   </data>
   <data name="ClearAllCommand" xml:space="preserve">
     <value>Clear Al_l</value>
@@ -1065,31 +1065,31 @@
     <value>Top Margin %</value>
   </data>
   <data name="Search_FindNextToolTip" xml:space="preserve">
-    <value>Find next (F3)</value>
+    <value>Find next</value>
   </data>
   <data name="Search_FindPreviousToolTip" xml:space="preserve">
-    <value>Find previous (Shift+F3)</value>
+    <value>Find previous</value>
   </data>
   <data name="Search_MatchCaseToolTip" xml:space="preserve">
-    <value>Match case (Alt+C)</value>
+    <value>Match case</value>
   </data>
   <data name="Search_MatchWholeWordToolTip" xml:space="preserve">
-    <value>Match whole word (Alt+W)</value>
+    <value>Match whole word</value>
   </data>
   <data name="Search_ReplaceAllToolTip" xml:space="preserve">
-    <value>Replace all (Alt+A)</value>
+    <value>Replace all</value>
   </data>
   <data name="Search_ReplaceNextToolTip" xml:space="preserve">
-    <value>Replace next (Alt+R)</value>
+    <value>Replace next</value>
   </data>
   <data name="Search_UseRegularExpressionsToolTip" xml:space="preserve">
-    <value>Use Regular Expressions (Alt+E)</value>
+    <value>Use Regular Expressions</value>
   </data>
   <data name="Search_ToggleReplaceModeToolTip" xml:space="preserve">
     <value>Toggle to switch between find and replace modes</value>
   </data>
   <data name="Search_CloseToolTip" xml:space="preserve">
-    <value>Close (Esc)</value>
+    <value>Close</value>
   </data>
   <data name="IncrementalSearchCommand" xml:space="preserve">
     <value>Incremental Search</value>
@@ -1506,8 +1506,8 @@ Filter can be changed in Assembly Explorer options.</value>
   <data name="TextEditor" xml:space="preserve">
     <value>Text Editor</value>
   </data>
-  <data name="Search_BigEndian" xml:space="preserve">
-    <value>Big endian (Alt+B)</value>
+  <data name="Search_BigEndianToolTip" xml:space="preserve">
+    <value>Big endian</value>
   </data>
   <data name="ShortCutKeyAlt8" xml:space="preserve">
     <value>Alt+8</value>
@@ -1566,8 +1566,8 @@ Filter can be changed in Assembly Explorer options.</value>
   <data name="CopyValueCommand" xml:space="preserve">
     <value>Copy Value</value>
   </data>
-  <data name="ShortCutKeyCtrlShift3" xml:space="preserve">
-    <value>Ctrl+Shift+3</value>
+  <data name="ShortCutKeyCtrlShiftQ" xml:space="preserve">
+    <value>Ctrl+Shift+Q</value>
   </data>
   <data name="ShortCutKeyCtrlShiftA" xml:space="preserve">
     <value>Ctrl+Shift+A</value>
@@ -1670,5 +1670,254 @@ Filter can be changed in Assembly Explorer options.</value>
   </data>
   <data name="OptionColorizeText" xml:space="preserve">
     <value>Colorize the text</value>
+  </data>
+  <data name="ShortCutKeyAltRightArrow" xml:space="preserve">
+    <value>Alt+Right Arrow</value>
+  </data>
+  <data name="ShortCutKeyBackspace" xml:space="preserve">
+    <value>Backspace</value>
+  </data>
+  <data name="ShortCutKeyCtrlS" xml:space="preserve">
+    <value>Ctrl+S</value>
+  </data>
+  <data name="ShortCutKeyAltA" xml:space="preserve">
+    <value>Alt+A</value>
+  </data>
+  <data name="ShortCutKeyAltB" xml:space="preserve">
+    <value>Alt+B</value>
+  </data>
+  <data name="ShortCutKeyAltC" xml:space="preserve">
+    <value>Alt+C</value>
+  </data>
+  <data name="ShortCutKeyAltE" xml:space="preserve">
+    <value>Alt+E</value>
+  </data>
+  <data name="ShortCutKeyAltW" xml:space="preserve">
+    <value>Alt+W</value>
+  </data>
+  <data name="ShortCutKeyEsc" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="ShortCutKeyShiftF3" xml:space="preserve">
+    <value>Shift+F3</value>
+  </data>
+  <data name="ShortCutKeyF3" xml:space="preserve">
+    <value>F3</value>
+  </data>
+  <data name="ShortCutKeyAltR" xml:space="preserve">
+    <value>Alt+R</value>
+  </data>
+  <data name="TimestampDateTimeFormat" xml:space="preserve">
+    <value>Timestamp format</value>
+  </data>
+  <data name="Window_Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="BookmarksOptDlgTab" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="BookmarksSettings_SyntaxHighlight" xml:space="preserve">
+    <value>Syntax highlight</value>
+  </data>
+  <data name="SearchHelp_ToolTip" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Column_Labels" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="Column_Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Column_Module" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Column_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Bookmarks_NoMatch" xml:space="preserve">
+    <value>No bookmarks match your search filter.</value>
+  </data>
+  <data name="Bookmarks_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="BookmarksCommand" xml:space="preserve">
+    <value>Boo_kmarks</value>
+  </data>
+  <data name="BookmarksWindowCommand" xml:space="preserve">
+    <value>_Bookmark Window</value>
+  </data>
+  <data name="Bookmarks_ExportMatchingBookmarks_ToolTip" xml:space="preserve">
+    <value>Export all bookmarks matching the current search criteria</value>
+  </data>
+  <data name="Bookmarks_GoToLocation_ToolTip" xml:space="preserve">
+    <value>Move the caret to the selected bookmark.</value>
+  </data>
+  <data name="Bookmarks_GoToNextBookmarkInFile_ToolTip" xml:space="preserve">
+    <value>Move the caret to the next bookmark in the current file.</value>
+  </data>
+  <data name="Bookmarks_GoToNextBookmarkSameLabel_ToolTip" xml:space="preserve">
+    <value>Move the caret to the next bookmark with the same label.</value>
+  </data>
+  <data name="Bookmarks_GoToNextBookmark_ToolTip" xml:space="preserve">
+    <value>Move the caret to the next bookmark.</value>
+  </data>
+  <data name="Bookmarks_GoToPreviousBookmarkInFile_ToolTip" xml:space="preserve">
+    <value>Move the caret to the previous bookmark in the current file.</value>
+  </data>
+  <data name="Bookmarks_GoToPreviousBookmarkSameLabel_ToolTip" xml:space="preserve">
+    <value>Move the caret to the previous bookmark with the same label.</value>
+  </data>
+  <data name="Bookmarks_GoToPreviousBookmark_ToolTip" xml:space="preserve">
+    <value>Move the caret to the previous bookmark.</value>
+  </data>
+  <data name="Bookmarks_ImportBookmarks_ToolTip" xml:space="preserve">
+    <value>Import bookmarks from a file</value>
+  </data>
+  <data name="Bookmarks_RemoveBookmark_ToolTip" xml:space="preserve">
+    <value>Remove bookmark</value>
+  </data>
+  <data name="Bookmarks_RemoveMatchingBookmarks_ToolTip" xml:space="preserve">
+    <value>Remove all bookmarks matching the current search criteria</value>
+  </data>
+  <data name="Bookmarks_ResetSearchSettings_ToolTip" xml:space="preserve">
+    <value>Reset all search criteria so that all bookmarks are shown</value>
+  </data>
+  <data name="Bookmarks_Search_ToolTip" xml:space="preserve">
+    <value>Search for a bookmark</value>
+  </data>
+  <data name="Bookmarks_ToggleCreateBookmark_ToolTip" xml:space="preserve">
+    <value>Toggle a bookmark on the current line.</value>
+  </data>
+  <data name="Bookmarks_ToggleMatchingBookmarks_ToolTip" xml:space="preserve">
+    <value>Enable or disable all bookmarks matching the current search criteria</value>
+  </data>
+  <data name="BookmarkDefaultName" xml:space="preserve">
+    <value>Bookmark{0}</value>
+  </data>
+  <data name="RenameCommand" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="GoToBookmarkCommand" xml:space="preserve">
+    <value>Go To Bookmark</value>
+  </data>
+  <data name="ShortCutKeyCtrl_DIGIT" xml:space="preserve">
+    <value>Ctrl+{0}</value>
+  </data>
+  <data name="DisableBookmarkCommand3" xml:space="preserve">
+    <value>Disable Bookmark</value>
+  </data>
+  <data name="EditLabelsCommand" xml:space="preserve">
+    <value>Edit Labels</value>
+  </data>
+  <data name="EnableBookmarkCommand3" xml:space="preserve">
+    <value>Enable Bookmark</value>
+  </data>
+  <data name="ExportSelectedCommand" xml:space="preserve">
+    <value>_Export Selected...</value>
+  </data>
+  <data name="RemoveAllBookmarksCommand" xml:space="preserve">
+    <value>Remove All Bookmarks</value>
+  </data>
+  <data name="RemoveBookmarkCommand" xml:space="preserve">
+    <value>Remove Bookmark</value>
+  </data>
+  <data name="SelectAllCommand" xml:space="preserve">
+    <value>Select _All</value>
+  </data>
+  <data name="ShortCutKeyCtrlA" xml:space="preserve">
+    <value>Ctrl+A</value>
+  </data>
+  <data name="ShortCutKeyCtrlC" xml:space="preserve">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="ShortCutKeyEnter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="ShortCutKeyF2" xml:space="preserve">
+    <value>F2</value>
+  </data>
+  <data name="ShowDeclaringTypesCommand" xml:space="preserve">
+    <value>Show Declaring Types</value>
+  </data>
+  <data name="ShowIntrinsicTypeKeywordsCommand" xml:space="preserve">
+    <value>Show Intrinsic Type Keywords</value>
+  </data>
+  <data name="ShowModuleNamesCommand" xml:space="preserve">
+    <value>Show _Module Names</value>
+  </data>
+  <data name="ShowNamespacesCommand" xml:space="preserve">
+    <value>Show Namespaces</value>
+  </data>
+  <data name="ShowParameterNamesCommand" xml:space="preserve">
+    <value>Show _Parameter Names</value>
+  </data>
+  <data name="ShowParameterTypesCommand2" xml:space="preserve">
+    <value>Show Parameter Types</value>
+  </data>
+  <data name="ShowReturnTypesCommand" xml:space="preserve">
+    <value>Show Return Types</value>
+  </data>
+  <data name="ShowTokensCommand" xml:space="preserve">
+    <value>Show Tokens</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlW" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+W</value>
+  </data>
+  <data name="ClearAllBookmarksInDocumentCommand" xml:space="preserve">
+    <value>Clear All Bookmarks In Document</value>
+  </data>
+  <data name="ClearBookmarksCommand" xml:space="preserve">
+    <value>_Clear Bookmarks</value>
+  </data>
+  <data name="DisableAllBookmarksCommand" xml:space="preserve">
+    <value>Disable _All Bookmarks</value>
+  </data>
+  <data name="EnableAllBookmarksCommand" xml:space="preserve">
+    <value>Enable _All Bookmarks</value>
+  </data>
+  <data name="EnableBookmarkCommand" xml:space="preserve">
+    <value>Enable Bookmark</value>
+  </data>
+  <data name="GoToNextBookmarkCommand" xml:space="preserve">
+    <value>Next _Bookmark</value>
+  </data>
+  <data name="GoToNextBookmarkInDocumentCommand" xml:space="preserve">
+    <value>N_ext Bookmark In Document</value>
+  </data>
+  <data name="GoToNextBookmarkWithSameLabelCommand" xml:space="preserve">
+    <value>Next Bookmark With Same Label</value>
+  </data>
+  <data name="GoToPreviousBookmarkCommand" xml:space="preserve">
+    <value>_Previous Bookmark</value>
+  </data>
+  <data name="GoToPreviousBookmarkInDocumentCommand" xml:space="preserve">
+    <value>P_revious Bookmark In Document</value>
+  </data>
+  <data name="GoToPreviousBookmarkWithSameLabelCommand" xml:space="preserve">
+    <value>Previous Bookmark With Same Label</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlK" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+K</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlL" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+L</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlN" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+N</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlP" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+P</value>
+  </data>
+  <data name="ToggleBookmarkCommand" xml:space="preserve">
+    <value>_Toggle Bookmark</value>
+  </data>
+  <data name="EditLabelsMsgBoxLabel" xml:space="preserve">
+    <value>Labels</value>
+  </data>
+  <data name="EditLabelsTitle" xml:space="preserve">
+    <value>Edit Labels</value>
+  </data>
+  <data name="User_Administrator" xml:space="preserve">
+    <value>Administrator</value>
   </data>
 </root>

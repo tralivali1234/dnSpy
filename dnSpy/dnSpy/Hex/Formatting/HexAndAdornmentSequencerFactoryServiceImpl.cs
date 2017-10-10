@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -29,9 +29,7 @@ namespace dnSpy.Hex.Formatting {
 		readonly HexViewTagAggregatorFactoryService hexViewTagAggregatorFactoryService;
 
 		[ImportingConstructor]
-		HexAndAdornmentSequencerFactoryServiceImpl(HexViewTagAggregatorFactoryService hexViewTagAggregatorFactoryService) {
-			this.hexViewTagAggregatorFactoryService = hexViewTagAggregatorFactoryService;
-		}
+		HexAndAdornmentSequencerFactoryServiceImpl(HexViewTagAggregatorFactoryService hexViewTagAggregatorFactoryService) => this.hexViewTagAggregatorFactoryService = hexViewTagAggregatorFactoryService;
 
 		public override HexAndAdornmentSequencer Create(HexView view) {
 			if (view == null)

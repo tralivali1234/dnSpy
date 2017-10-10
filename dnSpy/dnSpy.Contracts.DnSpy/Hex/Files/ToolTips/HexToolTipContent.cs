@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -41,9 +41,7 @@ namespace dnSpy.Contracts.Hex.Files.ToolTips {
 		/// <param name="text">Text</param>
 		/// <param name="image">Image shown in the tooltip or null</param>
 		public HexToolTipContent(HexClassifiedTextCollection[] text, object image) {
-			if (text == null)
-				throw new ArgumentNullException(nameof(text));
-			Text = text;
+			Text = text ?? throw new ArgumentNullException(nameof(text));
 			Image = image;
 		}
 	}

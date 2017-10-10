@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,9 +38,7 @@ namespace dnSpy.BackgroundImage {
 
 		TextViewBackgroundImageService(IWpfTextView wpfTextView, IImageSourceService imageSourceService)
 			: base(imageSourceService) {
-			if (wpfTextView == null)
-				throw new ArgumentNullException(nameof(wpfTextView));
-			this.wpfTextView = wpfTextView;
+			this.wpfTextView = wpfTextView ?? throw new ArgumentNullException(nameof(wpfTextView));
 			Initialize();
 			wpfTextView.Closed += WpfTextView_Closed;
 		}

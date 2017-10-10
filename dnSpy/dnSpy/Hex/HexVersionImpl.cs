@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Hex {
 		HexVersion next;
 
 		public HexVersionImpl(HexBuffer buffer, int versionNumber, int reiteratedVersionNumber) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			Buffer = buffer;
+			Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			VersionNumber = versionNumber;
 			ReiteratedVersionNumber = reiteratedVersionNumber;
 		}

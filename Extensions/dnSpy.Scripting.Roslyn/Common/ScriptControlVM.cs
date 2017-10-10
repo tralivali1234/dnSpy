@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,6 +35,7 @@ using dnSpy.Contracts.Scripting.Roslyn;
 using dnSpy.Contracts.Text;
 using dnSpy.Contracts.Text.Classification;
 using dnSpy.Contracts.Text.Editor;
+using dnSpy.Contracts.Utilities;
 using dnSpy.Roslyn.Shared.Text;
 using dnSpy.Roslyn.Shared.Text.Classification;
 using dnSpy.Scripting.Roslyn.Properties;
@@ -63,6 +64,13 @@ namespace dnSpy.Scripting.Roslyn.Common {
 		protected abstract string CodeFilenameNoExtension { get; }
 		protected abstract string CodeFileExtension { get; }
 		protected abstract string CodeFilterText { get; }
+
+		public string ResetToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Scripting_Roslyn_Resources.Script_ToolTip_Reset, null);
+		public string ClearScreenToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Scripting_Roslyn_Resources.Script_ToolTip_ClearScreen, dnSpy_Scripting_Roslyn_Resources.ShortCutKeyCtrlL);
+		public string HistoryPreviousToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Scripting_Roslyn_Resources.Script_ToolTip_HistoryPrevious, dnSpy_Scripting_Roslyn_Resources.ShortCutKeyAltUp);
+		public string HistoryNextToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Scripting_Roslyn_Resources.Script_ToolTip_HistoryNext, dnSpy_Scripting_Roslyn_Resources.ShortCutKeyAltDown);
+		public string SaveToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Scripting_Roslyn_Resources.Repl_Save_ToolTip, dnSpy_Scripting_Roslyn_Resources.ShortCutKeyCtrlS);
+		public string WordWrapToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Scripting_Roslyn_Resources.Repl_WordWrap_ToolTip, dnSpy_Scripting_Roslyn_Resources.ShortCutKeyCtrlECtrlW);
 
 		public ICommand ResetCommand => new RelayCommand(a => Reset(), a => CanReset);
 		public ICommand ClearCommand => new RelayCommand(a => ReplEditor.ClearScreen(), a => ReplEditor.CanClearScreen);
@@ -144,7 +152,7 @@ namespace dnSpy.Scripting.Roslyn.Common {
 		}
 
 		readonly Dispatcher dispatcher;
-		readonly RoslynClassificationTypes roslynClassificationTypes;
+		readonly RoslynClassificationTypes2 roslynClassificationTypes;
 		readonly IClassificationType defaultClassificationType;
 		readonly ReplSettings replSettings;
 
@@ -159,7 +167,7 @@ namespace dnSpy.Scripting.Roslyn.Common {
 			ReplEditor.TextView.Options.OptionChanged += Options_OptionChanged;
 
 			var themeClassificationTypeService = serviceLocator.Resolve<IThemeClassificationTypeService>();
-			roslynClassificationTypes = RoslynClassificationTypes.GetClassificationTypeInstance(themeClassificationTypeService);
+			roslynClassificationTypes = RoslynClassificationTypes2.GetClassificationTypeInstance(themeClassificationTypeService);
 			defaultClassificationType = themeClassificationTypeService.GetClassificationType(TextColor.Error);
 
 			toScriptCommand = new Dictionary<string, IScriptCommand>(StringComparer.Ordinal);
@@ -330,8 +338,8 @@ namespace dnSpy.Scripting.Roslyn.Common {
 
 			using (var workspace = new AdhocWorkspace(RoslynMefHostServices.DefaultServices)) {
 				var classifier = new RoslynClassifier(sem.SyntaxTree.GetRoot(), sem, workspace, roslynClassificationTypes, defaultClassificationType, cancellationToken);
-				foreach (var info in classifier.GetClassifications(new TextSpan(0, command.Input.Length)))
-					command.AddClassification(info.Span.Start, info.Span.Length, info.Type);
+				foreach (var info in classifier.GetColors(new TextSpan(0, command.Input.Length)))
+					command.AddClassification(info.Span.Start, info.Span.Length, (IClassificationType)info.Color);
 			}
 
 			return Task.CompletedTask;
@@ -410,8 +418,7 @@ namespace dnSpy.Scripting.Roslyn.Common {
 							execState.Executing = false;
 					}
 					var innerEx = t.Exception?.InnerException;
-					if (innerEx is CompilationErrorException) {
-						var cee = (CompilationErrorException)innerEx;
+					if (innerEx is CompilationErrorException cee) {
 						PrintDiagnostics(cee.Diagnostics);
 						CommandExecuted();
 					}
@@ -464,13 +471,10 @@ namespace dnSpy.Scripting.Roslyn.Common {
 		}
 
 		ExecScriptCommandState ParseScriptCommand(string input) {
-			string name;
-			string[] args;
-			if (!UnpackScriptCommand(input, out name, out args))
+			if (!UnpackScriptCommand(input, out string name, out var args))
 				return null;
 
-			IScriptCommand sc;
-			if (!toScriptCommand.TryGetValue(name, out sc))
+			if (!toScriptCommand.TryGetValue(name, out var sc))
 				return null;
 
 			return new ExecScriptCommandState(sc, args);

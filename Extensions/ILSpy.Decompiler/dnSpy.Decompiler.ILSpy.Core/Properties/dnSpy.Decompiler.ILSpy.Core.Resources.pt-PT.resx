@@ -189,6 +189,9 @@
   <data name="DecompilerSettings_RemoveEmptyDefaultCtors" xml:space="preserve">
     <value>Remover construtores padrão vazios</value>
   </data>
+  <data name="DecompilerSettings_RemoveNewDelegateClass" xml:space="preserve">
+    <value>Replace 'new delegate-class(xxx)' with 'xxx'</value>
+  </data>
   <data name="DecompilerSettings_ShowCompilerGeneratedTypes" xml:space="preserve">
     <value>Mostrar tipos e métodos escondidos gerados pelo compilador</value>
   </data>
@@ -197,6 +200,9 @@
   </data>
   <data name="DecompilerSettings_ShowILInstrBytes" xml:space="preserve">
     <value>Mostrar bytes de instruções IL </value>
+  </data>
+  <data name="DecompilerSettings_ShowPdbInfo" xml:space="preserve">
+    <value>Show line numbers and filenames if available</value>
   </data>
   <data name="DecompilerSettings_ShowTokensRvasOffsets" xml:space="preserve">
     <value>Mostrar tokens, RVAs e offsets de ficheiros</value>

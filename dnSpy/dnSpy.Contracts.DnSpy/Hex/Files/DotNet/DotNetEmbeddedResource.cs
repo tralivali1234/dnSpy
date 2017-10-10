@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,9 +44,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="token">Token</param>
 		protected DotNetEmbeddedResource(DotNetResourceProvider resourceProvider, HexBufferSpan span, uint token)
 			: base(NAME, span) {
-			if (resourceProvider == null)
-				throw new ArgumentNullException(nameof(resourceProvider));
-			ResourceProvider = resourceProvider;
+			ResourceProvider = resourceProvider ?? throw new ArgumentNullException(nameof(resourceProvider));
 			Token = new MDToken(token);
 		}
 

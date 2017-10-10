@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -164,12 +164,11 @@ namespace dnSpy.AsmEditor.MethodBody {
 		public override bool IsVisible(IMenuItemContext context) => IsVisibleInternal(context);
 
 		internal static bool IsVisibleInternal(IMenuItemContext context) => IsVisible(BodyCommandUtils.GetStatements(context));
-		static bool IsVisible(IList<MethodSourceStatement> list) {
-			return list != null &&
-				list.Count != 0 &&
-				list[0].Method.Body != null &&
-				list[0].Method.Body.Instructions.Count > 0;
-		}
+		static bool IsVisible(IList<MethodSourceStatement> list) =>
+			list != null &&
+			list.Count != 0 &&
+			list[0].Method.Body != null &&
+			list[0].Method.Body.Instructions.Count > 0;
 
 		public override void Execute(IMenuItemContext context) => Execute(BodyCommandUtils.GetStatements(context));
 

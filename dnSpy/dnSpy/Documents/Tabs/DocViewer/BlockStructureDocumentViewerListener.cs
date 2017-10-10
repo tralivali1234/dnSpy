@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,9 +27,7 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 		readonly IBlockStructureServiceProvider blockStructureServiceProvider;
 
 		[ImportingConstructor]
-		BlockStructureDocumentViewerListener(IBlockStructureServiceProvider blockStructureServiceProvider) {
-			this.blockStructureServiceProvider = blockStructureServiceProvider;
-		}
+		BlockStructureDocumentViewerListener(IBlockStructureServiceProvider blockStructureServiceProvider) => this.blockStructureServiceProvider = blockStructureServiceProvider;
 
 		public void OnEvent(DocumentViewerEventArgs e) {
 			if (e.EventType == DocumentViewerEvent.GotNewContent)

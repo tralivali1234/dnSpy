@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,13 +32,9 @@ namespace dnSpy.AsmEditor.Hex {
 		readonly IUndoCommandService undoCommandService;
 
 		[ImportingConstructor]
-		HexBufferUndoRedo(IUndoCommandService undoCommandService) {
-			this.undoCommandService = undoCommandService;
-		}
+		HexBufferUndoRedo(IUndoCommandService undoCommandService) => this.undoCommandService = undoCommandService;
 
-		void IHexBufferServiceListener.BufferCreated(HexBuffer buffer) {
-			buffer.Changed += Buffer_Changed;
-		}
+		void IHexBufferServiceListener.BufferCreated(HexBuffer buffer) => buffer.Changed += Buffer_Changed;
 
 		void IHexBufferServiceListener.BuffersCleared(IEnumerable<HexBuffer> buffers) {
 			foreach (var buffer in buffers)
@@ -65,17 +61,11 @@ namespace dnSpy.AsmEditor.Hex {
 		bool canExecute;
 
 		public HexBufferUndoCommand(HexBuffer buffer, NormalizedHexChangeCollection changes, int beforeReiteratedVersionNumber, int afterReiteratedVersionNumber, string description) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			if (changes == null)
-				throw new ArgumentNullException(nameof(changes));
-			if (description == null)
-				throw new ArgumentNullException(nameof(description));
-			this.buffer = buffer;
-			this.changes = changes;
+			this.buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
+			this.changes = changes ?? throw new ArgumentNullException(nameof(changes));
 			this.beforeReiteratedVersionNumber = beforeReiteratedVersionNumber;
 			this.afterReiteratedVersionNumber = afterReiteratedVersionNumber;
-			Description = description;
+			Description = description ?? throw new ArgumentNullException(nameof(description));
 		}
 
 		public IEnumerable<object> ModifiedObjects {

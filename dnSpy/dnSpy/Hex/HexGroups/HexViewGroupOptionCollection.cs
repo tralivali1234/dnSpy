@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,10 +27,8 @@ namespace dnSpy.Hex.HexGroups {
 		public string SubGroup { get; }
 
 		public HexViewGroupOptionCollection(string subGroup) {
-			if (subGroup == null)
-				throw new ArgumentNullException(nameof(subGroup));
 			Options = new List<HexViewGroupOption>();
-			SubGroup = subGroup;
+			SubGroup = subGroup ?? throw new ArgumentNullException(nameof(subGroup));
 		}
 
 		public void Add(HexViewGroupOption option) => Options.Add(option);

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Documents.Tabs.Settings {
 		readonly DocumentTreeViewSettingsImpl documentTreeViewSettings;
 
 		[ImportingConstructor]
-		AssemblyExplorerAppSettingsPageProvider(DocumentTreeViewSettingsImpl documentTreeViewSettings) {
-			this.documentTreeViewSettings = documentTreeViewSettings;
-		}
+		AssemblyExplorerAppSettingsPageProvider(DocumentTreeViewSettingsImpl documentTreeViewSettings) => this.documentTreeViewSettings = documentTreeViewSettings;
 
 		public IEnumerable<AppSettingsPage> Create() {
 			yield return new AssemblyExplorerAppSettingsPage(documentTreeViewSettings);
@@ -170,9 +168,7 @@ namespace dnSpy.Documents.Tabs.Settings {
 		}
 
 		public AssemblyExplorerAppSettingsPage(DocumentTreeViewSettingsImpl documentTreeViewSettings) {
-			if (documentTreeViewSettings == null)
-				throw new ArgumentNullException(nameof(documentTreeViewSettings));
-			this.documentTreeViewSettings = documentTreeViewSettings;
+			this.documentTreeViewSettings = documentTreeViewSettings ?? throw new ArgumentNullException(nameof(documentTreeViewSettings));
 
 			ShowToken = documentTreeViewSettings.ShowToken;
 			ShowAssemblyVersion = documentTreeViewSettings.ShowAssemblyVersion;
@@ -224,8 +220,7 @@ namespace dnSpy.Documents.Tabs.Settings {
 			}
 		}
 
-		public override void OnApply() { throw new InvalidOperationException(); }
-
+		public override void OnApply() => throw new InvalidOperationException();
 		public void OnApply(IAppRefreshSettings appRefreshSettings) {
 			documentTreeViewSettings.ShowToken = ShowToken;
 			documentTreeViewSettings.ShowAssemblyVersion = ShowAssemblyVersion;

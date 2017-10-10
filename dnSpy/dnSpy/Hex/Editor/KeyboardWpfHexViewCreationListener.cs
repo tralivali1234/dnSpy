@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.Hex.Editor {
 		readonly Lazy<HexKeyProcessorProvider, IOrderableTextViewRoleMetadata>[] keyProcessorProviders;
 
 		[ImportingConstructor]
-		KeyboardWpfHexViewCreationListener([ImportMany] IEnumerable<Lazy<HexKeyProcessorProvider, IOrderableTextViewRoleMetadata>> keyProcessorProviders) {
-			this.keyProcessorProviders = VSUIL.Orderer.Order(keyProcessorProviders).ToArray();
-		}
+		KeyboardWpfHexViewCreationListener([ImportMany] IEnumerable<Lazy<HexKeyProcessorProvider, IOrderableTextViewRoleMetadata>> keyProcessorProviders) => this.keyProcessorProviders = VSUIL.Orderer.Order(keyProcessorProviders).ToArray();
 
 		public override void HexViewCreated(WpfHexView hexView) {
 			if (!hexView.Roles.Contains(PredefinedHexViewRoles.Interactive))

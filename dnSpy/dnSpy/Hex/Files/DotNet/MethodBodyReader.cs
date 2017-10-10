@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -50,8 +50,7 @@ namespace dnSpy.Hex.Files.DotNet {
 			var headerSpan = HexSpan.FromBounds(methodBodyPosition, currentPosition);
 			var instructionsSpan = new HexSpan(currentPosition, codeSize);
 			currentPosition += codeSize;
-			bool isSmallExceptionClauses;
-			var exceptionsSpan = ReadExceptionHandlers(out isSmallExceptionClauses);
+			var exceptionsSpan = ReadExceptionHandlers(out bool isSmallExceptionClauses);
 
 			return new MethodBodyInfo(tokens, headerSpan, instructionsSpan, exceptionsSpan, isSmallExceptionClauses ? MethodBodyInfoFlags.SmallExceptionClauses : MethodBodyInfoFlags.None);
 		}
@@ -110,13 +109,13 @@ namespace dnSpy.Hex.Files.DotNet {
 		HexSpan ReadExceptionHandlers(out bool isSmallExceptionClauses) {
 			isSmallExceptionClauses = false;
 			if ((flags & 8) == 0 || !file.Span.Contains(currentPosition))
-				return default(HexSpan);
+				return default;
 
 			currentPosition = file.AlignUp(currentPosition, 4);
 			// Only read the first one. Any others aren't used.
 			byte b = ReadByte();
 			if ((b & 0x3F) != 1)
-				return default(HexSpan); // Not exception handler clauses
+				return default; // Not exception handler clauses
 			if ((b & 0x40) != 0) {
 				isSmallExceptionClauses = false;
 				return ReadFatExceptionHandlers();

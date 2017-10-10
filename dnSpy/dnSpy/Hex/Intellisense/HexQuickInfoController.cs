@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,12 +28,8 @@ namespace dnSpy.Hex.Intellisense {
 		readonly HexView hexView;
 
 		public HexQuickInfoController(HexQuickInfoBroker quickInfoBroker, HexView hexView) {
-			if (quickInfoBroker == null)
-				throw new ArgumentNullException(nameof(quickInfoBroker));
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			this.hexView = hexView;
-			this.quickInfoBroker = quickInfoBroker;
+			this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
+			this.quickInfoBroker = quickInfoBroker ?? throw new ArgumentNullException(nameof(quickInfoBroker));
 			hexView.MouseHover += HexView_MouseHover;
 		}
 

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -87,8 +87,7 @@ namespace dnSpy_Console {
 		public ConsoleColorPair? GetColor(TextColor? color) {
 			if (color == null)
 				return null;
-			ConsoleColorPair ccPair;
-			return colors.TryGetValue(color.Value, out ccPair) ? ccPair : (ConsoleColorPair?)null;
+			return colors.TryGetValue(color.Value, out var ccPair) ? ccPair : (ConsoleColorPair?)null;
 		}
 	}
 
@@ -105,15 +104,9 @@ namespace dnSpy_Console {
 		bool IDecompilerOutput.UsesCustomData => false;
 
 		public ConsoleColorizerOutput(TextWriter writer, ColorProvider colorProvider, Indenter indenter) {
-			if (writer == null)
-				throw new ArgumentNullException(nameof(writer));
-			if (colorProvider == null)
-				throw new ArgumentNullException(nameof(colorProvider));
-			if (indenter == null)
-				throw new ArgumentNullException(nameof(indenter));
-			this.writer = writer;
-			this.colorProvider = colorProvider;
-			this.indenter = indenter;
+			this.writer = writer ?? throw new ArgumentNullException(nameof(writer));
+			this.colorProvider = colorProvider ?? throw new ArgumentNullException(nameof(colorProvider));
+			this.indenter = indenter ?? throw new ArgumentNullException(nameof(indenter));
 		}
 
 		void IDecompilerOutput.AddCustomData<TData>(string id, TData data) { }
@@ -259,7 +252,7 @@ namespace dnSpy_Console {
 		static T TryCreateType<T>(string asmName, string typeFullName) {
 			var asm = TryLoad(asmName);
 			var type = asm?.GetType(typeFullName);
-			return type == null ? default(T) : (T)Activator.CreateInstance(type);
+			return type == null ? default : (T)Activator.CreateInstance(type);
 		}
 
 		public int Run(string[] args) {
@@ -343,7 +336,7 @@ namespace dnSpy_Console {
 			new UsageInfo("--no-baml", null, dnSpy_Console_Resources.CmdLineDescription_NoBAML),
 			new UsageInfo("--no-color", null, dnSpy_Console_Resources.CmdLineDescription_NoColor),
 			new UsageInfo("--spaces", "N", dnSpy_Console_Resources.CmdLineDescription_Spaces),
-			new UsageInfo("--vs", "N", string.Format(dnSpy_Console_Resources.CmdLineDescription_VSVersion, 2015)),
+			new UsageInfo("--vs", "N", string.Format(dnSpy_Console_Resources.CmdLineDescription_VSVersion, 2017)),
 			new UsageInfo("--project-guid", "N", dnSpy_Console_Resources.CmdLineDescription_ProjectGUID),
 			new UsageInfo("-t", dnSpy_Console_Resources.CmdLineName, dnSpy_Console_Resources.CmdLineDescription_Type1),
 			new UsageInfo("--type", dnSpy_Console_Resources.CmdLineName, dnSpy_Console_Resources.CmdLineDescription_Type2),
@@ -384,8 +377,7 @@ namespace dnSpy_Console {
 			var list = new List<List<IDecompiler>>();
 			var dict = new Dictionary<object, List<IDecompiler>>();
 			foreach (var lang in AllLanguages) {
-				List<IDecompiler> opts;
-				if (!dict.TryGetValue(lang.Settings, out opts)) {
+				if (!dict.TryGetValue(lang.Settings, out var opts)) {
 					dict.Add(lang.Settings, opts = new List<IDecompiler>());
 					list.Add(opts);
 				}
@@ -453,7 +445,7 @@ namespace dnSpy_Console {
 
 			bool canParseCommands = true;
 			IDecompiler lang = null;
-			Dictionary<string, Tuple<IDecompilerOption, Action<string>>> langDict = null;
+			Dictionary<string, (IDecompilerOption setOption, Action<string> setOptionValue)> langDict = null;
 			for (int i = 0; i < args.Length; i++) {
 				if (lang == null) {
 					lang = GetLanguage();
@@ -559,6 +551,7 @@ namespace dnSpy_Console {
 						case 2012: projectVersion = ProjectVersion.VS2012; break;
 						case 2013: projectVersion = ProjectVersion.VS2013; break;
 						case 2015: projectVersion = ProjectVersion.VS2015; break;
+						case 2017: projectVersion = ProjectVersion.VS2017; break;
 						default: throw new ErrorException(string.Format(dnSpy_Console_Resources.InvalidVSVersion, vsVer));
 						}
 						break;
@@ -619,14 +612,14 @@ namespace dnSpy_Console {
 						break;
 
 					default:
-						Tuple<IDecompilerOption, Action<string>> tuple;
+						(IDecompilerOption option, Action<string> setOptionValue) tuple;
 						if (langDict.TryGetValue(arg, out tuple)) {
-							bool hasArg = tuple.Item1.Type != typeof(bool);
+							bool hasArg = tuple.option.Type != typeof(bool);
 							if (hasArg && next == null)
 								throw new ErrorException(dnSpy_Console_Resources.MissingOptionArgument);
 							if (hasArg)
 								i++;
-							tuple.Item2(next);
+							tuple.setOptionValue(next);
 							break;
 						}
 
@@ -639,8 +632,7 @@ namespace dnSpy_Console {
 		}
 
 		static int ParseInt32(string s) {
-			string error;
-			var v = SimpleTypeConverter.ParseInt32(s, int.MinValue, int.MaxValue, out error);
+			var v = SimpleTypeConverter.ParseInt32(s, int.MinValue, int.MaxValue, out string error);
 			if (!string.IsNullOrEmpty(error))
 				throw new ErrorException(error);
 			return v;
@@ -648,8 +640,8 @@ namespace dnSpy_Console {
 
 		static string ParseString(string s) => s;
 
-		Dictionary<string, Tuple<IDecompilerOption, Action<string>>> CreateDecompilerOptionsDictionary(IDecompiler decompiler) {
-			var dict = new Dictionary<string, Tuple<IDecompilerOption, Action<string>>>();
+		Dictionary<string, (IDecompilerOption option, Action<string> setOptionValue)> CreateDecompilerOptionsDictionary(IDecompiler decompiler) {
+			var dict = new Dictionary<string, (IDecompilerOption, Action<string>)>();
 
 			if (decompiler == null)
 				return dict;
@@ -657,14 +649,14 @@ namespace dnSpy_Console {
 			foreach (var tmp in decompiler.Settings.Options) {
 				var opt = tmp;
 				if (opt.Type == typeof(bool)) {
-					dict[GetOptionName(opt)] = Tuple.Create(opt, new Action<string>(a => opt.Value = true));
-					dict[GetOptionName(opt, BOOLEAN_NO_PREFIX)] = Tuple.Create(opt, new Action<string>(a => opt.Value = false));
-					dict[GetOptionName(opt, BOOLEAN_DONT_PREFIX)] = Tuple.Create(opt, new Action<string>(a => opt.Value = false));
+					dict[GetOptionName(opt)] = (opt, new Action<string>(a => opt.Value = true));
+					dict[GetOptionName(opt, BOOLEAN_NO_PREFIX)] = (opt, new Action<string>(a => opt.Value = false));
+					dict[GetOptionName(opt, BOOLEAN_DONT_PREFIX)] = (opt, new Action<string>(a => opt.Value = false));
 				}
 				else if (opt.Type == typeof(int))
-					dict[GetOptionName(opt)] = Tuple.Create(opt, new Action<string>(a => opt.Value = ParseInt32(a)));
+					dict[GetOptionName(opt)] = (opt, new Action<string>(a => opt.Value = ParseInt32(a)));
 				else if (opt.Type == typeof(string))
-					dict[GetOptionName(opt)] = Tuple.Create(opt, new Action<string>(a => opt.Value = ParseString(a)));
+					dict[GetOptionName(opt)] = (opt, new Action<string>(a => opt.Value = ParseString(a)));
 				else
 					Debug.Fail($"Unsupported type: {opt.Type}");
 			}
@@ -758,12 +750,11 @@ namespace dnSpy_Console {
 			return new Indenter(spaces, spaces, false);
 		}
 
-		static TypeDef FindType(ModuleDef module, string name) {
-			return FindTypeFullName(module, name, StringComparer.Ordinal) ??
-				FindTypeFullName(module, name, StringComparer.OrdinalIgnoreCase) ??
-				FindTypeName(module, name, StringComparer.Ordinal) ??
-				FindTypeName(module, name, StringComparer.OrdinalIgnoreCase);
-		}
+		static TypeDef FindType(ModuleDef module, string name) =>
+			FindTypeFullName(module, name, StringComparer.Ordinal) ??
+			FindTypeFullName(module, name, StringComparer.OrdinalIgnoreCase) ??
+			FindTypeName(module, name, StringComparer.Ordinal) ??
+			FindTypeName(module, name, StringComparer.OrdinalIgnoreCase);
 
 		static TypeDef FindTypeFullName(ModuleDef module, string name, StringComparer comparer) {
 			var sb = new StringBuilder();
@@ -966,8 +957,7 @@ namespace dnSpy_Console {
 		}
 
 		IDecompiler GetLanguage() {
-			Guid guid;
-			bool hasGuid = Guid.TryParse(language, out guid);
+			bool hasGuid = Guid.TryParse(language, out var guid);
 			return AllLanguages.FirstOrDefault(a => {
 				if (StringComparer.OrdinalIgnoreCase.Equals(language, a.UniqueNameUI))
 					return true;

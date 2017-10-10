@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,13 +30,10 @@ namespace dnSpy.Hex.Commands {
 		readonly HexCommandOperationsFactoryService hexCommandOperationsFactoryService;
 
 		[ImportingConstructor]
-		CommandTargetFilterProvider(HexCommandOperationsFactoryService hexCommandOperationsFactoryService) {
-			this.hexCommandOperationsFactoryService = hexCommandOperationsFactoryService;
-		}
+		CommandTargetFilterProvider(HexCommandOperationsFactoryService hexCommandOperationsFactoryService) => this.hexCommandOperationsFactoryService = hexCommandOperationsFactoryService;
 
 		public ICommandTargetFilter Create(object target) {
-			var hexView = target as HexView;
-			if (hexView != null)
+			if (target is HexView hexView)
 				return new CommandTargetFilter(hexView, hexCommandOperationsFactoryService.GetCommandOperations(hexView));
 			return null;
 		}
@@ -47,12 +44,8 @@ namespace dnSpy.Hex.Commands {
 		readonly HexCommandOperations hexCommandOperations;
 
 		public CommandTargetFilter(HexView hexView, HexCommandOperations hexCommandOperations) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			if (hexCommandOperations == null)
-				throw new ArgumentNullException(nameof(hexCommandOperations));
-			this.hexView = hexView;
-			this.hexCommandOperations = hexCommandOperations;
+			this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
+			this.hexCommandOperations = hexCommandOperations ?? throw new ArgumentNullException(nameof(hexCommandOperations));
 		}
 
 		static bool IsEditCommand(Guid group, int cmdId) {

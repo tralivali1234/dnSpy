@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -48,9 +48,7 @@ namespace dnSpy.Contracts.Documents.Tabs {
 		/// <summary>Constructor</summary>
 		/// <param name="order">Order</param>
 		public ExportReferenceHandlerAttribute(double order = double.MaxValue)
-			: base(typeof(IReferenceHandler)) {
-			Order = order;
-		}
+			: base(typeof(IReferenceHandler)) => Order = order;
 
 		/// <summary>
 		/// Order of this instance

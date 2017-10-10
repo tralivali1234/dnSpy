@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -29,11 +29,8 @@ namespace dnSpy.BackgroundImage {
 		readonly IImageSourceService imageSourceService;
 		Image currentImage;
 
-		protected BackgroundImageService(IImageSourceService imageSourceService) {
-			if (imageSourceService == null)
-				throw new ArgumentNullException(nameof(imageSourceService));
-			this.imageSourceService = imageSourceService;
-		}
+		protected BackgroundImageService(IImageSourceService imageSourceService) =>
+			this.imageSourceService = imageSourceService ?? throw new ArgumentNullException(nameof(imageSourceService));
 
 		protected void Initialize() => imageSourceService.Register(this);
 

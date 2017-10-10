@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -83,9 +83,7 @@ namespace dnSpy.Decompiler.MSBuild {
 		/// <param name="directory">Base directory</param>
 		/// <param name="cancellationToken">Cancellation token</param>
 		public ProjectCreatorOptions(string directory, CancellationToken cancellationToken) {
-			if (directory == null)
-				throw new ArgumentNullException(nameof(directory));
-			Directory = directory;
+			Directory = directory ?? throw new ArgumentNullException(nameof(directory));
 			CancellationToken = cancellationToken;
 			ProjectModules = new List<ProjectModuleOptions>();
 			UserGACPaths = new List<string>();

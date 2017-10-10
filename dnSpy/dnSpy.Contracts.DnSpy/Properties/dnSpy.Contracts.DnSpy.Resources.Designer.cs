@@ -61,7 +61,7 @@ namespace dnSpy.Contracts.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All files.
+        ///   Looks up a localized string similar to All Files.
         /// </summary>
         public static string AllFiles {
             get {
@@ -162,6 +162,15 @@ namespace dnSpy.Contracts.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to XML Files.
+        /// </summary>
+        public static string Files_XmlFiles {
+            get {
+                return ResourceManager.GetString("Files_XmlFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid GUID.
         /// </summary>
         public static string InvalidGuid {
@@ -230,6 +239,15 @@ namespace dnSpy.Contracts.Properties {
         public static string SaveResources {
             get {
                 return ResourceManager.GetString("SaveResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search column: {0}.
+        /// </summary>
+        public static string Search_SearchColumnHelpText {
+            get {
+                return ResourceManager.GetString("Search_SearchColumnHelpText", resourceCulture);
             }
         }
         

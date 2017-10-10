@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -137,7 +137,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 			}
 		}
 
-		static HexSpan GetSpan(DotNetHeap heap) => heap?.Span.Span ?? default(HexSpan);
+		static HexSpan GetSpan(DotNetHeap heap) => heap?.Span.Span ?? default;
 
 		public override HexPosition RvaToBufferPosition(uint rva) =>
 			peHeaders.RvaToBufferPosition(rva);

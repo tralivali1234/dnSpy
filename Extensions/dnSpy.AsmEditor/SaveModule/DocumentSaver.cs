@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -82,8 +82,7 @@ namespace dnSpy.AsmEditor.SaveModule {
 			if (objsAry.Length == 1) {
 				SaveOptionsVM options;
 
-				var document = objsAry[0] as IDsDocument;
-				if (document != null) {
+				if (objsAry[0] is IDsDocument document) {
 					var optsData = new SaveModuleOptionsVM(document);
 					var optsWin = new SaveModuleOptionsDlg();
 					optsWin.Owner = appWindow.MainWindow;
@@ -131,8 +130,7 @@ namespace dnSpy.AsmEditor.SaveModule {
 					allSaved = false;
 				else {
 					undoCommandService.Value.MarkAsSaved(undoCommandService.Value.GetUndoObject(doc));
-					var document = doc as IDsDocument;
-					if (document != null && string.IsNullOrEmpty(document.Filename)) {
+					if (doc is IDsDocument document && string.IsNullOrEmpty(document.Filename)) {
 						var filename = vm.GetSavedFileName(doc);
 						if (!string.IsNullOrWhiteSpace(filename) && document.ModuleDef != null) {
 							document.ModuleDef.Location = filename;

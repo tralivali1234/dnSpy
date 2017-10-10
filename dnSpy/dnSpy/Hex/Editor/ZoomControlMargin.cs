@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.Hex.Editor {
 		readonly HexEditorOperationsFactoryService editorOperationsFactoryService;
 
 		[ImportingConstructor]
-		ZoomControlMarginProvider(HexEditorOperationsFactoryService editorOperationsFactoryService) {
-			this.editorOperationsFactoryService = editorOperationsFactoryService;
-		}
+		ZoomControlMarginProvider(HexEditorOperationsFactoryService editorOperationsFactoryService) => this.editorOperationsFactoryService = editorOperationsFactoryService;
 
 		public override WpfHexViewMargin CreateMargin(WpfHexViewHost wpfHexViewHost, WpfHexViewMargin marginContainer) =>
 			new ZoomControlMargin(wpfHexViewHost, editorOperationsFactoryService.GetEditorOperations(wpfHexViewHost.HexView));
@@ -160,13 +158,9 @@ namespace dnSpy.Hex.Editor {
 		readonly HexEditorOperations editorOperations;
 
 		public ZoomControlMargin(WpfHexViewHost wpfHexViewHost, HexEditorOperations editorOperations) {
-			if (wpfHexViewHost == null)
-				throw new ArgumentNullException(nameof(wpfHexViewHost));
-			if (editorOperations == null)
-				throw new ArgumentNullException(nameof(editorOperations));
 			zoomControl = new TheZoomControl(this);
-			this.wpfHexViewHost = wpfHexViewHost;
-			this.editorOperations = editorOperations;
+			this.wpfHexViewHost = wpfHexViewHost ?? throw new ArgumentNullException(nameof(wpfHexViewHost));
+			this.editorOperations = editorOperations ?? throw new ArgumentNullException(nameof(editorOperations));
 
 			wpfHexViewHost.HexView.Options.OptionChanged += Options_OptionChanged;
 

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -36,9 +36,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 		readonly PEStructureProviderFactory peStructureProviderFactory;
 
 		[ImportingConstructor]
-		HexFileStructureInfoProviderFactoryImpl(PEStructureProviderFactory peStructureProviderFactory) {
-			this.peStructureProviderFactory = peStructureProviderFactory;
-		}
+		HexFileStructureInfoProviderFactoryImpl(PEStructureProviderFactory peStructureProviderFactory) => this.peStructureProviderFactory = peStructureProviderFactory;
 
 		public override HexFileStructureInfoProvider Create(HexView hexView) =>
 			new HexFileStructureInfoProviderImpl(peStructureProviderFactory);
@@ -47,11 +45,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 	sealed class HexFileStructureInfoProviderImpl : HexFileStructureInfoProvider {
 		readonly PEStructureProviderFactory peStructureProviderFactory;
 
-		public HexFileStructureInfoProviderImpl(PEStructureProviderFactory peStructureProviderFactory) {
-			if (peStructureProviderFactory == null)
-				throw new ArgumentNullException(nameof(peStructureProviderFactory));
-			this.peStructureProviderFactory = peStructureProviderFactory;
-		}
+		public HexFileStructureInfoProviderImpl(PEStructureProviderFactory peStructureProviderFactory) => this.peStructureProviderFactory = peStructureProviderFactory ?? throw new ArgumentNullException(nameof(peStructureProviderFactory));
 
 		sealed class PEStructure {
 			readonly PEStructureProvider peStructureProvider;
@@ -59,8 +53,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 			readonly HexSpan metadataTablesSpan;
 
 			public static PEStructure TryCreate(PEStructureProviderFactory peStructureProviderFactory, HexBufferFile file) {
-				PEStructure peStructure;
-				if (file.Properties.TryGetProperty(typeof(PEStructure), out peStructure))
+				if (file.Properties.TryGetProperty(typeof(PEStructure), out PEStructure peStructure))
 					return peStructure;
 
 				var provider = peStructureProviderFactory.TryGetProvider(file);
@@ -137,12 +130,8 @@ namespace dnSpy.AsmEditor.Hex.PE {
 			public HexVM Structure { get; }
 			public HexField Field { get; }
 			public FieldAndStructure(HexVM structure, HexField field) {
-				if (structure == null)
-					throw new ArgumentNullException(nameof(structure));
-				if (field == null)
-					throw new ArgumentNullException(nameof(field));
-				Structure = structure;
-				Field = field;
+				Structure = structure ?? throw new ArgumentNullException(nameof(structure));
+				Field = field ?? throw new ArgumentNullException(nameof(field));
 			}
 		}
 
@@ -159,8 +148,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 		}
 
 		public override HexIndexes[] GetSubStructureIndexes(HexBufferFile file, ComplexData structure, HexPosition position) {
-			var sections = structure as PeSectionsData;
-			if (sections != null)
+			if (structure is PeSectionsData sections)
 				return Array.Empty<HexIndexes>();
 
 			return null;

@@ -611,6 +611,15 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Severity.
+        /// </summary>
+        public static string CompileDiagnostics_Header_Severity {
+            get {
+                return ResourceManager.GetString("CompileDiagnostics_Header_Severity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Constant.
         /// </summary>
         public static string ConstantDlg_Constant {
@@ -4913,6 +4922,15 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lcid.
+        /// </summary>
+        public static string ParamDef_Flags_Lcid {
+            get {
+                return ResourceManager.GetString("ParamDef_Flags_Lcid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O_ptional.
         /// </summary>
         public static string ParamDef_Flags_Optional {
@@ -4927,6 +4945,15 @@ namespace dnSpy.AsmEditor.Properties {
         public static string ParamDef_Flags_Out {
             get {
                 return ResourceManager.GetString("ParamDef_Flags_Out", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retval.
+        /// </summary>
+        public static string ParamDef_Flags_Retval {
+            get {
+                return ResourceManager.GetString("ParamDef_Flags_Retval", resourceCulture);
             }
         }
         
@@ -5291,7 +5318,7 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Redo (Ctrl+Y).
+        ///   Looks up a localized string similar to Redo.
         /// </summary>
         public static string RedoToolBarToolTip {
             get {
@@ -5534,7 +5561,7 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save All (Ctrl+Shift+S).
+        ///   Looks up a localized string similar to Save All.
         /// </summary>
         public static string SaveAllToolBarToolTip {
             get {
@@ -7097,7 +7124,7 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Undo (Ctrl+Z).
+        ///   Looks up a localized string similar to Undo.
         /// </summary>
         public static string UndoToolBarToolTip {
             get {

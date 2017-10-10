@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -48,19 +48,15 @@ namespace dnSpy.Hex.Editor {
 		double popupZoomLevel = double.NaN;
 
 		public HexPopupSpaceReservationAgent(HexSpaceReservationManager spaceReservationManager, WpfHexView wpfHexView, HexLineSpan lineSpan, VSTA.PopupStyles style, UIElement content) {
-			if (spaceReservationManager == null)
-				throw new ArgumentNullException(nameof(spaceReservationManager));
 			if (lineSpan.IsDefault)
 				throw new ArgumentException();
-			if (content == null)
-				throw new ArgumentNullException(nameof(content));
 			if ((style & (VSTA.PopupStyles.DismissOnMouseLeaveText | VSTA.PopupStyles.DismissOnMouseLeaveTextOrContent)) == (VSTA.PopupStyles.DismissOnMouseLeaveText | VSTA.PopupStyles.DismissOnMouseLeaveTextOrContent))
 				throw new ArgumentOutOfRangeException(nameof(style));
-			this.spaceReservationManager = spaceReservationManager;
+			this.spaceReservationManager = spaceReservationManager ?? throw new ArgumentNullException(nameof(spaceReservationManager));
 			this.wpfHexView = wpfHexView;
 			this.lineSpan = lineSpan;
 			this.style = style;
-			this.content = content;
+			this.content = content ?? throw new ArgumentNullException(nameof(content));
 			popup = new Popup {
 				PlacementTarget = wpfHexView.VisualElement,
 				Placement = PlacementMode.Relative,
@@ -345,8 +341,7 @@ namespace dnSpy.Hex.Editor {
 
 		void AddEvents() {
 			wpfHexView.LostAggregateFocus += WpfHexView_LostAggregateFocus;
-			var fwElem = content as FrameworkElement;
-			if (fwElem != null)
+			if (content is FrameworkElement fwElem)
 				fwElem.SizeChanged += Content_SizeChanged;
 			var window = Window.GetWindow(wpfHexView.VisualElement);
 			if (window != null)
@@ -362,8 +357,7 @@ namespace dnSpy.Hex.Editor {
 
 		void RemoveEvents() {
 			wpfHexView.LostAggregateFocus -= WpfHexView_LostAggregateFocus;
-			var fwElem = content as FrameworkElement;
-			if (fwElem != null)
+			if (content is FrameworkElement fwElem)
 				fwElem.SizeChanged -= Content_SizeChanged;
 			var window = Window.GetWindow(wpfHexView.VisualElement);
 			if (window != null)

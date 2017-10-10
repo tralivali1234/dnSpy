@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,9 +39,7 @@ namespace dnSpy.Text.Editor {
 		sealed class GuidObjectsProvider : IGuidObjectsProvider {
 			readonly CodeEditor codeEditor;
 
-			public GuidObjectsProvider(CodeEditor codeEditorUI) {
-				codeEditor = codeEditorUI;
-			}
+			public GuidObjectsProvider(CodeEditor codeEditorUI) => codeEditor = codeEditorUI;
 
 			public IEnumerable<GuidObject> GetGuidObjects(GuidObjectsProviderArgs args) {
 				yield return new GuidObject(MenuConstants.GUIDOBJ_CODE_EDITOR_GUID, codeEditor);

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -65,7 +65,7 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// <summary>
 		/// Gets the default value
 		/// </summary>
-		public virtual T Default => default(T);
+		public virtual T Default => default;
 
 		/// <summary>
 		/// Checks whether the new value is valid

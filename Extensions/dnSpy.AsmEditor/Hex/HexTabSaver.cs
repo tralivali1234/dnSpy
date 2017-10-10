@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,9 +30,7 @@ namespace dnSpy.AsmEditor.Hex {
 		readonly Lazy<IDocumentSaver> documentSaver;
 
 		[ImportingConstructor]
-		HexTabSaverProvider(Lazy<IDocumentSaver> documentSaver) {
-			this.documentSaver = documentSaver;
-		}
+		HexTabSaverProvider(Lazy<IDocumentSaver> documentSaver) => this.documentSaver = documentSaver;
 
 		public ITabSaver Create(IDocumentTab tab) => HexTabSaver.TryCreate(documentSaver, tab);
 	}

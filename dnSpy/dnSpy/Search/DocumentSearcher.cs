@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -53,9 +53,7 @@ namespace dnSpy.Search {
 		public IDecompiler Decompiler {
 			get { return filterSearcherOptions.Context.Decompiler; }
 			set {
-				if (value == null)
-					throw new ArgumentNullException(nameof(value));
-				filterSearcherOptions.Context.Decompiler = value;
+				filterSearcherOptions.Context.Decompiler = value ?? throw new ArgumentNullException(nameof(value));
 			}
 		}
 

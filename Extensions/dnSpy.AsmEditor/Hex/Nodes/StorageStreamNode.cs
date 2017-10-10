@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,9 +44,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		readonly StorageStreamVM storageStreamVM;
 
 		public StorageStreamNode(StorageStreamVM storageStream)
-			: base(storageStream.Span) {
-			storageStreamVM = storageStream;
-		}
+			: base(storageStream.Span) => storageStreamVM = storageStream;
 
 		public override void OnBufferChanged(NormalizedHexChangeCollection changes) {
 			base.OnBufferChanged(changes);
@@ -78,9 +76,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		readonly TablesStreamVM tablesStream;
 
 		public TablesStorageStreamNode(StorageStreamVM storageStream, TablesStreamVM tablesStream)
-			: base(storageStream) {
-			this.tablesStream = tablesStream;
-		}
+			: base(storageStream) => this.tablesStream = tablesStream;
 
 		public override IEnumerable<TreeNodeData> CreateChildren() {
 			yield return new TablesStreamNode(tablesStream);

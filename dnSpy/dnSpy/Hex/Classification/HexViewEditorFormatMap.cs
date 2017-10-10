@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,9 +28,7 @@ namespace dnSpy.Hex.Classification {
 
 		public HexViewEditorFormatMap(HexView hexView, TC.EditorFormatMapService editorFormatMapService)
 			: base(editorFormatMapService, DefaultWpfHexViewOptions.AppearanceCategoryName) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			this.hexView = hexView;
+			this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
 			hexView.Options.OptionChanged += Options_OptionChanged;
 			Initialize();
 		}

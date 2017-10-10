@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,14 +45,10 @@ namespace dnSpy.Hex.Editor {
 		public WpfHexViewHostImpl(WpfHexViewMarginProviderCollectionProvider wpfHexViewMarginProviderCollectionProvider, WpfHexView wpfHexView, HexEditorOperationsFactoryService editorOperationsFactoryService, bool setFocus) {
 			if (wpfHexViewMarginProviderCollectionProvider == null)
 				throw new ArgumentNullException(nameof(wpfHexViewMarginProviderCollectionProvider));
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			if (editorOperationsFactoryService == null)
-				throw new ArgumentNullException(nameof(editorOperationsFactoryService));
 			contentControl = new ContentControl();
-			this.editorOperationsFactoryService = editorOperationsFactoryService;
+			this.editorOperationsFactoryService = editorOperationsFactoryService ?? throw new ArgumentNullException(nameof(editorOperationsFactoryService));
 			grid = CreateGrid();
-			HexView = wpfHexView;
+			HexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			contentControl.Focusable = false;
 			contentControl.Content = grid;
 			contentControl.MouseWheel += ContentControl_MouseWheel;
@@ -133,8 +129,7 @@ namespace dnSpy.Hex.Editor {
 			foreach (var margin in containerMargins) {
 				if (margin == null)
 					continue;
-				var result = margin.GetHexViewMargin(marginName) as WpfHexViewMargin;
-				if (result != null)
+				if (margin.GetHexViewMargin(marginName) is WpfHexViewMargin result)
 					return result;
 			}
 			return null;

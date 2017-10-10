@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,9 +32,7 @@ namespace dnSpy.Hex.HexGroups {
 		readonly HexViewOptionsGroupServiceImpl hexViewOptionsGroupServiceImpl;
 
 		[ImportingConstructor]
-		HexEditorFactoryServiceListenerImpl(HexViewOptionsGroupServiceImpl hexViewOptionsGroupServiceImpl) {
-			this.hexViewOptionsGroupServiceImpl = hexViewOptionsGroupServiceImpl;
-		}
+		HexEditorFactoryServiceListenerImpl(HexViewOptionsGroupServiceImpl hexViewOptionsGroupServiceImpl) => this.hexViewOptionsGroupServiceImpl = hexViewOptionsGroupServiceImpl;
 
 		public override void HexViewCreated(WpfHexView hexView) => hexViewOptionsGroupServiceImpl.HexViewCreated(hexView);
 	}
@@ -68,8 +66,7 @@ namespace dnSpy.Hex.HexGroups {
 		HexViewOptionsGroupImpl GetGroupCore(string name) {
 			if (name == null)
 				throw new ArgumentNullException(nameof(name));
-			HexViewOptionsGroupImpl group;
-			if (!nameToGroup.TryGetValue(name, out group)) {
+			if (!nameToGroup.TryGetValue(name, out var group)) {
 				var defaultOptions = GetDefaultOptions(name);
 				nameToGroup.Add(name, group = new HexViewOptionsGroupImpl(this, name, defaultOptions, optionsStorage));
 			}

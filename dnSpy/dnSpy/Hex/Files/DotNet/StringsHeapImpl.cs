@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,10 +35,8 @@ namespace dnSpy.Hex.Files.DotNet {
 			public uint[] Tokens { get; }
 
 			public KnownStringInfo(HexSpan span, uint[] tokens) {
-				if (tokens == null)
-					throw new ArgumentNullException(nameof(tokens));
 				Span = span;
-				Tokens = tokens;
+				Tokens = tokens ?? throw new ArgumentNullException(nameof(tokens));
 			}
 		}
 
@@ -50,10 +48,8 @@ namespace dnSpy.Hex.Files.DotNet {
 			public StringZ String { get; }
 			public uint[] Tokens { get; }
 			public StringInfo(StringZ span, uint[] tokens) {
-				if (tokens == null)
-					throw new ArgumentNullException(nameof(tokens));
 				String = span;
-				Tokens = tokens;
+				Tokens = tokens ?? throw new ArgumentNullException(nameof(tokens));
 			}
 		}
 
@@ -132,10 +128,10 @@ namespace dnSpy.Hex.Files.DotNet {
 					Add(dict, tables.MDTables[(int)info.Table], info.Column1);
 			}
 
-			var list = new List<KeyValuePair<uint, uint[]>>(dict.Count);
+			var list = new List<(uint pos, uint[] tokens)>(dict.Count);
 			foreach (var kv in dict)
-				list.Add(new KeyValuePair<uint, uint[]>(kv.Key, kv.Value.ToArray()));
-			list.Sort((a, b) => a.Key.CompareTo(b.Key));
+				list.Add((kv.Key, kv.Value.ToArray()));
+			list.Sort((a, b) => a.pos.CompareTo(b.pos));
 
 			var infos = new KnownStringInfo[list.Count];
 			var start = Span.Span.Start;
@@ -143,11 +139,11 @@ namespace dnSpy.Hex.Files.DotNet {
 			int i;
 			for (i = 0; i < infos.Length; i++) {
 				var kv = list[i];
-				var pos = start + kv.Key;
+				var pos = start + kv.pos;
 				if (pos >= end)
 					break;
-				var span = HexSpan.FromBounds(pos, i + 1 < list.Count ? start + list[i + 1].Key : end);
-				infos[i] = new KnownStringInfo(span, kv.Value);
+				var span = HexSpan.FromBounds(pos, i + 1 < list.Count ? start + list[i + 1].pos : end);
+				infos[i] = new KnownStringInfo(span, kv.tokens);
 			}
 			if (i != infos.Length)
 				Array.Resize(ref infos, i);
@@ -204,12 +200,11 @@ namespace dnSpy.Hex.Files.DotNet {
 			uint recSize = mdTable.RowSize;
 			bool bigStrings = colInfo1.Size == 4;
 			uint tokenBase = new MDToken(mdTable.Table, 0).Raw;
-			List<uint> list;
 			for (uint rid = 1; rid <= rows; rid++, recPos += recSize) {
 				uint offs1 = bigStrings ? buffer.ReadUInt32(recPos + colInfo1.Offset) : buffer.ReadUInt16(recPos + colInfo1.Offset);
 				if (offs1 == 0)
 					continue;
-				if (!dict.TryGetValue(offs1, out list))
+				if (!dict.TryGetValue(offs1, out var list))
 					dict[offs1] = list = new List<uint>();
 				list.Add(tokenBase + rid);
 			}

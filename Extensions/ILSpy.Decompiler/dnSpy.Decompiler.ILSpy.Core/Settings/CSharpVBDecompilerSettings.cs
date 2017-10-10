@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -208,7 +208,7 @@ namespace dnSpy.Decompiler.ILSpy.Core.Settings {
 			};
 			yield return new DecompilerOption<bool>(DecompilerOptionConstants.RemoveNewDelegateClass_GUID,
 						() => decompilerSettings.RemoveNewDelegateClass, a => decompilerSettings.RemoveNewDelegateClass = a) {
-				Description = "Don't create delegate classes",
+				Description = dnSpy_Decompiler_ILSpy_Core_Resources.DecompilerSettings_RemoveNewDelegateClass,
 				Name = DecompilerOptionConstants.RemoveNewDelegateClass_NAME,
 			};
 		}
@@ -254,11 +254,11 @@ namespace dnSpy.Decompiler.ILSpy.Core.Settings {
 			return null;
 		}
 
-		protected override bool EqualsCore(object obj) {
+		public override bool Equals(object obj) {
 			var other = obj as CSharpVBDecompilerSettings;
 			return other != null && decompilerSettings.Equals(other.decompilerSettings);
 		}
 
-		protected override int GetHashCodeCore() => decompilerSettings.GetHashCode();
+		public override int GetHashCode() => decompilerSettings.GetHashCode();
 	}
 }

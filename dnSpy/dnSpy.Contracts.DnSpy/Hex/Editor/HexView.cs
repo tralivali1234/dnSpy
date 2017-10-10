@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -191,9 +191,7 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		protected HexView() {
-			Properties = new VSUTIL.PropertyCollection();
-		}
+		protected HexView() => Properties = new VSUTIL.PropertyCollection();
 
 		/// <summary>
 		/// Closes the hex view
@@ -269,10 +267,8 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// <param name="oldBufferLines">Old instance</param>
 		/// <param name="newBufferLines">New instance</param>
 		public BufferLinesChangedEventArgs(HexBufferLineFormatter oldBufferLines, HexBufferLineFormatter newBufferLines) {
-			if (newBufferLines == null)
-				throw new ArgumentNullException(nameof(newBufferLines));
 			OldBufferLines = oldBufferLines;
-			NewBufferLines = newBufferLines;
+			NewBufferLines = newBufferLines ?? throw new ArgumentNullException(nameof(newBufferLines));
 		}
 	}
 

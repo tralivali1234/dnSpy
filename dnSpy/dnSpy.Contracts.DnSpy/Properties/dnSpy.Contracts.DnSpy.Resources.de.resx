@@ -152,6 +152,9 @@
   <data name="Files_StrongNameKeyFiles" xml:space="preserve">
     <value>Schlüsseldateien mit starken Namen</value>
   </data>
+  <data name="Files_XmlFiles" xml:space="preserve">
+    <value>XML-Dateien</value>
+  </data>
   <data name="InvalidGuid" xml:space="preserve">
     <value>Ungültige GUID</value>
   </data>
@@ -175,6 +178,9 @@
   </data>
   <data name="SaveResources" xml:space="preserve">
     <value>Ressourcen speichern</value>
+  </data>
+  <data name="Search_SearchColumnHelpText" xml:space="preserve">
+    <value>Suchspalte: {0}</value>
   </data>
   <data name="ValueMustBeType" xml:space="preserve">
     <value>Wert muss den Typ {0} haben.

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -68,8 +68,7 @@ namespace dnSpy.Controls {
 		IEnumerable<UIElement> UIElements {
 			get {
 				foreach (var r in uiElements) {
-					var u = r.Target as UIElement;
-					if (u != null)
+					if (r.Target is UIElement u)
 						yield return u;
 				}
 			}

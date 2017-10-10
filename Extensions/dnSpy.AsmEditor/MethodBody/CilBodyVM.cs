@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -82,9 +82,7 @@ namespace dnSpy.AsmEditor.MethodBody {
 			readonly CilBodyVM owner;
 
 			public LocalsIndexObservableCollection(CilBodyVM owner, Func<LocalVM> createNewItem)
-				: base(createNewItem) {
-				this.owner = owner;
-			}
+				: base(createNewItem) => this.owner = owner;
 
 			protected override void ClearItems() {
 				var old_disable_UpdateLocalOperands = owner.disable_UpdateLocalOperands;
@@ -153,8 +151,7 @@ namespace dnSpy.AsmEditor.MethodBody {
 
 			var dict = InstructionsListVM.ToDictionary(a => a.Offset);
 			var instrs = offsets.Select(a => {
-				InstructionVM instr;
-				dict.TryGetValue(a, out instr);
+				dict.TryGetValue(a, out var instr);
 				return instr;
 			}).Where(a => a != null).Distinct().ToArray();
 			if (instrs.Length == 0)
@@ -460,8 +457,7 @@ namespace dnSpy.AsmEditor.MethodBody {
 			var code = instr.Code;
 			if (code == Code.Pop || code == Code.Nop)
 				return null;
-			int pushes, pops;
-			instr.CalculateStackUsage(out pushes, out pops);
+			instr.CalculateStackUsage(out int pushes, out int pops);
 			if (pops < 0)
 				return null;
 			if (pushes == 1 && (code == Code.Call || code == Code.Callvirt || code == Code.Calli))
@@ -576,22 +572,18 @@ namespace dnSpy.AsmEditor.MethodBody {
 		}
 
 		static MethodSig GetMethodSig(object operand) {
-			var msig = operand as MethodSig;
-			if (msig != null)
+			if (operand is MethodSig msig)
 				return msig;
 
-			var md = operand as MethodDef;
-			if (md != null)
+			if (operand is MethodDef md)
 				return md.MethodSig;
 
-			var mr = operand as MemberRef;
-			if (mr != null) {
+			if (operand is MemberRef mr) {
 				var type = mr.DeclaringType;
 				return GetMethodSig(type, mr.MethodSig, null);
 			}
 
-			var ms = operand as MethodSpec;
-			if (ms != null) {
+			if (operand is MethodSpec ms) {
 				var type = ms.DeclaringType;
 				var genMeth = ms.GenericInstMethodSig;
 				var meth = ms.Method;
@@ -603,8 +595,7 @@ namespace dnSpy.AsmEditor.MethodBody {
 
 		static MethodSig GetMethodSig(ITypeDefOrRef type, MethodSig msig, IList<TypeSig> methodGenArgs) {
 			IList<TypeSig> typeGenArgs = null;
-			var ts = type as TypeSpec;
-			if (ts != null) {
+			if (type is TypeSpec ts) {
 				var genSig = ts.TypeSig.ToGenericInstSig();
 				if (genSig != null)
 					typeGenArgs = genSig.GenericArguments;

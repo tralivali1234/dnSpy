@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -43,12 +43,8 @@ namespace dnSpy.Hex.Files.DnSpy {
 		readonly ToolTipObjectFactory toolTipObjectFactory;
 
 		public ToolTipCreatorImpl(ToolTipObjectFactory toolTipObjectFactory, HexToolTipContentCreator hexToolTipContentCreator) {
-			if (toolTipObjectFactory == null)
-				throw new ArgumentNullException(nameof(toolTipObjectFactory));
-			if (hexToolTipContentCreator == null)
-				throw new ArgumentNullException(nameof(hexToolTipContentCreator));
-			this.toolTipObjectFactory = toolTipObjectFactory;
-			ToolTipContentCreator = hexToolTipContentCreator;
+			this.toolTipObjectFactory = toolTipObjectFactory ?? throw new ArgumentNullException(nameof(toolTipObjectFactory));
+			ToolTipContentCreator = hexToolTipContentCreator ?? throw new ArgumentNullException(nameof(hexToolTipContentCreator));
 		}
 
 		public override object Create() => toolTipObjectFactory.Create(ToolTipContentCreator.Create());

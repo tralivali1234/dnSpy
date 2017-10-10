@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,7 +44,7 @@ namespace dnSpy.Decompiler.ILSpy.Core.XmlDoc {
 			this.s = s;
 			this.index = index;
 			end = index + length;
-			info = default(SubStringInfo);
+			info = default;
 			finished = false;
 		}
 
@@ -86,8 +86,6 @@ namespace dnSpy.Decompiler.ILSpy.Core.XmlDoc {
 		}
 		static readonly char[] newLineChars = new char[] { '\r', '\n', '\u0085', '\u2028', '\u2029' };
 
-		public void Reset() {
-			throw new NotImplementedException();
-		}
+		public void Reset() => throw new NotImplementedException();
 	}
 }

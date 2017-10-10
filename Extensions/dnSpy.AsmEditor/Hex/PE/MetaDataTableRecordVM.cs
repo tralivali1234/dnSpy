@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -208,8 +208,7 @@ namespace dnSpy.AsmEditor.Hex.PE {
 		}
 
 		string GetCodedTokenDescription(CodedToken codedToken, string codedTokenName, ColumnInfo col, HexField field) {
-			MDToken token;
-			if (!codedToken.Decode(ReadFieldValue(field), out token))
+			if (!codedToken.Decode(ReadFieldValue(field), out MDToken token))
 				return string.Format("Invalid {0} Coded Token", codedTokenName);
 
 			var info = GetInfo(token.Table, token.Rid);
@@ -593,6 +592,8 @@ namespace dnSpy.AsmEditor.Hex.PE {
 				var field = new UInt16FlagsHexField(mdVM.Buffer, Name, colInfo.Name, Span.Start + (uint)colInfo.Offset);
 				field.Add(new BooleanHexBitField("In", 0));
 				field.Add(new BooleanHexBitField("Out", 1));
+				field.Add(new BooleanHexBitField("Lcid", 2));
+				field.Add(new BooleanHexBitField("Retval", 3));
 				field.Add(new BooleanHexBitField("Optional", 4));
 				field.Add(new BooleanHexBitField("HasDefault", 12));
 				field.Add(new BooleanHexBitField("HasFieldMarshal", 13));

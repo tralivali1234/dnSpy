@@ -150,6 +150,9 @@
   <data name="Files_StrongNameKeyFiles" xml:space="preserve">
     <value>Ficheiros de Chave de Nome Forte</value>
   </data>
+  <data name="Files_XmlFiles" xml:space="preserve">
+    <value>Ficheiros XML</value>
+  </data>
   <data name="InvalidGuid" xml:space="preserve">
     <value>GUID Inválido</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="SaveResources" xml:space="preserve">
     <value>Guardar Recursos</value>
+  </data>
+  <data name="Search_SearchColumnHelpText" xml:space="preserve">
+    <value>Search column: {0}</value>
   </data>
   <data name="ValueMustBeType" xml:space="preserve">
     <value>Valor deve ser de tipo {0}.

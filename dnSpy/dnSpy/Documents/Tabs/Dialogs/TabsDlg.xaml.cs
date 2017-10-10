@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,12 +34,11 @@ namespace dnSpy.Documents.Tabs.Dialogs {
 		}
 
 		void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-			var vm = DataContext as TabsVM;
-			if (vm != null)
+			if (DataContext is TabsVM vm)
 				vm.SelectedItems = listView.SelectedItems.OfType<TabVM>().ToArray();
 		}
 
-		void listView_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
+		void ListView_MouseDoubleClick(object sender, MouseButtonEventArgs e) {
 			if (!UIUtilities.IsLeftDoubleClick<ListViewItem>(listView, e))
 				return;
 			ExitDialog();

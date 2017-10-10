@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,13 +32,10 @@ namespace dnSpy.Hex.Editor {
 		readonly Lazy<HexEditorOperationsFactoryService> editorOperationsFactoryService;
 
 		[ImportingConstructor]
-		DefaultHexViewCommandTargetFilterProvider(Lazy<HexEditorOperationsFactoryService> editorOperationsFactoryService) {
-			this.editorOperationsFactoryService = editorOperationsFactoryService;
-		}
+		DefaultHexViewCommandTargetFilterProvider(Lazy<HexEditorOperationsFactoryService> editorOperationsFactoryService) => this.editorOperationsFactoryService = editorOperationsFactoryService;
 
 		public ICommandTargetFilter Create(object target) {
-			var hexView = target as HexView;
-			if (hexView != null)
+			if (target is HexView hexView)
 				return new DefaultHexViewCommandTarget(hexView, editorOperationsFactoryService.Value);
 			return null;
 		}
@@ -50,9 +47,7 @@ namespace dnSpy.Hex.Editor {
 		HexEditorOperations EditorOperations { get; }
 
 		public DefaultHexViewCommandTarget(HexView hexView, HexEditorOperationsFactoryService editorOperationsFactoryService) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			this.hexView = hexView;
+			this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
 			EditorOperations = editorOperationsFactoryService.GetEditorOperations(hexView);
 		}
 

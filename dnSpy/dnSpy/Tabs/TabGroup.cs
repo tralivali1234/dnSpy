@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -86,9 +86,7 @@ namespace dnSpy.Tabs {
 				if (value == null)
 					throw new ArgumentNullException(nameof(value));
 				var impl = GetTabItemImpl(value);
-				if (impl == null)
-					throw new InvalidOperationException();
-				tabControl.SelectedItem = impl;
+				tabControl.SelectedItem = impl ?? throw new InvalidOperationException();
 			}
 		}
 
@@ -96,9 +94,7 @@ namespace dnSpy.Tabs {
 			if (content == null)
 				throw new ArgumentNullException(nameof(content));
 			var impl = GetTabItemImpl(content);
-			if (impl == null)
-				throw new InvalidOperationException();
-			tabControl.SelectedItem = impl;
+			tabControl.SelectedItem = impl ?? throw new InvalidOperationException();
 			tabGroupService.SetActive(this);
 			SetFocus2(impl.TabContent);
 		}
@@ -107,14 +103,11 @@ namespace dnSpy.Tabs {
 			var fel = content.FocusedElement;
 			if (fel == null)
 				fel = content.UIObject as IInputElement;
-			var sv = fel as ScrollViewer;
-			if (sv != null)
+			if (fel is ScrollViewer sv)
 				fel = sv.Content as IInputElement ?? fel;
 
-			var focusable = content as IFocusable;
-			if (focusable != null && focusable.CanFocus) {
-				var uiel = fel as UIElement;
-				if (uiel != null && !uiel.IsVisible)
+			if (content is IFocusable focusable && focusable.CanFocus) {
+				if (fel is UIElement uiel && !uiel.IsVisible)
 					new SetFocusWhenVisible(this, content, uiel, () => {
 						if (wpfFocusService.CanFocus)
 							focusable.Focus();
@@ -128,8 +121,7 @@ namespace dnSpy.Tabs {
 				if (fel == null || !fel.Focusable)
 					return;
 
-				var uiel = fel as UIElement;
-				if (uiel != null && !uiel.IsVisible)
+				if (fel is UIElement uiel && !uiel.IsVisible)
 					new SetFocusWhenVisible(this, content, uiel, () => SetFocusNoChecks(fel));
 				else
 					SetFocusNoChecks(fel);
@@ -161,20 +153,20 @@ namespace dnSpy.Tabs {
 			readonly TabGroup tabGroup;
 			readonly ITabContent content;
 			readonly UIElement uiElem;
-			readonly Action action;
+			readonly Action callback;
 
-			public SetFocusWhenVisible(TabGroup tabGroup, ITabContent content, UIElement uiElem, Action action) {
+			public SetFocusWhenVisible(TabGroup tabGroup, ITabContent content, UIElement uiElem, Action callback) {
 				this.tabGroup = tabGroup;
 				this.content = content;
 				this.uiElem = uiElem;
-				this.action = action;
+				this.callback = callback;
 				uiElem.IsVisibleChanged += uiElem_IsVisibleChanged;
 			}
 
 			void uiElem_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e) {
 				uiElem.IsVisibleChanged -= uiElem_IsVisibleChanged;
 				if (tabGroup.IsActiveTab(content))
-					action();
+					callback();
 			}
 		}
 
@@ -210,9 +202,7 @@ namespace dnSpy.Tabs {
 		sealed class GuidObjectsProvider : IGuidObjectsProvider {
 			readonly TabGroup tabGroup;
 
-			public GuidObjectsProvider(TabGroup tabGroup) {
-				this.tabGroup = tabGroup;
-			}
+			public GuidObjectsProvider(TabGroup tabGroup) => this.tabGroup = tabGroup;
 
 			public IEnumerable<GuidObject> GetGuidObjects(GuidObjectsProviderArgs args) {
 				yield return new GuidObject(MenuConstants.GUIDOBJ_TABGROUP_GUID, tabGroup);
@@ -347,9 +337,7 @@ namespace dnSpy.Tabs {
 		}
 
 		void tabItem_PreviewMouseDown(object sender, MouseButtonEventArgs e) {
-			TabItemImpl tabItem;
-			TabControl tabControl;
-			if (!GetTabItem(sender, e, out tabItem, out tabControl))
+			if (!GetTabItem(sender, e, out var tabItem, out var tabControl))
 				return;
 
 			if (tabControl.SelectedItem == tabItem)
@@ -375,9 +363,7 @@ namespace dnSpy.Tabs {
 			if (!(Keyboard.Modifiers == ModifierKeys.None && e.LeftButton == MouseButtonState.Pressed))
 				return;
 
-			TabItemImpl tabItem;
-			TabControl tabControl;
-			if (!GetTabItem(sender, e, out tabItem, out tabControl))
+			if (!GetTabItem(sender, e, out var tabItem, out var tabControl))
 				return;
 
 			if (tabControl.SelectedItem == tabItem) {
@@ -427,10 +413,7 @@ namespace dnSpy.Tabs {
 			if (tabItem == null)
 				return;
 			bool canDrag = false;
-
-			TabItemImpl tabItemSource, tabItemTarget;
-			TabGroup tabGroupSource, tabGroupTarget;
-			if (GetInfo(sender, e, out tabItemSource, out tabItemTarget, out tabGroupSource, out tabGroupTarget, true))
+			if (GetInfo(sender, e, out var tabItemSource, out var tabItemTarget, out var tabGroupSource, out var tabGroupTarget, true))
 				canDrag = true;
 
 			e.Effects = canDrag ? DragDropEffects.Move : DragDropEffects.None;
@@ -438,9 +421,7 @@ namespace dnSpy.Tabs {
 		}
 
 		void tabItem_Drop(object sender, DragEventArgs e) {
-			TabItemImpl tabItemSource, tabItemTarget;
-			TabGroup tabGroupSource, tabGroupTarget;
-			if (!GetInfo(sender, e, out tabItemSource, out tabItemTarget, out tabGroupSource, out tabGroupTarget, false))
+			if (!GetInfo(sender, e, out var tabItemSource, out var tabItemTarget, out var tabGroupSource, out var tabGroupTarget, false))
 				return;
 
 			if (tabGroupSource.MoveToAndSelect(tabGroupTarget, tabItemSource, tabItemTarget))

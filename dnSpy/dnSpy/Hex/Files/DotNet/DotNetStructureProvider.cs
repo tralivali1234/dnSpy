@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,11 +45,7 @@ namespace dnSpy.Hex.Files.DotNet {
 		DotNetMethodProvider dotNetMethodProvider;
 		DotNetResourceProvider dotNetResourceProvider;
 
-		public DotNetStructureProvider(HexBufferFile file) {
-			if (file == null)
-				throw new ArgumentNullException(nameof(file));
-			this.file = file;
-		}
+		public DotNetStructureProvider(HexBufferFile file) => this.file = file ?? throw new ArgumentNullException(nameof(file));
 
 		public override bool Initialize() {
 			HexSpan? resourcesSpan = null;

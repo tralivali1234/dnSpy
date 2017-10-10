@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,9 +32,7 @@ namespace dnSpy.Hex.Editor {
 		readonly Lazy<HexMarginContextMenuHandlerProvider, IMarginContextMenuHandlerProviderMetadata>[] marginContextMenuHandlerProviders;
 
 		[ImportingConstructor]
-		HexMarginContextMenuServiceImpl([ImportMany] IEnumerable<Lazy<HexMarginContextMenuHandlerProvider, IMarginContextMenuHandlerProviderMetadata>> marginContextMenuHandlerProviders) {
-			this.marginContextMenuHandlerProviders = marginContextMenuHandlerProviders.ToArray();
-		}
+		HexMarginContextMenuServiceImpl([ImportMany] IEnumerable<Lazy<HexMarginContextMenuHandlerProvider, IMarginContextMenuHandlerProviderMetadata>> marginContextMenuHandlerProviders) => this.marginContextMenuHandlerProviders = marginContextMenuHandlerProviders.ToArray();
 
 		sealed class GuidObjectsProvider : IGuidObjectsProvider {
 			readonly WpfHexViewHost wpfHexViewHost;

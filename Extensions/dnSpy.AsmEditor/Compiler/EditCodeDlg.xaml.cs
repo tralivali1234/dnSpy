@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,6 +27,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using dnSpy.AsmEditor.Properties;
 using dnSpy.Contracts.Controls;
 using dnSpy.Contracts.Utilities;
 
@@ -38,8 +39,7 @@ namespace dnSpy.AsmEditor.Compiler {
 			decompilingControl.BeginAnimation(OpacityProperty, new DoubleAnimation(0, 1, new Duration(TimeSpan.FromSeconds(0.5)), FillBehavior.Stop));
 
 			DataContextChanged += (s, e) => {
-				var vm = DataContext as EditCodeVM;
-				if (vm != null) {
+				if (DataContext is EditCodeVM vm) {
 					vm.PropertyChanged += EditCodeVM_PropertyChanged;
 					vm.OwnerWindow = this;
 					vm.CodeCompiled += EditCodeVM_CodeCompiled;
@@ -71,9 +71,9 @@ namespace dnSpy.AsmEditor.Compiler {
 		}
 
 		protected override void OnClosed(EventArgs e) {
+			progressBar.IsIndeterminate = false;
 			base.OnClosed(e);
-			var vm = DataContext as EditCodeVM;
-			if (vm != null)
+			if (DataContext is EditCodeVM vm)
 				vm.CodeCompiled -= EditCodeVM_CodeCompiled;
 		}
 
@@ -115,10 +115,19 @@ namespace dnSpy.AsmEditor.Compiler {
 				return;
 
 			var sb = new StringBuilder();
+
+			foreach (var header in viewHeaders) {
+				if (sb.Length > 0)
+					sb.Append('\t');
+				sb.Append(header);
+			}
+			sb.AppendLine();
+
 			foreach (var d in diags) {
 				d.WriteTo(sb);
 				sb.AppendLine();
 			}
+
 			if (sb.Length > 0) {
 				try {
 					Clipboard.SetText(sb.ToString());
@@ -126,5 +135,12 @@ namespace dnSpy.AsmEditor.Compiler {
 				catch (ExternalException) { }
 			}
 		}
+		static readonly string[] viewHeaders = new string[] {
+			dnSpy_AsmEditor_Resources.CompileDiagnostics_Header_Severity,
+			dnSpy_AsmEditor_Resources.CompileDiagnostics_Header_Code,
+			dnSpy_AsmEditor_Resources.CompileDiagnostics_Header_Description,
+			dnSpy_AsmEditor_Resources.CompileDiagnostics_Header_File,
+			dnSpy_AsmEditor_Resources.CompileDiagnostics_Header_Line,
+		};
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -43,8 +43,7 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="value"></param>
 		/// <returns></returns>
 		public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
-			var s = value as string;
-			if (s != null)
+			if (value is string s)
 				return HexPosition.Parse(s);
 			return base.ConvertFrom(context, culture, value);
 		}

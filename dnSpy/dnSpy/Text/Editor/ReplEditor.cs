@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -73,9 +73,7 @@ namespace dnSpy.Text.Editor {
 		sealed class GuidObjectsProvider : IGuidObjectsProvider {
 			readonly ReplEditor replEditorUI;
 
-			public GuidObjectsProvider(ReplEditor replEditorUI) {
-				this.replEditorUI = replEditorUI;
-			}
+			public GuidObjectsProvider(ReplEditor replEditorUI) => this.replEditorUI = replEditorUI;
 
 			public IEnumerable<GuidObject> GetGuidObjects(GuidObjectsProviderArgs args) {
 				yield return new GuidObject(MenuConstants.GUIDOBJ_REPL_EDITOR_GUID, replEditorUI);
@@ -944,9 +942,7 @@ namespace dnSpy.Text.Editor {
 
 		public List<SpanAndClassificationType> ColorInfos { get; } = new List<SpanAndClassificationType>();
 
-		public ReplCommandInput(string input) {
-			Input = input;
-		}
+		public ReplCommandInput(string input) => Input = input;
 
 		public void AddClassification(int offset, int length, IClassificationType classificationType) {
 #if DEBUG
@@ -986,11 +982,9 @@ namespace dnSpy.Text.Editor {
 		readonly IReplEditor2 replEditor;
 
 		public ReplCustomLineNumberMarginOwner(IReplEditor2 replEditor, IThemeClassificationTypeService themeClassificationTypeService) {
-			if (replEditor == null)
-				throw new ArgumentNullException(nameof(replEditor));
 			if (themeClassificationTypeService == null)
 				throw new ArgumentNullException(nameof(themeClassificationTypeService));
-			this.replEditor = replEditor;
+			this.replEditor = replEditor ?? throw new ArgumentNullException(nameof(replEditor));
 			replLineNumberInput1ClassificationType = themeClassificationTypeService.GetClassificationType(TextColor.ReplLineNumberInput1);
 			replLineNumberInput2ClassificationType = themeClassificationTypeService.GetClassificationType(TextColor.ReplLineNumberInput2);
 			replLineNumberOutputClassificationType = themeClassificationTypeService.GetClassificationType(TextColor.ReplLineNumberOutput);

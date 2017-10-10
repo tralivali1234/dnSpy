@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,13 +27,10 @@ namespace dnSpy.AsmEditor.Hex.PE {
 		readonly BufferToDocumentNodeService bufferToDocumentNodeService;
 
 		[ImportingConstructor]
-		HexReferenceConverterImpl(BufferToDocumentNodeService bufferToDocumentNodeService) {
-			this.bufferToDocumentNodeService = bufferToDocumentNodeService;
-		}
+		HexReferenceConverterImpl(BufferToDocumentNodeService bufferToDocumentNodeService) => this.bufferToDocumentNodeService = bufferToDocumentNodeService;
 
 		public override object Convert(HexView hexView, object reference) {
-			var fieldRef = reference as HexFieldReference;
-			if (fieldRef != null)
+			if (reference is HexFieldReference fieldRef)
 				return ConvertFieldReference(fieldRef);
 
 			return reference;

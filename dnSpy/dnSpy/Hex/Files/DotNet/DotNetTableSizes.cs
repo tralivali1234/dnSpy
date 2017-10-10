@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -117,10 +117,7 @@ namespace dnSpy.Hex.Files.DotNet {
 		/// <param name="majorVersion">Major table version</param>
 		/// <param name="minorVersion">Minor table version</param>
 		/// <returns>All table infos (not completely initialized)</returns>
-		public TableInfo[] CreateTables(byte majorVersion, byte minorVersion) {
-			int maxPresentTables;
-			return CreateTables(majorVersion, minorVersion, out maxPresentTables);
-		}
+		public TableInfo[] CreateTables(byte majorVersion, byte minorVersion) => CreateTables(majorVersion, minorVersion, out int maxPresentTables);
 
 		/// <summary>
 		/// Creates the table infos

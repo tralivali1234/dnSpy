@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -62,17 +62,13 @@ namespace dnSpy.Text.Editor {
 		double preferredXCoordinate;
 
 		public TextCaret(IWpfTextView textView, IAdornmentLayer caretLayer, ISmartIndentationService smartIndentationService, IClassificationFormatMap classificationFormatMap) {
-			if (textView == null)
-				throw new ArgumentNullException(nameof(textView));
 			if (caretLayer == null)
 				throw new ArgumentNullException(nameof(caretLayer));
-			if (smartIndentationService == null)
-				throw new ArgumentNullException(nameof(smartIndentationService));
 			if (classificationFormatMap == null)
 				throw new ArgumentNullException(nameof(classificationFormatMap));
-			this.textView = textView;
+			this.textView = textView ?? throw new ArgumentNullException(nameof(textView));
 			imeState = new ImeState();
-			this.smartIndentationService = smartIndentationService;
+			this.smartIndentationService = smartIndentationService ?? throw new ArgumentNullException(nameof(smartIndentationService));
 			preferredXCoordinate = 0;
 			__preferredYCoordinate = 0;
 			Affinity = PositionAffinity.Successor;
@@ -302,10 +298,9 @@ namespace dnSpy.Text.Editor {
 			}
 		}
 
-		void TextBuffer_ContentTypeChanged(object sender, ContentTypeChangedEventArgs e) {
+		void TextBuffer_ContentTypeChanged(object sender, ContentTypeChangedEventArgs e) =>
 			// The value is cached, make sure it uses the latest snapshot
 			OnImplicitCaretPositionChanged();
-		}
 
 		void TextBuffer_ChangedHighPriority(object sender, TextContentChangedEventArgs e) {
 			// The value is cached, make sure it uses the latest snapshot
@@ -415,8 +410,7 @@ namespace dnSpy.Text.Editor {
 			bool filterPos = true;
 			// Don't auto indent if it's at column 0
 			if (canAutoIndent && CanAutoIndent(textLine) && xCoordinate > textLine.TextRight) {
-				var wpfView = textView as IWpfTextView;
-				if (wpfView != null) {
+				if (textView is IWpfTextView wpfView) {
 					int indentation = IndentHelper.GetDesiredIndentation(textView, smartIndentationService, textLine.Start.GetContainingLine()) ?? 0;
 					var textBounds = textLine.GetExtendedCharacterBounds(new VirtualSnapshotPoint(textLine.Start, indentation));
 					xCoordinate = textBounds.Leading;

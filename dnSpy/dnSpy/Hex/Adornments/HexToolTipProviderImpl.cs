@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.Hex.Adornments {
 #pragma warning restore 0169
 
 		public HexToolTipProviderImpl(WpfHexView wpfHexView) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			spaceReservationManager = wpfHexView.GetSpaceReservationManager(PredefinedHexSpaceReservationManagerNames.ToolTip);
 		}
 
@@ -78,11 +76,9 @@ namespace dnSpy.Hex.Adornments {
 		}
 
 		UIElement GetUIElement(object toolTipContent) {
-			var elem = toolTipContent as UIElement;
-			if (elem != null)
+			if (toolTipContent is UIElement elem)
 				return elem;
-			var s = toolTipContent as string;
-			if (s != null)
+			if (toolTipContent is string s)
 				return CreateUIElement(s);
 			return null;
 		}

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,6 +34,7 @@ using dnSpy.Contracts.App;
 using dnSpy.Contracts.Decompiler;
 using dnSpy.Contracts.Documents.Tabs;
 using dnSpy.Contracts.Documents.TreeView;
+using dnSpy.Contracts.ETW;
 using dnSpy.Contracts.Extension;
 using dnSpy.Contracts.Images;
 using dnSpy.Contracts.Menus;
@@ -47,9 +48,7 @@ namespace dnSpy.Documents.Tabs {
 	[ExportAutoLoaded]
 	sealed class SaveCommandInit : IAutoLoaded {
 		[ImportingConstructor]
-		SaveCommandInit(ISaveService saveService, IAppWindow appWindow, IDocumentTabService documentTabService) {
-			appWindow.MainWindowCommands.Add(ApplicationCommands.Save, (s, e) => saveService.Save(documentTabService.ActiveTab), (s, e) => e.CanExecute = saveService.CanSave(documentTabService.ActiveTab));
-		}
+		SaveCommandInit(ISaveService saveService, IAppWindow appWindow, IDocumentTabService documentTabService) => appWindow.MainWindowCommands.Add(ApplicationCommands.Save, (s, e) => saveService.Save(documentTabService.ActiveTab), (s, e) => e.CanExecute = saveService.CanSave(documentTabService.ActiveTab));
 	}
 
 	[ExportMenuItem(OwnerGuid = MenuConstants.APP_MENU_FILE_GUID, Header = "res:ExportToProjectCommand", Icon = DsImagesAttribute.Solution, Group = MenuConstants.GROUP_APP_MENU_FILE_SAVE, Order = 0)]
@@ -153,6 +152,7 @@ namespace dnSpy.Documents.Tabs {
 				vm.ProgressMaximum = 1;
 				vm.TotalProgress = 0;
 				vm.IsIndeterminate = false;
+				DnSpyEventSource.Log.ExportToProjectStart();
 				Task.Factory.StartNew(() => {
 					var decompilationContext = new DecompilationContext {
 						CancellationToken = cancellationToken,
@@ -197,6 +197,7 @@ namespace dnSpy.Documents.Tabs {
 						fileToOpen = creator.ProjectFilenames.FirstOrDefault();
 				}, cancellationToken)
 				.ContinueWith(t => {
+					DnSpyEventSource.Log.ExportToProjectStop();
 					var ex = t.Exception;
 					if (ex != null)
 						Error(string.Format(dnSpy_Resources.ErrorExceptionOccurred, ex));
@@ -243,13 +244,11 @@ namespace dnSpy.Documents.Tabs {
 					vm.AddError(string.Join(Environment.NewLine, list.ToArray()));
 			}
 
-			void IMSBuildProgressListener.SetMaxProgress(int maxProgress) {
-				dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(() => {
-					vm.ProgressMinimum = 0;
-					vm.ProgressMaximum = maxProgress;
-					vm.IsIndeterminate = false;
-				}));
-			}
+			void IMSBuildProgressListener.SetMaxProgress(int maxProgress) => dispatcher.BeginInvoke(DispatcherPriority.Send, new Action(() => {
+				vm.ProgressMinimum = 0;
+				vm.ProgressMaximum = maxProgress;
+				vm.IsIndeterminate = false;
+			}));
 
 			void IMSBuildProgressListener.SetProgress(int progress) {
 				bool start;

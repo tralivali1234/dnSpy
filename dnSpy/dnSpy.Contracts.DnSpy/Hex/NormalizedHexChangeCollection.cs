@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -47,9 +47,7 @@ namespace dnSpy.Contracts.Hex {
 
 		readonly HexChange[] changes;
 
-		NormalizedHexChangeCollection(HexChange[] changes) {
-			this.changes = changes;
-		}
+		NormalizedHexChangeCollection(HexChange[] changes) => this.changes = changes;
 
 		/// <summary>
 		/// Creates an instance
@@ -157,24 +155,14 @@ namespace dnSpy.Contracts.Hex {
 				yield return c;
 		}
 
-		void ICollection<HexChange>.Add(HexChange item) {
-			throw new NotSupportedException();
-		}
+		void ICollection<HexChange>.Add(HexChange item) => throw new NotSupportedException();
 
-		void ICollection<HexChange>.Clear() {
-			throw new NotSupportedException();
-		}
+		void ICollection<HexChange>.Clear() => throw new NotSupportedException();
 
-		void IList<HexChange>.Insert(int index, HexChange item) {
-			throw new NotSupportedException();
-		}
+		void IList<HexChange>.Insert(int index, HexChange item) => throw new NotSupportedException();
 
-		bool ICollection<HexChange>.Remove(HexChange item) {
-			throw new NotSupportedException();
-		}
+		bool ICollection<HexChange>.Remove(HexChange item) => throw new NotSupportedException();
 
-		void IList<HexChange>.RemoveAt(int index) {
-			throw new NotSupportedException();
-		}
+		void IList<HexChange>.RemoveAt(int index) => throw new NotSupportedException();
 	}
 }

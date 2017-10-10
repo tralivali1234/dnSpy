@@ -289,7 +289,7 @@
     <value>Токен _метаданных</value>
   </data>
   <data name="GoToToken_Title" xml:space="preserve">
-    <value>Перейти к токену метаданных</value>
+    <value>Переход к токену метаданных</value>
   </data>
   <data name="HideAllToolWindowsCommand" xml:space="preserve">
     <value>Ск_рыть все вкладки</value>
@@ -367,10 +367,10 @@
     <value>Переместить в _предыдущую группу вкладок</value>
   </data>
   <data name="NavigateBackCommand" xml:space="preserve">
-    <value>Перейти назад (Backspace)</value>
+    <value>Переход назад</value>
   </data>
   <data name="NavigateForwardCommand" xml:space="preserve">
-    <value>Перейти вперед (Alt+Right)</value>
+    <value>Переход вперед</value>
   </data>
   <data name="NewDataIsNotAnImage" xml:space="preserve">
     <value>Новые данные не являются картинкой.</value>
@@ -475,7 +475,7 @@
     <value>Открыть список</value>
   </data>
   <data name="OpenToolBarToolTip" xml:space="preserve">
-    <value>Открыть (Ctrl+O)</value>
+    <value>Открыть</value>
   </data>
   <data name="OptionsTitle" xml:space="preserve">
     <value>Настройки</value>
@@ -517,7 +517,7 @@
     <value>_Искать в сборках</value>
   </data>
   <data name="SearchAssembliesToolBarToolTip" xml:space="preserve">
-    <value>Сборки поиска ({0})</value>
+    <value>Искать в сборках</value>
   </data>
   <data name="Searching" xml:space="preserve">
     <value>Поиск...</value>
@@ -754,7 +754,7 @@
     <value>С_ветлая</value>
   </data>
   <data name="OpenGAC_Search_ToolTip" xml:space="preserve">
-    <value>Поиск (Ctrl+E или Ctrl+F)</value>
+    <value>Поиск</value>
   </data>
   <data name="LanguageCommand" xml:space="preserve">
     <value>Язык</value>
@@ -897,13 +897,13 @@
     <value>Вывод</value>
   </data>
   <data name="Output_ClearAll_ToolTip" xml:space="preserve">
-    <value>Очистить всё (Ctrl+L)</value>
+    <value>Очистить всё</value>
   </data>
   <data name="Output_ShowOutputFrom" xml:space="preserve">
     <value>_Показать вывод из:</value>
   </data>
   <data name="Output_WordWrap_ToolTip" xml:space="preserve">
-    <value>Переключить перенос слов (Ctrl+E, Ctrl+W)</value>
+    <value>Переключение переноса слов</value>
   </data>
   <data name="ShortCutKeyAlt2" xml:space="preserve">
     <value>Alt+2</value>
@@ -912,7 +912,7 @@
     <value>Выв_од</value>
   </data>
   <data name="Output_Save_ToolTip" xml:space="preserve">
-    <value>Сохранить (Ctrl+S)</value>
+    <value>Сохранить</value>
   </data>
   <data name="ClearAllCommand" xml:space="preserve">
     <value>Очистить всё</value>
@@ -1002,7 +1002,7 @@
     <value>Сброс</value>
   </data>
   <data name="BgImgSettings_Zoom" xml:space="preserve">
-    <value>Масштаб %</value>
+    <value>Масштаб, %</value>
   </data>
   <data name="BgImgSettings_ShowImages" xml:space="preserve">
     <value>Показать изображения</value>
@@ -1053,43 +1053,43 @@
     <value>Изображения</value>
   </data>
   <data name="BgImgSettings_BottomMarginPercent" xml:space="preserve">
-    <value>Нижний отступ %</value>
+    <value>Нижний отступ, %</value>
   </data>
   <data name="BgImgSettings_LeftMarginPercent" xml:space="preserve">
-    <value>Левый отступ %</value>
+    <value>Левый отступ, %</value>
   </data>
   <data name="BgImgSettings_RightMarginPercent" xml:space="preserve">
-    <value>Правый отступ %</value>
+    <value>Правый отступ, %</value>
   </data>
   <data name="BgImgSettings_TopMarginPercent" xml:space="preserve">
-    <value>Верхний отступ %</value>
+    <value>Верхний отступ, %</value>
   </data>
   <data name="Search_FindNextToolTip" xml:space="preserve">
-    <value>Искать следующее (F3)</value>
+    <value>Найти далее</value>
   </data>
   <data name="Search_FindPreviousToolTip" xml:space="preserve">
-    <value>Искать предыдущее (Shift+F3)</value>
+    <value>Найти предыдущее</value>
   </data>
   <data name="Search_MatchCaseToolTip" xml:space="preserve">
-    <value>С учетом регистра (Alt+C)</value>
+    <value>Учитывать регистр</value>
   </data>
   <data name="Search_MatchWholeWordToolTip" xml:space="preserve">
-    <value>Совпадение всего слова (Alt+W)</value>
+    <value>Слово целиком</value>
   </data>
   <data name="Search_ReplaceAllToolTip" xml:space="preserve">
-    <value>Заменить все (Alt+A)</value>
+    <value>Заменить все</value>
   </data>
   <data name="Search_ReplaceNextToolTip" xml:space="preserve">
-    <value>Замените следующий (Alt+R)</value>
+    <value>Заменить следующий</value>
   </data>
   <data name="Search_UseRegularExpressionsToolTip" xml:space="preserve">
-    <value>Использовать регулярные выражения (Alt+E)</value>
+    <value>Использовать регулярные выражения</value>
   </data>
   <data name="Search_ToggleReplaceModeToolTip" xml:space="preserve">
     <value>Переключите для переключения между режимами поиска и замены</value>
   </data>
   <data name="Search_CloseToolTip" xml:space="preserve">
-    <value>Закрыть (Esc)</value>
+    <value>Закрыть</value>
   </data>
   <data name="IncrementalSearchCommand" xml:space="preserve">
     <value>Последовательный поиск</value>
@@ -1098,7 +1098,7 @@
     <value>Ctrl+I</value>
   </data>
   <data name="ShortCutKeyAltPlusAnyKey" xml:space="preserve">
-    <value>Alt +{0}</value>
+    <value>Alt+{0}</value>
   </data>
   <data name="SignatureHelp_Signature_N_of_TotalCount" xml:space="preserve">
     <value>{0} из {1}</value>
@@ -1116,13 +1116,13 @@
     <value>Тема</value>
   </data>
   <data name="IntegrateWithWindowsExplorer" xml:space="preserve">
-    <value>Интегрировать в Windows проводник</value>
+    <value>Интегрировать в проводник Windows</value>
   </data>
   <data name="AssemblyExplorerSettings_Order" xml:space="preserve">
     <value>Сортировка (требуется перезагрузка)</value>
   </data>
   <data name="AssemblyExplorerSettings_SingleClickExpandNodes" xml:space="preserve">
-    <value>Одиночным щелчком мыши разворачивать узлы</value>
+    <value>Разворачивать узлы одиночным щелчком</value>
   </data>
   <data name="AssemblyExplorerSettings_SyntaxHighlight" xml:space="preserve">
     <value>Подсветка синтаксиса</value>
@@ -1137,7 +1137,7 @@
     <value>Табуляция</value>
   </data>
   <data name="TextEditorConvertTabsToSpaces" xml:space="preserve">
-    <value>Преобразовать табуляцию в пробелы</value>
+    <value>Преобразовывать табуляцию в _пробелы</value>
   </data>
   <data name="TextEditorLineNumbers" xml:space="preserve">
     <value>Номера строк</value>
@@ -1152,7 +1152,7 @@
     <value>Размер отступа</value>
   </data>
   <data name="TextEditorTabSize" xml:space="preserve">
-    <value>Размер интервала табуляции</value>
+    <value>Размер _табуляции</value>
   </data>
   <data name="TextViewerSettings" xml:space="preserve">
     <value>Просмотр текста</value>
@@ -1164,7 +1164,7 @@
     <value>Полосы прокрутки</value>
   </data>
   <data name="TextEditorCompressEmptyOrWhitespaceLines" xml:space="preserve">
-    <value>Сжатие пустые строки</value>
+    <value>Сжимать пустые строки</value>
   </data>
   <data name="TextEditorCompressNonLetterLines" xml:space="preserve">
     <value>Сжимать строки, которые не имеют каких-либо буквенно-цифровых символов</value>
@@ -1173,16 +1173,16 @@
     <value>Индикатор полей</value>
   </data>
   <data name="TextEditorHighlightCurrentLine" xml:space="preserve">
-    <value>Выделить текущую строку</value>
+    <value>Выделять текущую строку</value>
   </data>
   <data name="TextEditorHighlightMatchingBrace" xml:space="preserve">
-    <value>Выделение скобок</value>
+    <value>Выделять скобки</value>
   </data>
   <data name="TextEditorHighlightRelatedKeywords" xml:space="preserve">
-    <value>Подсветка связанных ключевых слов</value>
+    <value>Подсветить связанные ключевые слова</value>
   </data>
   <data name="TextEditorHorizontalScrollBar" xml:space="preserve">
-    <value>Показать горизонтальную полосу прокрутки</value>
+    <value>Показывать _горизонтальную полосу прокрутки</value>
   </data>
   <data name="TextEditorLineHeight" xml:space="preserve">
     <value>Высота строки</value>
@@ -1197,7 +1197,7 @@
     <value>Не добавлять дополнительный межстрочный интервал</value>
   </data>
   <data name="TextEditorMouseWheelZoom" xml:space="preserve">
-    <value>Масштаб с помощью колеса мыши</value>
+    <value>Масштабировать с помощью колеса мыши</value>
   </data>
   <data name="TextEditorReferenceHighlighting" xml:space="preserve">
     <value>Выделять ссылки</value>
@@ -1206,10 +1206,10 @@
     <value>Показывать вертикальную полосу прокрутки</value>
   </data>
   <data name="TextEditorShowStructureLines" xml:space="preserve">
-    <value>Показать границы отступа</value>
+    <value>Показывать границы отступа</value>
   </data>
   <data name="TextEditorVerticalScrollBar" xml:space="preserve">
-    <value>Показать вертикальную полосу прокрутки</value>
+    <value>Показывать _вертикальную полосу прокрутки</value>
   </data>
   <data name="TextEditorZoom" xml:space="preserve">
     <value>Масштаб</value>
@@ -1266,13 +1266,13 @@
     <value>Размер группы</value>
   </data>
   <data name="HexEditorHighlightCurrentValue" xml:space="preserve">
-    <value>Выделить текущее значение</value>
+    <value>Выделять текущее значение</value>
   </data>
   <data name="HexEditorOffsetFormat" xml:space="preserve">
     <value>Смещение</value>
   </data>
   <data name="HexEditorOffsetLowerCaseHex" xml:space="preserve">
-    <value>Hex в нижнем регистре (смещение)</value>
+    <value>Hex в нижнем регистре (смещения)</value>
   </data>
   <data name="HexEditorValuesLowerCaseHex" xml:space="preserve">
     <value>Hex в нижнем регистре (значения)</value>
@@ -1412,7 +1412,7 @@
     <value>Показать з_начения</value>
   </data>
   <data name="LocalHexSettings_StartOffset" xml:space="preserve">
-    <value>_Стартовое смещение</value>
+    <value>_Смещение начала</value>
   </data>
   <data name="LocalHexSettings_Title" xml:space="preserve">
     <value>Настройки локального Hex-редактора</value>
@@ -1505,8 +1505,8 @@
   <data name="TextEditor" xml:space="preserve">
     <value>Текстовый редактор</value>
   </data>
-  <data name="Search_BigEndian" xml:space="preserve">
-    <value>Прямой порядок байт (Alt+B)</value>
+  <data name="Search_BigEndianToolTip" xml:space="preserve">
+    <value>Обратный порядок байтов</value>
   </data>
   <data name="ShortCutKeyAlt8" xml:space="preserve">
     <value>Alt+8</value>
@@ -1539,7 +1539,7 @@
     <value>F12</value>
   </data>
   <data name="HexEditorHighlightStructureUnderMouseCursor" xml:space="preserve">
-    <value>Подсветить структуру под курсором</value>
+    <value>Выделять структуру под курсором мыши</value>
   </data>
   <data name="HexToolTipIndex" xml:space="preserve">
     <value>индекс</value>
@@ -1565,8 +1565,8 @@
   <data name="CopyValueCommand" xml:space="preserve">
     <value>Копировать значение</value>
   </data>
-  <data name="ShortCutKeyCtrlShift3" xml:space="preserve">
-    <value>Ctrl+Shift+3</value>
+  <data name="ShortCutKeyCtrlShiftQ" xml:space="preserve">
+    <value>Ctrl+Shift+Q</value>
   </data>
   <data name="ShortCutKeyCtrlShiftA" xml:space="preserve">
     <value>Ctrl+Shift+A</value>
@@ -1669,5 +1669,254 @@
   </data>
   <data name="OptionColorizeText" xml:space="preserve">
     <value>Раскрасить текст</value>
+  </data>
+  <data name="ShortCutKeyAltRightArrow" xml:space="preserve">
+    <value>Alt+Стрелка вправо</value>
+  </data>
+  <data name="ShortCutKeyBackspace" xml:space="preserve">
+    <value>Backspace</value>
+  </data>
+  <data name="ShortCutKeyCtrlS" xml:space="preserve">
+    <value>Ctrl+S</value>
+  </data>
+  <data name="ShortCutKeyAltA" xml:space="preserve">
+    <value>Alt+A</value>
+  </data>
+  <data name="ShortCutKeyAltB" xml:space="preserve">
+    <value>Alt+B</value>
+  </data>
+  <data name="ShortCutKeyAltC" xml:space="preserve">
+    <value>Alt+C</value>
+  </data>
+  <data name="ShortCutKeyAltE" xml:space="preserve">
+    <value>Alt+E</value>
+  </data>
+  <data name="ShortCutKeyAltW" xml:space="preserve">
+    <value>Alt+W</value>
+  </data>
+  <data name="ShortCutKeyEsc" xml:space="preserve">
+    <value>Esc</value>
+  </data>
+  <data name="ShortCutKeyShiftF3" xml:space="preserve">
+    <value>Shift+F3</value>
+  </data>
+  <data name="ShortCutKeyF3" xml:space="preserve">
+    <value>F3</value>
+  </data>
+  <data name="ShortCutKeyAltR" xml:space="preserve">
+    <value>Alt+R</value>
+  </data>
+  <data name="TimestampDateTimeFormat" xml:space="preserve">
+    <value>Формат метки времени</value>
+  </data>
+  <data name="Window_Bookmarks" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+  <data name="BookmarksOptDlgTab" xml:space="preserve">
+    <value>Закладки</value>
+  </data>
+  <data name="BookmarksSettings_SyntaxHighlight" xml:space="preserve">
+    <value>Подсветка синтаксиса</value>
+  </data>
+  <data name="SearchHelp_ToolTip" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="Column_Labels" xml:space="preserve">
+    <value>Метки</value>
+  </data>
+  <data name="Column_Location" xml:space="preserve">
+    <value>Размещение</value>
+  </data>
+  <data name="Column_Module" xml:space="preserve">
+    <value>Модуль</value>
+  </data>
+  <data name="Column_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Bookmarks_NoMatch" xml:space="preserve">
+    <value>Ни одна закладка не совпадает с фильтром.</value>
+  </data>
+  <data name="Bookmarks_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="BookmarksCommand" xml:space="preserve">
+    <value>За_кладки</value>
+  </data>
+  <data name="BookmarksWindowCommand" xml:space="preserve">
+    <value>Окно _закладок</value>
+  </data>
+  <data name="Bookmarks_ExportMatchingBookmarks_ToolTip" xml:space="preserve">
+    <value>Экспортирует все закладки, соответствующие текущему фильтру</value>
+  </data>
+  <data name="Bookmarks_GoToLocation_ToolTip" xml:space="preserve">
+    <value>Перемещает курсор на выбранную закладку.</value>
+  </data>
+  <data name="Bookmarks_GoToNextBookmarkInFile_ToolTip" xml:space="preserve">
+    <value>Переместить курсор к следующей закладке в текущем файле.</value>
+  </data>
+  <data name="Bookmarks_GoToNextBookmarkSameLabel_ToolTip" xml:space="preserve">
+    <value>Переместить курсор к следующей закладке с той же меткой.</value>
+  </data>
+  <data name="Bookmarks_GoToNextBookmark_ToolTip" xml:space="preserve">
+    <value>Переместить курсор к следующей закладке.</value>
+  </data>
+  <data name="Bookmarks_GoToPreviousBookmarkInFile_ToolTip" xml:space="preserve">
+    <value>Переместить курсор к предыдущей закладке в текущем файле.</value>
+  </data>
+  <data name="Bookmarks_GoToPreviousBookmarkSameLabel_ToolTip" xml:space="preserve">
+    <value>Переместить курсор к предыдущей закладке с той же меткой.</value>
+  </data>
+  <data name="Bookmarks_GoToPreviousBookmark_ToolTip" xml:space="preserve">
+    <value>Переместить курсор к предыдущей закладке.</value>
+  </data>
+  <data name="Bookmarks_ImportBookmarks_ToolTip" xml:space="preserve">
+    <value>Импортирует закладки из файла</value>
+  </data>
+  <data name="Bookmarks_RemoveBookmark_ToolTip" xml:space="preserve">
+    <value>Удаляет закладку</value>
+  </data>
+  <data name="Bookmarks_RemoveMatchingBookmarks_ToolTip" xml:space="preserve">
+    <value>Удаляет все закладки, соответствующие текущему фильтру</value>
+  </data>
+  <data name="Bookmarks_ResetSearchSettings_ToolTip" xml:space="preserve">
+    <value>Сбрасывает все фильтры, чтобы отобразились все закладки</value>
+  </data>
+  <data name="Bookmarks_Search_ToolTip" xml:space="preserve">
+    <value>Выполняет поиск закладки</value>
+  </data>
+  <data name="Bookmarks_ToggleCreateBookmark_ToolTip" xml:space="preserve">
+    <value>Переключает закладку на текущей строке.</value>
+  </data>
+  <data name="Bookmarks_ToggleMatchingBookmarks_ToolTip" xml:space="preserve">
+    <value>Включает или выключает все закладки, соответствующие текущему фильтру</value>
+  </data>
+  <data name="BookmarkDefaultName" xml:space="preserve">
+    <value>Закладка{0}</value>
+  </data>
+  <data name="RenameCommand" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="GoToBookmarkCommand" xml:space="preserve">
+    <value>Перейти к закладке</value>
+  </data>
+  <data name="ShortCutKeyCtrl_DIGIT" xml:space="preserve">
+    <value>Ctrl+{0}</value>
+  </data>
+  <data name="DisableBookmarkCommand3" xml:space="preserve">
+    <value>Выключить закладку</value>
+  </data>
+  <data name="EditLabelsCommand" xml:space="preserve">
+    <value>Изменить метки</value>
+  </data>
+  <data name="EnableBookmarkCommand3" xml:space="preserve">
+    <value>Включить закладку</value>
+  </data>
+  <data name="ExportSelectedCommand" xml:space="preserve">
+    <value>_Экспортировать выбранные...</value>
+  </data>
+  <data name="RemoveAllBookmarksCommand" xml:space="preserve">
+    <value>Убрать все закладки</value>
+  </data>
+  <data name="RemoveBookmarkCommand" xml:space="preserve">
+    <value>Убрать закладку</value>
+  </data>
+  <data name="SelectAllCommand" xml:space="preserve">
+    <value>Выбр_ать все</value>
+  </data>
+  <data name="ShortCutKeyCtrlA" xml:space="preserve">
+    <value>Ctrl+A</value>
+  </data>
+  <data name="ShortCutKeyCtrlC" xml:space="preserve">
+    <value>Ctrl+C</value>
+  </data>
+  <data name="ShortCutKeyEnter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="ShortCutKeyF2" xml:space="preserve">
+    <value>F2</value>
+  </data>
+  <data name="ShowDeclaringTypesCommand" xml:space="preserve">
+    <value>Показать объявляемые типы</value>
+  </data>
+  <data name="ShowIntrinsicTypeKeywordsCommand" xml:space="preserve">
+    <value>Показать ключевые слова встроенных типов</value>
+  </data>
+  <data name="ShowModuleNamesCommand" xml:space="preserve">
+    <value>Показать имена _модулей</value>
+  </data>
+  <data name="ShowNamespacesCommand" xml:space="preserve">
+    <value>Показать пространства имен</value>
+  </data>
+  <data name="ShowParameterNamesCommand" xml:space="preserve">
+    <value>Показать имена _параметров</value>
+  </data>
+  <data name="ShowParameterTypesCommand2" xml:space="preserve">
+    <value>Показать типы параметров</value>
+  </data>
+  <data name="ShowReturnTypesCommand" xml:space="preserve">
+    <value>Показать возвращаемые типы</value>
+  </data>
+  <data name="ShowTokensCommand" xml:space="preserve">
+    <value>Показать токены</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlW" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+W</value>
+  </data>
+  <data name="ClearAllBookmarksInDocumentCommand" xml:space="preserve">
+    <value>Очистить все закладки в документе</value>
+  </data>
+  <data name="ClearBookmarksCommand" xml:space="preserve">
+    <value>_Очистить закладки</value>
+  </data>
+  <data name="DisableAllBookmarksCommand" xml:space="preserve">
+    <value>Выключить _все закладки</value>
+  </data>
+  <data name="EnableAllBookmarksCommand" xml:space="preserve">
+    <value>Включить _все закладки</value>
+  </data>
+  <data name="EnableBookmarkCommand" xml:space="preserve">
+    <value>Включить закладку</value>
+  </data>
+  <data name="GoToNextBookmarkCommand" xml:space="preserve">
+    <value>Следующая _закладка</value>
+  </data>
+  <data name="GoToNextBookmarkInDocumentCommand" xml:space="preserve">
+    <value>Сл_едующая закладка в документе</value>
+  </data>
+  <data name="GoToNextBookmarkWithSameLabelCommand" xml:space="preserve">
+    <value>Следующая закладка с той же меткой</value>
+  </data>
+  <data name="GoToPreviousBookmarkCommand" xml:space="preserve">
+    <value>_Предыдущая закладка</value>
+  </data>
+  <data name="GoToPreviousBookmarkInDocumentCommand" xml:space="preserve">
+    <value>П_редыдущая закладка в документе</value>
+  </data>
+  <data name="GoToPreviousBookmarkWithSameLabelCommand" xml:space="preserve">
+    <value>Предыдущая закладка с той же меткой</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlK" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+K</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlL" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+L</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlN" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+N</value>
+  </data>
+  <data name="ShortCutKeyCtrlK_CtrlP" xml:space="preserve">
+    <value>Ctrl+K, Ctrl+P</value>
+  </data>
+  <data name="ToggleBookmarkCommand" xml:space="preserve">
+    <value>Переключи_ть закладку</value>
+  </data>
+  <data name="EditLabelsMsgBoxLabel" xml:space="preserve">
+    <value>Метки</value>
+  </data>
+  <data name="EditLabelsTitle" xml:space="preserve">
+    <value>Изменить метки</value>
+  </data>
+  <data name="User_Administrator" xml:space="preserve">
+    <value>Administrator</value>
   </data>
 </root>

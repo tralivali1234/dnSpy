@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,9 +28,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// Constructor
 		/// </summary>
 		/// <param name="metadataSpan">Metadata span</param>
-		protected DotNetMetadataHeaders(HexSpan metadataSpan) {
-			MetadataSpan = metadataSpan;
-		}
+		protected DotNetMetadataHeaders(HexSpan metadataSpan) => MetadataSpan = metadataSpan;
 
 		/// <summary>
 		/// Gets the metadata span

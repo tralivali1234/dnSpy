@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -92,6 +92,11 @@ namespace dnSpy.Contracts.Settings.Dialog {
 		/// Order of background image settings page
 		/// </summary>
 		public const double ORDER_BACKGROUNDIMAGE = 10000;
+
+		/// <summary>
+		/// Order of bookmarks settings page
+		/// </summary>
+		public const double ORDER_BOOKMARKS = 11000;
 
 		/// <summary>
 		/// Order of <see cref="IDsDocumentService"/>'s <see cref="IAppSettingsModifiedListener"/> instance

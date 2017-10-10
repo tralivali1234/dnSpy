@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Settings.Dialog {
 		}
 		static readonly char[] searchSeparators = new char[] { ' ', '\t', '\r', '\n' };
 
-		public void SetSearchText(string searchText) {
-			searchParts = (searchText ?? string.Empty).Split(searchSeparators, StringSplitOptions.RemoveEmptyEntries);
-		}
+		public void SetSearchText(string searchText) => searchParts = (searchText ?? string.Empty).Split(searchSeparators, StringSplitOptions.RemoveEmptyEntries);
 
 		public bool IsMatchAll(List<string> pageTitles, List<string> pageStrings) {
 			if (searchParts.Length == 0)

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,6 +39,12 @@ namespace dnSpy.Contracts.MVVM.Dialogs {
 				if (data.HasCompleted)
 					OnCompleted();
 			};
+		}
+
+		/// <inheritdoc/>
+		protected override void OnClosed(EventArgs e) {
+			progressBar.IsIndeterminate = false;
+			base.OnClosed(e);
 		}
 
 		/// <inheritdoc/>

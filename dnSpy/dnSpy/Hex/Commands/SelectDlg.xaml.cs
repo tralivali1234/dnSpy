@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -26,8 +26,7 @@ namespace dnSpy.Hex.Commands {
 		public SelectDlg() {
 			InitializeComponent();
 			DataContextChanged += (s, e) => {
-				var vm = DataContext as SelectVM;
-				if (vm != null) {
+				if (DataContext is SelectVM vm) {
 					InputBindings.Add(new KeyBinding(vm.SelectPositionAbsoluteCommand, new KeyGesture(Key.D1, ModifierKeys.Control)));
 					InputBindings.Add(new KeyBinding(vm.SelectPositionFileCommand, new KeyGesture(Key.D2, ModifierKeys.Control)));
 					InputBindings.Add(new KeyBinding(vm.SelectPositionRVACommand, new KeyGesture(Key.D3, ModifierKeys.Control)));

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,13 +32,10 @@ namespace dnSpy.Documents.Tabs.DocViewer {
 		readonly IMessageBoxService messageBoxService;
 
 		[ImportingConstructor]
-		OpCodeReferenceHandler(IMessageBoxService messageBoxService) {
-			this.messageBoxService = messageBoxService;
-		}
+		OpCodeReferenceHandler(IMessageBoxService messageBoxService) => this.messageBoxService = messageBoxService;
 
 		public bool OnFollowReference(IReferenceHandlerContext context) {
-			var opCode = (context.Reference as TextReference)?.Reference as OpCode;
-			if (opCode != null) {
+			if ((context.Reference as TextReference)?.Reference is OpCode opCode) {
 				var url = string.Format(opCodesUrl, GetMsdnOpCode(opCode));
 				StartBrowser(url);
 				return true;

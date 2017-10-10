@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,6 +30,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using dnSpy.AsmEditor.Properties;
 using dnSpy.Contracts.Documents;
+using dnSpy.Contracts.ETW;
 using dnSpy.Contracts.Hex;
 using dnSpy.Contracts.MVVM;
 
@@ -197,12 +198,10 @@ namespace dnSpy.AsmEditor.SaveModule {
 		}
 
 		static SaveOptionsVM Create(object obj) {
-			var document = obj as IDsDocument;
-			if (document != null)
+			if (obj is IDsDocument document)
 				return new SaveModuleOptionsVM(document);
 
-			var buffer = obj as HexBuffer;
-			if (buffer != null)
+			if (obj is HexBuffer buffer)
 				return new SaveHexOptionsVM(buffer);
 
 			throw new InvalidOperationException();
@@ -214,8 +213,7 @@ namespace dnSpy.AsmEditor.SaveModule {
 			var data = GetSaveOptionsVM(obj);
 			if (data == null)
 				return false;
-			bool saved;
-			savedFile.TryGetValue(data, out saved);
+			savedFile.TryGetValue(data, out bool saved);
 			return saved;
 		}
 
@@ -243,6 +241,7 @@ namespace dnSpy.AsmEditor.SaveModule {
 
 		ModuleSaver moduleSaver;
 		void SaveAsync(SaveOptionsVM[] mods) {
+			DnSpyEventSource.Log.SaveDocumentsStart();
 			try {
 				moduleSaver = new ModuleSaver(mods);
 				moduleSaver.OnProgressUpdated += moduleSaver_OnProgressUpdated;
@@ -265,6 +264,7 @@ namespace dnSpy.AsmEditor.SaveModule {
 			}
 			moduleSaver = null;
 
+			DnSpyEventSource.Log.SaveDocumentsStop();
 			ExecInOldThread(() => {
 				CurrentFileName = string.Empty;
 				State = SaveState.Saved;

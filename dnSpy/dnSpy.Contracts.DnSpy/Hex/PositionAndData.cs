@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -47,10 +47,8 @@ namespace dnSpy.Contracts.Hex {
 		public PositionAndData(HexBufferPoint position, byte[] data) {
 			if (position.IsDefault)
 				throw new ArgumentException();
-			if (data == null)
-				throw new ArgumentNullException(nameof(data));
 			Position = position;
-			Data = data;
+			Data = data ?? throw new ArgumentNullException(nameof(data));
 		}
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,9 +28,7 @@ namespace dnSpy.BackgroundImage {
 		readonly IImageSourceServiceProvider imageSourceServiceProvider;
 
 		[ImportingConstructor]
-		WpfHexViewCreationListenerImpl(IImageSourceServiceProvider imageSourceServiceProvider) {
-			this.imageSourceServiceProvider = imageSourceServiceProvider;
-		}
+		WpfHexViewCreationListenerImpl(IImageSourceServiceProvider imageSourceServiceProvider) => this.imageSourceServiceProvider = imageSourceServiceProvider;
 
 		public override void HexViewCreated(WpfHexView hexView) =>
 			HexViewBackgroundImageService.InstallService(hexView, imageSourceServiceProvider.Create(hexView));

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -107,9 +107,7 @@ namespace dnSpy.Documents.Tabs {
 
 		protected readonly IDocumentTabService documentTabService;
 
-		protected CtxMenuTabGroupCommand(IDocumentTabService documentTabService) {
-			this.documentTabService = documentTabService;
-		}
+		protected CtxMenuTabGroupCommand(IDocumentTabService documentTabService) => this.documentTabService = documentTabService;
 
 		TabGroupContext CreateContextInternal(IMenuItemContext context) {
 			if (context.CreatorObject.Guid != new Guid(MenuConstants.GUIDOBJ_DOCUMENTS_TABCONTROL_GUID))
@@ -314,9 +312,7 @@ namespace dnSpy.Documents.Tabs {
 		readonly IDocumentTabService documentTabService;
 
 		[ImportingConstructor]
-		OpenInNewTabCtxMenuCommand(IDocumentTabService documentTabService) {
-			this.documentTabService = documentTabService;
-		}
+		OpenInNewTabCtxMenuCommand(IDocumentTabService documentTabService) => this.documentTabService = documentTabService;
 
 		public override bool IsVisible(IMenuItemContext context) =>
 			context.CreatorObject.Guid == new Guid(MenuConstants.GUIDOBJ_DOCUMENTS_TREEVIEW_GUID) &&
@@ -329,16 +325,12 @@ namespace dnSpy.Documents.Tabs {
 	[ExportMenuItem(Header = "res:OpenInNewTabCommand", Group = MenuConstants.GROUP_CTX_DOCVIEWER_TABS, Order = 0)]
 	sealed class OpenReferenceInNewTabCtxMenuCommand : MenuItemBase {
 		public override void Execute(IMenuItemContext context) {
-			IDocumentViewer documentViewer;
-			var @ref = GetReference(context, out documentViewer);
+			var @ref = GetReference(context, out var documentViewer);
 			if (@ref != null)
 				documentViewer.DocumentTab.FollowReferenceNewTab(@ref);
 		}
 
-		public override bool IsVisible(IMenuItemContext context) {
-			IDocumentViewer documentViewer;
-			return GetReference(context, out documentViewer) != null;
-		}
+		public override bool IsVisible(IMenuItemContext context) => GetReference(context, out var documentViewer) != null;
 
 		static object GetReference(IMenuItemContext context, out IDocumentViewer documentViewer) {
 			documentViewer = null;
@@ -377,9 +369,7 @@ namespace dnSpy.Documents.Tabs {
 
 		protected readonly IDocumentTabService documentTabService;
 
-		protected MenuTabGroupCommand(IDocumentTabService documentTabService) {
-			this.documentTabService = documentTabService;
-		}
+		protected MenuTabGroupCommand(IDocumentTabService documentTabService) => this.documentTabService = documentTabService;
 	}
 
 	[ExportMenuItem(OwnerGuid = MenuConstants.APP_MENU_WINDOW_GUID, Header = "res:NewWindowCommand", Icon = DsImagesAttribute.NewWindow, Group = MenuConstants.GROUP_APP_MENU_WINDOW_WINDOW, Order = 0)]

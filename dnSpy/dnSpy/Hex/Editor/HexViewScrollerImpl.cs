@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,11 +30,7 @@ namespace dnSpy.Hex.Editor {
 	sealed class HexViewScrollerImpl : HexViewScroller {
 		readonly HexView hexView;
 
-		public HexViewScrollerImpl(HexView hexView) {
-			if (hexView == null)
-				throw new ArgumentNullException(nameof(hexView));
-			this.hexView = hexView;
-		}
+		public HexViewScrollerImpl(HexView hexView) => this.hexView = hexView ?? throw new ArgumentNullException(nameof(hexView));
 
 		public override void EnsureSpanVisible(HexLineSpan lineSpan, VSTE.EnsureSpanVisibleOptions options) {
 			if (lineSpan.IsDefault)

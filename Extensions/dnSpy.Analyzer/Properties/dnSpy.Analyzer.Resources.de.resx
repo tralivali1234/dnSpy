@@ -127,7 +127,7 @@
     <value>Angewendet auf</value>
   </data>
   <data name="AssignedByTreeNode" xml:space="preserve">
-    <value>Zugewiesen durch</value>
+    <value>Zugewiesen von</value>
   </data>
   <data name="CopyCommand" xml:space="preserve">
     <value>_Kopieren</value>
@@ -170,6 +170,9 @@
   </data>
   <data name="OverriddenByTreeNode" xml:space="preserve">
     <value>Überschrieben von</value>
+  </data>
+  <data name="OverridesTreeNode" xml:space="preserve">
+    <value>Überschreibungen</value>
   </data>
   <data name="Plugin_ShortDescription" xml:space="preserve">
     <value>Analysiert Assemblys</value>

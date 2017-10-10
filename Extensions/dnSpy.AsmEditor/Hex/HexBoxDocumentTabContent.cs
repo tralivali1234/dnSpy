@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -37,9 +37,7 @@ namespace dnSpy.AsmEditor.Hex {
 		readonly Lazy<IHexViewDocumentTabContentCreator> hexViewDocumentTabContentCreator;
 
 		[ImportingConstructor]
-		HexViewDocumentTabContentFactory(Lazy<IHexViewDocumentTabContentCreator> hexViewDocumentTabContentCreator) {
-			this.hexViewDocumentTabContentCreator = hexViewDocumentTabContentCreator;
-		}
+		HexViewDocumentTabContentFactory(Lazy<IHexViewDocumentTabContentCreator> hexViewDocumentTabContentCreator) => this.hexViewDocumentTabContentCreator = hexViewDocumentTabContentCreator;
 
 		public DocumentTabContent Create(IDocumentTabContentFactoryContext context) => null;
 
@@ -107,9 +105,7 @@ namespace dnSpy.AsmEditor.Hex {
 		readonly Lazy<HexEditorGroupFactoryService> hexEditorGroupFactoryService;
 
 		public HexViewDocumentTabContent(Lazy<HexEditorGroupFactoryService> hexEditorGroupFactoryService, HexBuffer buffer) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			this.buffer = buffer;
+			this.buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			this.hexEditorGroupFactoryService = hexEditorGroupFactoryService;
 		}
 
@@ -128,9 +124,7 @@ namespace dnSpy.AsmEditor.Hex {
 
 		readonly WpfHexViewHost hexViewHost;
 
-		public HexViewDocumentTabUIContext(HexEditorGroupFactoryService hexEditorGroupFactoryService, HexBuffer buffer) {
-			hexViewHost = hexEditorGroupFactoryService.Create(buffer, PredefinedHexViewRoles.HexEditorGroup, PredefinedHexViewRoles.HexEditorGroupDefault, new Guid(MenuConstants.GUIDOBJ_ASMEDITOR_HEXVIEW_GUID));
-		}
+		public HexViewDocumentTabUIContext(HexEditorGroupFactoryService hexEditorGroupFactoryService, HexBuffer buffer) => hexViewHost = hexEditorGroupFactoryService.Create(buffer, PredefinedHexViewRoles.HexEditorGroup, PredefinedHexViewRoles.HexEditorGroupDefault, new Guid(MenuConstants.GUIDOBJ_ASMEDITOR_HEXVIEW_GUID));
 
 		public override object CreateUIState() {
 			if (cachedHexViewUIState != null)

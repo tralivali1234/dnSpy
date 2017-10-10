@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -41,9 +41,7 @@ namespace dnSpy.Text.Editor {
 		readonly IEditorFormatMapService editorFormatMapService;
 
 		[ImportingConstructor]
-		BlockStructureServiceProvider(IEditorFormatMapService editorFormatMapService) {
-			this.editorFormatMapService = editorFormatMapService;
-		}
+		BlockStructureServiceProvider(IEditorFormatMapService editorFormatMapService) => this.editorFormatMapService = editorFormatMapService;
 
 		public IBlockStructureService GetService(IWpfTextView wpfTextView) {
 			if (wpfTextView == null)
@@ -77,12 +75,8 @@ namespace dnSpy.Text.Editor {
 		}
 
 		public BlockStructureService(IWpfTextView wpfTextView, IEditorFormatMapService editorFormatMapService) {
-			if (wpfTextView == null)
-				throw new ArgumentNullException(nameof(wpfTextView));
-			if (editorFormatMapService == null)
-				throw new ArgumentNullException(nameof(editorFormatMapService));
-			this.wpfTextView = wpfTextView;
-			this.editorFormatMapService = editorFormatMapService;
+			this.wpfTextView = wpfTextView ?? throw new ArgumentNullException(nameof(wpfTextView));
+			this.editorFormatMapService = editorFormatMapService ?? throw new ArgumentNullException(nameof(editorFormatMapService));
 			blockStructureServiceDataProvider = NullBlockStructureServiceDataProvider.Instance;
 			onRemovedDelegate = OnRemoved;
 			lineElements = new List<LineElement>();
@@ -127,9 +121,7 @@ namespace dnSpy.Text.Editor {
 			public string Type { get; }
 			public Pen Pen { get; set; }
 
-			public LineColorInfo(string type) {
-				Type = type;
-			}
+			public LineColorInfo(string type) => Type = type;
 		}
 
 		void EditorFormatMap_FormatMappingChanged(object sender, FormatItemsEventArgs e) {
@@ -448,8 +440,7 @@ namespace dnSpy.Text.Editor {
 			public double GetXPosition(BlockStructureData data) {
 				TryUpdateState();
 				var topPoint = data.Top.Start.TranslateTo(toXPosDictSnapshot, PointTrackingMode.Negative);
-				double x;
-				if (toXPosDict.TryGetValue(topPoint.Position, out x))
+				if (toXPosDict.TryGetValue(topPoint.Position, out double x))
 					return x;
 
 				var point = GetBlockStartPoint(topPoint, data.Bottom.Start.TranslateTo(toXPosDictSnapshot, PointTrackingMode.Negative));
@@ -461,9 +452,8 @@ namespace dnSpy.Text.Editor {
 			}
 
 			SnapshotPoint GetBlockStartPoint(SnapshotPoint top, SnapshotPoint bottom) {
-				int topColumn, bottomColumn;
-				var topPoint = GetPositionOfNonWhitespace(top, out topColumn);
-				var bottomPoint = GetPositionOfNonWhitespace(bottom, out bottomColumn);
+				var topPoint = GetPositionOfNonWhitespace(top, out int topColumn);
+				var bottomPoint = GetPositionOfNonWhitespace(bottom, out int bottomColumn);
 				return topColumn <= bottomColumn ? topPoint : bottomPoint;
 			}
 
@@ -534,9 +524,7 @@ done:
 			double bottom;
 			Pen pen;
 
-			public LineElement(BlockStructureData info) {
-				BlockStructureData = info;
-			}
+			public LineElement(BlockStructureData info) => BlockStructureData = info;
 
 			protected override void OnRender(DrawingContext drawingContext) {
 				base.OnRender(drawingContext);

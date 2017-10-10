@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -50,9 +50,7 @@ namespace dnSpy.Contracts.Decompiler {
 		/// <param name="writer">Text writer to use</param>
 		/// <param name="indenter">Indenter or null</param>
 		public TextWriterDecompilerOutput(TextWriter writer, Indenter indenter = null) {
-			if (writer == null)
-				throw new ArgumentNullException(nameof(writer));
-			this.writer = writer;
+			this.writer = writer ?? throw new ArgumentNullException(nameof(writer));
 			this.indenter = indenter ?? new Indenter(4, 4, true);
 		}
 

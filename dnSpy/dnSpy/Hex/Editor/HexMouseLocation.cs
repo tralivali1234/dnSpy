@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,9 +30,7 @@ namespace dnSpy.Hex.Editor {
 		public Point Point { get; }
 
 		HexMouseLocation(HexViewLine hexViewLine, int position, Point point) {
-			if (hexViewLine == null)
-				throw new ArgumentNullException(nameof(hexViewLine));
-			HexViewLine = hexViewLine;
+			HexViewLine = hexViewLine ?? throw new ArgumentNullException(nameof(hexViewLine));
 			Position = position;
 			Point = point;
 		}

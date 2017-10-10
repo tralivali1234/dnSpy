@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -41,12 +41,8 @@ namespace dnSpy.Hex.HexGroups {
 		readonly HexViewOptionsGroupImpl owner;
 
 		public HexViewGroupOption(HexViewOptionsGroupImpl owner, TagOptionDefinition definition) {
-			if (owner == null)
-				throw new ArgumentNullException(nameof(owner));
-			if (definition == null)
-				throw new ArgumentNullException(nameof(definition));
-			this.owner = owner;
-			Definition = definition;
+			this.owner = owner ?? throw new ArgumentNullException(nameof(owner));
+			Definition = definition ?? throw new ArgumentNullException(nameof(definition));
 			theValue = Definition.DefaultValue;
 		}
 	}

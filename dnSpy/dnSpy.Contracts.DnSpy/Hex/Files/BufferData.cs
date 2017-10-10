@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -82,11 +82,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="name">Name</param>
 		/// <param name="span">Span</param>
 		protected ComplexData(string name, HexBufferSpan span)
-			: base(span) {
-			if (name == null)
-				throw new ArgumentNullException(nameof(name));
-			Name = name;
-		}
+			: base(span) => Name = name ?? throw new ArgumentNullException(nameof(name));
 
 		/// <summary>
 		/// Gets a field
@@ -429,8 +425,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		public override BufferField GetFieldByName(string name) {
 			if (name == null)
 				throw new ArgumentNullException(nameof(name));
-			int index;
-			if (!int.TryParse(name, out index))
+			if (!int.TryParse(name, out int index))
 				return null;
 			// Don't throw if it's outside the range, it's a look up by name that should return null if the name doesn't exist
 			if ((uint)index >= (uint)FieldCount)
@@ -535,11 +530,7 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// <param name="span">Array span</param>
 		/// <param name="fields">Array elements</param>
 		public VariableLengthArrayData(string name, HexBufferSpan span, ArrayField<TData>[] fields)
-			: base(name, span) {
-			if (fields == null)
-				throw new ArgumentNullException(nameof(fields));
-			this.fields = fields;
-		}
+			: base(name, span) => this.fields = fields ?? throw new ArgumentNullException(nameof(fields));
 
 		/// <summary>
 		/// Gets a field by index
@@ -603,10 +594,8 @@ namespace dnSpy.Contracts.Hex.Files {
 			: base(name, span) {
 			if (elementLength == 0)
 				throw new ArgumentOutOfRangeException(nameof(elementLength));
-			if (createElement == null)
-				throw new ArgumentNullException(nameof(createElement));
 			this.elementLength = elementLength;
-			this.createElement = createElement;
+			this.createElement = createElement ?? throw new ArgumentNullException(nameof(createElement));
 			ulong fieldCount = span.Length.ToUInt64() / elementLength;
 			if (fieldCount * elementLength != span.Length)
 				throw new ArgumentOutOfRangeException(nameof(span));

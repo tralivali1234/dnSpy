@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,9 +34,7 @@ namespace dnSpy.Hex.Files.DotNet {
 		public StorageStreamHeader[] StorageStreamHeaders { get; private set; }
 
 		DotNetMetadataHeaderReader(HexBufferFile file, HexSpan mdSpan) {
-			if (file == null)
-				throw new ArgumentNullException(nameof(file));
-			this.file = file;
+			this.file = file ?? throw new ArgumentNullException(nameof(file));
 			MetadataSpan = mdSpan;
 		}
 

@@ -52,10 +52,7 @@ namespace dnSpy.Analyzer.TreeNodes {
 		}
 
 		public AttributeAppliedToNode(TypeDef analyzedType) {
-			if (analyzedType == null)
-				throw new ArgumentNullException(nameof(analyzedType));
-
-			this.analyzedType = analyzedType;
+			this.analyzedType = analyzedType ?? throw new ArgumentNullException(nameof(analyzedType));
 			attributeName = this.analyzedType.FullName;
 			GetAttributeUsage();
 		}
@@ -259,8 +256,7 @@ namespace dnSpy.Analyzer.TreeNodes {
 					}
 
 					if (found) {
-						MethodDef codeLocation = GetOriginalCodeLocation(method) as MethodDef;
-						if (codeLocation != null && !HasAlreadyBeenFound(codeLocation)) {
+						if (GetOriginalCodeLocation(method) is MethodDef codeLocation && !HasAlreadyBeenFound(codeLocation)) {
 							yield return new MethodNode(codeLocation) { Context = Context };
 						}
 					}

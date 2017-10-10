@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -67,6 +67,7 @@ namespace dnSpy.Output {
 				(s, e) => OutputService.Copy(),
 				(s, e) => e.CanExecute = OutputService.CanCopy);
 			cmds.Add(OutputCommands.CopyCommand, ModifierKeys.Control, Key.C);
+			cmds.Add(OutputCommands.CopyCommand, ModifierKeys.Control, Key.Insert);
 			cmds.Add(OutputCommands.ClearAllCommand,
 				(s, e) => OutputService.ClearAll(),
 				(s, e) => e.CanExecute = OutputService.CanClearAll);

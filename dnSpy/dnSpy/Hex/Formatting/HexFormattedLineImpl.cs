@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -272,12 +272,10 @@ namespace dnSpy.Hex.Formatting {
 				throw new ArgumentOutOfRangeException(nameof(linePartsLength));
 			if (linePartsIndex + linePartsLength > linePartsCollection.LineParts.Count)
 				throw new ArgumentOutOfRangeException(nameof(linePartsLength));
-			if (bufferLine == null)
-				throw new ArgumentNullException(nameof(bufferLine));
 			if (textLine == null)
 				throw new ArgumentNullException(nameof(textLine));
 
-			this.bufferLine = bufferLine;
+			this.bufferLine = bufferLine ?? throw new ArgumentNullException(nameof(bufferLine));
 			isValid = true;
 			this.linePartsIndex = linePartsIndex;
 			this.linePartsLength = linePartsLength;

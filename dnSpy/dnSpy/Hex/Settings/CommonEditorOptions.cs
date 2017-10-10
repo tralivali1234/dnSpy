@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,12 +28,8 @@ namespace dnSpy.Hex.Settings {
 		public string SubGroup { get; }
 
 		protected CommonEditorOptions(HexViewOptionsGroup group, string subGroup) {
-			if (group == null)
-				throw new ArgumentNullException(nameof(group));
-			if (subGroup == null)
-				throw new ArgumentNullException(nameof(subGroup));
-			Group = group;
-			SubGroup = subGroup;
+			Group = group ?? throw new ArgumentNullException(nameof(group));
+			SubGroup = subGroup ?? throw new ArgumentNullException(nameof(subGroup));
 		}
 
 		public HexOffsetFormat HexOffsetFormat {

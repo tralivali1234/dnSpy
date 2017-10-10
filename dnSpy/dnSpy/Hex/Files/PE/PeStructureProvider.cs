@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.Hex.Files.PE {
 		readonly Lazy<PeFileLayoutProvider, VSUTIL.IOrderable>[] peFileLayoutProviders;
 
 		[ImportingConstructor]
-		PeStructureProviderFactory([ImportMany] IEnumerable<Lazy<PeFileLayoutProvider, VSUTIL.IOrderable>> peFileLayoutProviders) {
-			this.peFileLayoutProviders = VSUTIL.Orderer.Order(peFileLayoutProviders).ToArray();
-		}
+		PeStructureProviderFactory([ImportMany] IEnumerable<Lazy<PeFileLayoutProvider, VSUTIL.IOrderable>> peFileLayoutProviders) => this.peFileLayoutProviders = VSUTIL.Orderer.Order(peFileLayoutProviders).ToArray();
 
 		public override StructureProvider Create(HexBufferFile file) => new PeStructureProvider(file, peFileLayoutProviders);
 	}
@@ -47,12 +45,8 @@ namespace dnSpy.Hex.Files.PE {
 		HexSpan peHeadersSpan;
 
 		public PeStructureProvider(HexBufferFile file, Lazy<PeFileLayoutProvider, VSUTIL.IOrderable>[] peFileLayoutProviders) {
-			if (file == null)
-				throw new ArgumentNullException(nameof(file));
-			if (peFileLayoutProviders == null)
-				throw new ArgumentNullException(nameof(peFileLayoutProviders));
-			this.file = file;
-			this.peFileLayoutProviders = peFileLayoutProviders;
+			this.file = file ?? throw new ArgumentNullException(nameof(file));
+			this.peFileLayoutProviders = peFileLayoutProviders ?? throw new ArgumentNullException(nameof(peFileLayoutProviders));
 		}
 
 		public override bool Initialize() {
@@ -75,7 +69,7 @@ namespace dnSpy.Hex.Files.PE {
 			}
 			if (start < end)
 				return HexSpan.FromBounds(start, end);
-			return default(HexSpan);
+			return default;
 		}
 
 		public override ComplexData GetStructure(HexPosition position) {

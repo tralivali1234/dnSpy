@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -106,8 +106,6 @@ namespace dnSpy.Settings.Dialog {
 		}
 
 		public void Show(Guid? guid, Window ownerWindow) {
-			if (ownerWindow == null)
-				throw new ArgumentNullException(nameof(ownerWindow));
 			LastSelectedGuid = guid;
 
 			allPages = CreateSettingsPages();
@@ -124,7 +122,7 @@ namespace dnSpy.Settings.Dialog {
 
 			ContentConverterProperties.SetContentConverter(appSettingsDlg, this);
 			ContentConverterProperties.SetContentConverterVersion(appSettingsDlg, converterVersion);
-			appSettingsDlg.Owner = ownerWindow;
+			appSettingsDlg.Owner = ownerWindow ?? throw new ArgumentNullException(nameof(ownerWindow));
 
 			AppSettingsPageVM selectedItem = null;
 			if (guid != null)
@@ -142,8 +140,7 @@ namespace dnSpy.Settings.Dialog {
 			var appRefreshSettings = new AppRefreshSettings();
 			if (saveSettings) {
 				foreach (var page in allPages) {
-					var page2 = page.Page as IAppSettingsPage2;
-					if (page2 != null)
+					if (page.Page is IAppSettingsPage2 page2)
 						page2.OnApply(appRefreshSettings);
 					else
 						page.Page.OnApply();
@@ -249,8 +246,7 @@ namespace dnSpy.Settings.Dialog {
 			if (result != null)
 				return result;
 
-			var textControl = ownerControl as TextControl;
-			if (textControl != null) {
+			if (ownerControl is TextControl textControl) {
 				return new TextBlock {
 					Text = textControl.Content as string,
 					TextTrimming = textControl.TextTrimming,
@@ -283,8 +279,7 @@ namespace dnSpy.Settings.Dialog {
 			TextTrimming textTrimming = TextTrimming.None;
 			TextWrapping textWrapping = TextWrapping.NoWrap;
 
-			var textControl = ownerControl as TextControl;
-			if (textControl != null) {
+			if (ownerControl is TextControl textControl) {
 				textTrimming = textControl.TextTrimming;
 				textWrapping = textControl.TextWrapping;
 			}
@@ -361,8 +356,7 @@ namespace dnSpy.Settings.Dialog {
 				if (page.Page.Guid == rootGuid)
 					continue;
 
-				AppSettingsPageVM parentPage;
-				if (!dict.TryGetValue(page.Page.ParentGuid, out parentPage)) {
+				if (!dict.TryGetValue(page.Page.ParentGuid, out var parentPage)) {
 					Debug.Fail($"No parent with Guid {page.Page.ParentGuid}");
 					continue;
 				}
@@ -447,14 +441,11 @@ namespace dnSpy.Settings.Dialog {
 		}
 
 		static Guid? TryParseGuid(string guidString) {
-			Guid guid;
-			if (Guid.TryParse(guidString, out guid))
+			if (Guid.TryParse(guidString, out var guid))
 				return guid;
 			return null;
 		}
 
-		public void Dispose() {
-			pageContext?.TreeView?.Dispose();
-		}
+		public void Dispose() => pageContext?.TreeView?.Dispose();
 	}
 }

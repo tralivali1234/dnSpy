@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -64,16 +64,14 @@ namespace dnSpy.AsmEditor.Assembly {
 
 		public AssemblyDef CreateAssemblyDef(ModuleDef ownerModule) => ownerModule.UpdateRowId(CopyTo(new AssemblyDefUser()));
 
-		public static AssemblyOptions Create(string name) {
-			return new AssemblyOptions {
-				HashAlgorithm = AssemblyHashAlgorithm.SHA1,
-				Version = new Version(0, 0, 0, 0),
-				Attributes = AssemblyAttributes.None,
-				PublicKey = new PublicKey(Array.Empty<byte>()),
-				Name = name,
-				Culture = string.Empty,
-				ClrVersion = Module.ClrVersion.DefaultVersion,
-			};
-		}
+		public static AssemblyOptions Create(string name) => new AssemblyOptions {
+			HashAlgorithm = AssemblyHashAlgorithm.SHA1,
+			Version = new Version(0, 0, 0, 0),
+			Attributes = AssemblyAttributes.None,
+			PublicKey = new PublicKey(Array.Empty<byte>()),
+			Name = name,
+			Culture = string.Empty,
+			ClrVersion = Module.ClrVersion.DefaultVersion,
+		};
 	}
 }

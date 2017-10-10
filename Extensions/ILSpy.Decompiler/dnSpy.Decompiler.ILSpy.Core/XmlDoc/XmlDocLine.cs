@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -99,8 +99,7 @@ start2:
 				emptyLines = 0;
 			}
 
-			int index, end;
-			Trim(out index, out end);
+			Trim(out int index, out int end);
 			current = new SubString(s, index, end - index);
 			return true;
 		}
@@ -149,8 +148,6 @@ start2:
 			return true;
 		}
 
-		public void Reset() {
-			throw new NotImplementedException();
-		}
+		public void Reset() => throw new NotImplementedException();
 	}
 }

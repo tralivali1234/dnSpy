@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -46,9 +46,7 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// <param name="provider">Provider</param>
 		/// <param name="value">Value</param>
 		public HexStructureInfoProviderAndData(HexStructureInfoProvider provider, TValue value) {
-			if (provider == null)
-				throw new ArgumentNullException(nameof(provider));
-			Provider = provider;
+			Provider = provider ?? throw new ArgumentNullException(nameof(provider));
 			Value = value;
 		}
 	}

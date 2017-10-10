@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,12 +35,10 @@ namespace dnSpy.Hex.Files.PE {
 
 	sealed class PeHexFileStructureInfoProvider : HexFileStructureInfoProvider {
 		public override HexSpan? GetFieldReferenceSpan(HexBufferFile file, ComplexData structure, HexPosition position) {
-			var optHdr = structure as PeOptionalHeaderData;
-			if (optHdr != null)
+			if (structure is PeOptionalHeaderData optHdr)
 				return GetFieldReferenceSpan(file, optHdr, position);
 
-			var sections = structure as PeSectionsData;
-			if (sections != null)
+			if (structure is PeSectionsData sections)
 				return GetFieldReferenceSpan(file, sections, position);
 
 			return null;

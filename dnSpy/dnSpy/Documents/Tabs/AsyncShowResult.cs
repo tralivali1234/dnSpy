@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,9 +27,7 @@ namespace dnSpy.Documents.Tabs {
 		public bool IsCanceled { get; }
 		public bool CanShowOutput { get; }
 
-		public AsyncShowResult() {
-			CanShowOutput = true;
-		}
+		public AsyncShowResult() => CanShowOutput = true;
 
 		public AsyncShowResult(Task t, bool canShowOutput) {
 			Exception = t.Exception;

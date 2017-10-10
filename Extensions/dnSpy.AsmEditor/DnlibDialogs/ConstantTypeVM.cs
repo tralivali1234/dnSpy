@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -246,8 +246,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 					SetSelectedItem(ConstantType.String);
 					String.Value = null;
 				}
-				else if (value is EnumInfo) {
-					var enumInfo = (EnumInfo)value;
+				else if (value is EnumInfo enumInfo) {
 					if (enumInfo.IsArray) {
 						Debug.Assert(enumInfo.Value == null || enumInfo.Value is System.Collections.IList);
 						SetSelectedItem(ConstantType.EnumArray);

@@ -19,7 +19,7 @@ namespace dnSpy.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class dnSpy_Resources {
@@ -523,6 +523,204 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bookmark{0}.
+        /// </summary>
+        public static string BookmarkDefaultName {
+            get {
+                return ResourceManager.GetString("BookmarkDefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export all bookmarks matching the current search criteria.
+        /// </summary>
+        public static string Bookmarks_ExportMatchingBookmarks_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_ExportMatchingBookmarks_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the selected bookmark..
+        /// </summary>
+        public static string Bookmarks_GoToLocation_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToLocation_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the next bookmark..
+        /// </summary>
+        public static string Bookmarks_GoToNextBookmark_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToNextBookmark_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the next bookmark in the current file..
+        /// </summary>
+        public static string Bookmarks_GoToNextBookmarkInFile_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToNextBookmarkInFile_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the next bookmark with the same label..
+        /// </summary>
+        public static string Bookmarks_GoToNextBookmarkSameLabel_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToNextBookmarkSameLabel_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the previous bookmark..
+        /// </summary>
+        public static string Bookmarks_GoToPreviousBookmark_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToPreviousBookmark_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the previous bookmark in the current file..
+        /// </summary>
+        public static string Bookmarks_GoToPreviousBookmarkInFile_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToPreviousBookmarkInFile_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move the caret to the previous bookmark with the same label..
+        /// </summary>
+        public static string Bookmarks_GoToPreviousBookmarkSameLabel_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_GoToPreviousBookmarkSameLabel_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import bookmarks from a file.
+        /// </summary>
+        public static string Bookmarks_ImportBookmarks_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_ImportBookmarks_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No bookmarks match your search filter..
+        /// </summary>
+        public static string Bookmarks_NoMatch {
+            get {
+                return ResourceManager.GetString("Bookmarks_NoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove bookmark.
+        /// </summary>
+        public static string Bookmarks_RemoveBookmark_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_RemoveBookmark_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all bookmarks matching the current search criteria.
+        /// </summary>
+        public static string Bookmarks_RemoveMatchingBookmarks_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_RemoveMatchingBookmarks_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset all search criteria so that all bookmarks are shown.
+        /// </summary>
+        public static string Bookmarks_ResetSearchSettings_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_ResetSearchSettings_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Bookmarks_Search {
+            get {
+                return ResourceManager.GetString("Bookmarks_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for a bookmark.
+        /// </summary>
+        public static string Bookmarks_Search_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_Search_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle a bookmark on the current line..
+        /// </summary>
+        public static string Bookmarks_ToggleCreateBookmark_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_ToggleCreateBookmark_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable or disable all bookmarks matching the current search criteria.
+        /// </summary>
+        public static string Bookmarks_ToggleMatchingBookmarks_ToolTip {
+            get {
+                return ResourceManager.GetString("Bookmarks_ToggleMatchingBookmarks_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boo_kmarks.
+        /// </summary>
+        public static string BookmarksCommand {
+            get {
+                return ResourceManager.GetString("BookmarksCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks.
+        /// </summary>
+        public static string BookmarksOptDlgTab {
+            get {
+                return ResourceManager.GetString("BookmarksOptDlgTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syntax highlight.
+        /// </summary>
+        public static string BookmarksSettings_SyntaxHighlight {
+            get {
+                return ResourceManager.GetString("BookmarksSettings_SyntaxHighlight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Bookmark Window.
+        /// </summary>
+        public static string BookmarksWindowCommand {
+            get {
+                return ResourceManager.GetString("BookmarksWindowCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Cancel.
         /// </summary>
         public static string Button_Cancel {
@@ -622,11 +820,29 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clear All Bookmarks In Document.
+        /// </summary>
+        public static string ClearAllBookmarksInDocumentCommand {
+            get {
+                return ResourceManager.GetString("ClearAllBookmarksInDocumentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Al_l.
         /// </summary>
         public static string ClearAllCommand {
             get {
                 return ResourceManager.GetString("ClearAllCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Clear Bookmarks.
+        /// </summary>
+        public static string ClearBookmarksCommand {
+            get {
+                return ResourceManager.GetString("ClearBookmarksCommand", resourceCulture);
             }
         }
         
@@ -726,6 +942,42 @@ namespace dnSpy.Properties {
         public static string CollapseTreeViewNodesCommand {
             get {
                 return ResourceManager.GetString("CollapseTreeViewNodesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels.
+        /// </summary>
+        public static string Column_Labels {
+            get {
+                return ResourceManager.GetString("Column_Labels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string Column_Location {
+            get {
+                return ResourceManager.GetString("Column_Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Module.
+        /// </summary>
+        public static string Column_Module {
+            get {
+                return ResourceManager.GetString("Column_Module", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Column_Name {
+            get {
+                return ResourceManager.GetString("Column_Name", resourceCulture);
             }
         }
         
@@ -928,6 +1180,24 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable _All Bookmarks.
+        /// </summary>
+        public static string DisableAllBookmarksCommand {
+            get {
+                return ResourceManager.GetString("DisableAllBookmarksCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Bookmark.
+        /// </summary>
+        public static string DisableBookmarkCommand3 {
+            get {
+                return ResourceManager.GetString("DisableBookmarkCommand3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decompile a member&apos;s enclosing class instead of the class member.
         /// </summary>
         public static string DisplaySettings_DecompileType {
@@ -1027,11 +1297,65 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Labels.
+        /// </summary>
+        public static string EditLabelsCommand {
+            get {
+                return ResourceManager.GetString("EditLabelsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Labels.
+        /// </summary>
+        public static string EditLabelsMsgBoxLabel {
+            get {
+                return ResourceManager.GetString("EditLabelsMsgBoxLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Labels.
+        /// </summary>
+        public static string EditLabelsTitle {
+            get {
+                return ResourceManager.GetString("EditLabelsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;empty&gt;.
         /// </summary>
         public static string EmptyTabTitle {
             get {
                 return ResourceManager.GetString("EmptyTabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable _All Bookmarks.
+        /// </summary>
+        public static string EnableAllBookmarksCommand {
+            get {
+                return ResourceManager.GetString("EnableAllBookmarksCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Bookmark.
+        /// </summary>
+        public static string EnableBookmarkCommand {
+            get {
+                return ResourceManager.GetString("EnableBookmarkCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable Bookmark.
+        /// </summary>
+        public static string EnableBookmarkCommand3 {
+            get {
+                return ResourceManager.GetString("EnableBookmarkCommand3", resourceCulture);
             }
         }
         
@@ -1115,6 +1439,15 @@ namespace dnSpy.Properties {
         public static string ExplorerOpenWithDnSpy {
             get {
                 return ResourceManager.GetString("ExplorerOpenWithDnSpy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Export Selected....
+        /// </summary>
+        public static string ExportSelectedCommand {
+            get {
+                return ResourceManager.GetString("ExportSelectedCommand", resourceCulture);
             }
         }
         
@@ -1389,6 +1722,15 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go To Bookmark.
+        /// </summary>
+        public static string GoToBookmarkCommand {
+            get {
+                return ResourceManager.GetString("GoToBookmarkCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Current Position.
         /// </summary>
         public static string GoToCurrentPosition {
@@ -1524,6 +1866,33 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next _Bookmark.
+        /// </summary>
+        public static string GoToNextBookmarkCommand {
+            get {
+                return ResourceManager.GetString("GoToNextBookmarkCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N_ext Bookmark In Document.
+        /// </summary>
+        public static string GoToNextBookmarkInDocumentCommand {
+            get {
+                return ResourceManager.GetString("GoToNextBookmarkInDocumentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next Bookmark With Same Label.
+        /// </summary>
+        public static string GoToNextBookmarkWithSameLabelCommand {
+            get {
+                return ResourceManager.GetString("GoToNextBookmarkWithSameLabelCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O_ffset.
         /// </summary>
         public static string GoToOffset_Offset_Label {
@@ -1547,6 +1916,33 @@ namespace dnSpy.Properties {
         public static string GoToOffsetCommand {
             get {
                 return ResourceManager.GetString("GoToOffsetCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Previous Bookmark.
+        /// </summary>
+        public static string GoToPreviousBookmarkCommand {
+            get {
+                return ResourceManager.GetString("GoToPreviousBookmarkCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to P_revious Bookmark In Document.
+        /// </summary>
+        public static string GoToPreviousBookmarkInDocumentCommand {
+            get {
+                return ResourceManager.GetString("GoToPreviousBookmarkInDocumentCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Bookmark With Same Label.
+        /// </summary>
+        public static string GoToPreviousBookmarkWithSameLabelCommand {
+            get {
+                return ResourceManager.GetString("GoToPreviousBookmarkWithSameLabelCommand", resourceCulture);
             }
         }
         
@@ -2433,7 +2829,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navigate Backward (Backspace).
+        ///   Looks up a localized string similar to Navigate Backward.
         /// </summary>
         public static string NavigateBackCommand {
             get {
@@ -2442,7 +2838,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Navigate Forward (Alt+Right).
+        ///   Looks up a localized string similar to Navigate Forward.
         /// </summary>
         public static string NavigateForwardCommand {
             get {
@@ -2559,7 +2955,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search (Ctrl+E or Ctrl+F).
+        ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string OpenGAC_Search_ToolTip {
             get {
@@ -2775,7 +3171,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open (Ctrl+O).
+        ///   Looks up a localized string similar to Open.
         /// </summary>
         public static string OpenToolBarToolTip {
             get {
@@ -2847,7 +3243,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear All (Ctrl+L).
+        ///   Looks up a localized string similar to Clear All.
         /// </summary>
         public static string Output_ClearAll_ToolTip {
             get {
@@ -2856,7 +3252,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save (Ctrl+S).
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Output_Save_ToolTip {
             get {
@@ -2874,7 +3270,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toggle Word Wrap (Ctrl+E, Ctrl+W).
+        ///   Looks up a localized string similar to Toggle Word Wrap.
         /// </summary>
         public static string Output_WordWrap_ToolTip {
             get {
@@ -2982,6 +3378,33 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove All Bookmarks.
+        /// </summary>
+        public static string RemoveAllBookmarksCommand {
+            get {
+                return ResourceManager.GetString("RemoveAllBookmarksCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Bookmark.
+        /// </summary>
+        public static string RemoveBookmarkCommand {
+            get {
+                return ResourceManager.GetString("RemoveBookmarkCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename.
+        /// </summary>
+        public static string RenameCommand {
+            get {
+                return ResourceManager.GetString("RenameCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to REPL.
         /// </summary>
         public static string ReplSettings {
@@ -3036,16 +3459,16 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Big endian (Alt+B).
+        ///   Looks up a localized string similar to Big endian.
         /// </summary>
-        public static string Search_BigEndian {
+        public static string Search_BigEndianToolTip {
             get {
-                return ResourceManager.GetString("Search_BigEndian", resourceCulture);
+                return ResourceManager.GetString("Search_BigEndianToolTip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close (Esc).
+        ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Search_CloseToolTip {
             get {
@@ -3054,7 +3477,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find next (F3).
+        ///   Looks up a localized string similar to Find next.
         /// </summary>
         public static string Search_FindNextToolTip {
             get {
@@ -3063,7 +3486,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find previous (Shift+F3).
+        ///   Looks up a localized string similar to Find previous.
         /// </summary>
         public static string Search_FindPreviousToolTip {
             get {
@@ -3072,7 +3495,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match case (Alt+C).
+        ///   Looks up a localized string similar to Match case.
         /// </summary>
         public static string Search_MatchCaseToolTip {
             get {
@@ -3081,7 +3504,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match whole word (Alt+W).
+        ///   Looks up a localized string similar to Match whole word.
         /// </summary>
         public static string Search_MatchWholeWordToolTip {
             get {
@@ -3090,7 +3513,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace all (Alt+A).
+        ///   Looks up a localized string similar to Replace all.
         /// </summary>
         public static string Search_ReplaceAllToolTip {
             get {
@@ -3099,7 +3522,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace next (Alt+R).
+        ///   Looks up a localized string similar to Replace next.
         /// </summary>
         public static string Search_ReplaceNextToolTip {
             get {
@@ -3117,7 +3540,7 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Regular Expressions (Alt+E).
+        ///   Looks up a localized string similar to Use Regular Expressions.
         /// </summary>
         public static string Search_UseRegularExpressionsToolTip {
             get {
@@ -3144,11 +3567,20 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Assemblies ({0}).
+        ///   Looks up a localized string similar to Search Assemblies.
         /// </summary>
         public static string SearchAssembliesToolBarToolTip {
             get {
                 return ResourceManager.GetString("SearchAssembliesToolBarToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string SearchHelp_ToolTip {
+            get {
+                return ResourceManager.GetString("SearchHelp_ToolTip", resourceCulture);
             }
         }
         
@@ -3603,6 +4035,15 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select _All.
+        /// </summary>
+        public static string SelectAllCommand {
+            get {
+                return ResourceManager.GetString("SelectAllCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Length.
         /// </summary>
         public static string SelectLength {
@@ -3648,6 +4089,42 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt+A.
+        /// </summary>
+        public static string ShortCutKeyAltA {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt+B.
+        /// </summary>
+        public static string ShortCutKeyAltB {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt+C.
+        /// </summary>
+        public static string ShortCutKeyAltC {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt+E.
+        /// </summary>
+        public static string ShortCutKeyAltE {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alt+H.
         /// </summary>
         public static string ShortCutKeyAltH {
@@ -3666,11 +4143,56 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt+R.
+        /// </summary>
+        public static string ShortCutKeyAltR {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt+Right Arrow.
+        /// </summary>
+        public static string ShortCutKeyAltRightArrow {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltRightArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alt+U.
         /// </summary>
         public static string ShortCutKeyAltU {
             get {
                 return ResourceManager.GetString("ShortCutKeyAltU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt+W.
+        /// </summary>
+        public static string ShortCutKeyAltW {
+            get {
+                return ResourceManager.GetString("ShortCutKeyAltW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Backspace.
+        /// </summary>
+        public static string ShortCutKeyBackspace {
+            get {
+                return ResourceManager.GetString("ShortCutKeyBackspace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+{0}.
+        /// </summary>
+        public static string ShortCutKeyCtrl_DIGIT {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrl_DIGIT", resourceCulture);
             }
         }
         
@@ -3738,6 +4260,15 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+A.
+        /// </summary>
+        public static string ShortCutKeyCtrlA {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl+Alt+O.
         /// </summary>
         public static string ShortCutKeyCtrlAltO {
@@ -3761,6 +4292,15 @@ namespace dnSpy.Properties {
         public static string ShortCutKeyCtrlB {
             get {
                 return ResourceManager.GetString("ShortCutKeyCtrlB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+C.
+        /// </summary>
+        public static string ShortCutKeyCtrlC {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlC", resourceCulture);
             }
         }
         
@@ -3864,6 +4404,51 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+K, Ctrl+K.
+        /// </summary>
+        public static string ShortCutKeyCtrlK_CtrlK {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlK_CtrlK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+K, Ctrl+L.
+        /// </summary>
+        public static string ShortCutKeyCtrlK_CtrlL {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlK_CtrlL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+K, Ctrl+N.
+        /// </summary>
+        public static string ShortCutKeyCtrlK_CtrlN {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlK_CtrlN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+K, Ctrl+P.
+        /// </summary>
+        public static string ShortCutKeyCtrlK_CtrlP {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlK_CtrlP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ctrl+K, Ctrl+W.
+        /// </summary>
+        public static string ShortCutKeyCtrlK_CtrlW {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlK_CtrlW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl+K, Ctrl+8.
         /// </summary>
         public static string ShortCutKeyCtrlKCtrl8 {
@@ -3909,11 +4494,11 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ctrl+Shift+3.
+        ///   Looks up a localized string similar to Ctrl+S.
         /// </summary>
-        public static string ShortCutKeyCtrlShift3 {
+        public static string ShortCutKeyCtrlS {
             get {
-                return ResourceManager.GetString("ShortCutKeyCtrlShift3", resourceCulture);
+                return ResourceManager.GetString("ShortCutKeyCtrlS", resourceCulture);
             }
         }
         
@@ -3999,6 +4584,15 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ctrl+Shift+Q.
+        /// </summary>
+        public static string ShortCutKeyCtrlShiftQ {
+            get {
+                return ResourceManager.GetString("ShortCutKeyCtrlShiftQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ctrl+Shift+R.
         /// </summary>
         public static string ShortCutKeyCtrlShiftR {
@@ -4053,11 +4647,47 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter.
+        /// </summary>
+        public static string ShortCutKeyEnter {
+            get {
+                return ResourceManager.GetString("ShortCutKeyEnter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Esc.
+        /// </summary>
+        public static string ShortCutKeyEsc {
+            get {
+                return ResourceManager.GetString("ShortCutKeyEsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to F12.
         /// </summary>
         public static string ShortCutKeyF12 {
             get {
                 return ResourceManager.GetString("ShortCutKeyF12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F2.
+        /// </summary>
+        public static string ShortCutKeyF2 {
+            get {
+                return ResourceManager.GetString("ShortCutKeyF2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to F3.
+        /// </summary>
+        public static string ShortCutKeyF3 {
+            get {
+                return ResourceManager.GetString("ShortCutKeyF3", resourceCulture);
             }
         }
         
@@ -4076,6 +4706,15 @@ namespace dnSpy.Properties {
         public static string ShortCutKeyShiftEsc {
             get {
                 return ResourceManager.GetString("ShortCutKeyShiftEsc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift+F3.
+        /// </summary>
+        public static string ShortCutKeyShiftF3 {
+            get {
+                return ResourceManager.GetString("ShortCutKeyShiftF3", resourceCulture);
             }
         }
         
@@ -4107,11 +4746,47 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Declaring Types.
+        /// </summary>
+        public static string ShowDeclaringTypesCommand {
+            get {
+                return ResourceManager.GetString("ShowDeclaringTypesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Intrinsic Type Keywords.
+        /// </summary>
+        public static string ShowIntrinsicTypeKeywordsCommand {
+            get {
+                return ResourceManager.GetString("ShowIntrinsicTypeKeywordsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Line Numbers.
         /// </summary>
         public static string ShowLineNumbersCommand {
             get {
                 return ResourceManager.GetString("ShowLineNumbersCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show _Module Names.
+        /// </summary>
+        public static string ShowModuleNamesCommand {
+            get {
+                return ResourceManager.GetString("ShowModuleNamesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Namespaces.
+        /// </summary>
+        public static string ShowNamespacesCommand {
+            get {
+                return ResourceManager.GetString("ShowNamespacesCommand", resourceCulture);
             }
         }
         
@@ -4125,11 +4800,47 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show _Parameter Names.
+        /// </summary>
+        public static string ShowParameterNamesCommand {
+            get {
+                return ResourceManager.GetString("ShowParameterNamesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Parameter Types.
+        /// </summary>
+        public static string ShowParameterTypesCommand2 {
+            get {
+                return ResourceManager.GetString("ShowParameterTypesCommand2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Return Types.
+        /// </summary>
+        public static string ShowReturnTypesCommand {
+            get {
+                return ResourceManager.GetString("ShowReturnTypesCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Timestamps.
         /// </summary>
         public static string ShowTimestampsCommand {
             get {
                 return ResourceManager.GetString("ShowTimestampsCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Tokens.
+        /// </summary>
+        public static string ShowTokensCommand {
+            get {
+                return ResourceManager.GetString("ShowTokensCommand", resourceCulture);
             }
         }
         
@@ -4539,6 +5250,24 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Timestamp format.
+        /// </summary>
+        public static string TimestampDateTimeFormat {
+            get {
+                return ResourceManager.GetString("TimestampDateTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Toggle Bookmark.
+        /// </summary>
+        public static string ToggleBookmarkCommand {
+            get {
+                return ResourceManager.GetString("ToggleBookmarkCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Window Position.
         /// </summary>
         public static string ToolWindowWinPosButtonToolTip {
@@ -4611,6 +5340,15 @@ namespace dnSpy.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string User_Administrator {
+            get {
+                return ResourceManager.GetString("User_Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use Vertical Tab Groups.
         /// </summary>
         public static string UseVerticalTabGroupsCommand {
@@ -4634,6 +5372,15 @@ namespace dnSpy.Properties {
         public static string ValueMustBeWithinRange {
             get {
                 return ResourceManager.GetString("ValueMustBeWithinRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks.
+        /// </summary>
+        public static string Window_Bookmarks {
+            get {
+                return ResourceManager.GetString("Window_Bookmarks", resourceCulture);
             }
         }
         

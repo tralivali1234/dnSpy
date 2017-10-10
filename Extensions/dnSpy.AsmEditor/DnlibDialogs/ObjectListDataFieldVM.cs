@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -95,9 +95,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		void AddObject() {
 			if (createConstantType == null)
 				throw new InvalidOperationException();
-			bool canceled;
-			object newObjectNoSpecialNull;
-			var newObject = createConstantType.Create(ownerModule, null, Constants, true, true, options, out newObjectNoSpecialNull, out canceled);
+			var newObject = createConstantType.Create(ownerModule, null, Constants, true, true, options, out object newObjectNoSpecialNull, out bool canceled);
 			if (canceled)
 				return;
 

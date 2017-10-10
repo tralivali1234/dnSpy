@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,9 +39,7 @@ namespace dnSpy.MainApp {
 		Menu menu;
 
 		[ImportingConstructor]
-		MainMenuToolbarCommand(IMenuService menuService) {
-			this.menuService = menuService;
-		}
+		MainMenuToolbarCommand(IMenuService menuService) => this.menuService = menuService;
 
 		public override object GetUIObject(IToolBarItemContext context, IInputElement commandTarget) {
 			if (menu == null)

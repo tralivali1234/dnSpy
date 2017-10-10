@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,9 +40,7 @@ namespace dnSpy.Text.Editor {
 		readonly IIntraTextAdornmentServiceProvider intraTextAdornmentServiceProvider;
 
 		[ImportingConstructor]
-		IntraTextAdornmentServiceSpaceNegotiatingAdornmentTaggerProvider(IIntraTextAdornmentServiceProvider intraTextAdornmentServiceProvider) {
-			this.intraTextAdornmentServiceProvider = intraTextAdornmentServiceProvider;
-		}
+		IntraTextAdornmentServiceSpaceNegotiatingAdornmentTaggerProvider(IIntraTextAdornmentServiceProvider intraTextAdornmentServiceProvider) => this.intraTextAdornmentServiceProvider = intraTextAdornmentServiceProvider;
 
 		public ITagger<T> CreateTagger<T>(ITextView textView, ITextBuffer buffer) where T : ITag {
 			if (textView.TextBuffer != buffer)
@@ -67,9 +65,7 @@ namespace dnSpy.Text.Editor {
 		readonly IIntraTextAdornmentService intraTextAdornmentService;
 
 		public IntraTextAdornmentServiceSpaceNegotiatingAdornmentTagger(IIntraTextAdornmentService intraTextAdornmentService) {
-			if (intraTextAdornmentService == null)
-				throw new ArgumentNullException(nameof(intraTextAdornmentService));
-			this.intraTextAdornmentService = intraTextAdornmentService;
+			this.intraTextAdornmentService = intraTextAdornmentService ?? throw new ArgumentNullException(nameof(intraTextAdornmentService));
 			intraTextAdornmentService.RegisterTagger(this);
 		}
 
@@ -88,9 +84,7 @@ namespace dnSpy.Text.Editor {
 		readonly IViewTagAggregatorFactoryService viewTagAggregatorFactoryService;
 
 		[ImportingConstructor]
-		IntraTextAdornmentServiceProvider(IViewTagAggregatorFactoryService viewTagAggregatorFactoryService) {
-			this.viewTagAggregatorFactoryService = viewTagAggregatorFactoryService;
-		}
+		IntraTextAdornmentServiceProvider(IViewTagAggregatorFactoryService viewTagAggregatorFactoryService) => this.viewTagAggregatorFactoryService = viewTagAggregatorFactoryService;
 
 		public IIntraTextAdornmentService Get(IWpfTextView wpfTextView) {
 			if (wpfTextView == null)
@@ -122,13 +116,11 @@ namespace dnSpy.Text.Editor {
 		static readonly object providerTag = new object();
 
 		public IntraTextAdornmentService(IWpfTextView wpfTextView, IViewTagAggregatorFactoryService viewTagAggregatorFactoryService) {
-			if (wpfTextView == null)
-				throw new ArgumentNullException(nameof(wpfTextView));
 			if (viewTagAggregatorFactoryService == null)
 				throw new ArgumentNullException(nameof(viewTagAggregatorFactoryService));
 			adornmentTagInfos = new List<AdornmentTagInfo>();
 			currentLineIdentityTags = new HashSet<object>();
-			this.wpfTextView = wpfTextView;
+			this.wpfTextView = wpfTextView ?? throw new ArgumentNullException(nameof(wpfTextView));
 			tagAggregator = viewTagAggregatorFactoryService.CreateTagAggregator<IntraTextAdornmentTag>(wpfTextView);
 			tagAggregator.TagsChanged += TagAggregator_TagsChanged;
 			wpfTextView.Closed += WpfTextView_Closed;
@@ -285,9 +277,7 @@ namespace dnSpy.Text.Editor {
 
 		sealed class ZoomingUIElement : ContentControl {
 			readonly UIElement uiElem;
-			public ZoomingUIElement(UIElement uiElem) {
-				this.uiElem = uiElem;
-			}
+			public ZoomingUIElement(UIElement uiElem) => this.uiElem = uiElem;
 			public void Initialize() => Content = uiElem;
 			public void SetScale(double value) =>
 				LayoutTransform = value == 1 ? ScaleTransform.Identity : new ScaleTransform(1, value);
@@ -298,9 +288,7 @@ namespace dnSpy.Text.Editor {
 		public void RegisterTagger(IIntraTextAdornmentServiceSpaceNegotiatingAdornmentTagger tagger) {
 			if (this.tagger != null)
 				throw new InvalidOperationException();
-			if (tagger == null)
-				throw new ArgumentNullException(nameof(tagger));
-			this.tagger = tagger;
+			this.tagger = tagger ?? throw new ArgumentNullException(nameof(tagger));
 		}
 
 		public IEnumerable<ITagSpan<SpaceNegotiatingAdornmentTag>> GetTags(NormalizedSnapshotSpanCollection spans) {

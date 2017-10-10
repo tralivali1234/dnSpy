@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -27,9 +27,7 @@ namespace dnSpy.Contracts.Images {
 	/// on DPI, zoom and background color
 	/// </summary>
 	public sealed class DsImage : Image {
-		static DsImage() {
-			DefaultStyleKeyProperty.OverrideMetadata(typeof(DsImage), new FrameworkPropertyMetadata(typeof(DsImage)));
-		}
+		static DsImage() => DefaultStyleKeyProperty.OverrideMetadata(typeof(DsImage), new FrameworkPropertyMetadata(typeof(DsImage)));
 
 		/// <summary>
 		/// <see cref="ImageReference"/> dependency property

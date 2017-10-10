@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,10 +38,9 @@ namespace dnSpy.Contracts.Hex.Editor {
 		/// Constructor
 		/// </summary>
 		/// <param name="position">Position</param>
-		public HexCaretPosition(HexColumnPosition position) {
+		public HexCaretPosition(HexColumnPosition position) =>
 			// Don't throw if position is the default value. Could happen if none of values and ASCII columns are shown.
 			Position = position;
-		}
 
 		/// <summary>
 		/// operator ==()

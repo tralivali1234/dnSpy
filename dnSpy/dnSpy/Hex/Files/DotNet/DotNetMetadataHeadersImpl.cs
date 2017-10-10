@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -36,9 +36,7 @@ namespace dnSpy.Hex.Files.DotNet {
 
 		public DotNetMetadataHeadersImpl(HexSpan metadataSpan, DotNetMetadataHeaderData metadataHeader, DotNetHeap[] streams)
 			: base(metadataSpan) {
-			if (metadataHeader == null)
-				throw new ArgumentNullException(nameof(metadataHeader));
-			MetadataHeader = metadataHeader;
+			MetadataHeader = metadataHeader ?? throw new ArgumentNullException(nameof(metadataHeader));
 			Streams = new ReadOnlyCollection<DotNetHeap>(streams);
 			TablesStream = FindStream<TablesHeap>(streams);
 			StringsStream = FindStream<StringsHeap>(streams);
@@ -52,8 +50,7 @@ namespace dnSpy.Hex.Files.DotNet {
 
 		T FindStream<T>(DotNetHeap[] streams) where T : DotNetHeap {
 			foreach (var stream in streams) {
-				var t = stream as T;
-				if (t != null)
+				if (stream is T t)
 					return t;
 			}
 			return null;

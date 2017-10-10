@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -48,12 +48,8 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="buffer">Buffer</param>
 		/// <param name="spans">Spans</param>
 		public NormalizedHexBufferSpanCollection(HexBuffer buffer, NormalizedHexSpanCollection spans) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
-			if (spans == null)
-				throw new ArgumentNullException(nameof(spans));
-			coll = spans;
-			this.buffer = buffer;
+			coll = spans ?? throw new ArgumentNullException(nameof(spans));
+			this.buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 		}
 
 		/// <summary>
@@ -62,12 +58,10 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="buffer">Buffer</param>
 		/// <param name="spans">Spans</param>
 		public NormalizedHexBufferSpanCollection(HexBuffer buffer, IEnumerable<HexSpan> spans) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
 			if (spans == null)
 				throw new ArgumentNullException(nameof(spans));
 			coll = new NormalizedHexSpanCollection(spans);
-			this.buffer = buffer;
+			this.buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 		}
 
 		/// <summary>
@@ -76,10 +70,8 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="buffer">Buffer</param>
 		/// <param name="span">Span</param>
 		public NormalizedHexBufferSpanCollection(HexBuffer buffer, HexSpan span) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
 			coll = new NormalizedHexSpanCollection(span);
-			this.buffer = buffer;
+			this.buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 		}
 
 		/// <summary>
@@ -194,24 +186,24 @@ namespace dnSpy.Contracts.Hex {
 		}
 
 		// These don't seem very useful
-		bool ICollection<HexBufferSpan>.Contains(HexBufferSpan item) { throw new NotImplementedException(); }
-		void ICollection<HexBufferSpan>.CopyTo(HexBufferSpan[] array, int arrayIndex) { throw new NotImplementedException(); }
-		int IList<HexBufferSpan>.IndexOf(HexBufferSpan item) { throw new NotImplementedException(); }
-		void ICollection.CopyTo(Array array, int index) { throw new NotImplementedException(); }
-		bool IList.Contains(object value) { throw new NotImplementedException(); }
-		int IList.IndexOf(object value) { throw new NotImplementedException(); }
+		bool ICollection<HexBufferSpan>.Contains(HexBufferSpan item) => throw new NotImplementedException();
+		void ICollection<HexBufferSpan>.CopyTo(HexBufferSpan[] array, int arrayIndex) => throw new NotImplementedException();
+		int IList<HexBufferSpan>.IndexOf(HexBufferSpan item) => throw new NotImplementedException();
+		void ICollection.CopyTo(Array array, int index) => throw new NotImplementedException();
+		bool IList.Contains(object value) => throw new NotImplementedException();
+		int IList.IndexOf(object value) => throw new NotImplementedException();
 
 		// It's a read-only collection
-		int IList.Add(object value) { throw new NotSupportedException(); }
-		void ICollection<HexBufferSpan>.Add(HexBufferSpan item) { throw new NotSupportedException(); }
-		void IList.Clear() { throw new NotSupportedException(); }
-		void ICollection<HexBufferSpan>.Clear() { throw new NotSupportedException(); }
-		void IList.Insert(int index, object value) { throw new NotSupportedException(); }
-		void IList<HexBufferSpan>.Insert(int index, HexBufferSpan item) { throw new NotSupportedException(); }
-		void IList.Remove(object value) { throw new NotSupportedException(); }
-		bool ICollection<HexBufferSpan>.Remove(HexBufferSpan item) { throw new NotSupportedException(); }
-		void IList.RemoveAt(int index) { throw new NotSupportedException(); }
-		void IList<HexBufferSpan>.RemoveAt(int index) { throw new NotSupportedException(); }
+		int IList.Add(object value) => throw new NotSupportedException();
+		void ICollection<HexBufferSpan>.Add(HexBufferSpan item) => throw new NotSupportedException();
+		void IList.Clear() => throw new NotSupportedException();
+		void ICollection<HexBufferSpan>.Clear() => throw new NotSupportedException();
+		void IList.Insert(int index, object value) => throw new NotSupportedException();
+		void IList<HexBufferSpan>.Insert(int index, HexBufferSpan item) => throw new NotSupportedException();
+		void IList.Remove(object value) => throw new NotSupportedException();
+		bool ICollection<HexBufferSpan>.Remove(HexBufferSpan item) => throw new NotSupportedException();
+		void IList.RemoveAt(int index) => throw new NotSupportedException();
+		void IList<HexBufferSpan>.RemoveAt(int index) => throw new NotSupportedException();
 
 		/// <summary>
 		/// operator ==()

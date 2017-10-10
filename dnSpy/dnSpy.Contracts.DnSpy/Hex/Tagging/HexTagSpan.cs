@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -70,11 +70,9 @@ namespace dnSpy.Contracts.Hex.Tagging {
 		public HexTagSpan(HexBufferSpan span, HexSpanSelectionFlags flags, T tag) {
 			if (span.IsDefault)
 				throw new ArgumentException();
-			if (tag == null)
-				throw new ArgumentNullException(nameof(tag));
 			Span = span;
 			Flags = flags;
-			Tag = tag;
+			Tag = tag ?? throw new ArgumentNullException(nameof(tag));
 		}
 	}
 }

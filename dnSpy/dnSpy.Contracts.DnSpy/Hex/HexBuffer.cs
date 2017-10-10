@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -31,10 +31,8 @@ namespace dnSpy.Contracts.Hex {
 		/// Constructor
 		/// </summary>
 		protected HexBuffer(HexTags tags) {
-			if (tags == null)
-				throw new ArgumentNullException(nameof(tags));
 			Properties = new VSUTIL.PropertyCollection();
-			Tags = tags;
+			Tags = tags ?? throw new ArgumentNullException(nameof(tags));
 		}
 
 		/// <summary>
@@ -717,8 +715,6 @@ namespace dnSpy.Contracts.Hex {
 		/// Constructor
 		/// </summary>
 		/// <param name="span">Span</param>
-		public HexBufferSpanInvalidatedEventArgs(HexSpan span) {
-			Span = span;
-		}
+		public HexBufferSpanInvalidatedEventArgs(HexSpan span) => Span = span;
 	}
 }

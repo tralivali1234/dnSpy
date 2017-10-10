@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -64,13 +64,11 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="tokens">Tokens of all methods that reference this method body</param>
 		protected DotNetMethodBody(DotNetMethodProvider methodProvider, string name, HexBufferSpan span, ReadOnlyCollection<uint> tokens)
 			: base(name, span) {
-			if (methodProvider == null)
-				throw new ArgumentNullException(nameof(methodProvider));
 			if (tokens == null)
 				throw new ArgumentOutOfRangeException(nameof(tokens));
 			if (tokens.Count == 0)
 				throw new ArgumentOutOfRangeException(nameof(tokens));
-			MethodProvider = methodProvider;
+			MethodProvider = methodProvider ?? throw new ArgumentNullException(nameof(methodProvider));
 			Tokens = tokens;
 		}
 

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,9 +44,7 @@ namespace dnSpy.Hex.Tagging {
 
 			readonly TagAggregator<T> owner;
 
-			public HexTagAggregatorProxy(TagAggregator<T> owner) {
-				this.owner = owner;
-			}
+			public HexTagAggregatorProxy(TagAggregator<T> owner) => this.owner = owner;
 
 			public override IEnumerable<IHexTagSpan<T>> GetTags(NormalizedHexBufferSpanCollection spans) =>
 				owner.GetTags(spans);
@@ -68,12 +66,10 @@ namespace dnSpy.Hex.Tagging {
 		}
 
 		protected TagAggregator(HexBuffer buffer) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
 			dispatcher = Dispatcher.CurrentDispatcher;
 			batchedTagsChangedList = new List<HexBufferSpan>();
 			lockObj = new object();
-			Buffer = buffer;
+			Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			taggers = Array.Empty<IHexTagger<T>>();
 			hexTagAggregatorProxy = new HexTagAggregatorProxy(this);
 		}
@@ -168,10 +164,9 @@ namespace dnSpy.Hex.Tagging {
 			taggers = Array.Empty<IHexTagger<T>>();
 		}
 
-		void Tagger_TagsChanged(object sender, HexBufferSpanEventArgs e) {
+		void Tagger_TagsChanged(object sender, HexBufferSpanEventArgs e) =>
 			// Use original sender, not us
 			RaiseTagsChanged(e.Span, sender);
-		}
 
 		void RaiseTagsChanged(HexBufferSpan span, object sender = null) {
 			if (IsDisposed)

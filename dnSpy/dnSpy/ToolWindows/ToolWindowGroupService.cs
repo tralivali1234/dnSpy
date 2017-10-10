@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -59,9 +59,7 @@ namespace dnSpy.ToolWindows {
 				if (value == null)
 					throw new ArgumentNullException(nameof(value));
 				var tg = GetTabGroup(value);
-				if (tg == null)
-					throw new InvalidOperationException();
-				tabGroupService.ActiveTabGroup = tg;
+				tabGroupService.ActiveTabGroup = tg ?? throw new InvalidOperationException();
 			}
 		}
 

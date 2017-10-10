@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -76,12 +76,6 @@ namespace dnSpy.Hex {
 
 		[DllImport("kernel32", SetLastError = true)]
 		public static extern uint GetProcessId(IntPtr hThread);
-
-		[DllImport("kernel32", SetLastError = true)]
-		public static extern IntPtr OpenProcess(uint dwDesiredAccess, bool bInheritHandle, uint dwProcessId);
-		const uint STANDARD_RIGHTS_REQUIRED = 0x000F0000;
-		const uint SYNCHRONIZE = 0x00100000;
-		public const uint PROCESS_ALL_ACCESS = STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0xFFFF;
 
 		[DllImport("kernel32", SetLastError = true)]
 		[return: MarshalAs(UnmanagedType.Bool)]

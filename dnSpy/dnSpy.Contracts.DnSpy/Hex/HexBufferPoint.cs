@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,11 +45,9 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="buffer">Buffer</param>
 		/// <param name="position">Position</param>
 		public HexBufferPoint(HexBuffer buffer, HexPosition position) {
-			if (buffer == null)
-				throw new ArgumentNullException(nameof(buffer));
 			if (position > HexPosition.MaxEndPosition)
 				throw new ArgumentOutOfRangeException(nameof(position));
-			Buffer = buffer;
+			Buffer = buffer ?? throw new ArgumentNullException(nameof(buffer));
 			Position = position;
 		}
 

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,9 +39,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		readonly StorageHeaderVM storageHeaderVM;
 
 		public StorageHeaderNode(StorageHeaderVM storageHeader)
-			: base(storageHeader.Span) {
-			storageHeaderVM = storageHeader;
-		}
+			: base(storageHeader.Span) => storageHeaderVM = storageHeader;
 
 		protected override void WriteCore(ITextColorWriter output, DocumentNodeWriteOptions options) =>
 			output.Write(BoxedTextColor.HexStorageHeader, dnSpy_AsmEditor_Resources.HexNode_StorageHeader);

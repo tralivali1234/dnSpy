@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -29,9 +29,7 @@ namespace dnSpy.Hex {
 		public override event EventHandler<HexBufferCreatedEventArgs> HexBufferCreated;
 
 		[ImportingConstructor]
-		HexBufferFactoryServiceImpl(HexBufferStreamFactoryService hexBufferStreamFactoryService) {
-			this.hexBufferStreamFactoryService = hexBufferStreamFactoryService;
-		}
+		HexBufferFactoryServiceImpl(HexBufferStreamFactoryService hexBufferStreamFactoryService) => this.hexBufferStreamFactoryService = hexBufferStreamFactoryService;
 
 		public override HexBuffer Create(string filename, HexTags tags) {
 			if (filename == null)

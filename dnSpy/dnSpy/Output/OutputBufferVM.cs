@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -70,6 +70,7 @@ namespace dnSpy.Output {
 		}
 
 		bool ShowTimestamps => logEditor.TextView.Options.GetOptionValue(DefaultOutputOptions.ShowTimestampsId);
+		string TimestampDateTimeFormat => logEditor.TextView.Options.GetOptionValue(DefaultOutputOptions.TimestampDateTimeFormatId);
 
 		readonly ILogEditor logEditor;
 		readonly IEditorOperations editorOperations;
@@ -126,8 +127,11 @@ namespace dnSpy.Output {
 				if (needTimestamp) {
 					needTimestamp = false;
 					if (ShowTimestamps) {
-						logEditor.Write(DateTime.Now.ToLongTimeString(), BoxedTextColor.DebugLogTimestamp);
-						logEditor.Write(" ", BoxedTextColor.Text);
+						var format = TimestampDateTimeFormat;
+						if (!string.IsNullOrWhiteSpace(format)) {
+							logEditor.Write(DateTime.Now.ToString(format), BoxedTextColor.DebugLogTimestamp);
+							logEditor.Write(" ", BoxedTextColor.Text);
+						}
 					}
 				}
 

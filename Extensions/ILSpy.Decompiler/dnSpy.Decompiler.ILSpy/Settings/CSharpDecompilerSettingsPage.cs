@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -128,8 +128,7 @@ namespace dnSpy.Decompiler.ILSpy.Settings {
 			DecompileAll		= ILAst | CSharp | VB,
 		}
 
-		public override void OnApply() { throw new InvalidOperationException(); }
-
+		public override void OnApply() => throw new InvalidOperationException();
 		public void OnApply(IAppRefreshSettings appRefreshSettings) {
 			RefreshFlags flags = 0;
 			var g = _global_decompilerSettings;

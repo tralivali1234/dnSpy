@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -61,9 +61,7 @@ namespace dnSpy.Contracts.Decompiler {
 		/// <param name="type">Type</param>
 		public DecompileTypeMethods(IDecompilerOutput output, DecompilationContext ctx, TypeDef type)
 			: base(output, ctx) {
-			if (type == null)
-				throw new ArgumentNullException(nameof(type));
-			Type = type;
+			Type = type ?? throw new ArgumentNullException(nameof(type));
 			Methods = new HashSet<MethodDef>();
 			DecompileHidden = false;
 		}

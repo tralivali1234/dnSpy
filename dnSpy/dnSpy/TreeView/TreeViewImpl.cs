@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -220,15 +220,6 @@ namespace dnSpy.TreeView {
 			if (nodes.Length > 0) {
 				sharpTreeView.FocusNode(nodes[0].Node);
 				sharpTreeView.SelectedItem = nodes[0].Node;
-
-				// FocusNode() should already call ScrollIntoView() but for some reason,
-				// ScrollIntoView() does nothing so add another call.
-				// Background priority won't work, we need ContextIdle prio
-				sharpTreeView.Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(() => {
-					var item = sharpTreeView.SelectedItem as SharpTreeNode;
-					if (item != null)
-						sharpTreeView.ScrollIntoView(item);
-				}));
 			}
 			foreach (var node in nodes) {
 				if (sharpTreeView.SelectionMode == SelectionMode.Single) {
@@ -240,6 +231,8 @@ namespace dnSpy.TreeView {
 			}
 		}
 
+		public void SelectAll() => sharpTreeView.SelectAll();
+
 		public void Focus() {
 			Focus2();
 			// This is needed if the treeview was hidden and just got visible. It's disabled because
@@ -248,16 +241,14 @@ namespace dnSpy.TreeView {
 		}
 
 		void Focus2() {
-			var node = sharpTreeView.SelectedItem as SharpTreeNode;
-			if (node != null)
+			if (sharpTreeView.SelectedItem is SharpTreeNode node)
 				sharpTreeView.FocusNode(node);
 			else
 				sharpTreeView.Focus();
 		}
 
 		public void ScrollIntoView() {
-			var node = sharpTreeView.SelectedItem as SharpTreeNode;
-			if (node != null)
+			if (sharpTreeView.SelectedItem is SharpTreeNode node)
 				sharpTreeView.ScrollIntoView(node);
 		}
 

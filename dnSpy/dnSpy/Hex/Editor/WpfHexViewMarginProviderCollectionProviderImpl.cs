@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,9 +35,7 @@ namespace dnSpy.Hex.Editor {
 		readonly Lazy<WpfHexViewMarginProvider, IWpfHexViewMarginMetadata>[] wpfHexViewMarginProviders;
 
 		[ImportingConstructor]
-		WpfHexViewMarginProviderCollectionProviderImpl([ImportMany] IEnumerable<Lazy<WpfHexViewMarginProvider, IWpfHexViewMarginMetadata>> wpfHexViewMarginProviders) {
-			this.wpfHexViewMarginProviders = VSUTIL.Orderer.Order(wpfHexViewMarginProviders).ToArray();
-		}
+		WpfHexViewMarginProviderCollectionProviderImpl([ImportMany] IEnumerable<Lazy<WpfHexViewMarginProvider, IWpfHexViewMarginMetadata>> wpfHexViewMarginProviders) => this.wpfHexViewMarginProviders = VSUTIL.Orderer.Order(wpfHexViewMarginProviders).ToArray();
 
 		public override WpfHexViewMarginProviderCollection Create(WpfHexViewHost wpfHexViewHost, WpfHexViewMargin marginContainer, string marginContainerName) {
 			if (wpfHexViewHost == null)

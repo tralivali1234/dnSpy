@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,12 +32,8 @@ namespace dnSpy.Hex.Files.DotNet {
 		protected MDTable MDTable { get; }
 
 		public TableRecordDataFactory(TablesHeap tablesHeap, MDTable mdTable) {
-			if (tablesHeap == null)
-				throw new ArgumentNullException(nameof(tablesHeap));
-			if (mdTable == null)
-				throw new ArgumentNullException(nameof(mdTable));
-			TablesHeap = tablesHeap;
-			MDTable = mdTable;
+			TablesHeap = tablesHeap ?? throw new ArgumentNullException(nameof(tablesHeap));
+			MDTable = mdTable ?? throw new ArgumentNullException(nameof(mdTable));
 		}
 
 		public TableRecordData Create(uint rid) {
@@ -297,6 +293,8 @@ namespace dnSpy.Hex.Files.DotNet {
 		static readonly ReadOnlyCollection<FlagInfo> paramAttrFlagInfos = new ReadOnlyCollection<FlagInfo>(new FlagInfo[] {
 			new FlagInfo(0x0001, "In"),
 			new FlagInfo(0x0002, "Out"),
+			new FlagInfo(0x0004, "Lcid"),
+			new FlagInfo(0x0008, "Retval"),
 			new FlagInfo(0x0010, "Optional"),
 			new FlagInfo(0x1000, "HasDefault"),
 			new FlagInfo(0x2000, "HasFieldMarshal"),

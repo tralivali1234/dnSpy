@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -32,9 +32,7 @@ namespace dnSpy.Hex.Editor.Search {
 		readonly HexSearchServiceProvider hexSearchServiceProvider;
 
 		[ImportingConstructor]
-		HexSearchServiceFactoryImpl(HexSearchServiceProvider hexSearchServiceProvider) {
-			this.hexSearchServiceProvider = hexSearchServiceProvider;
-		}
+		HexSearchServiceFactoryImpl(HexSearchServiceProvider hexSearchServiceProvider) => this.hexSearchServiceProvider = hexSearchServiceProvider;
 
 		public override bool IsSearchDataValid(HexDataKind dataKind, string searchString, bool matchCase, bool isBigEndian) {
 			if (searchString == string.Empty)

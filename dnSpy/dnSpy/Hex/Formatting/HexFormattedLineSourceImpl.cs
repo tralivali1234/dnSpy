@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -54,10 +54,6 @@ namespace dnSpy.Hex.Formatting {
 		public HexFormattedLineSourceImpl(TF.ITextFormatterProvider textFormatterProvider, double baseIndent, bool useDisplayMode, HexClassifier aggregateClassifier, HexAndAdornmentSequencer sequencer, VSTC.IClassificationFormatMap classificationFormatMap) {
 			if (textFormatterProvider == null)
 				throw new ArgumentNullException(nameof(textFormatterProvider));
-			if (aggregateClassifier == null)
-				throw new ArgumentNullException(nameof(aggregateClassifier));
-			if (sequencer == null)
-				throw new ArgumentNullException(nameof(sequencer));
 			if (classificationFormatMap == null)
 				throw new ArgumentNullException(nameof(classificationFormatMap));
 
@@ -69,8 +65,8 @@ namespace dnSpy.Hex.Formatting {
 			LineHeight = HexFormattedLineImpl.DEFAULT_TOP_SPACE + HexFormattedLineImpl.DEFAULT_BOTTOM_SPACE + formattedTextCache.GetLineHeight(classificationFormatMap.DefaultTextProperties);
 			TextHeightAboveBaseline = formattedTextCache.GetTextHeightAboveBaseline(classificationFormatMap.DefaultTextProperties);
 			TextHeightBelowBaseline = formattedTextCache.GetTextHeightBelowBaseline(classificationFormatMap.DefaultTextProperties);
-			HexAndAdornmentSequencer = sequencer;
-			this.aggregateClassifier = aggregateClassifier;
+			HexAndAdornmentSequencer = sequencer ?? throw new ArgumentNullException(nameof(sequencer));
+			this.aggregateClassifier = aggregateClassifier ?? throw new ArgumentNullException(nameof(aggregateClassifier));
 			this.classificationFormatMap = classificationFormatMap;
 			defaultTextParagraphProperties = new VSTF.TextFormattingParagraphProperties(classificationFormatMap.DefaultTextProperties, ColumnWidth * TabSize);
 		}
@@ -154,8 +150,7 @@ namespace dnSpy.Hex.Formatting {
 					}
 				}
 				else {
-					var adornmentElement = seqElem as HexAdornmentElement;
-					if (adornmentElement != null) {
+					if (seqElem is HexAdornmentElement adornmentElement) {
 						var span = seqElem.Span;
 						list.Add(new HexLinePart(list.Count, column, new VST.Span(span.Start - startOffs, span.Length), adornmentElement, DefaultTextProperties));
 						column += list[list.Count - 1].ColumnLength;

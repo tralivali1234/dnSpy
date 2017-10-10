@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -43,7 +43,12 @@ namespace dnSpy.Metadata {
 		public ModuleId Create(ModuleDef module) {
 			if (module == null)
 				return new ModuleId();
-			return moduleDictionary.GetValue(module, callbackCreateCore).Value;
+			var res = moduleDictionary.GetValue(module, callbackCreateCore).Value;
+			// Don't cache dynamic modules. The reason is that their ModuleIds could change,
+			// see CorDebug's DbgEngineImpl.UpdateDynamicModuleIds()
+			if (res.IsDynamic)
+				return CreateCore(module).Value;
+			return res;
 		}
 
 		StrongBox<ModuleId> CreateCore(ModuleDef module) {

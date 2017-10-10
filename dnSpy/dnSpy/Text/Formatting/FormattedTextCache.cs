@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,9 +35,7 @@ namespace dnSpy.Text.Formatting {
 			public double TextHeightAboveBaseline => formattedText.Baseline;
 			public double TextHeightBelowBaseline => formattedText.Height - formattedText.Baseline;
 
-			public Info(FormattedText formattedText) {
-				this.formattedText = formattedText;
-			}
+			public Info(FormattedText formattedText) => this.formattedText = formattedText;
 		}
 
 		public FormattedTextCache(bool useDisplayMode) {
@@ -46,10 +44,11 @@ namespace dnSpy.Text.Formatting {
 		}
 
 		Info GetInfo(TextFormattingRunProperties props) {
-			Info info;
-			if (dict.TryGetValue(props, out info))
+			if (dict.TryGetValue(props, out var info))
 				return info;
+#pragma warning disable 0618 // Type or member is obsolete
 			var ft = new FormattedText("Xg ", props.CultureInfo, FlowDirection.LeftToRight, props.Typeface, props.FontRenderingEmSize, props.ForegroundBrush, null, textFormattingMode);
+#pragma warning restore 0618 // Type or member is obsolete
 			info = new Info(ft);
 			dict.Add(props, info);
 			return info;

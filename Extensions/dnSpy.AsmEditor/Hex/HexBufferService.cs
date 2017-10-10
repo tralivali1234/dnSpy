@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -70,8 +70,7 @@ namespace dnSpy.AsmEditor.Hex {
 
 		void OnDocumentSaved(HexBuffer buffer) {
 			lock (lockObj) {
-				object dictObj;
-				bool b = filenameToBuffer.TryGetValue(buffer.Name, out dictObj);
+				bool b = filenameToBuffer.TryGetValue(buffer.Name, out object dictObj);
 				Debug.Assert(b);
 				if (!b)
 					return;
@@ -86,8 +85,7 @@ namespace dnSpy.AsmEditor.Hex {
 
 		void OnDocumentDirty(HexBuffer buffer) {
 			lock (lockObj) {
-				object dictObj;
-				bool b = filenameToBuffer.TryGetValue(buffer.Name, out dictObj);
+				bool b = filenameToBuffer.TryGetValue(buffer.Name, out object dictObj);
 				Debug.Assert(b);
 				if (!b)
 					return;
@@ -120,15 +118,13 @@ namespace dnSpy.AsmEditor.Hex {
 		}
 
 		HexBuffer TryGet_NoLock(string filename) {
-			object obj;
-			if (!filenameToBuffer.TryGetValue(filename, out obj))
+			if (!filenameToBuffer.TryGetValue(filename, out object obj))
 				return null;
 			return TryGetBuffer(obj);
 		}
 
 		HexBuffer TryGetBuffer(object obj) {
-			var buffer = obj as HexBuffer;
-			if (buffer != null)
+			if (obj is HexBuffer buffer)
 				return buffer;
 			var weakRef = obj as WeakReference;
 			Debug.Assert(weakRef != null);

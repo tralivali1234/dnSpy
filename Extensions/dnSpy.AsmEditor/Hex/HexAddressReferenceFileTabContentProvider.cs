@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -37,9 +37,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		readonly Lazy<IHexViewDocumentTabContentCreator> hexViewDocumentTabContentCreator;
 
 		[ImportingConstructor]
-		HexAddressReferenceFileTabContentCreator(Lazy<IHexViewDocumentTabContentCreator> hexViewDocumentTabContentCreator, IDocumentTreeView documentTreeView) {
-			this.hexViewDocumentTabContentCreator = hexViewDocumentTabContentCreator;
-		}
+		HexAddressReferenceFileTabContentCreator(Lazy<IHexViewDocumentTabContentCreator> hexViewDocumentTabContentCreator, IDocumentTreeView documentTreeView) => this.hexViewDocumentTabContentCreator = hexViewDocumentTabContentCreator;
 
 		public DocumentTabReferenceResult Create(IDocumentTabService documentTabService, DocumentTabContent sourceContent, object @ref) {
 			var addrRef = @ref as AddressReference;

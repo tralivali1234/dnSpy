@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -45,12 +45,10 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 
 		public string TypeFullName {
 			get {
-				var mrCtor = Constructor as MemberRef;
-				if (mrCtor != null)
+				if (Constructor is MemberRef mrCtor)
 					return mrCtor.GetDeclaringTypeFullName() ?? string.Empty;
 
-				var mdCtor = Constructor as MethodDef;
-				if (mdCtor != null) {
+				if (Constructor is MethodDef mdCtor) {
 					var declType = mdCtor.DeclaringType;
 					if (declType != null)
 						return declType.FullName;

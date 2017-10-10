@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CB6F6372-9479-41E2-83A8-07854326BCA8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>dnSpy.Contracts</RootNamespace>
     <AssemblyName>dnSpy.Contracts.DnSpy</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\dnSpy.snk</AssemblyOriginatorKeyFile>
     <Features>strict</Features>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,6 +73,27 @@
     <Compile Include="BackgroundImage\DefaultImageSettings.cs" />
     <Compile Include="BackgroundImage\IBackgroundImageOptionDefinition.cs" />
     <Compile Include="BackgroundImage\ImagePlacement.cs" />
+    <Compile Include="Bookmarks\BMObject.cs" />
+    <Compile Include="Bookmarks\Bookmark.cs" />
+    <Compile Include="Bookmarks\BookmarkDisplaySettings.cs" />
+    <Compile Include="Bookmarks\BookmarkLocation.cs" />
+    <Compile Include="Bookmarks\BookmarkLocationFormatter.cs" />
+    <Compile Include="Bookmarks\BookmarkLocationFormatterProvider.cs" />
+    <Compile Include="Bookmarks\BookmarkLocationSerializer.cs" />
+    <Compile Include="Bookmarks\BookmarkSettings.cs" />
+    <Compile Include="Bookmarks\BookmarksService.cs" />
+    <Compile Include="Bookmarks\BookmarksSettings.cs" />
+    <Compile Include="Bookmarks\CollectionChangedEventArgs.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetBookmarkFactory.cs" />
+    <Compile Include="Bookmarks\DotNet\DotNetBookmarkLocation.cs" />
+    <Compile Include="Bookmarks\Navigator\BookmarkDocument.cs" />
+    <Compile Include="Bookmarks\Navigator\BookmarkDocumentProvider.cs" />
+    <Compile Include="Bookmarks\Navigator\BookmarkNavigator.cs" />
+    <Compile Include="Bookmarks\PredefinedBookmarkLocationTypes.cs" />
+    <Compile Include="Bookmarks\TextEditor\BookmarkGlyphTextMarkerLocationProvider.cs" />
+    <Compile Include="Bookmarks\TextEditor\TextViewBookmarkLocationProvider.cs" />
+    <Compile Include="Command\BookmarkIds.cs" />
+    <Compile Include="Command\BookmarkIdsExtensions.cs" />
     <Compile Include="Command\CommandConstants.cs" />
     <Compile Include="Command\CommandInfo.cs" />
     <Compile Include="Command\CommandInfoProviderOrder.cs" />
@@ -117,11 +138,19 @@
     <Compile Include="Controls\MetroWindow.cs" />
     <Compile Include="Controls\MetroWindowCreatedEventArgs.cs" />
     <Compile Include="Controls\TextControl.cs" />
+    <Compile Include="Controls\ToolWindows\EditValueControl.xaml.cs">
+      <DependentUpon>EditValueControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ToolWindows\EditValueProviderService.cs" />
+    <Compile Include="Controls\ToolWindows\IEditableValue.cs" />
+    <Compile Include="Controls\ToolWindows\IEditValue.cs" />
+    <Compile Include="Controls\ToolWindows\ListBoxSelectedItemsAP.cs" />
     <Compile Include="Controls\WindowBase.cs" />
     <Compile Include="Decompiler\IDecompilerService.cs" />
     <Compile Include="Decompiler\IMethodDebugService.cs" />
     <Compile Include="Documents\AnnotationsImpl.cs" />
     <Compile Include="Documents\DocumentConstants.cs" />
+    <Compile Include="Documents\DotNetReferences.cs" />
     <Compile Include="Documents\DsDocument.cs" />
     <Compile Include="Documents\DsDocumentInfo.cs" />
     <Compile Include="Documents\FilenameKey.cs" />
@@ -137,6 +166,7 @@
     <Compile Include="Documents\IMethodAnnotations.cs" />
     <Compile Include="Documents\NotifyDocumentCollectionChangedEventArgs.cs" />
     <Compile Include="Documents\NotifyDocumentCollectionType.cs" />
+    <Compile Include="Documents\ReferenceNavigator.cs" />
     <Compile Include="Documents\Tabs\AsyncDocumentTabContent.cs" />
     <Compile Include="Documents\Tabs\DefaultDocumentTabContentProviderConstants.cs" />
     <Compile Include="Documents\Tabs\DocumentModifiedEventArgs.cs" />
@@ -191,6 +221,7 @@
     <Compile Include="Documents\Tabs\ITabSaverProvider.cs" />
     <Compile Include="Documents\Tabs\ShowTabContentEventArgs.cs" />
     <Compile Include="Documents\Tabs\TabConstants.cs" />
+    <Compile Include="Documents\TList.cs" />
     <Compile Include="Documents\TreeView\AssemblyDocumentNode.cs" />
     <Compile Include="Documents\TreeView\AssemblyReferenceNode.cs" />
     <Compile Include="Documents\TreeView\BaseTypeFolderNode.cs" />
@@ -258,6 +289,7 @@
     <Compile Include="Documents\TreeView\Resources\UnknownSerializedResourceElementNode.cs" />
     <Compile Include="Documents\TreeView\TypeNode.cs" />
     <Compile Include="Documents\TreeView\UnknownDocumentNode.cs" />
+    <Compile Include="ETW\DnSpyEventSource.cs" />
     <Compile Include="Extension\ExtensionEvent.cs" />
     <Compile Include="Extension\ExtensionInfo.cs" />
     <Compile Include="Extension\IAutoLoaded.cs" />
@@ -615,53 +647,6 @@
       <DependentUpon>dnSpy.Contracts.DnSpy.Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripting\Debugger\AttachOptions.cs" />
-    <Compile Include="Scripting\Debugger\Box.cs" />
-    <Compile Include="Scripting\Debugger\BreakpointKind.cs" />
-    <Compile Include="Scripting\Debugger\BreakProcessKind.cs" />
-    <Compile Include="Scripting\Debugger\ChainReason.cs" />
-    <Compile Include="Scripting\Debugger\CodeChunkInfo.cs" />
-    <Compile Include="Scripting\Debugger\CoreCLRDebugOptions.cs" />
-    <Compile Include="Scripting\Debugger\CorElementType.cs" />
-    <Compile Include="Scripting\Debugger\DebugEventKind.cs" />
-    <Compile Include="Scripting\Debugger\DebuggerEventArgs.cs" />
-    <Compile Include="Scripting\Debugger\DebuggerPauseState.cs" />
-    <Compile Include="Scripting\Debugger\DebuggerProcessState.cs" />
-    <Compile Include="Scripting\Debugger\DebugHandleType.cs" />
-    <Compile Include="Scripting\Debugger\DebugOptions.cs" />
-    <Compile Include="Scripting\Debugger\DebugStepReason.cs" />
-    <Compile Include="Scripting\Debugger\ExceptionObjectStackFrame.cs" />
-    <Compile Include="Scripting\Debugger\IAnyEventBreakpoint.cs" />
-    <Compile Include="Scripting\Debugger\IAppDomain.cs" />
-    <Compile Include="Scripting\Debugger\IBreakpoint.cs" />
-    <Compile Include="Scripting\Debugger\ICodeBreakpoint.cs" />
-    <Compile Include="Scripting\Debugger\IDebugEventContext.cs" />
-    <Compile Include="Scripting\Debugger\IDebugger.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerAssembly.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerClass.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerCode.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerEvent.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerField.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerMethod.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerModule.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerProperty.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerThread.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerType.cs" />
-    <Compile Include="Scripting\Debugger\IDebuggerValue.cs" />
-    <Compile Include="Scripting\Debugger\IEval.cs" />
-    <Compile Include="Scripting\Debugger\IEventBreakpoint.cs" />
-    <Compile Include="Scripting\Debugger\IILBreakpoint.cs" />
-    <Compile Include="Scripting\Debugger\ILCodeKind.cs" />
-    <Compile Include="Scripting\Debugger\ILFrameIP.cs" />
-    <Compile Include="Scripting\Debugger\INativeBreakpoint.cs" />
-    <Compile Include="Scripting\Debugger\InternalFrameType.cs" />
-    <Compile Include="Scripting\Debugger\IStackChain.cs" />
-    <Compile Include="Scripting\Debugger\IStackFrame.cs" />
-    <Compile Include="Scripting\Debugger\MappingResult.cs" />
-    <Compile Include="Scripting\Debugger\ThreadState.cs" />
-    <Compile Include="Scripting\Debugger\ThreadUserState.cs" />
-    <Compile Include="Scripting\Debugger\TypeFormatFlags.cs" />
-    <Compile Include="Scripting\Debugger\ValueResult.cs" />
     <Compile Include="Scripting\IOutputWritable.cs" />
     <Compile Include="Scripting\IOutputWriter.cs" />
     <Compile Include="Scripting\IServiceLocator.cs" />
@@ -730,6 +715,8 @@
     <Compile Include="Settings\ISettingsSection.cs" />
     <Compile Include="Settings\ISettingsSectionProvider.cs" />
     <Compile Include="Settings\ISettingsService.cs" />
+    <Compile Include="Settings\ISettingsService2.cs" />
+    <Compile Include="Settings\ISettingsServiceFactory.cs" />
     <Compile Include="Settings\Repl\DefaultReplOptions.cs" />
     <Compile Include="Settings\Repl\ReplOptionsDefinition.cs" />
     <Compile Include="Tabs\ITabContent.cs" />
@@ -752,6 +739,7 @@
     <Compile Include="Text\Classification\ITextClassifierAggregator.cs" />
     <Compile Include="Text\Classification\ITextClassifierAggregatorService.cs" />
     <Compile Include="Text\Classification\ITextClassifierProvider.cs" />
+    <Compile Include="Text\Classification\ITextElementFactory.cs" />
     <Compile Include="Text\Classification\ITextElementProvider.cs" />
     <Compile Include="Text\Classification\IThemeClassificationTypeService.cs" />
     <Compile Include="Text\Classification\IThemeFormatDefinition.cs" />
@@ -869,6 +857,11 @@
     <Compile Include="ToolWindows\IToolWindowGroupService.cs" />
     <Compile Include="ToolWindows\IToolWindowService.cs" />
     <Compile Include="ToolWindows\IToolWindowServiceProvider.cs" />
+    <Compile Include="ToolWindows\Search\SearchColumnCommandParser.cs" />
+    <Compile Include="ToolWindows\Search\SearchColumnDefinition.cs" />
+    <Compile Include="ToolWindows\Search\SearchMatcher.cs" />
+    <Compile Include="ToolWindows\Search\SearchTextClassifierContext.cs" />
+    <Compile Include="ToolWindows\Search\SearchTextClassifierProvider.cs" />
     <Compile Include="ToolWindows\ToolWindowContent.cs" />
     <Compile Include="ToolWindows\ToolWindowContentVisibilityEvent.cs" />
     <Compile Include="ToolWindows\ToolWindowGroupCollectionChangedEventArgs.cs" />
@@ -896,6 +889,7 @@
     <Compile Include="TreeView\TreeViewSelectionChangedEventArgs.cs" />
     <Compile Include="Utilities\DelayedAction.cs" />
     <Compile Include="Utilities\ProfileOptimizationHelper.cs" />
+    <Compile Include="Utilities\ToolTipHelper.cs" />
     <Compile Include="Utilities\UIUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -938,6 +932,10 @@
     <EmbeddedResource Include="Properties\dnSpy.Contracts.DnSpy.Resources.de.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\ToolWindows\EditValueControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MVVM\Dialogs\ProgressDlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -945,11 +943,4 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\EmbedInteropTypes.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

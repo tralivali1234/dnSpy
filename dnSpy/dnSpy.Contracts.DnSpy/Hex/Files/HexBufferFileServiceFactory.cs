@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -55,10 +55,6 @@ namespace dnSpy.Contracts.Hex.Files {
 		/// Constructor
 		/// </summary>
 		/// <param name="bufferFileService">Created instance</param>
-		public BufferFileServiceCreatedEventArgs(HexBufferFileService bufferFileService) {
-			if (bufferFileService == null)
-				throw new ArgumentNullException(nameof(bufferFileService));
-			BufferFileService = bufferFileService;
-		}
+		public BufferFileServiceCreatedEventArgs(HexBufferFileService bufferFileService) => BufferFileService = bufferFileService ?? throw new ArgumentNullException(nameof(bufferFileService));
 	}
 }

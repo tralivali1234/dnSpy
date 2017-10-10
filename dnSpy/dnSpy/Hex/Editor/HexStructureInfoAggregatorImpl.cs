@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -26,10 +26,6 @@ namespace dnSpy.Hex.Editor {
 		protected override IEnumerable<HexStructureInfoProvider> Providers => providers;
 		readonly HexStructureInfoProvider[] providers;
 
-		public HexStructureInfoAggregatorImpl(HexStructureInfoProvider[] providers) {
-			if (providers == null)
-				throw new ArgumentNullException(nameof(providers));
-			this.providers = providers;
-		}
+		public HexStructureInfoAggregatorImpl(HexStructureInfoProvider[] providers) => this.providers = providers ?? throw new ArgumentNullException(nameof(providers));
 	}
 }

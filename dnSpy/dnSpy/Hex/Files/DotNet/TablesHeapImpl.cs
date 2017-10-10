@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -141,9 +141,8 @@ namespace dnSpy.Hex.Files.DotNet {
 			Debug.Assert(Span.Span.Start + MinimumSize == pos);
 			Debug.Assert(Span.Span.Contains(pos - 1), "Creator should've verified this");
 
-			int maxPresentTables;
 			var dnTableSizes = new DotNetTableSizes();
-			var tableInfos = dnTableSizes.CreateTables(majorVersion, minorVersion, out maxPresentTables);
+			var tableInfos = dnTableSizes.CreateTables(majorVersion, minorVersion, out int maxPresentTables);
 			var rowsCount = new uint[tableInfos.Length];
 
 			ulong valid = validMask;

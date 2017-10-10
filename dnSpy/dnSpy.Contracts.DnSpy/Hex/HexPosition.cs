@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -188,8 +188,7 @@ namespace dnSpy.Contracts.Hex {
 		public static HexPosition Parse(string value) {
 			if (value == null)
 				throw new ArgumentNullException(nameof(value));
-			HexPosition result;
-			if (!TryParse(value, out result))
+			if (!TryParse(value, out var result))
 				throw new FormatException($"Invalid {nameof(HexPosition)} value: {value}");
 			return result;
 		}
@@ -201,10 +200,12 @@ namespace dnSpy.Contracts.Hex {
 		/// <param name="result">Result</param>
 		/// <returns></returns>
 		public static bool TryParse(string value, out HexPosition result) {
-			result = default(HexPosition);
+			result = default;
 			if (value == null)
 				throw new ArgumentNullException(nameof(value));
+			const string digitSeparator = "_";
 			value = value.Trim();
+			value = value.Replace(digitSeparator, string.Empty);
 			if (value.StartsWith("0x", StringComparison.OrdinalIgnoreCase) || value.StartsWith("&H", StringComparison.OrdinalIgnoreCase)) {
 				int hexLength = value.Length - 2;
 				if (hexLength == 0 || hexLength > 32)
@@ -225,8 +226,7 @@ namespace dnSpy.Contracts.Hex {
 				return true;
 			}
 			else {
-				ulong v;
-				if (!ulong.TryParse(value, out v))
+				if (!ulong.TryParse(value, out ulong v))
 					return false;
 				result = new HexPosition(v);
 				return true;

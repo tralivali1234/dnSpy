@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,10 +34,6 @@ namespace dnSpy.Contracts.Hex.Tagging {
 		/// Constructor
 		/// </summary>
 		/// <param name="classificationType">Classification type</param>
-		public HexClassificationTag(VSTC.IClassificationType classificationType) {
-			if (classificationType == null)
-				throw new ArgumentNullException(nameof(classificationType));
-			ClassificationType = classificationType;
-		}
+		public HexClassificationTag(VSTC.IClassificationType classificationType) => ClassificationType = classificationType ?? throw new ArgumentNullException(nameof(classificationType));
 	}
 }

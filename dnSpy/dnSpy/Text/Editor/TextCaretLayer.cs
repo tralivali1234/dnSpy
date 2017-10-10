@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -89,15 +89,9 @@ namespace dnSpy.Text.Editor {
 		readonly IClassificationFormatMap classificationFormatMap;
 
 		public TextCaretLayer(TextCaret textCaret, IAdornmentLayer layer, IClassificationFormatMap classificationFormatMap) {
-			if (textCaret == null)
-				throw new ArgumentNullException(nameof(textCaret));
-			if (layer == null)
-				throw new ArgumentNullException(nameof(layer));
-			if (classificationFormatMap == null)
-				throw new ArgumentNullException(nameof(classificationFormatMap));
-			this.textCaret = textCaret;
-			this.layer = layer;
-			this.classificationFormatMap = classificationFormatMap;
+			this.textCaret = textCaret ?? throw new ArgumentNullException(nameof(textCaret));
+			this.layer = layer ?? throw new ArgumentNullException(nameof(layer));
+			this.classificationFormatMap = classificationFormatMap ?? throw new ArgumentNullException(nameof(classificationFormatMap));
 			caretGeometry = new CaretGeometry();
 			layer.TextView.LayoutChanged += TextView_LayoutChanged;
 			layer.TextView.Selection.SelectionChanged += Selection_SelectionChanged;
@@ -137,9 +131,7 @@ namespace dnSpy.Text.Editor {
 		struct SelectionState {
 			byte state;
 
-			public SelectionState(ITextSelection selection) {
-				state = (byte)((selection.IsEmpty ? 1 : 0) | (selection.Mode == TextSelectionMode.Box ? 2 : 0));
-			}
+			public SelectionState(ITextSelection selection) => state = (byte)((selection.IsEmpty ? 1 : 0) | (selection.Mode == TextSelectionMode.Box ? 2 : 0));
 
 			public bool Equals(SelectionState other) => state == other.state;
 		}

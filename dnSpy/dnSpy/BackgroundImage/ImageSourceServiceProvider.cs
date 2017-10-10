@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -59,8 +59,7 @@ namespace dnSpy.BackgroundImage {
 		}
 
 		IImageSourceService Create(Lazy<IBackgroundImageOptionDefinition, IBackgroundImageOptionDefinitionMetadata> lazy) {
-			IImageSourceService imageSourceService;
-			if (!imageSourceServices.TryGetValue(lazy.Value, out imageSourceService))
+			if (!imageSourceServices.TryGetValue(lazy.Value, out var imageSourceService))
 				imageSourceServices.Add(lazy.Value, imageSourceService = new ImageSourceService(themeService, backgroundImageSettingsService.GetSettings(lazy)));
 			return imageSourceService;
 		}

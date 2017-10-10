@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -53,8 +53,7 @@ namespace dnSpy.Text.Classification {
 		static bool Filter(string s) => s != Priority.Low && s != Priority.Default && s != Priority.High;
 
 		public EditorFormatDefinition GetDefinition(string key) {
-			Lazy<EditorFormatDefinition, IEditorFormatMetadata> lazy;
-			if (!toLazy.TryGetValue(key, out lazy))
+			if (!toLazy.TryGetValue(key, out var lazy))
 				return null;
 			return lazy.Value;
 		}

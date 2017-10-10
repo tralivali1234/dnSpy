@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -152,6 +152,15 @@ namespace dnSpy.Hex.Editor.Search {
 				RestartSearch();
 		}
 
+		public string ToggleReplaceModeToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_ToggleReplaceModeToolTip, null);
+		public string FindPreviousToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_FindPreviousToolTip, dnSpy_Resources.ShortCutKeyShiftF3);
+		public string FindNextToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_FindNextToolTip, dnSpy_Resources.ShortCutKeyF3);
+		public string CloseToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_CloseToolTip, dnSpy_Resources.ShortCutKeyEsc);
+		public string ReplaceNextToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_ReplaceNextToolTip, dnSpy_Resources.ShortCutKeyAltR);
+		public string ReplaceAllToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_ReplaceAllToolTip, dnSpy_Resources.ShortCutKeyAltA);
+		public string MatchCaseToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_MatchCaseToolTip, dnSpy_Resources.ShortCutKeyAltC);
+		public string BigEndianToolTip => ToolTipHelper.AddKeyboardShortcut(dnSpy_Resources.Search_BigEndianToolTip, dnSpy_Resources.ShortCutKeyAltB);
+
 		public ICommand CloseSearchUICommand => new RelayCommand(a => CloseSearchControl());
 		public ICommand FindNextCommand => new RelayCommand(a => FindNext(true));
 		public ICommand FindPreviousCommand => new RelayCommand(a => FindNext(false));
@@ -246,23 +255,15 @@ namespace dnSpy.Hex.Editor.Search {
 		HexAdornmentLayer layer;
 
 		public HexViewSearchServiceImpl(WpfHexView wpfHexView, HexSearchServiceFactory hexSearchServiceFactory, SearchSettings searchSettings, IMessageBoxService messageBoxService, HexEditorOperationsFactoryService editorOperationsFactoryService) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			if (hexSearchServiceFactory == null)
-				throw new ArgumentNullException(nameof(hexSearchServiceFactory));
-			if (searchSettings == null)
-				throw new ArgumentNullException(nameof(searchSettings));
-			if (messageBoxService == null)
-				throw new ArgumentNullException(nameof(messageBoxService));
 			if (editorOperationsFactoryService == null)
 				throw new ArgumentNullException(nameof(editorOperationsFactoryService));
 			dataKinds = new ObservableCollection<DataKindVM>(dataKindVMList);
 			selectedDataKindVM = dataKinds.First();
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			editorOperations = editorOperationsFactoryService.GetEditorOperations(wpfHexView);
-			this.hexSearchServiceFactory = hexSearchServiceFactory;
-			this.searchSettings = searchSettings;
-			this.messageBoxService = messageBoxService;
+			this.hexSearchServiceFactory = hexSearchServiceFactory ?? throw new ArgumentNullException(nameof(hexSearchServiceFactory));
+			this.searchSettings = searchSettings ?? throw new ArgumentNullException(nameof(searchSettings));
+			this.messageBoxService = messageBoxService ?? throw new ArgumentNullException(nameof(messageBoxService));
 			listeners = new List<IHexMarkerListener>();
 			searchString = string.Empty;
 			replaceString = string.Empty;
@@ -523,23 +524,23 @@ namespace dnSpy.Hex.Editor.Search {
 		}
 
 		void FocusSearchStringTextBox() {
-			Action action = null;
+			Action callback = null;
 			// If it hasn't been loaded yet, it has no binding and we must select it in its Loaded event
 			if (searchControl.searchStringTextBox.Text.Length == 0 && SearchString.Length != 0)
-				action = () => searchControl.searchStringTextBox.SelectAll();
+				callback = () => searchControl.searchStringTextBox.SelectAll();
 			else
 				searchControl.searchStringTextBox.SelectAll();
-			UIUtilities.Focus(searchControl.searchStringTextBox, action);
+			UIUtilities.Focus(searchControl.searchStringTextBox, callback);
 		}
 
 		void FocusReplaceStringTextBox() {
-			Action action = null;
+			Action callback = null;
 			// If it hasn't been loaded yet, it has no binding and we must select it in its Loaded event
 			if (searchControl.replaceStringTextBox.Text.Length == 0 && ReplaceString.Length != 0)
-				action = () => searchControl.replaceStringTextBox.SelectAll();
+				callback = () => searchControl.replaceStringTextBox.SelectAll();
 			else
 				searchControl.replaceStringTextBox.SelectAll();
-			UIUtilities.Focus(searchControl.replaceStringTextBox, action);
+			UIUtilities.Focus(searchControl.replaceStringTextBox, callback);
 		}
 
 		void RepositionControl(bool recalcSize = false) {
@@ -661,11 +662,10 @@ namespace dnSpy.Hex.Editor.Search {
 		}
 		HexBufferPoint? incrementalStartPosition;
 
-		string TryGetSearchStringAtPoint(HexBufferPoint point) {
+		string TryGetSearchStringAtPoint(HexBufferPoint point) =>
 			// The text editor can find the current word, but there's not much we can do
 			// so return null.
-			return null;
-		}
+			null;
 
 		string TryGetSearchStringFromSelection() {
 			if (wpfHexView.Selection.IsEmpty)

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -58,9 +58,7 @@ namespace dnSpy.MainApp {
 
 		public void Show(string text) {
 			Debug.Assert(openCounter > 0);
-			if (text == null)
-				throw new ArgumentNullException(nameof(text));
-			textBlock.Text = text;
+			textBlock.Text = text ?? throw new ArgumentNullException(nameof(text));
 		}
 	}
 }

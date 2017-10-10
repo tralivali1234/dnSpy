@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,12 +39,8 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		readonly PEStructureProviderFactory peStructureProviderFactory;
 
 		public PENode(Func<HexBufferFile> createBufferFile, PEStructureProviderFactory peStructureProviderFactory) {
-			if (createBufferFile == null)
-				throw new ArgumentNullException(nameof(createBufferFile));
-			if (peStructureProviderFactory == null)
-				throw new ArgumentNullException(nameof(peStructureProviderFactory));
-			this.createBufferFile = createBufferFile;
-			this.peStructureProviderFactory = peStructureProviderFactory;
+			this.createBufferFile = createBufferFile ?? throw new ArgumentNullException(nameof(createBufferFile));
+			this.peStructureProviderFactory = peStructureProviderFactory ?? throw new ArgumentNullException(nameof(peStructureProviderFactory));
 		}
 
 		public override void Initialize() => TreeNode.LazyLoading = true;
@@ -140,8 +136,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 		}
 
 		public HexNode FindNode(HexVM structure, HexField field) {
-			var mdTblRecord = structure as MetaDataTableRecordVM;
-			if (mdTblRecord != null)
+			if (structure is MetaDataTableRecordVM mdTblRecord)
 				return FindTokenNode(mdTblRecord.Token.Raw);
 
 			TreeNode.EnsureChildrenLoaded();
@@ -163,9 +158,7 @@ namespace dnSpy.AsmEditor.Hex.Nodes {
 	sealed class PETreeNodeGroup : ITreeNodeGroup {
 		public static readonly PETreeNodeGroup Instance = new PETreeNodeGroup(DocumentTreeViewConstants.ORDER_MODULE_PE);
 
-		public PETreeNodeGroup(double order) {
-			Order = order;
-		}
+		public PETreeNodeGroup(double order) => Order = order;
 
 		public double Order { get; }
 

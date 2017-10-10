@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -39,9 +39,7 @@ namespace dnSpy.BackgroundImage {
 
 		HexViewBackgroundImageService(WpfHexView wpfHexView, IImageSourceService imageSourceService)
 			: base(imageSourceService) {
-			if (wpfHexView == null)
-				throw new ArgumentNullException(nameof(wpfHexView));
-			this.wpfHexView = wpfHexView;
+			this.wpfHexView = wpfHexView ?? throw new ArgumentNullException(nameof(wpfHexView));
 			Initialize();
 			wpfHexView.Closed += WpfHexView_Closed;
 		}

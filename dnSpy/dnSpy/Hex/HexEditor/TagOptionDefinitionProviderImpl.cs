@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,9 +33,7 @@ namespace dnSpy.Hex.HexEditor {
 		readonly Lazy<HexEditorOptionsDefinition, IHexEditorOptionsDefinitionMetadata>[] hexEditorOptionsDefinitions;
 
 		[ImportingConstructor]
-		TagOptionDefinitionProviderImpl([ImportMany] IEnumerable<Lazy<HexEditorOptionsDefinition, IHexEditorOptionsDefinitionMetadata>> hexEditorOptionsDefinitions) {
-			this.hexEditorOptionsDefinitions = hexEditorOptionsDefinitions.ToArray();
-		}
+		TagOptionDefinitionProviderImpl([ImportMany] IEnumerable<Lazy<HexEditorOptionsDefinition, IHexEditorOptionsDefinitionMetadata>> hexEditorOptionsDefinitions) => this.hexEditorOptionsDefinitions = hexEditorOptionsDefinitions.ToArray();
 
 		IEnumerable<IHexEditorOptionsDefinitionMetadata> GetOptionsDefinitions() {
 			foreach (var lz in hexEditorOptionsDefinitions)

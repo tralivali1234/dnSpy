@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,9 +38,7 @@ namespace dnSpy.AsmEditor.Compiler {
 	/// This is a new type that got imported into the target module
 	/// </summary>
 	sealed class NewImportedType : ImportedType {
-		public NewImportedType(TypeDef targetType) {
-			TargetType = targetType;
-		}
+		public NewImportedType(TypeDef targetType) => TargetType = targetType;
 	}
 
 	struct EditedProperty {

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -81,11 +81,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="span">Data span</param>
 		/// <param name="codedToken">Coded token info</param>
 		protected CodedTokenData(HexBufferSpan span, CodedToken codedToken)
-			: base(span) {
-			if (codedToken == null)
-				throw new ArgumentNullException(nameof(codedToken));
-			this.codedToken = codedToken;
-		}
+			: base(span) => this.codedToken = codedToken ?? throw new ArgumentNullException(nameof(codedToken));
 
 		/// <summary>
 		/// Reads the token value
@@ -100,8 +96,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		protected abstract void WriteValueError(HexFieldFormatter formatter);
 
 		MDToken? ReadToken() {
-			MDToken token;
-			if (!codedToken.Decode(ReadTokenValue(), out token))
+			if (!codedToken.Decode(ReadTokenValue(), out MDToken token))
 				return null;
 			return token;
 		}
@@ -227,9 +222,7 @@ namespace dnSpy.Contracts.Hex.Files.DotNet {
 		/// <param name="span">Data span</param>
 		/// <param name="table">Table</param>
 		protected RidData(HexBufferSpan span, Table table)
-			: base(span) {
-			this.table = table;
-		}
+			: base(span) => this.table = table;
 
 		/// <summary>
 		/// Reads the rid

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2016 de4dot@gmail.com
+    Copyright (C) 2014-2017 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,12 +40,8 @@ namespace dnSpy.Contracts.Hex.Text {
 		/// <param name="text">Text</param>
 		/// <param name="tag">Tag, see <see cref="PredefinedClassifiedTextTags"/></param>
 		public HexClassifiedText(string text, string tag) {
-			if (text == null)
-				throw new ArgumentNullException(nameof(text));
-			if (tag == null)
-				throw new ArgumentNullException(nameof(tag));
-			Text = text;
-			Tag = tag;
+			Text = text ?? throw new ArgumentNullException(nameof(text));
+			Tag = tag ?? throw new ArgumentNullException(nameof(tag));
 		}
 	}
 }
