@@ -154,7 +154,7 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 
 		protected abstract (DbgDotNetValueNode node, bool canHide) CreateValueNode(DbgEvaluationContext context, DbgStackFrame frame, int index, DbgValueNodeEvaluationOptions options, CancellationToken cancellationToken);
 
-		protected (DbgDotNetValueNode node, bool canHide) CreateValueNode(DbgEvaluationContext context, DbgStackFrame frame, bool addParens, DmdType slotType, DbgDotNetValue value, int index, DbgValueNodeEvaluationOptions options, CancellationToken cancellationToken) {
+		protected (DbgDotNetValueNode node, bool canHide) CreateValueNode(DbgEvaluationContext context, DbgStackFrame frame, bool addParens, DmdType slotType, DbgDotNetValue value, int index, DbgValueNodeEvaluationOptions options, string baseExpression, CancellationToken cancellationToken) {
 			var runtime = context.Runtime.GetDotNetRuntime();
 			if ((evalOptions & DbgValueNodeEvaluationOptions.RawView) != 0)
 				options |= DbgValueNodeEvaluationOptions.RawView;
@@ -164,11 +164,11 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 				string expression, imageName;
 				bool isReadOnly;
 				DmdType expectedType;
-				var castType = info.NeedCast || NeedCast(slotType, info.Member.DeclaringType) ? info.Member.DeclaringType : null;
+				var castType = info.NeedCast || NeedCast(slotType, GetMemberDeclaringType(info.Member)) ? info.Member.DeclaringType : null;
 				switch (info.Member.MemberType) {
 				case DmdMemberTypes.Field:
 					var field = (DmdFieldInfo)info.Member;
-					expression = valueNodeFactory.GetFieldExpression(Expression, field.Name, castType, addParens);
+					expression = valueNodeFactory.GetFieldExpression(baseExpression, field.Name, castType, addParens);
 					expectedType = field.FieldType;
 					imageName = ImageNameUtils.GetImageName(field);
 					valueResult = runtime.LoadField(context, frame, value, field, cancellationToken);
@@ -179,7 +179,7 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 
 				case DmdMemberTypes.Property:
 					var property = (DmdPropertyInfo)info.Member;
-					expression = valueNodeFactory.GetPropertyExpression(Expression, property.Name, castType, addParens);
+					expression = valueNodeFactory.GetPropertyExpression(baseExpression, property.Name, castType, addParens);
 					expectedType = property.PropertyType;
 					imageName = ImageNameUtils.GetImageName(property);
 					if ((options & DbgValueNodeEvaluationOptions.NoFuncEval) != 0) {
@@ -217,6 +217,24 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 			catch {
 				valueResult.Value?.Dispose();
 				throw;
+			}
+		}
+
+		static DmdType GetMemberDeclaringType(DmdMemberInfo member) {
+			switch (member.MemberType) {
+			case DmdMemberTypes.Field:
+				return member.DeclaringType;
+
+			case DmdMemberTypes.Property:
+				var property = (DmdPropertyInfo)member;
+				var accessor = property.GetGetMethod(DmdGetAccessorOptions.All) ?? property.GetSetMethod(DmdGetAccessorOptions.All);
+				if ((object)accessor == null)
+					return member.DeclaringType;
+				accessor = accessor.GetBaseDefinition();
+				return accessor.DeclaringType;
+
+			default:
+				throw new InvalidOperationException();
 			}
 		}
 

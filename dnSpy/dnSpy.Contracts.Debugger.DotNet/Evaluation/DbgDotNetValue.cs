@@ -59,12 +59,7 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 			PredefinedEvaluationErrorMessages.InternalDebuggerError;
 
 		/// <summary>
-		/// true if this is an array value
-		/// </summary>
-		public bool IsArray => Type.IsArray;
-
-		/// <summary>
-		/// Gets the number of elements of the array (<see cref="IsArray"/>)
+		/// Gets the number of elements of the array
 		/// </summary>
 		/// <param name="elementCount">Total number of elements in the array</param>
 		/// <returns></returns>
@@ -74,7 +69,7 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 		}
 
 		/// <summary>
-		/// Gets array information if it's an array (<see cref="IsArray"/>) or returns false
+		/// Gets array information if it's an array or returns false
 		/// </summary>
 		/// <param name="elementCount">Total number of elements in the array</param>
 		/// <param name="dimensionInfos">Dimension base indexes and lengths</param>
@@ -106,6 +101,15 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 		/// <returns></returns>
 		public virtual string SetArrayElementAt(DbgEvaluationContext context, DbgStackFrame frame, uint index, object value, CancellationToken cancellationToken) =>
 			PredefinedEvaluationErrorMessages.InternalDebuggerError;
+
+		/// <summary>
+		/// Boxes the value type, returns null on failure
+		/// </summary>
+		/// <param name="context">Context</param>
+		/// <param name="frame">Stack frame</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns></returns>
+		public virtual DbgDotNetValue Box(DbgEvaluationContext context, DbgStackFrame frame, CancellationToken cancellationToken) => null;
 
 		/// <summary>
 		/// Gets the address of the value or null if there's no address available.

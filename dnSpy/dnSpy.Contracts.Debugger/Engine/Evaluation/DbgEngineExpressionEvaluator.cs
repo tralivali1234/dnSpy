@@ -28,15 +28,22 @@ namespace dnSpy.Contracts.Debugger.Engine.Evaluation {
 	/// </summary>
 	public abstract class DbgEngineExpressionEvaluator {
 		/// <summary>
+		/// Creates evaluator state used to cache data that is needed to evaluate an expression
+		/// </summary>
+		/// <returns></returns>
+		public abstract object CreateExpressionEvaluatorState();
+
+		/// <summary>
 		/// Evaluates an expression. It blocks the current thread until the evaluation is complete.
 		/// </summary>
 		/// <param name="context">Evaluation context</param>
 		/// <param name="frame">Frame</param>
 		/// <param name="expression">Expression to evaluate</param>
 		/// <param name="options">Options</param>
+		/// <param name="state">State created by <see cref="CreateExpressionEvaluatorState"/> or null to store the state in <paramref name="context"/></param>
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
-		public abstract DbgEngineEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken);
+		public abstract DbgEngineEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, object state, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Assigns the value of an expression to another expression. It blocks the current thread until the evaluation is complete.
@@ -56,11 +63,6 @@ namespace dnSpy.Contracts.Debugger.Engine.Evaluation {
 	/// </summary>
 	public struct DbgEngineEvaluationResult {
 		/// <summary>
-		/// Gets the thread or null if there was an error
-		/// </summary>
-		public DbgThread Thread { get; }
-
-		/// <summary>
 		/// Gets the value or null if there was an error
 		/// </summary>
 		public DbgEngineValue Value { get; }
@@ -78,11 +80,9 @@ namespace dnSpy.Contracts.Debugger.Engine.Evaluation {
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		/// <param name="thread">Thread</param>
 		/// <param name="value">Value</param>
 		/// <param name="flags">Flags</param>
-		public DbgEngineEvaluationResult(DbgThread thread, DbgEngineValue value, DbgEvaluationResultFlags flags) {
-			Thread = thread ?? throw new ArgumentNullException(nameof(thread));
+		public DbgEngineEvaluationResult(DbgEngineValue value, DbgEvaluationResultFlags flags) {
 			Value = value ?? throw new ArgumentNullException(nameof(value));
 			Flags = flags;
 			Error = null;
@@ -94,7 +94,6 @@ namespace dnSpy.Contracts.Debugger.Engine.Evaluation {
 		/// <param name="error">Error message</param>
 		/// <param name="flags">Flags</param>
 		public DbgEngineEvaluationResult(string error, DbgEvaluationResultFlags flags = 0) {
-			Thread = null;
 			Value = null;
 			Flags = flags;
 			Error = error ?? throw new ArgumentNullException(nameof(error));

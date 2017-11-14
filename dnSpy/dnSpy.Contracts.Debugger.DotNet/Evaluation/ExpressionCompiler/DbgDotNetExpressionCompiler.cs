@@ -19,10 +19,12 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.Threading;
 using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Debugger.Evaluation;
 using dnSpy.Contracts.Decompiler;
+using dnSpy.Debugger.DotNet.Metadata;
 
 namespace dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler {
 	/// <summary>
@@ -42,6 +44,20 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler {
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
 		public abstract DbgDotNetCompilationResult CompileExpression(DbgEvaluationContext context, DbgStackFrame frame, DbgModuleReference[] references, DbgDotNetAlias[] aliases, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Compiles a type expression (compiles <see cref="DebuggerDisplayAttribute"/> expressions)
+		/// </summary>
+		/// <param name="context">Evaluation context</param>
+		/// <param name="frame">Frame</param>
+		/// <param name="type">Type</param>
+		/// <param name="references">.NET module references</param>
+		/// <param name="aliases">Aliases</param>
+		/// <param name="expression">Expression</param>
+		/// <param name="options">Options</param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns></returns>
+		public abstract DbgDotNetCompilationResult CompileTypeExpression(DbgEvaluationContext context, DbgStackFrame frame, DmdType type, DbgModuleReference[] references, DbgDotNetAlias[] aliases, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Creates an assembly that is used to get all the locals
@@ -67,6 +83,14 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler {
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
 		public abstract DbgDotNetCompilationResult CompileAssignment(DbgEvaluationContext context, DbgStackFrame frame, DbgModuleReference[] references, DbgDotNetAlias[] aliases, string target, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Gets alias info
+		/// </summary>
+		/// <param name="aliasName">Alias name</param>
+		/// <param name="aliasInfo">Updated with alias info</param>
+		/// <returns></returns>
+		public abstract bool TryGetAliasInfo(string aliasName, out DbgDotNetParsedAlias aliasInfo);
 	}
 
 	/// <summary>Metadata</summary>
@@ -95,7 +119,7 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler {
 		/// <param name="languageName">Language name, see <see cref="PredefinedDbgLanguageNames"/></param>
 		/// <param name="languageDisplayName">Language's display name (shown in the UI)</param>
 		/// <param name="decompilerGuid">Decompiler GUID, see <see cref="PredefinedDecompilerGuids"/> or one of the decompiler GUIDs (<see cref="DecompilerConstants"/>)</param>
-		/// <param name="order">Order</param>
+		/// <param name="order">Order, see <see cref="PredefinedDbgDotNetExpressionCompilerOrders"/></param>
 		public ExportDbgDotNetExpressionCompilerAttribute(string languageGuid, string languageName, string languageDisplayName, string decompilerGuid, double order = double.MaxValue)
 			: base(typeof(DbgDotNetExpressionCompiler)) {
 			LanguageGuid = languageGuid ?? throw new ArgumentNullException(nameof(languageGuid));
@@ -144,5 +168,30 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler {
 		/// Order of Visual Basic expression compiler
 		/// </summary>
 		public const double VisualBasic = 2000000;
+	}
+
+	/// <summary>
+	/// Alias info
+	/// </summary>
+	public struct DbgDotNetParsedAlias {
+		/// <summary>
+		/// Alias kind
+		/// </summary>
+		public DbgDotNetAliasKind Kind;
+
+		/// <summary>
+		/// Id
+		/// </summary>
+		public uint Id;
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="kind">Alias kind</param>
+		/// <param name="id">Id</param>
+		public DbgDotNetParsedAlias(DbgDotNetAliasKind kind, uint id) {
+			Kind = kind;
+			Id = id;
+		}
 	}
 }

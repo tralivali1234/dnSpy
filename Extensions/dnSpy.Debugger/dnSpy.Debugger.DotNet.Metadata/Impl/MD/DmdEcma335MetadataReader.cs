@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using dnlib.DotNet;
 using dnlib.DotNet.MD;
 using dnlib.PE;
@@ -404,6 +405,11 @@ namespace dnSpy.Debugger.DotNet.Metadata.Impl.MD {
 			}
 		}
 
+		internal uint GetRVA(DmdMethodBase method) {
+			var row = TablesStream.ReadMethodRow((uint)method.MetadataToken & 0x00FFFFFF);
+			return row?.RVA ?? 0;
+		}
+
 		(DmdType type, bool isPinned)[] IMethodBodyResolver.ReadLocals(int localSignatureMetadataToken, IList<DmdType> genericTypeArguments, IList<DmdType> genericMethodArguments) {
 			if ((localSignatureMetadataToken & 0x00FFFFFF) == 0 || (localSignatureMetadataToken >> 24) != 0x11)
 				return Array.Empty<(DmdType, bool)>();
@@ -576,6 +582,20 @@ namespace dnSpy.Debugger.DotNet.Metadata.Impl.MD {
 				publicKeyOrToken = Metadata.BlobStream.ReadNoNull(row.PublicKeyOrToken);
 			var flags = (DmdAssemblyNameFlags)row.Flags;
 			return new DmdReadOnlyAssemblyName(name, version, cultureName, flags, publicKeyOrToken, DmdAssemblyHashAlgorithm.None);
+		}
+
+		public override unsafe bool ReadMemory(uint rva, void* destination, int size) {
+			if (destination == null)
+				throw new ArgumentNullException(nameof(destination));
+			if (size < 0)
+				throw new ArgumentOutOfRangeException(nameof(size));
+			using (var stream = Metadata.PEImage.CreateStream((RVA)rva, size)) {
+				if (stream.Length < size)
+					return false;
+				var bytes = stream.ReadBytes(size);
+				Marshal.Copy(bytes, 0, new IntPtr(destination), size);
+				return true;
+			}
 		}
 
 		protected override DmdCustomAttributeData[] ReadAssemblyCustomAttributes(uint rid) => ReadCustomAttributesCore(Table.Assembly, rid);

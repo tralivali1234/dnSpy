@@ -22,6 +22,7 @@ using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler;
 using dnSpy.Contracts.Debugger.Engine.Evaluation;
 using dnSpy.Contracts.Debugger.Evaluation;
+using dnSpy.Debugger.DotNet.Evaluation.Engine.Interpreter;
 
 namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 	struct DbgDotNetValueCreator {
@@ -50,7 +51,7 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 				return valueNodeFactory.CreateError(context, frame, compExprInfo.Name, compExprInfo.ErrorMessage, compExprInfo.Expression, (compExprInfo.Flags & DbgEvaluationResultFlags.SideEffects) != 0, cancellationToken);
 			else {
 				if (ilInterpreterState == null)
-					ilInterpreterState = dnILInterpreter.CreateState(context, assemblyBytes);
+					ilInterpreterState = dnILInterpreter.CreateState(assemblyBytes);
 				var res = dnILInterpreter.Execute(context, frame, ilInterpreterState, compExprInfo.TypeName, compExprInfo.MethodName, options, out var expectedType, cancellationToken);
 				try {
 					if (res.ErrorMessage != null)

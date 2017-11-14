@@ -37,12 +37,14 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 	[Export(typeof(WatchVariablesWindowValueNodesProviderService))]
 	sealed class WatchVariablesWindowValueNodesProviderServiceImpl : WatchVariablesWindowValueNodesProviderService {
 		readonly UIDispatcher uiDispatcher;
+		readonly Lazy<DbgObjectIdService> dbgObjectIdService;
 		readonly Lazy<WatchWindowExpressionsSettings> watchWindowExpressionsSettings;
 		readonly WatchVariablesWindowValueNodesProvider[] providers;
 
 		[ImportingConstructor]
-		WatchVariablesWindowValueNodesProviderServiceImpl(UIDispatcher uiDispatcher, Lazy<WatchWindowExpressionsSettings> watchWindowExpressionsSettings) {
+		WatchVariablesWindowValueNodesProviderServiceImpl(UIDispatcher uiDispatcher, Lazy<DbgObjectIdService> dbgObjectIdService, Lazy<WatchWindowExpressionsSettings> watchWindowExpressionsSettings) {
 			this.uiDispatcher = uiDispatcher;
+			this.dbgObjectIdService = dbgObjectIdService;
 			this.watchWindowExpressionsSettings = watchWindowExpressionsSettings;
 			providers = new WatchVariablesWindowValueNodesProvider[WatchWindowsHelper.NUMBER_OF_WATCH_WINDOWS];
 		}
@@ -54,7 +56,7 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 			var provider = providers[windowIndex];
 			if (provider == null) {
 				var savedExpressions = watchWindowExpressionsSettings.Value.GetExpressions(windowIndex);
-				provider = new WatchVariablesWindowValueNodesProviderImpl(savedExpressions, expressions => watchWindowExpressionsSettings.Value.SetExpressions(windowIndex, expressions));
+				provider = new WatchVariablesWindowValueNodesProviderImpl(dbgObjectIdService.Value, savedExpressions, expressions => watchWindowExpressionsSettings.Value.SetExpressions(windowIndex, expressions));
 				providers[windowIndex] = provider;
 			}
 			return provider;
@@ -70,6 +72,8 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 	}
 
 	sealed class WatchVariablesWindowValueNodesProviderImpl : WatchVariablesWindowValueNodesProvider {
+		public override event EventHandler NodesChanged;
+		readonly DbgObjectIdService dbgObjectIdService;
 		readonly List<ExpressionInfo> expressions;
 		readonly Action<string[]> saveExpressions;
 		uint nextId;
@@ -78,6 +82,7 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 			public string Id { get; }
 			public string Expression { get; set; }
 			public bool ForceEval { get; set; }
+			public object ExpressionEvaluatorState { get; set; }
 
 			public ExpressionInfo(string id, string expression, bool forceEval) {
 				Id = id ?? throw new ArgumentNullException(nameof(id));
@@ -86,9 +91,27 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 			}
 		}
 
-		public WatchVariablesWindowValueNodesProviderImpl(string[] savedExpressions, Action<string[]> saveExpressions) {
+		public WatchVariablesWindowValueNodesProviderImpl(DbgObjectIdService dbgObjectIdService, string[] savedExpressions, Action<string[]> saveExpressions) {
+			this.dbgObjectIdService = dbgObjectIdService ?? throw new ArgumentNullException(nameof(dbgObjectIdService));
 			expressions = new List<ExpressionInfo>(savedExpressions.Select(a => new ExpressionInfo(GetNextId(), a, forceEval: false)));
 			this.saveExpressions = saveExpressions ?? throw new ArgumentNullException(nameof(saveExpressions));
+		}
+
+		public override void Initialize(bool enable) {
+			ClearEEState();
+			if (enable)
+				dbgObjectIdService.ObjectIdsChanged += DbgObjectIdService_ObjectIdsChanged;
+			else
+				dbgObjectIdService.ObjectIdsChanged -= DbgObjectIdService_ObjectIdsChanged;
+		}
+
+		void DbgObjectIdService_ObjectIdsChanged(object sender, EventArgs e) => NodesChanged?.Invoke(this, EventArgs.Empty);
+
+		public override void OnIsDebuggingChanged(bool isDebugging) => ClearEEState();
+
+		void ClearEEState() {
+			foreach (var info in expressions)
+				info.ExpressionEvaluatorState = null;
 		}
 
 		// The returned id is unique and also sortable (unless it overflows...)
@@ -103,9 +126,9 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 			return res;
 		}
 
-		public override DbgValueNodeInfo[] GetNodes(DbgEvaluationContext context, DbgLanguage language, DbgStackFrame frame, DbgEvaluationOptions evalOptions, DbgValueNodeEvaluationOptions nodeEvalOptions) {
+		public override ValueNodesProviderResult GetNodes(DbgEvaluationContext context, DbgLanguage language, DbgStackFrame frame, DbgEvaluationOptions evalOptions, DbgValueNodeEvaluationOptions nodeEvalOptions) {
 			if (expressions.Count == 0)
-				return Array.Empty<DbgValueNodeInfo>();
+				return new ValueNodesProviderResult(Array.Empty<DbgValueNodeInfo>(), false);
 
 			var infos = new DbgExpressionEvaluationInfo[expressions.Count];
 			Debug.Assert((evalOptions & DbgEvaluationOptions.NoSideEffects) == 0);
@@ -120,7 +143,9 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 					realEvalOptions = evalOptions | DbgEvaluationOptions.NoSideEffects;
 				Debug.Assert(((realEvalOptions & DbgEvaluationOptions.NoFuncEval) != 0) == ((realNodeEvalOptions & DbgValueNodeEvaluationOptions.NoFuncEval) != 0));
 				info.ForceEval = false;
-				infos[i] = new DbgExpressionEvaluationInfo(info.Expression, realNodeEvalOptions, realEvalOptions);
+				if (info.ExpressionEvaluatorState == null)
+					info.ExpressionEvaluatorState = language.ExpressionEvaluator.CreateExpressionEvaluatorState();
+				infos[i] = new DbgExpressionEvaluationInfo(info.Expression, realNodeEvalOptions, realEvalOptions, info.ExpressionEvaluatorState);
 			}
 
 			var compRes = language.ValueNodeFactory.Create(context, frame, infos);
@@ -133,7 +158,7 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 					throw new InvalidOperationException();
 				res[i] = new DbgValueNodeInfo(info.ValueNode, expressions[i].Id, info.CausesSideEffects);
 			}
-			return res;
+			return new ValueNodesProviderResult(res, false);
 		}
 
 		public override void DeleteExpressions(string[] ids) {

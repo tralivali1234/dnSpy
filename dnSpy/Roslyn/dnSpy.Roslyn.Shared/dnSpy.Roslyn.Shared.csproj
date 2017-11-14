@@ -46,6 +46,7 @@
     <Compile Include="Compiler\RoslynCodeDocument.cs" />
     <Compile Include="Compiler\RoslynLanguageCompiler.cs" />
     <Compile Include="Compiler\VisualBasicLanguageCompiler.cs" />
+    <Compile Include="Debugger\AliasConstants.cs" />
     <Compile Include="Debugger\ExpressionCompiler\CSharp\CSharpExpressionCompiler.cs" />
     <Compile Include="Debugger\ExpressionCompiler\ImageNameUtils.cs" />
     <Compile Include="Debugger\ExpressionCompiler\LanguageExpressionCompiler.cs" />
@@ -58,12 +59,14 @@
     <Compile Include="Debugger\Formatters\CSharp\CSharpValueFormatter.cs" />
     <Compile Include="Debugger\Formatters\DbgValueFormatterOptionsExtensions.cs" />
     <Compile Include="Debugger\Formatters\DbgValueFormatterTypeOptionsExtensions.cs" />
+    <Compile Include="Debugger\Formatters\DebuggerDisplayAttributeFormatter.cs" />
     <Compile Include="Debugger\Formatters\EnumInfo.cs" />
+    <Compile Include="Debugger\Formatters\FormatSpecifiersUtils.cs" />
     <Compile Include="Debugger\Formatters\KeyValuePairTypeUtils.cs" />
     <Compile Include="Debugger\Formatters\LanguageFormatter.cs" />
+    <Compile Include="Debugger\Formatters\ListCache.cs" />
     <Compile Include="Debugger\Formatters\NullableTypeUtils.cs" />
     <Compile Include="Debugger\Formatters\NumberUtils.cs" />
-    <Compile Include="Debugger\Formatters\ObjectCache.cs" />
     <Compile Include="Debugger\Formatters\ToStringFormatter.cs" />
     <Compile Include="Debugger\Formatters\TupleTypeUtils.cs" />
     <Compile Include="Debugger\Formatters\TypeFormatterOptions.cs" />
@@ -74,6 +77,8 @@
     <Compile Include="Debugger\Formatters\VisualBasic\VisualBasicFormatter.cs" />
     <Compile Include="Debugger\Formatters\VisualBasic\VisualBasicTypeFormatter.cs" />
     <Compile Include="Debugger\Formatters\VisualBasic\VisualBasicValueFormatter.cs" />
+    <Compile Include="Debugger\GetLocalsAssemblyBuilder.cs" />
+    <Compile Include="Debugger\ObjectCache.cs" />
     <Compile Include="Debugger\StateWithKey.cs" />
     <Compile Include="Debugger\ValueNodes\AggregateValueNodeProvider.cs" />
     <Compile Include="Debugger\ValueNodes\ArrayValueNodeProvider.cs" />
@@ -93,7 +98,7 @@
     <Compile Include="Debugger\ValueNodes\MembersValueNodeProvider.cs" />
     <Compile Include="Debugger\ValueNodes\MemberUtils.cs" />
     <Compile Include="Debugger\ValueNodes\MemberValueNodeInfo.cs" />
-    <Compile Include="Debugger\ValueNodes\ObjectCache.cs" />
+    <Compile Include="Debugger\ValueNodes\ReflectionAssemblyLoader.cs" />
     <Compile Include="Debugger\ValueNodes\ResultsViewMembersValueNodeProvider.cs" />
     <Compile Include="Debugger\ValueNodes\ResultsViewNoResultsValueNode.cs" />
     <Compile Include="Debugger\ValueNodes\RoslynHelpers.cs" />

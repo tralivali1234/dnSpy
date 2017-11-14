@@ -20,10 +20,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using dndbg.COM.CorDebug;
 using dndbg.COM.MetaData;
-using dnlib.DotNet;
 
 namespace dndbg.Engine {
 	sealed class CorFrame : COMObject<ICorDebugFrame>, IEquatable<CorFrame> {
@@ -250,11 +248,6 @@ namespace dndbg.Engine {
 			hr = frame.GetStackRange(out rangeStart, out rangeEnd);
 			if (hr < 0)
 				rangeStart = rangeEnd = 0;
-
-			//TODO: ICorDebugILFrame2, ICorDebugILFrame3
-			//TODO: ICorDebugInternalFrame, ICorDebugInternalFrame2
-			//TODO: ICorDebugNativeFrame, ICorDebugNativeFrame2
-			//TODO: ICorDebugRuntimeUnwindableFrame
 		}
 
 		public CorStepper CreateStepper() {
@@ -439,68 +432,6 @@ namespace dndbg.Engine {
 				methGenArgs[i] = gas[j];
 
 			return true;
-		}
-
-		/// <summary>
-		/// Gets all argument and local types
-		/// </summary>
-		/// <param name="argTypes">Gets updated with all argument types. If there's a hidden this
-		/// parameter, it's the first type. This type can be null. If it's not null, ignore any
-		/// <see cref="ClassSig"/> since it might still be a value type</param>
-		/// <param name="localTypes">Gets updated with all local types</param>
-		/// <returns></returns>
-		public bool GetArgAndLocalTypes(out List<TypeSig> argTypes, out List<TypeSig> localTypes) {
-			argTypes = new List<TypeSig>();
-			localTypes = new List<TypeSig>();
-
-			var func = Function;
-			if (func == null)
-				return false;
-			var module = func.Module;
-			if (module == null)
-				return false;
-
-			var mdi = module.GetMetaDataInterface<IMetaDataImport>();
-
-			var methodSig = MetaDataUtils.GetMethodSignature(mdi, func.Token);
-			if (methodSig != null) {
-				if (methodSig.HasThis)
-					argTypes.Add(GetThisType(func));
-				argTypes.AddRange(methodSig.Params);
-				if (methodSig.ParamsAfterSentinel != null)
-					argTypes.AddRange(methodSig.ParamsAfterSentinel);
-			}
-
-			uint localVarSigTok = func.LocalVarSigToken;
-			if ((localVarSigTok & 0x00FFFFFF) != 0) {
-				if (MetaDataUtils.ReadStandAloneSig(mdi, localVarSigTok) is LocalSig localSig)
-					localTypes.AddRange(localSig.Locals);
-			}
-
-			return true;
-		}
-
-		TypeSig GetThisType(CorFunction func) {
-			if (func == null)
-				return null;
-			var funcClass = func.Class;
-			var mdi = funcClass?.Module?.GetMetaDataInterface<IMetaDataImport>();
-			if (mdi == null)
-				return null;
-
-			int numTypeGenArgs = MetaDataUtils.GetCountGenericParameters(mdi, funcClass.Token);
-			var genTypeArgs = TypeParameters.Take(numTypeGenArgs).ToArray();
-
-			var td = DebugSignatureReader.CreateTypeDef(mdi, funcClass.Token);
-			// Assume it's a class for now. The code should ignore ClassSig and just use the TypeDef
-			var sig = new ClassSig(td);
-			if (genTypeArgs.Length == 0)
-				return sig;
-
-			var genArgs = new List<TypeSig>(genTypeArgs.Length);
-			for (int i = 0; i < genTypeArgs.Length; i++)
-				genArgs.Add(new GenericVar(i));
-			return new GenericInstSig(sig, genArgs);
 		}
 
 		public static bool operator ==(CorFrame a, CorFrame b) {

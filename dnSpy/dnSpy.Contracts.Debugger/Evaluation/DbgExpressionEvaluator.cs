@@ -18,8 +18,6 @@
 */
 
 using System;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using dnSpy.Contracts.Debugger.CallStack;
 
@@ -34,6 +32,12 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		public abstract DbgLanguage Language { get; }
 
 		/// <summary>
+		/// Creates evaluator state used to cache data that is needed to evaluate an expression
+		/// </summary>
+		/// <returns></returns>
+		public abstract object CreateExpressionEvaluatorState();
+
+		/// <summary>
 		/// Evaluates an expression. It blocks the current thread until the evaluation is complete.
 		/// The returned <see cref="DbgValue"/> is automatically closed when its runtime continues.
 		/// </summary>
@@ -41,9 +45,10 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// <param name="frame">Frame</param>
 		/// <param name="expression">Expression to evaluate</param>
 		/// <param name="options">Options</param>
+		/// <param name="state">State created by <see cref="CreateExpressionEvaluatorState"/> or null to store the state in <paramref name="context"/></param>
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
-		public abstract DbgEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken = default);
+		public abstract DbgEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, object state, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Assigns the value of an expression to another expression. It blocks the current thread until the evaluation is complete.
@@ -82,6 +87,11 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// Don't allow function evaluations (calling code in debugged process)
 		/// </summary>
 		NoFuncEval					= 0x00000004,
+
+		/// <summary>
+		/// Don't create a name/expression (only used by value nodes)
+		/// </summary>
+		NoName						= 0x00000008,
 	}
 
 	/// <summary>
@@ -108,6 +118,11 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// It's a boolean expression
 		/// </summary>
 		BooleanExpression			= 0x00000004,
+
+		/// <summary>
+		/// The value is a thrown exception
+		/// </summary>
+		ThrownException				= 0x00000008,
 	}
 
 	/// <summary>
@@ -123,6 +138,11 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// Gets the flags
 		/// </summary>
 		public DbgEvaluationResultFlags Flags { get; }
+
+		/// <summary>
+		/// true if <see cref="Value"/> is a thrown exception
+		/// </summary>
+		public bool IsThrownException => (Flags & DbgEvaluationResultFlags.ThrownException) != 0;
 
 		/// <summary>
 		/// Gets the error or null if none

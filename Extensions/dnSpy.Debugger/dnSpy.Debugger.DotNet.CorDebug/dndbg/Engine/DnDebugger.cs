@@ -86,6 +86,8 @@ namespace dndbg.Engine {
 		public void SetProcessTerminated() => forceProcessTerminated = true;
 		bool forceProcessTerminated;
 
+		public event EventHandler OnAttachComplete;
+
 		public event EventHandler<ThreadDebuggerEventArgs> OnThreadAdded;
 		void CallOnThreadAdded(DnThread thread, bool added, out bool shouldPause) {
 			var e = new ThreadDebuggerEventArgs(thread, added);
@@ -169,11 +171,6 @@ namespace dndbg.Engine {
 		readonly List<DebuggerState> debuggerStates = new List<DebuggerState>();
 
 		/// <summary>
-		/// true if we attached to a process, false if we started all processes
-		/// </summary>
-		public bool HasAttached => processes.GetAll().Any(p => p.WasAttached);
-
-		/// <summary>
 		/// This is the debuggee version or an empty string if it's not known (eg. if it's CoreCLR)
 		/// </summary>
 		public string DebuggeeVersion { get; }
@@ -194,10 +191,14 @@ namespace dndbg.Engine {
 		public string RuntimeDirectory { get; }
 
 		readonly int debuggerManagedThreadId;
+		readonly bool isAttach;
+		bool isAttaching;
 
-		DnDebugger(ICorDebug corDebug, DebugOptions debugOptions, IDebugMessageDispatcher debugMessageDispatcher, string clrPath, string debuggeeVersion, string otherVersion) {
+		DnDebugger(ICorDebug corDebug, DebugOptions debugOptions, IDebugMessageDispatcher debugMessageDispatcher, string clrPath, string debuggeeVersion, string otherVersion, bool isAttach) {
 			debuggerManagedThreadId = Thread.CurrentThread.ManagedThreadId;
 			processes = new DebuggerCollection<ICorDebugProcess, DnProcess>(CreateDnProcess);
+			this.isAttach = isAttach;
+			isAttaching = isAttach;
 			this.debugMessageDispatcher = debugMessageDispatcher ?? throw new ArgumentNullException(nameof(debugMessageDispatcher));
 			this.corDebug = corDebug;
 			customNotificationList = new List<(DnModule, CorClass)>();
@@ -305,18 +306,21 @@ namespace dndbg.Engine {
 		/// </summary>
 		public uint ContinueCounter { get; private set; }
 
-		// Called in our dndbg thread
+		void DisposeOfHandles() {
+			DebugVerifyThread();
+			foreach (var value in disposeValues)
+				value.DisposeHandle();
+			disposeValues.Clear();
+		}
+
 		void OnManagedCallbackInDebuggerThread(DebugCallbackEventArgs e) {
 			DebugVerifyThread();
 			if (hasTerminated)
 				return;
 			managedCallbackCounter++;
 
-			if (disposeValues.Count != 0) {
-				foreach (var value in disposeValues)
-					value.DisposeHandle();
-				disposeValues.Clear();
-			}
+			if (disposeValues.Count != 0)
+				DisposeOfHandles();
 
 			try {
 				HandleManagedCallback(e);
@@ -367,6 +371,11 @@ namespace dndbg.Engine {
 			if (thread == null)
 				return false;
 			int hr = e.CorDebugController.HasQueuedCallbacks(thread.CorThread.RawObject, out int qcbs);
+			return hr >= 0 && qcbs != 0;
+		}
+
+		bool HasAnyQueuedCallbacks(DebugCallbackEventArgs e) {
+			int hr = e.CorDebugController.HasQueuedCallbacks(null, out int qcbs);
 			return hr >= 0 && qcbs != 0;
 		}
 
@@ -786,7 +795,7 @@ namespace dndbg.Engine {
 				process = TryAdd(cpArgs.Process);
 				if (process != null) {
 					process.CorProcess.EnableLogMessages(debugOptions.LogMessages);
-					process.CorProcess.DesiredNGENCompilerFlags = debugOptions.JITCompilerFlags;
+					process.CorProcess.DesiredNGENCompilerFlags = debugOptions.DebugOptionsProvider.GetDesiredNGENCompilerFlags(process);
 					process.CorProcess.SetWriteableMetadataUpdateMode(WriteableMetadataUpdateMode.AlwaysShowUpdates);
 					process.CorProcess.EnableExceptionCallbacksOutsideOfMyCode(debugOptions.ExceptionCallbacksOutsideOfMyCode);
 					process.CorProcess.EnableNGENPolicy(debugOptions.NGENPolicy);
@@ -811,7 +820,6 @@ namespace dndbg.Engine {
 				process = TryGetValidProcess(ctArgs.Thread);
 				if (process != null) {
 					var dnThread = process.TryAdd(ctArgs.Thread);
-					//TODO: ICorDebugThread::SetDebugState
 					if (dnThread != null) {
 						CallOnThreadAdded(dnThread, true, out shouldPause);
 						if (shouldPause)
@@ -819,6 +827,10 @@ namespace dndbg.Engine {
 					}
 				}
 				InitializeCurrentDebuggerState(e, null, ctArgs.AppDomain, ctArgs.Thread);
+				if (isAttaching && !HasAnyQueuedCallbacks(e)) {
+					isAttaching = false;
+					OnAttachComplete?.Invoke(this, EventArgs.Empty);
+				}
 				break;
 
 			case DebugCallbackKind.ExitThread:
@@ -842,10 +854,12 @@ namespace dndbg.Engine {
 				if (assembly != null) {
 					var module = assembly.TryAdd(lmArgs.Module);
 					toDnModule.Add(module.CorModule, module);
-					module.CorModule.EnableJITDebugging(debugOptions.ModuleTrackJITInfo, debugOptions.ModuleAllowJitOptimizations);
-					module.CorModule.EnableClassLoadCallbacks(debugOptions.ModuleClassLoadCallbacks);
-					module.CorModule.JITCompilerFlags = debugOptions.JITCompilerFlags;
-					module.CorModule.SetJMCStatus(true);
+
+					var moduleOptions = debugOptions.DebugOptionsProvider.GetModuleLoadOptions(module);
+					module.CorModule.EnableJITDebugging(moduleOptions.ModuleTrackJITInfo, moduleOptions.ModuleAllowJitOptimizations);
+					module.CorModule.JITCompilerFlags = moduleOptions.JITCompilerFlags;
+					module.CorModule.SetJMCStatus(moduleOptions.JustMyCode);
+					module.CorModule.EnableClassLoadCallbacks(false);
 
 					module.InitializeCachedValues();
 					AddBreakpoints(module);
@@ -1011,6 +1025,17 @@ namespace dndbg.Engine {
 			case DebugCallbackKind.BreakpointSetError:
 				var bpseArgs = (BreakpointSetErrorDebugCallbackEventArgs)e;
 				InitializeCurrentDebuggerState(e, null, bpseArgs.AppDomain, bpseArgs.Thread);
+				var moduleId = TryGetModuleId(bpseArgs.CorFunctionBreakpoint?.Function?.Module);
+				if (moduleId != null) {
+					foreach (var bp in ilCodeBreakpointList.GetBreakpoints(moduleId.Value)) {
+						if (bp.IsBreakpoint(bpseArgs.Breakpoint))
+							bp.SetError(DnCodeBreakpointError.CouldNotCreateBreakpoint);
+					}
+					foreach (var bp in nativeCodeBreakpointList.GetBreakpoints(moduleId.Value)) {
+						if (bp.IsBreakpoint(bpseArgs.Breakpoint))
+							bp.SetError(DnCodeBreakpointError.CouldNotCreateBreakpoint);
+					}
+				}
 				break;
 
 			case DebugCallbackKind.FunctionRemapOpportunity:
@@ -1108,8 +1133,6 @@ namespace dndbg.Engine {
 				var b = (BreakDebugCallbackEventArgs)e;
 				e.AddPauseState(new BreakPauseState(b.CorAppDomain, b.CorThread));
 			}
-
-			//TODO: DebugCallbackType.BreakpointSetError
 		}
 
 		void ProcessesTerminated() {
@@ -1148,7 +1171,7 @@ namespace dndbg.Engine {
 			var corDebug = CreateCorDebug(debuggeeVersion, out string clrPath);
 			if (corDebug == null)
 				throw new Exception("Could not create an ICorDebug instance");
-			var dbg = new DnDebugger(corDebug, options.DebugOptions, options.DebugMessageDispatcher, clrPath, debuggeeVersion, null);
+			var dbg = new DnDebugger(corDebug, options.DebugOptions, options.DebugMessageDispatcher, clrPath, debuggeeVersion, null, isAttach: false);
 			if (options.BreakProcessKind != BreakProcessKind.None)
 				new BreakProcessHelper(dbg, options.BreakProcessKind, options.Filename);
 			dbg.CreateProcess(options);
@@ -1158,13 +1181,13 @@ namespace dndbg.Engine {
 		static DnDebugger CreateDnDebuggerCoreCLR(DebugProcessOptions options) {
 			var clrType = (CoreCLRTypeDebugInfo)options.CLRTypeDebugInfo;
 			var dbg2 = CoreCLRHelper.CreateDnDebugger(options, clrType, () => false, (cd, coreclrFilename, pid, version) => {
-				var dbg = new DnDebugger(cd, options.DebugOptions, options.DebugMessageDispatcher, coreclrFilename, null, version);
+				var dbg = new DnDebugger(cd, options.DebugOptions, options.DebugMessageDispatcher, coreclrFilename, null, version, isAttach: false);
 				if (options.BreakProcessKind != BreakProcessKind.None)
 					new BreakProcessHelper(dbg, options.BreakProcessKind, options.Filename);
 				cd.DebugActiveProcess((int)pid, 0, out var comProcess);
 				var dnProcess = dbg.TryAdd(comProcess);
 				if (dnProcess != null)
-					dnProcess.Initialize(false, options.Filename, options.CurrentDirectory, options.CommandLine);
+					dnProcess.Initialize(options.Filename, options.CurrentDirectory, options.CommandLine);
 				return dbg;
 			});
 			if (dbg2 == null)
@@ -1198,7 +1221,7 @@ namespace dndbg.Engine {
 
 			var process = TryAdd(comProcess);
 			if (process != null)
-				process.Initialize(false, options.Filename, options.CurrentDirectory, options.CommandLine);
+				process.Initialize(options.Filename, options.CurrentDirectory, options.CommandLine);
 		}
 
 		public static DnDebugger Attach(AttachProcessOptions options) {
@@ -1208,11 +1231,11 @@ namespace dndbg.Engine {
 			var corDebug = CreateCorDebug(options, out string debuggeeVersion, out string clrPath, out string otherVersion);
 			if (corDebug == null)
 				throw new Exception("An ICorDebug instance couldn't be created");
-			var dbg = new DnDebugger(corDebug, options.DebugOptions, options.DebugMessageDispatcher, clrPath, debuggeeVersion, otherVersion);
+			var dbg = new DnDebugger(corDebug, options.DebugOptions, options.DebugMessageDispatcher, clrPath, debuggeeVersion, otherVersion, isAttach: true);
 			corDebug.DebugActiveProcess(options.ProcessId, 0, out var comProcess);
 			var dnProcess = dbg.TryAdd(comProcess);
 			if (dnProcess != null)
-				dnProcess.Initialize(true, filename, string.Empty, string.Empty);
+				dnProcess.Initialize(filename, string.Empty, string.Empty);
 			return dbg;
 		}
 
@@ -1600,6 +1623,8 @@ namespace dndbg.Engine {
 				if (hr < 0)
 					return hr;
 			}
+
+			DisposeOfHandles();
 
 			foreach (var bp in ilCodeBreakpointList.GetBreakpoints())
 				bp.OnRemoved();

@@ -136,7 +136,7 @@
     <value>Laden der Module abbrechen?</value>
   </data>
   <data name="CantEvaluateWhenCurrentFrameIsNative" xml:space="preserve">
-    <value>Can't evaluate expressions when current stack frame is a native stack frame</value>
+    <value>Ausdrücke können nicht ausgewertet werden wenn der aktuelle Stack-Rahmen ein nativer Stack-Rahmen ist</value>
   </data>
   <data name="DecompilerGeneratedVariablesCanNotBeEvaluated" xml:space="preserve">
     <value>Decompiler-generierte Variablen können nicht ausgewertet werden</value>
@@ -157,12 +157,27 @@
     <value>Lade dynamische Module</value>
   </data>
   <data name="Method_X_ThrewAnExceptionOfType_Y" xml:space="preserve">
-    <value>'{0}' threw an exception of type '{1}'</value>
+    <value>'{0}' warf eine Ausnahme vom Typ '{1}'</value>
+  </data>
+  <data name="ModuleMetadataNotFoundOrInvalid" xml:space="preserve">
+    <value>The metadata of the module couldn't be found or it is invalid</value>
   </data>
   <data name="Module_BreakProcessBeforeLoadingDynamicModules" xml:space="preserve">
     <value>Sie müssen den Prozess anhalten um dynamische Module laden zu können.</value>
   </data>
+  <data name="NoDotNetObjectFoundAtAddress" xml:space="preserve">
+    <value>No object found at the given address</value>
+  </data>
+  <data name="NoExceptionOnTheCurrentThread" xml:space="preserve">
+    <value>There is no exception on the current thread</value>
+  </data>
   <data name="ReloadAllMethodBodiesCommand" xml:space="preserve">
     <value>Alle Methodenrümpfe neu laden</value>
+  </data>
+  <data name="ReturnValueNotAvailable" xml:space="preserve">
+    <value>Return value is not currently available</value>
+  </data>
+  <data name="UnknownVariableOrObjectId" xml:space="preserve">
+    <value>Unknown variable or object ID</value>
   </data>
 </root>

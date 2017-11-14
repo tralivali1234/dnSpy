@@ -20,6 +20,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using dnlib.DotNet.MD;
 using dnlib.PE;
@@ -74,36 +75,38 @@ namespace dnSpy.Debugger.DotNet.Metadata.Internal {
 		readonly IntPtr metadataAddress;
 		readonly int metadataSize;
 		readonly object lockObj;
+		GCHandle moduleBytesHandle;
+		readonly DbgProcess process;
+		readonly ulong moduleAddress;
 		volatile int referenceCounter;
 		volatile bool disposed;
 		volatile int freedAddress;
+
+		public DbgRawMetadataImpl(byte[] moduleBytes, bool isFileLayout) {
+			lockObj = new object();
+			referenceCounter = 1;
+			this.isFileLayout = isFileLayout;
+			size = moduleBytes.Length;
+			moduleBytesHandle = GCHandle.Alloc(moduleBytes, GCHandleType.Pinned);
+			address = moduleBytesHandle.AddrOfPinnedObject();
+			(metadataAddress, metadataSize) = GetMetadataInfo();
+		}
 
 		public unsafe DbgRawMetadataImpl(DbgProcess process, bool isFileLayout, ulong moduleAddress, int moduleSize) {
 			lockObj = new object();
 			referenceCounter = 1;
 			this.isFileLayout = isFileLayout;
 			size = moduleSize;
+			this.process = process;
+			this.moduleAddress = moduleAddress;
 
 			try {
 				// Prevent allocation on the LOH. We'll also be able to free the memory as soon as it's not needed.
 				address = NativeMethods.VirtualAlloc(IntPtr.Zero, new IntPtr(moduleSize), NativeMethods.MEM_COMMIT, NativeMethods.PAGE_READWRITE);
 				if (address == IntPtr.Zero)
 					throw new OutOfMemoryException();
-				process.ReadMemory(moduleAddress, (byte*)address.ToPointer(), size);
-
-				try {
-					var peImage = new PEImage(address, size, isFileLayout ? ImageLayout.File : ImageLayout.Memory, true);
-					var dotNetDir = peImage.ImageNTHeaders.OptionalHeader.DataDirectories[14];
-					if (dotNetDir.VirtualAddress != 0 && dotNetDir.Size >= 0x48) {
-						var cor20 = new ImageCor20Header(peImage.CreateStream(dotNetDir.VirtualAddress, 0x48), true);
-						var mdStart = (long)peImage.ToFileOffset(cor20.MetaData.VirtualAddress);
-						metadataAddress = new IntPtr((byte*)address + mdStart);
-						metadataSize = (int)cor20.MetaData.Size;
-					}
-				}
-				catch (Exception ex) when (ex is IOException || ex is BadImageFormatException) {
-					Debug.Fail("Couldn't read .NET metadata");
-				}
+				process.ReadMemory(moduleAddress, address.ToPointer(), size);
+				(metadataAddress, metadataSize) = GetMetadataInfo();
 			}
 			catch {
 				Dispose();
@@ -111,9 +114,33 @@ namespace dnSpy.Debugger.DotNet.Metadata.Internal {
 			}
 		}
 
+		unsafe (IntPtr metadataAddress, int metadataSize) GetMetadataInfo() {
+			try {
+				var peImage = new PEImage(address, size, isFileLayout ? ImageLayout.File : ImageLayout.Memory, true);
+				var dotNetDir = peImage.ImageNTHeaders.OptionalHeader.DataDirectories[14];
+				if (dotNetDir.VirtualAddress != 0 && dotNetDir.Size >= 0x48) {
+					var cor20 = new ImageCor20Header(peImage.CreateStream(dotNetDir.VirtualAddress, 0x48), true);
+					var mdStart = (long)peImage.ToFileOffset(cor20.MetaData.VirtualAddress);
+					var mdAddr = new IntPtr((byte*)address + mdStart);
+					var mdSize = (int)cor20.MetaData.Size;
+					return (mdAddr, mdSize);
+				}
+			}
+			catch (Exception ex) when (ex is IOException || ex is BadImageFormatException) {
+				Debug.Fail("Couldn't read .NET metadata");
+			}
+			return (IntPtr.Zero, 0);
+		}
+
 		~DbgRawMetadataImpl() {
 			Debug.Assert(Environment.HasShutdownStarted, nameof(DbgRawMetadataImpl) + " dtor called!");
 			Dispose();
+		}
+
+		public unsafe override void UpdateMemory() {
+			if (disposed)
+				throw new ObjectDisposedException(nameof(DbgRawMetadataImpl));
+			process?.ReadMemory(moduleAddress, address.ToPointer(), size);
 		}
 
 		internal DbgRawMetadata TryAddRef() {
@@ -154,9 +181,17 @@ namespace dnSpy.Debugger.DotNet.Metadata.Internal {
 
 		internal void ForceDispose() {
 			GC.SuppressFinalize(this);
-			if (address != IntPtr.Zero && Interlocked.Increment(ref freedAddress) == 1) {
+			if (process != null && address != IntPtr.Zero && Interlocked.Exchange(ref freedAddress, 1) == 0) {
 				bool b = NativeMethods.VirtualFree(address, IntPtr.Zero, NativeMethods.MEM_RELEASE);
 				Debug.Assert(b);
+			}
+			if (process == null) {
+				try {
+					if (moduleBytesHandle.IsAllocated)
+						moduleBytesHandle.Free();
+				}
+				catch (InvalidOperationException) {
+				}
 			}
 		}
 	}

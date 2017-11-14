@@ -21,6 +21,7 @@ using System;
 using System.Threading;
 using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Debugger.Evaluation;
+using dnSpy.Contracts.Metadata;
 using dnSpy.Debugger.DotNet.Metadata;
 
 namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
@@ -32,6 +33,30 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 		/// Gets the dispatcher
 		/// </summary>
 		DbgDotNetDispatcher Dispatcher { get; }
+
+		/// <summary>
+		/// Gets the module id
+		/// </summary>
+		/// <param name="module">Module</param>
+		/// <returns></returns>
+		ModuleId GetModuleId(DbgModule module);
+
+		/// <summary>
+		/// Gets the module data or <see cref="DbgDotNetRawModuleBytes.None"/>
+		/// </summary>
+		/// <param name="module"></param>
+		/// <returns></returns>
+		DbgDotNetRawModuleBytes GetRawModuleBytes(DbgModule module);
+
+		/// <summary>
+		/// Translates a method token from the original dynamic module's metadata to the saved module metadata used by the expression compiler
+		/// </summary>
+		/// <param name="module">Module</param>
+		/// <param name="methodToken">Method token</param>
+		/// <param name="metadataMethodToken">New method token</param>
+		/// <param name="metadataLocalVarSigTok">New method body local variables signature token</param>
+		/// <returns></returns>
+		bool TryGetMethodToken(DbgModule module, int methodToken, out int metadataMethodToken, out int metadataLocalVarSigTok);
 
 		/// <summary>
 		/// Gets the current method or null if it's not a normal IL frame
@@ -146,6 +171,36 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 		/// <param name="cancellationToken">Cancellation token</param>
 		/// <returns></returns>
 		DbgDotNetReturnValueInfo[] GetReturnValues(DbgEvaluationContext context, DbgStackFrame frame, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Gets an exception or null
+		/// </summary>
+		/// <param name="context">Context</param>
+		/// <param name="frame">Stack frame</param>
+		/// <param name="id">Exception id, eg. <see cref="DbgDotNetRuntimeConstants.ExceptionId"/></param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns></returns>
+		DbgDotNetValue GetException(DbgEvaluationContext context, DbgStackFrame frame, uint id, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Gets a stowed exception or null
+		/// </summary>
+		/// <param name="context">Context</param>
+		/// <param name="frame">Stack frame</param>
+		/// <param name="id">Stowed exception id, eg. <see cref="DbgDotNetRuntimeConstants.StowedExceptionId"/></param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns></returns>
+		DbgDotNetValue GetStowedException(DbgEvaluationContext context, DbgStackFrame frame, uint id, CancellationToken cancellationToken);
+
+		/// <summary>
+		/// Gets a return value or null
+		/// </summary>
+		/// <param name="context">Context</param>
+		/// <param name="frame">Stack frame</param>
+		/// <param name="id">Return value id, eg. <see cref="DbgDotNetRuntimeConstants.LastReturnValueId"/></param>
+		/// <param name="cancellationToken">Cancellation token</param>
+		/// <returns></returns>
+		DbgDotNetValue GetReturnValue(DbgEvaluationContext context, DbgStackFrame frame, uint id, CancellationToken cancellationToken);
 
 		/// <summary>
 		/// Gets a local value or null if the local doesn't exist or if it's not possible to read it (eg. optimized code)
@@ -263,6 +318,26 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 	}
 
 	/// <summary>
+	/// Constants
+	/// </summary>
+	public static class DbgDotNetRuntimeConstants {
+		/// <summary>
+		/// Exception ID
+		/// </summary>
+		public const uint ExceptionId = 1;
+
+		/// <summary>
+		/// Stowed exception ID
+		/// </summary>
+		public const uint StowedExceptionId = 1;
+
+		/// <summary>
+		/// ID of last return value
+		/// </summary>
+		public const uint LastReturnValueId = 0;
+	}
+
+	/// <summary>
 	/// Contains the created value or an error message
 	/// </summary>
 	public struct DbgDotNetCreateValueResult {
@@ -292,6 +367,36 @@ namespace dnSpy.Contracts.Debugger.DotNet.Evaluation {
 		public DbgDotNetCreateValueResult(DbgDotNetValue value) {
 			Value = value ?? throw new ArgumentNullException(nameof(value));
 			Error = null;
+		}
+	}
+
+	/// <summary>
+	/// Contains .NET module data information
+	/// </summary>
+	public struct DbgDotNetRawModuleBytes {
+		/// <summary>
+		/// No .NET module data is available
+		/// </summary>
+		public static readonly DbgDotNetRawModuleBytes None = default;
+
+		/// <summary>
+		/// true if it's file layout, false if it's memory layout
+		/// </summary>
+		public bool IsFileLayout { get; }
+
+		/// <summary>
+		/// Raw bytes of the .NET module
+		/// </summary>
+		public byte[] RawBytes { get; }
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="rawBytes">Raw bytes of the .NET module</param>
+		/// <param name="isFileLayout">true if it's file layout, false if it's memory layout</param>
+		public DbgDotNetRawModuleBytes(byte[] rawBytes, bool isFileLayout) {
+			IsFileLayout = isFileLayout;
+			RawBytes = rawBytes ?? throw new ArgumentNullException(nameof(rawBytes));
 		}
 	}
 }

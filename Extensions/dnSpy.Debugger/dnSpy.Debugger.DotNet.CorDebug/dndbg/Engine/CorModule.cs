@@ -18,8 +18,6 @@
 */
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using dndbg.COM.CorDebug;
@@ -83,18 +81,6 @@ namespace dndbg.Engine {
 			uint token = new MDToken(Table.Module, 1).Raw;
 
 			return DotNet.Utils.GetUTF8String(MDAPI.GetUtf8Name(mdi, token), MDAPI.GetModuleName(mdi) ?? string.Empty);
-		}
-
-		/// <summary>
-		/// Gets the name of the module. If it's an in-memory module, the hash code is included to
-		/// make it uniquer since <see cref="Name"/> could have any value.
-		/// </summary>
-		public string UniquerName {
-			get {
-				if (IsInMemory)
-					return string.Format("{0}[{1:X8}]", Name, GetHashCode());
-				return Name;
-			}
 		}
 
 		/// <summary>
@@ -177,8 +163,6 @@ namespace dndbg.Engine {
 			IsDynamic = hr >= 0 && b != 0;
 			hr = module.IsInMemory(out b);
 			IsInMemory = hr >= 0 && b != 0;
-
-			//TODO: ICorDebugModule2::ApplyChanges
 		}
 
 		static string GetName(ICorDebugModule module) {
@@ -190,27 +174,6 @@ namespace dndbg.Engine {
 			if (hr < 0)
 				return null;
 			return sb.ToString();
-		}
-
-		public CorField GetFieldFromToken(uint token) {
-			var mdi = GetMetaDataInterface<IMetaDataImport>();
-			uint tdToken = 0x02000000 + MDAPI.GetFieldOwnerRid(mdi, token);
-			var cls = GetClassFromToken(tdToken);
-			return cls == null ? null : new CorField(cls, token);
-		}
-
-		public CorProperty GetPropertyFromToken(uint token) {
-			var mdi = GetMetaDataInterface<IMetaDataImport>();
-			uint tdToken = 0x02000000 + MDAPI.GetPropertyOwnerRid(mdi, token);
-			var cls = GetClassFromToken(tdToken);
-			return cls == null ? null : new CorProperty(cls, token);
-		}
-
-		public CorEvent GetEventFromToken(uint token) {
-			var mdi = GetMetaDataInterface<IMetaDataImport>();
-			uint tdToken = 0x02000000 + MDAPI.GetEventOwnerRid(mdi, token);
-			var cls = GetClassFromToken(tdToken);
-			return cls == null ? null : new CorEvent(cls, token);
 		}
 
 		public CorFunction GetFunctionFromToken(uint token) {
@@ -234,16 +197,6 @@ namespace dndbg.Engine {
 		}
 
 		/// <summary>
-		/// Gets the value of a global field
-		/// </summary>
-		/// <param name="fdToken">Token of a global field</param>
-		/// <returns></returns>
-		public CorValue GetGlobalVariableValue(uint fdToken) {
-			int hr = obj.GetGlobalVariableValue(fdToken, out var value);
-			return hr < 0 || value == null ? null : new CorValue(value);
-		}
-
-		/// <summary>
 		/// Gets a class
 		/// </summary>
 		/// <param name="token">TypeDef token</param>
@@ -251,20 +204,6 @@ namespace dndbg.Engine {
 		public CorClass GetClassFromToken(uint token) {
 			int hr = obj.GetClassFromToken(token, out var cls);
 			return hr < 0 || cls == null ? null : new CorClass(cls);
-		}
-
-		/// <summary>
-		/// Resolves an assembly reference. If the assembly hasn't been loaded, or if
-		/// <paramref name="asmRefToken"/> is invalid, null is returned.
-		/// </summary>
-		/// <param name="asmRefToken">Valid assembly reference token in this module</param>
-		/// <returns></returns>
-		public CorAssembly ResolveAssembly(uint asmRefToken) {
-			var m2 = obj as ICorDebugModule2;
-			if (m2 == null)
-				return null;
-			int hr = m2.ResolveAssembly(asmRefToken, out var asm);
-			return hr < 0 || asm == null ? null : new CorAssembly(asm);
 		}
 
 		/// <summary>
@@ -277,62 +216,6 @@ namespace dndbg.Engine {
 			int hr = obj.GetMetaDataInterface(ref riid, out object o);
 			return o as T;
 		}
-
-		/// <summary>
-		/// Finds a class
-		/// </summary>
-		/// <param name="name">Full class name</param>
-		/// <returns></returns>
-		public CorClass FindClass(string name) {
-			var mdi = GetMetaDataInterface<IMetaDataImport>();
-			foreach (var tdToken in MDAPI.GetTypeDefTokens(mdi)) {
-				if (MDAPI.GetTypeDefName(mdi, tdToken) == name)
-					return GetClassFromToken(tdToken);
-			}
-			return null;
-		}
-
-		/// <summary>
-		/// Finds a class using a cache. Shouldn't be called if it's a dynamic module since types
-		/// can be added.
-		/// </summary>
-		/// <param name="name">Full class name</param>
-		/// <returns></returns>
-		public CorClass FindClassCache(string name) {
-			if (findClassCacheDict != null && findClassCacheDict.TryGetValue(name, out uint token))
-				return GetClassFromToken(token);
-
-			if (findClassCacheDict == null) {
-				Debug.Assert(findClassCacheEnum == null);
-				findClassCacheDict = new Dictionary<string, uint>(StringComparer.Ordinal);
-				findClassCacheEnum = GetClasses().GetEnumerator();
-			}
-			else if (findClassCacheEnum == null)
-				return null;
-			while (findClassCacheEnum.MoveNext()) {
-				var t = findClassCacheEnum.Current;
-				var typeName = t.name;
-				if (typeName == null)
-					continue;
-				if (!findClassCacheDict.ContainsKey(typeName))
-					findClassCacheDict[typeName] = t.token;
-				if (typeName == name)
-					return GetClassFromToken(t.token);
-			}
-			findClassCacheEnum.Dispose();
-			findClassCacheEnum = null;
-			return null;
-		}
-		Dictionary<string, uint> findClassCacheDict;
-		IEnumerator<(string name, uint token)> findClassCacheEnum;
-
-		IEnumerable<(string name, uint token)> GetClasses() {
-			var mdi = GetMetaDataInterface<IMetaDataImport>();
-			foreach (var tdToken in MDAPI.GetTypeDefTokens(mdi))
-				yield return (MDAPI.GetTypeDefName(mdi, tdToken), tdToken);
-		}
-
-		public CorType CreateTypeFromTypeDefOrRef(uint token) => null;//TODO:
 
 		public static bool operator ==(CorModule a, CorModule b) {
 			if (ReferenceEquals(a, b))

@@ -313,9 +313,15 @@ namespace dnSpy.Debugger.DotNet.Metadata {
 		System_Linq_SystemCore_EnumerableDebugView,
 		System_Linq_SystemCore_EnumerableDebugView_T,
 		System_Linq_SystemCore_EnumerableDebugViewEmptyException,
+		System_Text_Encoding,
+		System_Runtime_CompilerServices_IsReadOnlyAttribute,
+		System_Runtime_CompilerServices_IsByRefLikeAttribute,
+		System_ObsoleteAttribute,
+		System_Span_T,
 
+		// When adding more types, update DmdWellKnownTypeUtils
 
-		// When adding more types, update WellKnownMemberResolver
+		None = -1,
 #pragma warning restore 1591 // Missing XML comment for publicly visible type or member
 	}
 }

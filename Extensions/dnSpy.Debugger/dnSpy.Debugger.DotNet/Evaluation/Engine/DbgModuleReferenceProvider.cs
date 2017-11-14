@@ -21,9 +21,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using dnSpy.Contracts.Debugger;
 using dnSpy.Contracts.Debugger.CallStack;
+using dnSpy.Contracts.Debugger.DotNet.Evaluation;
 using dnSpy.Contracts.Debugger.DotNet.Evaluation.ExpressionCompiler;
 using dnSpy.Contracts.Debugger.DotNet.Metadata.Internal;
 using dnSpy.Debugger.DotNet.Metadata;
@@ -38,6 +40,8 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 		/// <param name="frame">Frame</param>
 		/// <returns></returns>
 		public abstract GetModuleReferencesResult GetModuleReferences(DbgRuntime runtime, DbgStackFrame frame);
+
+		public abstract GetModuleReferencesResult GetModuleReferences(DbgRuntime runtime, DmdModule module);
 	}
 
 	struct GetModuleReferencesResult {
@@ -76,7 +80,8 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 				public override bool Equals(object obj) => obj is Key other && Equals(other);
 				public override int GetHashCode() => Address.GetHashCode();
 			}
-			public readonly Dictionary<Key, DbgModuleReference> ModuleReferences = new Dictionary<Key, DbgModuleReference>();
+			public readonly Dictionary<Key, DbgModuleReferenceImpl> ModuleReferences = new Dictionary<Key, DbgModuleReferenceImpl>();
+			public readonly List<DbgModuleReferenceImpl> OtherModuleReferences = new List<DbgModuleReferenceImpl>();
 
 			readonly DbgRuntime runtime;
 
@@ -94,11 +99,19 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 				var refs = ModuleReferences.Values.ToArray();
 				ModuleReferences.Clear();
 				runtime.Process.DbgManager.Close(refs);
+				refs = OtherModuleReferences.ToArray();
+				OtherModuleReferences.Clear();
+				runtime.Process.DbgManager.Close(refs);
 			}
 		}
 
 		sealed class ModuleReferencesState {
 			public DbgModuleReference[] ModuleReferences;
+
+			/// <summary>
+			/// Module reference of source module
+			/// </summary>
+			public DbgModuleReference SourceModuleReference;
 
 			/// <summary>
 			/// Referenced assemblies that have been loaded, including all their current modules. If an
@@ -128,10 +141,14 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 
 		struct ModuleInfo {
 			public DmdModule Module;
+			public DbgModule DebuggerModuleOrNull;
 			public int DynamicModuleVersion;
+			public int DebuggerModuleVersion;
 			public ModuleInfo(DmdModule module) {
 				Module = module;
+				DebuggerModuleOrNull = module.GetDebuggerModule();
 				DynamicModuleVersion = module.DynamicModuleVersion;
+				DebuggerModuleVersion = DebuggerModuleOrNull?.RefreshedVersion ?? -1;
 			}
 		}
 
@@ -139,46 +156,110 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 			public override IntPtr MetadataAddress => dbgRawMetadata.MetadataAddress;
 			public override uint MetadataSize => (uint)dbgRawMetadata.MetadataSize;
 			public override Guid ModuleVersionId { get; }
-			public override Guid GenerationId { get; }
+			public override Guid GenerationId => generationId;
 
 			readonly DbgRawMetadata dbgRawMetadata;
+			Guid generationId;
+			int refreshedVersion;
+#if DEBUG
+			readonly string toStringValue;
+#endif
 
-			public DbgModuleReferenceImpl(DbgRawMetadata dbgRawMetadata, Guid moduleVersionId, Guid generationId) {
+			public DbgModuleReferenceImpl(DbgRawMetadata dbgRawMetadata, Guid moduleVersionId, DmdModule moduleForToString, int refreshedVersion) {
 				this.dbgRawMetadata = dbgRawMetadata;
 				ModuleVersionId = moduleVersionId;
-				GenerationId = generationId;
+				this.refreshedVersion = refreshedVersion;
+#if DEBUG
+				toStringValue = $"{moduleForToString.Assembly.FullName} [{moduleForToString.FullyQualifiedName}]";
+#endif
+			}
+
+			internal void Update(int version) {
+				if (refreshedVersion != version) {
+					refreshedVersion = version;
+					generationId = Guid.NewGuid();
+					dbgRawMetadata.UpdateMemory();
+				}
 			}
 
 			protected override void CloseCore(DbgDispatcher dispatcher) => dbgRawMetadata.Release();
+#if DEBUG
+			public override string ToString() => toStringValue;
+#endif
 		}
 
 		public override GetModuleReferencesResult GetModuleReferences(DbgRuntime runtime, DbgStackFrame frame) {
-			// Not thread safe since all callers should call it on the correct engine thread
-			runtime.GetDotNetRuntime().Dispatcher.VerifyAccess();
-
 			var reflectionModule = frame.Module?.GetReflectionModule();
 			if (reflectionModule == null)
 				return new GetModuleReferencesResult(dnSpy_Debugger_DotNet_Resources.CantEvaluateWhenCurrentFrameIsNative);
+			return GetModuleReferences(runtime, reflectionModule);
+		}
 
-			if (reflectionModule.TryGetData(out ModuleReferencesState state)) {
-				if (CanReuse(reflectionModule.AppDomain, state))
-					return new GetModuleReferencesResult(state.ModuleReferences);
+		public override GetModuleReferencesResult GetModuleReferences(DbgRuntime runtime, DmdModule module) {
+			// Not thread safe since all callers should call it on the correct engine thread
+			runtime.GetDotNetRuntime().Dispatcher.VerifyAccess();
+
+			if (module.TryGetData(out ModuleReferencesState state)) {
+				if (CanReuse(module.AppDomain, state))
+					return CreateGetModuleReferencesResult(state);
 			}
 			else
-				state = reflectionModule.GetOrCreateData<ModuleReferencesState>();
+				state = module.GetOrCreateData<ModuleReferencesState>();
 
-			InitializeState(runtime, reflectionModule.Assembly, state);
+			InitializeState(runtime, module, state);
+			return CreateGetModuleReferencesResult(state);
+		}
+
+		GetModuleReferencesResult CreateGetModuleReferencesResult(ModuleReferencesState state) {
+			if (state.SourceModuleReference == null || state.SourceModuleReference.MetadataAddress == IntPtr.Zero || state.SourceModuleReference.MetadataSize == 0)
+				return new GetModuleReferencesResult(dnSpy_Debugger_DotNet_Resources.ModuleMetadataNotFoundOrInvalid);
 			return new GetModuleReferencesResult(state.ModuleReferences);
 		}
 
-		void InitializeState(DbgRuntime runtime, DmdAssembly assembly, ModuleReferencesState state) {
+		sealed class IntrinsicsAssemblyState {
+			public readonly DbgModuleReference ModuleReference;
+			public readonly DmdAssembly Assembly;
+			public IntrinsicsAssemblyState(DbgModuleReference moduleReference, DmdAssembly assembly) {
+				ModuleReference = moduleReference ?? throw new ArgumentNullException(nameof(moduleReference));
+				Assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
+			}
+		}
+
+		IntrinsicsAssemblyState GetIntrinsicsAssemblyState(DbgRuntime runtime, DmdAppDomain appDomain) {
+			if (appDomain.TryGetData(out IntrinsicsAssemblyState state))
+				return state;
+			return GetOrCreateIntrinsicsAssemblyState(runtime, appDomain);
+		}
+
+		IntrinsicsAssemblyState GetOrCreateIntrinsicsAssemblyState(DbgRuntime runtime, DmdAppDomain appDomain) {
+			var info = new IntrinsicsAssemblyBuilder(appDomain.CorLib.GetName().FullName).Create();
+			const bool isFileLayout = true;
+			const bool isInMemory = false;
+			const bool isDynamic = false;
+			var assembly = appDomain.CreateSyntheticAssembly(() => new DmdLazyMetadataBytesArray(info.assemblyBytes, isFileLayout), isInMemory, isDynamic, DmdModule.GetFullyQualifiedName(isInMemory, isDynamic, null), string.Empty, info.assemblySimpleName);
+			var rawMD = dbgRawMetadataService.Create(runtime, isFileLayout, info.assemblyBytes);
+			var modRef = new DbgModuleReferenceImpl(rawMD, assembly.ManifestModule.ModuleVersionId, assembly.ManifestModule, -1);
+			RuntimeState.GetRuntimeState(runtime).OtherModuleReferences.Add(modRef);
+			var state = new IntrinsicsAssemblyState(modRef, assembly);
+			return appDomain.GetOrCreateData(() => {
+				appDomain.Add(state.Assembly);
+				return state;
+			});
+		}
+
+		void InitializeState(DbgRuntime runtime, DmdModule sourceModule, ModuleReferencesState state) {
 			state.AssemblyInfos.Clear();
 			state.NonLoadedAssemblies.Clear();
+			state.SourceModuleReference = null;
+			var assembly = sourceModule.Assembly;
 			var appDomain = assembly.AppDomain;
+
+			var intrinsicsState = GetIntrinsicsAssemblyState(runtime, appDomain);
 
 			var hash = new HashSet<DmdAssembly>();
 			var stack = new List<AssemblyInfo>();
 			stack.Add(new AssemblyInfo(assembly));
+			stack.Add(new AssemblyInfo(intrinsicsState.Assembly));
 			stack.Add(new AssemblyInfo(appDomain.CorLib));
 
 			while (stack.Count > 0) {
@@ -202,44 +283,132 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 
 			var rtState = RuntimeState.GetRuntimeState(runtime);
 			var modRefs = new List<DbgModuleReference>();
+			var dnRuntime = runtime.GetDotNetRuntime();
 			foreach (var asmInfo in state.AssemblyInfos) {
 				foreach (var modInfo in asmInfo.Modules) {
-					if (modInfo.Module.IsDynamic) {
-						//TODO: Re-generate the dynamic module MD if it has changed since last time. Store this info in the DmdModule/DbgModule
-						Debug.Fail("NYI");
-					}
-					else {
-						var module = modInfo.Module.GetDebuggerModule();
-						Debug.Assert(module != null);
-						if (module == null)
-							throw new InvalidOperationException();
-						Debug.Assert(module.HasAddress);
-						if (!module.HasAddress)
-							throw new InvalidOperationException();
-						var key = new RuntimeState.Key(module.ImageLayout == DbgImageLayout.File, module.Address, module.Size);
-						if (!rtState.ModuleReferences.TryGetValue(key, out var modRef)) {
-							var rawMd = dbgRawMetadataService.Create(runtime, key.IsFileLayout, key.Address, (int)key.Size);
-							if (rawMd.MetadataAddress == IntPtr.Zero) {
-								rawMd.Release();
-								continue;
-							}
-							else {
-								try {
-									modRef = new DbgModuleReferenceImpl(rawMd, modInfo.Module.ModuleVersionId, Guid.Empty);
-									rtState.ModuleReferences.Add(key, modRef);
-								}
-								catch {
-									rawMd.Release();
-									throw;
-								}
-							}
-						}
-						modRefs.Add(modRef);
+					DbgModuleReference modRef;
+					if (modInfo.Module.Assembly == intrinsicsState.Assembly)
+						modRef = intrinsicsState.ModuleReference;
+					else
+						modRef = GetOrCreateModuleReference(rtState, runtime, modInfo);
+					if (modRef == null)
+						continue;
+					modRefs.Add(modRef);
+					if (modInfo.Module == sourceModule) {
+						Debug.Assert(state.SourceModuleReference == null);
+						state.SourceModuleReference = modRef;
 					}
 				}
 			}
 
 			state.ModuleReferences = modRefs.ToArray();
+		}
+
+		DbgModuleReference GetOrCreateModuleReference(RuntimeState rtState, DbgRuntime runtime, ModuleInfo modInfo) {
+			DbgModuleReferenceImpl modRef;
+			var module = modInfo.DebuggerModuleOrNull ?? modInfo.Module.GetDebuggerModule();
+			if (module?.HasAddress == true) {
+				var key = new RuntimeState.Key(module.ImageLayout == DbgImageLayout.File, module.Address, module.Size);
+				if (!rtState.ModuleReferences.TryGetValue(key, out modRef)) {
+					var rawMd = dbgRawMetadataService.Create(runtime, key.IsFileLayout, key.Address, (int)key.Size);
+					if (rawMd.MetadataAddress == IntPtr.Zero) {
+						rawMd.Release();
+						modRef = null;
+					}
+					else {
+						try {
+							modRef = new DbgModuleReferenceImpl(rawMd, modInfo.Module.ModuleVersionId, modInfo.Module, module.RefreshedVersion);
+							rtState.ModuleReferences.Add(key, modRef);
+						}
+						catch {
+							rawMd.Release();
+							throw;
+						}
+					}
+				}
+				if (modRef != null) {
+					modRef.Update(module.RefreshedVersion);
+					return modRef;
+				}
+			}
+
+			if (module != null && !module.IsDynamic && !module.IsInMemory && File.Exists(module.Filename)) {
+				modRef = GetOrCreateFileModuleReference(rtState, runtime, modInfo, module);
+				if (modRef != null)
+					return modRef;
+			}
+
+			if (module != null) {
+				var info = runtime.GetDotNetRuntime().GetRawModuleBytes(module);
+				if (info.RawBytes != null) {
+					var state = module.GetOrCreateData<RawModuleBytesModuleState>();
+					if (state.Equals(info))
+						return state.ModuleReference;
+					var rawMd = dbgRawMetadataService.Create(runtime, info.IsFileLayout, info.RawBytes);
+					if (rawMd.MetadataAddress == IntPtr.Zero)
+						rawMd.Release();
+					else {
+						try {
+							modRef = new DbgModuleReferenceImpl(rawMd, modInfo.Module.ModuleVersionId, modInfo.Module, module.RefreshedVersion);
+							rtState.OtherModuleReferences.Add(modRef);
+							state.RawModuleBytes = info;
+							state.ModuleReference = modRef;
+							return modRef;
+						}
+						catch {
+							rawMd.Release();
+							throw;
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
+		sealed class RawModuleBytesModuleState {
+			public DbgDotNetRawModuleBytes RawModuleBytes;
+			public DbgModuleReferenceImpl ModuleReference;
+
+			public bool Equals(DbgDotNetRawModuleBytes other) =>
+				RawModuleBytes.RawBytes == other.RawBytes &&
+				RawModuleBytes.IsFileLayout == other.IsFileLayout;
+		}
+
+		sealed class FileModuleReferenceState {
+			public readonly DbgModuleReferenceImpl ModuleReference;
+			public FileModuleReferenceState(DbgModuleReferenceImpl moduleReference) =>
+				ModuleReference = moduleReference ?? throw new ArgumentNullException(nameof(moduleReference));
+		}
+
+		DbgModuleReferenceImpl GetOrCreateFileModuleReference(RuntimeState rtState, DbgRuntime runtime, ModuleInfo modInfo, DbgModule module) {
+			Debug.Assert(!module.IsInMemory && File.Exists(module.Filename));
+			if (module.TryGetData<FileModuleReferenceState>(out var state))
+				return state.ModuleReference;
+			DbgModuleReferenceImpl modRef;
+			try {
+				var moduleBytes = File.ReadAllBytes(module.Filename);
+				var rawMd = dbgRawMetadataService.Create(runtime, isFileLayout: true, moduleBytes: moduleBytes);
+				if (rawMd.MetadataAddress == IntPtr.Zero) {
+					rawMd.Release();
+					return null;
+				}
+				else {
+					try {
+						modRef = new DbgModuleReferenceImpl(rawMd, modInfo.Module.ModuleVersionId, modInfo.Module, module.RefreshedVersion);
+						state = module.GetOrCreateData(() => new FileModuleReferenceState(modRef));
+						rtState.OtherModuleReferences.Add(modRef);
+						return state.ModuleReference;
+					}
+					catch {
+						rawMd.Release();
+						throw;
+					}
+				}
+			}
+			catch {
+				return null;
+			}
 		}
 
 		bool CanReuse(DmdAppDomain appDomain, ModuleReferencesState state) {
@@ -265,7 +434,11 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 				return false;
 			for (int i = 0; i < a.Length; i++) {
 				var info = b[i];
-				if (a[i] != info.Module || a[i].DynamicModuleVersion != info.DynamicModuleVersion)
+				var am = a[i];
+				if (am != info.Module || a[i].DynamicModuleVersion != info.DynamicModuleVersion)
+					return false;
+				var dm = info.DebuggerModuleOrNull ?? am.GetDebuggerModule();
+				if (dm != null && dm.RefreshedVersion != info.DebuggerModuleVersion)
 					return false;
 			}
 			return true;

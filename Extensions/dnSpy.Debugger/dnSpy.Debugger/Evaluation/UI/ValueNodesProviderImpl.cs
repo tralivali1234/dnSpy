@@ -38,7 +38,15 @@ namespace dnSpy.Debugger.Evaluation.UI {
 		readonly EvalContextInfo evalContextInfo;
 
 		sealed class EvalContextInfo {
-			public DbgEvaluationContext Context;
+			public DbgEvaluationContext Context {
+				get => __context_DONT_USE;
+				set {
+					__context_DONT_USE?.Close();
+					__context_DONT_USE = value;
+				}
+			}
+			DbgEvaluationContext __context_DONT_USE;
+
 			public DbgLanguage Language;
 			public DbgStackFrame Frame;
 
@@ -72,7 +80,6 @@ namespace dnSpy.Debugger.Evaluation.UI {
 		public void Initialize_UI(bool enable) {
 			uiDispatcher.VerifyAccess();
 			isOpen = enable;
-			evalContextInfo.Context?.Process.DbgManager.Close(evalContextInfo.Context);
 			evalContextInfo.Clear();
 			variablesWindowValueNodesProvider.Initialize(enable);
 			if (enable)
@@ -88,12 +95,19 @@ namespace dnSpy.Debugger.Evaluation.UI {
 			if (enable) {
 				dbgLanguageService.Value.LanguageChanged += DbgLanguageService_LanguageChanged;
 				dbgCallStackService.Value.FramesChanged += DbgCallStackService_FramesChanged;
+				dbgManager.Value.IsDebuggingChanged += DbgManager_IsDebuggingChanged;
 			}
 			else {
 				dbgLanguageService.Value.LanguageChanged -= DbgLanguageService_LanguageChanged;
 				dbgCallStackService.Value.FramesChanged -= DbgCallStackService_FramesChanged;
+				dbgManager.Value.IsDebuggingChanged -= DbgManager_IsDebuggingChanged;
 			}
+			CallOnIsDebuggingChanged(dbgManager.Value.IsDebugging);
 		}
+
+		void DbgManager_IsDebuggingChanged(object sender, EventArgs e) => CallOnIsDebuggingChanged(dbgManager.Value.IsDebugging);
+
+		void CallOnIsDebuggingChanged(bool isDebugging) => UI(() => variablesWindowValueNodesProvider.OnIsDebuggingChanged(isDebugging));
 
 		void DbgLanguageService_LanguageChanged(object sender, DbgLanguageChangedEventArgs e) {
 			var thread = dbgManager.Value.CurrentThread.Current;
@@ -134,12 +148,12 @@ namespace dnSpy.Debugger.Evaluation.UI {
 			uiDispatcher.VerifyAccess();
 			var info = TryGetLanguage();
 			if (info.frame == null)
-				return new GetNodesResult(variablesWindowValueNodesProvider.GetDefaultNodes(), frameClosed: false);
+				return new GetNodesResult(variablesWindowValueNodesProvider.GetDefaultNodes(), frameClosed: false, recreateAllNodes: false);
 			var evalContextInfo = TryGetEvaluationContextInfo();
 			if (evalContextInfo.context == null)
-				return new GetNodesResult(variablesWindowValueNodesProvider.GetDefaultNodes(), info.frame.IsClosed);
-			var nodes = variablesWindowValueNodesProvider.GetNodes(evalContextInfo.context, info.language, info.frame, evalOptions, nodeEvalOptions);
-			return new GetNodesResult(nodes, info.frame.IsClosed);
+				return new GetNodesResult(variablesWindowValueNodesProvider.GetDefaultNodes(), info.frame.IsClosed, recreateAllNodes: false);
+			var nodesInfo = variablesWindowValueNodesProvider.GetNodes(evalContextInfo.context, info.language, info.frame, evalOptions, nodeEvalOptions);
+			return new GetNodesResult(nodesInfo.Nodes, info.frame.IsClosed, nodesInfo.RecreateAllNodes);
 		}
 
 		void SetIsReadOnly_UI(bool newIsReadOnly) {
@@ -178,16 +192,15 @@ namespace dnSpy.Debugger.Evaluation.UI {
 
 		public override (DbgEvaluationContext context, DbgStackFrame frame) TryGetEvaluationContextInfo() {
 			var info = TryGetLanguage();
-			if (evalContextInfo.Language == info.language && evalContextInfo.Frame == info.frame)
+			if (evalContextInfo.Context != null && evalContextInfo.Language == info.language && evalContextInfo.Frame == info.frame)
 				return (evalContextInfo.Context, evalContextInfo.Frame);
 
-			evalContextInfo.Context?.Process.DbgManager.Close(evalContextInfo.Context);
 			evalContextInfo.Language = info.language;
 			evalContextInfo.Frame = info.frame;
 			if (info.frame != null) {
 				//TODO: Show a cancel button if the decompiler takes too long to decompile the method
 				var cancellationToken = CancellationToken.None;
-				evalContextInfo.Context = info.language.CreateContext(info.frame.Runtime, info.frame.Location, EvaluationConstants.DefaultFuncEvalTimeout, DbgEvaluationContextOptions.None, cancellationToken);
+				evalContextInfo.Context = info.language.CreateContext(info.frame, cancellationToken: cancellationToken);
 			}
 			else
 				evalContextInfo.Context = null;

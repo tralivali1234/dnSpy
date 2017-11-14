@@ -19,6 +19,7 @@
 
 using System;
 using System.Threading;
+using dnSpy.Contracts.Debugger;
 using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Debugger.Engine.Evaluation;
 using dnSpy.Contracts.Debugger.Evaluation;
@@ -36,10 +37,9 @@ namespace dnSpy.Debugger.Evaluation {
 			this.engineExpressionEvaluator = engineExpressionEvaluator ?? throw new ArgumentNullException(nameof(engineExpressionEvaluator));
 		}
 
-		DbgEvaluationResult CreateResult(DbgEngineEvaluationResult result) {
+		DbgEvaluationResult CreateResult(DbgRuntime runtime, DbgEngineEvaluationResult result) {
 			if (result.Error != null)
-				return new DbgEvaluationResult(result.Error, result.Flags);
-			var runtime = result.Thread.Runtime;
+				return new DbgEvaluationResult(PredefinedEvaluationErrorMessagesHelper.GetErrorMessage(result.Error), result.Flags);
 			try {
 				var value = new DbgValueImpl(runtime, result.Value);
 				runtime.CloseOnContinue(value);
@@ -51,9 +51,11 @@ namespace dnSpy.Debugger.Evaluation {
 			}
 		}
 
-		DbgEEAssignmentResult CreateResult(DbgEngineEEAssignmentResult result) => new DbgEEAssignmentResult(result.Flags, result.Error);
+		DbgEEAssignmentResult CreateResult(DbgEngineEEAssignmentResult result) => new DbgEEAssignmentResult(result.Flags, PredefinedEvaluationErrorMessagesHelper.GetErrorMessage(result.Error));
 
-		public override DbgEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken) {
+		public override object CreateExpressionEvaluatorState() => engineExpressionEvaluator.CreateExpressionEvaluatorState();
+
+		public override DbgEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, object state, CancellationToken cancellationToken) {
 			if (context == null)
 				throw new ArgumentNullException(nameof(context));
 			if (!(context is DbgEvaluationContextImpl))
@@ -64,7 +66,7 @@ namespace dnSpy.Debugger.Evaluation {
 				throw new ArgumentException();
 			if (expression == null)
 				throw new ArgumentNullException(nameof(expression));
-			return CreateResult(engineExpressionEvaluator.Evaluate(context, frame, expression, options, cancellationToken));
+			return CreateResult(context.Runtime, engineExpressionEvaluator.Evaluate(context, frame, expression, options, state, cancellationToken));
 		}
 
 		public override DbgEEAssignmentResult Assign(DbgEvaluationContext context, DbgStackFrame frame, string expression, string valueExpression, DbgEvaluationOptions options, CancellationToken cancellationToken) {

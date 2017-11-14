@@ -18,7 +18,9 @@
 */
 
 using System;
+using System.Globalization;
 using System.Threading;
+using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Text;
 
 namespace dnSpy.Contracts.Debugger.Evaluation {
@@ -35,11 +37,13 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// Formats the value. The thread is blocked until the value has been formatted
 		/// </summary>
 		/// <param name="context">Evaluation context</param>
+		/// <param name="frame">Stack frame</param>
 		/// <param name="output">Output</param>
 		/// <param name="value">Value to format</param>
 		/// <param name="options">Options</param>
+		/// <param name="cultureInfo">Culture or null to use invariant culture</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		public abstract void Format(DbgEvaluationContext context, ITextColorWriter output, DbgValue value, DbgValueFormatterOptions options, CancellationToken cancellationToken = default);
+		public abstract void Format(DbgEvaluationContext context, DbgStackFrame frame, ITextColorWriter output, DbgValue value, DbgValueFormatterOptions options, CultureInfo cultureInfo, CancellationToken cancellationToken = default);
 
 		/// <summary>
 		/// Formats the value's type. The thread is blocked until the type has been formatted
@@ -48,8 +52,9 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// <param name="output">Output</param>
 		/// <param name="value">Value to format</param>
 		/// <param name="options">Options</param>
+		/// <param name="cultureInfo">Culture or null to use invariant culture</param>
 		/// <param name="cancellationToken">Cancellation token</param>
-		public abstract void FormatType(DbgEvaluationContext context, ITextColorWriter output, DbgValue value, DbgValueFormatterTypeOptions options, CancellationToken cancellationToken = default);
+		public abstract void FormatType(DbgEvaluationContext context, ITextColorWriter output, DbgValue value, DbgValueFormatterTypeOptions options, CultureInfo cultureInfo, CancellationToken cancellationToken = default);
 	}
 
 	/// <summary>
@@ -88,6 +93,16 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// Use digit separators. This flag is ignored if <see cref="Display"/> is not set and the language doesn't support digit separators
 		/// </summary>
 		DigitSeparators				= 0x00000010,
+
+		/// <summary>
+		/// Don't show string quotes, just the raw string value
+		/// </summary>
+		NoStringQuotes				= 0x00000020,
+
+		/// <summary>
+		/// Don't use debugger display attributes
+		/// </summary>
+		NoDebuggerDisplay			= 0x00000040,
 
 		/// <summary>
 		/// Show namespaces. Only used if <see cref="Display"/> is set

@@ -41,13 +41,17 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 		readonly DbgDotNetValueNodeProviderFactory valueNodeProviderFactory;
 		readonly DmdType enumerableType;
 		readonly DbgDotNetValue instanceValue;
+		readonly string valueExpression;
+		string resultsViewProxyExpression;
 		DbgDotNetValue getResultsViewValue;
 
-		public ResultsViewMembersValueNodeProvider(DbgDotNetValueNodeProviderFactory valueNodeProviderFactory, LanguageValueNodeFactory valueNodeFactory, DmdType enumerableType, DbgDotNetValue instanceValue, string expression, DbgValueNodeEvaluationOptions evalOptions)
-			: base(valueNodeFactory, resultsViewName, expression + ", results", default, evalOptions) {
+		public ResultsViewMembersValueNodeProvider(DbgDotNetValueNodeProviderFactory valueNodeProviderFactory, LanguageValueNodeFactory valueNodeFactory, DmdType enumerableType, DbgDotNetValue instanceValue, string typeExpression, string valueExpression, DbgValueNodeEvaluationOptions evalOptions)
+			: base(valueNodeFactory, resultsViewName, typeExpression + ", results", default, evalOptions) {
 			this.valueNodeProviderFactory = valueNodeProviderFactory;
 			this.enumerableType = enumerableType;
 			this.instanceValue = instanceValue;
+			this.valueExpression = valueExpression;
+			resultsViewProxyExpression = string.Empty;
 		}
 
 		sealed class ForceLoadAssemblyState {
@@ -61,16 +65,13 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 			var proxyCtor = EnumerableDebugViewHelper.GetEnumerableDebugViewConstructor(enumerableType);
 			if ((object)proxyCtor == null) {
 				var loadState = enumerableType.AppDomain.GetOrCreateData<ForceLoadAssemblyState>();
-				if (Interlocked.Increment(ref loadState.Counter) == 1) {
-					//TODO: Try to force load the assembly
-					//		.NET Framework:
-					//			System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-					//			System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-					//		.NET Core:
-					//			v1: System.Linq, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
-					//			v2: System.Linq, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+				if (Interlocked.Exchange(ref loadState.Counter, 1) == 0) {
+					var loader = new ReflectionAssemblyLoader(context, frame, enumerableType.AppDomain, cancellationToken);
+					if (loader.TryLoadAssembly(GetRequiredAssemblyFullName(context.Runtime)))
+						proxyCtor = EnumerableDebugViewHelper.GetEnumerableDebugViewConstructor(enumerableType);
 				}
-				return string.Format(dnSpy_Roslyn_Shared_Resources.SystemCoreDllNotLoaded, GetRequiredAssemblyFileName(enumerableType.AppDomain));
+				if ((object)proxyCtor == null)
+					return string.Format(dnSpy_Roslyn_Shared_Resources.SystemCoreDllNotLoaded, GetRequiredAssemblyFileName(context.Runtime));
 			}
 
 			var runtime = context.Runtime.GetDotNetRuntime();
@@ -78,20 +79,46 @@ namespace dnSpy.Roslyn.Shared.Debugger.ValueNodes {
 			if (proxyTypeResult.HasError)
 				return proxyTypeResult.ErrorMessage;
 
+			resultsViewProxyExpression = valueNodeProviderFactory.GetNewObjectExpression(proxyCtor, valueExpression);
 			getResultsViewValue = proxyTypeResult.Value;
 			valueNodeProviderFactory.GetMemberCollections(getResultsViewValue.Type, evalOptions, out membersCollection, out _);
 			return null;
 		}
 
-		static string GetRequiredAssemblyFileName(DmdAppDomain appDomain) {
-			// Check if it's .NET Core
-			if (StringComparer.OrdinalIgnoreCase.Equals(appDomain.CorLib.GetName().Name, "System.Private.CoreLib"))
-				return "System.Linq.dll";
-			return "System.Core.dll";
+		enum ClrVersion {
+			CLR2,
+			CLR4,
+			CoreCLR,
+		}
+
+		ClrVersion GetClrVersion(DbgRuntime runtime) {
+			if (runtime.Guid == PredefinedDbgRuntimeGuids.DotNetCore_Guid)
+				return ClrVersion.CoreCLR;
+			if (enumerableType.AppDomain.CorLib.GetName().Version == new Version(2, 0, 0, 0))
+				return ClrVersion.CLR2;
+			return ClrVersion.CLR4;
+		}
+
+		string GetRequiredAssemblyFullName(DbgRuntime runtime) {
+			switch (GetClrVersion(runtime)) {
+			case ClrVersion.CLR2:		return "System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+			case ClrVersion.CLR4:		return "System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089";
+			case ClrVersion.CoreCLR:	return "System.Linq, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
+			default:					throw new InvalidOperationException();
+			}
+		}
+
+		string GetRequiredAssemblyFileName(DbgRuntime runtime) {
+			switch (GetClrVersion(runtime)) {
+			case ClrVersion.CLR2:
+			case ClrVersion.CLR4:		return "System.Core.dll";
+			case ClrVersion.CoreCLR:	return "System.Linq.dll";
+			default:					throw new InvalidOperationException();
+			}
 		}
 
 		protected override (DbgDotNetValueNode node, bool canHide) CreateValueNode(DbgEvaluationContext context, DbgStackFrame frame, int index, DbgValueNodeEvaluationOptions options, CancellationToken cancellationToken) =>
-			CreateValueNode(context, frame, false, getResultsViewValue.Type, getResultsViewValue, index, options, cancellationToken);
+			CreateValueNode(context, frame, false, getResultsViewValue.Type, getResultsViewValue, index, options, resultsViewProxyExpression, cancellationToken);
 
 		protected override (DbgDotNetValueNode node, bool canHide) TryCreateInstanceValueNode(DbgDotNetValueResult valueResult) {
 			if (!valueResult.ValueIsException)

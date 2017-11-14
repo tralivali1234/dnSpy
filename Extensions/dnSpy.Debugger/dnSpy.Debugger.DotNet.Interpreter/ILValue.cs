@@ -147,6 +147,13 @@ namespace dnSpy.Debugger.DotNet.Interpreter {
 		public virtual ILValue UnboxAny(DmdType type) => null;
 
 		/// <summary>
+		/// Unboxes this instance. Returns null if it's not supported.
+		/// </summary>
+		/// <param name="type">Target type</param>
+		/// <returns></returns>
+		public virtual ILValue Unbox(DmdType type) => null;
+
+		/// <summary>
 		/// Loads an SZ array element. Returns null if it's not supported.
 		/// </summary>
 		/// <param name="loadValueType">Type of value to load</param>
@@ -1056,7 +1063,7 @@ namespace dnSpy.Debugger.DotNet.Interpreter {
 		/// <summary>
 		/// Returns true since it's a null value
 		/// </summary>
-		public override bool IsNull => true;
+		public sealed override bool IsNull => true;
 
 		/// <summary>
 		/// Constructor

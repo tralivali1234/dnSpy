@@ -1540,6 +1540,16 @@ namespace dnSpy.Text.Classification {
 		[Name(ThemeClassificationTypeNames.DebugObjectIdName)]
 		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
 		static ClassificationTypeDefinition DebugObjectIdNameClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.DebuggerDisplayAttributeEval)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition DebuggerDisplayAttributeEvalClassificationTypeDefinition;
+
+		[Export(typeof(ClassificationTypeDefinition))]
+		[Name(ThemeClassificationTypeNames.DebuggerNoStringQuotesEval)]
+		[BaseDefinition(PredefinedClassificationTypeNames.FormalLanguage)]
+		static ClassificationTypeDefinition DebuggerNoStringQuotesEvalClassificationTypeDefinition;
 #pragma warning restore 0169
 
 		[Export(typeof(EditorFormatDefinition))]
@@ -4217,6 +4227,24 @@ namespace dnSpy.Text.Classification {
 		[Order(After = ThemeClassificationTypeNameKeys.Identifier), Order(After = ThemeClassificationTypeNameKeys.Keyword)]
 		sealed class DebugObjectIdName : ThemeClassificationFormatDefinition {
 			DebugObjectIdName() : base(TextColor.DebugObjectIdName) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.DebuggerDisplayAttributeEval)]
+		[Name(ThemeClassificationTypeNameKeys.DebuggerDisplayAttributeEval)]
+		[UserVisible(true)]
+		[Order(After = ThemeClassificationTypeNameKeys.Identifier), Order(After = ThemeClassificationTypeNameKeys.Keyword)]
+		sealed class DebuggerDisplayAttributeEval : ThemeClassificationFormatDefinition {
+			DebuggerDisplayAttributeEval() : base(TextColor.DebuggerDisplayAttributeEval) { }
+		}
+
+		[Export(typeof(EditorFormatDefinition))]
+		[ClassificationType(ClassificationTypeNames = ThemeClassificationTypeNames.DebuggerNoStringQuotesEval)]
+		[Name(ThemeClassificationTypeNameKeys.DebuggerNoStringQuotesEval)]
+		[UserVisible(true)]
+		[Order(After = ThemeClassificationTypeNameKeys.Identifier), Order(After = ThemeClassificationTypeNameKeys.Keyword)]
+		sealed class DebuggerNoStringQuotesEval : ThemeClassificationFormatDefinition {
+			DebuggerNoStringQuotesEval() : base(TextColor.DebuggerNoStringQuotesEval) { }
 		}
 
 		[Export(typeof(EditorFormatDefinition))]

@@ -23,9 +23,19 @@ using dnSpy.Contracts.Debugger.Evaluation;
 using dnSpy.Debugger.Evaluation.ViewModel;
 
 namespace dnSpy.Debugger.Evaluation.UI {
+	struct ValueNodesProviderResult {
+		public DbgValueNodeInfo[] Nodes { get; }
+		public bool RecreateAllNodes { get; }
+
+		public ValueNodesProviderResult(DbgValueNodeInfo[] nodes, bool recreateAllNodes) {
+			Nodes = nodes ?? throw new ArgumentNullException(nameof(nodes));
+			RecreateAllNodes = recreateAllNodes;
+		}
+	}
+
 	abstract class VariablesWindowValueNodesProvider {
 		public virtual event EventHandler NodesChanged { add { } remove { } }
-		public abstract DbgValueNodeInfo[] GetNodes(DbgEvaluationContext context, DbgLanguage language, DbgStackFrame frame, DbgEvaluationOptions options, DbgValueNodeEvaluationOptions nodeEvalOptions);
+		public abstract ValueNodesProviderResult GetNodes(DbgEvaluationContext context, DbgLanguage language, DbgStackFrame frame, DbgEvaluationOptions options, DbgValueNodeEvaluationOptions nodeEvalOptions);
 		public virtual DbgValueNodeInfo[] GetDefaultNodes() => Array.Empty<DbgValueNodeInfo>();
 
 		/// <summary>
@@ -33,6 +43,8 @@ namespace dnSpy.Debugger.Evaluation.UI {
 		/// </summary>
 		/// <param name="enable">true if window is shown, false if it's closed</param>
 		public virtual void Initialize(bool enable) { }
+
+		public virtual void OnIsDebuggingChanged(bool isDebugging) { }
 
 		/// <summary>
 		/// true if root nodes can be added/deleted (supported by watch window)

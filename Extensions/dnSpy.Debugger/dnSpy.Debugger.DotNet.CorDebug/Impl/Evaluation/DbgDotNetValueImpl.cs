@@ -92,8 +92,9 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 			Debug.Assert(Type.IsByRef && !IsNullByRef);
 			engine.VerifyCorDebugThread();
 			var dereferencedValue = TryGetCorValue()?.DereferencedValue;
+			// We sometimes get 0x80131c49 = CORDBG_E_READVIRTUAL_FAILURE
 			if (dereferencedValue == null)
-				return null;
+				return new SyntheticNullValue(Type.GetElementType());
 			return engine.CreateDotNetValue_CorDebug(dereferencedValue, Type.AppDomain, tryCreateStrongHandle: true);
 		}
 
@@ -161,7 +162,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		public override bool GetArrayCount(out uint elementCount) {
-			if (IsArray) {
+			if (Type.IsArray) {
 				if (engine.CheckCorDebugThread()) {
 					elementCount = GetArrayCountCore_CorDebug();
 					return true;
@@ -177,7 +178,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		uint GetArrayCountCore_CorDebug() {
-			Debug.Assert(IsArray);
+			Debug.Assert(Type.IsArray);
 			engine.VerifyCorDebugThread();
 			var corValue = TryGetCorValue();
 			if (corValue == null || corValue.IsNull)
@@ -187,7 +188,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		public override bool GetArrayInfo(out uint elementCount, out DbgDotNetArrayDimensionInfo[] dimensionInfos) {
-			if (IsArray) {
+			if (Type.IsArray) {
 				if (engine.CheckCorDebugThread())
 					return GetArrayInfo_CorDebug(out elementCount, out dimensionInfos);
 				else {
@@ -206,7 +207,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		bool GetArrayInfo_CorDebug(out uint elementCount, out DbgDotNetArrayDimensionInfo[] dimensionInfos) {
-			Debug.Assert(IsArray);
+			Debug.Assert(Type.IsArray);
 			engine.VerifyCorDebugThread();
 			var corValue = TryGetCorValue();
 			if (corValue == null || corValue.IsNull) {
@@ -238,7 +239,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		public override DbgDotNetValue GetArrayElementAt(uint index) {
-			if (!IsArray)
+			if (!Type.IsArray)
 				return null;
 			if (engine.CheckCorDebugThread())
 				return GetArrayElementAt_CorDebug(index);
@@ -246,7 +247,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		DbgDotNetValue GetArrayElementAt_CorDebug(uint index) {
-			Debug.Assert(IsArray);
+			Debug.Assert(Type.IsArray);
 			engine.VerifyCorDebugThread();
 			var corValue = TryGetCorValue();
 			if (corValue == null || corValue.IsNull)
@@ -260,7 +261,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		}
 
 		public override string SetArrayElementAt(DbgEvaluationContext context, DbgStackFrame frame, uint index, object value, CancellationToken cancellationToken) {
-			if (!IsArray)
+			if (!Type.IsArray)
 				return base.SetArrayElementAt(context, frame, index, value, cancellationToken);
 			if (engine.CheckCorDebugThread())
 				return SetArrayElementAt_CorDebug(context, frame, index, value, cancellationToken);
@@ -284,6 +285,39 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 				}
 			};
 			return engine.StoreValue_CorDebug(context, frame.Thread, ilFrame, createTargetValue, Type.GetElementType(), value, cancellationToken);
+		}
+
+		public override DbgDotNetValue Box(DbgEvaluationContext context, DbgStackFrame frame, CancellationToken cancellationToken) {
+			if (engine.CheckCorDebugThread())
+				return Box_CorDebug(context, frame, cancellationToken);
+			return engine.InvokeCorDebugThread(() => Box_CorDebug(context, frame, cancellationToken));
+		}
+
+		DbgDotNetValue Box_CorDebug(DbgEvaluationContext context, DbgStackFrame frame, CancellationToken cancellationToken) {
+			engine.VerifyCorDebugThread();
+			cancellationToken.ThrowIfCancellationRequested();
+			var corValue = TryGetCorValue();
+			if (corValue == null)
+				return null;
+			if (!ILDbgEngineStackFrame.TryGetEngineStackFrame(frame, out var ilFrame))
+				return null;
+			// Even if it's boxed, box the unboxed value. This code path should only be called if
+			// the compiler thinks it's an unboxed value, so we must make a new boxed value.
+			if (corValue.IsReference) {
+				corValue = corValue.DereferencedValue;
+				if (corValue == null)
+					return null;
+			}
+			if (corValue.IsBox) {
+				corValue = corValue.BoxedValue;
+				if (corValue == null)
+					return null;
+			}
+			var res = engine.Box_CorDebug(context, frame.Thread, ilFrame.GetCorAppDomain(), corValue, Type, cancellationToken);
+			if (res.IsNormalResult)
+				return res.Value;
+			res.Value?.Dispose();
+			return null;
 		}
 
 		public override DbgRawAddressValue? GetRawAddressValue(bool onlyDataAddress) {

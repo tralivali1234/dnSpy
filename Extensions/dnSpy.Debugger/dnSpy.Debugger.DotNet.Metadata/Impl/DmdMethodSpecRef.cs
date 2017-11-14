@@ -31,6 +31,7 @@ namespace dnSpy.Debugger.DotNet.Metadata.Impl {
 		public override int MetadataToken => genericMethodRef.MetadataToken;
 		public override DmdMethodImplAttributes MethodImplementationFlags => genericMethodRef.MethodImplementationFlags;
 		public override DmdMethodAttributes Attributes => genericMethodRef.Attributes;
+		public override uint RVA => genericMethodRef.RVA;
 		public override bool IsMetadataReference => true;
 		public override bool IsGenericMethodDefinition => false;
 		public override bool IsGenericMethod => true;
@@ -51,7 +52,7 @@ namespace dnSpy.Debugger.DotNet.Metadata.Impl {
 
 			var genericMethodDef = (DmdMethodDef)genericMethodRef.Resolve(throwOnError);
 			if ((object)genericMethodDef != null) {
-				var newResolvedMethod = (DmdMethodSpec)AppDomain.MakeGenericMethod(genericMethodDef, genericArguments, MakeTypeOptions.None);
+				var newResolvedMethod = (DmdMethodSpec)AppDomain.MakeGenericMethod(genericMethodDef, genericArguments, DmdMakeTypeOptions.None);
 				if ((object)newResolvedMethod != null) {
 					Interlocked.CompareExchange(ref __resolvedMethod_DONT_USE, newResolvedMethod, null);
 					return __resolvedMethod_DONT_USE;

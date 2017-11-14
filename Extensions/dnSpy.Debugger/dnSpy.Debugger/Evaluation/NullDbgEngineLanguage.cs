@@ -62,18 +62,20 @@ namespace dnSpy.Debugger.Evaluation {
 	sealed class NullDbgEngineExpressionEvaluator : DbgEngineExpressionEvaluator {
 		// No need to localize it, an EE should always be available
 		public const string ERROR = "No expression evaluator is available for this runtime";
-		public override DbgEngineEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, CancellationToken cancellationToken) => new DbgEngineEvaluationResult(ERROR);
+		public override object CreateExpressionEvaluatorState() => null;
+		public override DbgEngineEvaluationResult Evaluate(DbgEvaluationContext context, DbgStackFrame frame, string expression, DbgEvaluationOptions options, object state, CancellationToken cancellationToken) => new DbgEngineEvaluationResult(ERROR);
 		public override DbgEngineEEAssignmentResult Assign(DbgEvaluationContext context, DbgStackFrame frame, string expression, string valueExpression, DbgEvaluationOptions options, CancellationToken cancellationToken) => new DbgEngineEEAssignmentResult(DbgEEAssignmentResultFlags.CompilerError, ERROR);
 	}
 
 	sealed class NullDbgEngineValueFormatter : DbgEngineValueFormatter {
-		public override void Format(DbgEvaluationContext context, ITextColorWriter output, DbgEngineValue value, DbgValueFormatterOptions options, CancellationToken cancellationToken) { }
-		public override void FormatType(DbgEvaluationContext context, ITextColorWriter output, DbgEngineValue value, DbgValueFormatterTypeOptions options, CancellationToken cancellationToken) { }
+		public override void Format(DbgEvaluationContext context, DbgStackFrame frame, ITextColorWriter output, DbgEngineValue value, DbgValueFormatterOptions options, CultureInfo cultureInfo, CancellationToken cancellationToken) { }
+		public override void FormatType(DbgEvaluationContext context, ITextColorWriter output, DbgEngineValue value, DbgValueFormatterTypeOptions options, CultureInfo cultureInfo, CancellationToken cancellationToken) { }
 	}
 
 	sealed class NullDbgEngineEngineFormatter : DbgEngineFormatter {
 		public override void FormatExceptionName(DbgEvaluationContext context, ITextColorWriter output, uint id) { }
 		public override void FormatStowedExceptionName(DbgEvaluationContext context, ITextColorWriter output, uint id) { }
+		public override void FormatReturnValueName(DbgEvaluationContext context, ITextColorWriter output, uint id) { }
 		public override void FormatObjectIdName(DbgEvaluationContext context, ITextColorWriter output, uint id) { }
 	}
 

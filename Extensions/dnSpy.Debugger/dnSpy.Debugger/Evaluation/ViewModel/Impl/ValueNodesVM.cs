@@ -81,6 +81,8 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 			}
 		}
 
+		internal event EventHandler OnVariableChanged;
+
 		public ValueNodesVM(UIDispatcher uiDispatcher, ValueNodesVMOptions options, ITreeViewService treeViewService, LanguageEditValueProviderFactory languageEditValueProviderFactory, DbgValueNodeImageReferenceService dbgValueNodeImageReferenceService, DebuggerSettings debuggerSettings, DbgEvalFormatterSettings dbgEvalFormatterSettings, DbgObjectIdService dbgObjectIdService, IClassificationFormatMapService classificationFormatMapService, ITextBlockContentInfoFactory textBlockContentInfoFactory, IMenuService menuService, IWpfCommandService wpfCommandService) {
 			uiDispatcher.VerifyAccess();
 			valueNodesProvider = options.NodesProvider;
@@ -110,8 +112,10 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 			valueNodesContext.UIDispatcher.VerifyAccess();
 			if (errorMessage != null)
 				valueNodesContext.ShowMessageBox(errorMessage, ShowMessageBoxButtons.OK);
-			if (!retry)
+			if (!retry) {
+				OnVariableChanged?.Invoke(this, EventArgs.Empty);
 				RecreateRootChildren_UI();
+			}
 		}
 
 		// UI thread
@@ -162,7 +166,7 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 			var frame = valueNodesProvider.TryGetFrame();
 			if (frame == null)
 				return new DbgValueNodeInfo(expression, expression, dnSpy_Debugger_Resources.ErrorEvaluatingExpression, causesSideEffects: false);
-			var res = context.Language.ValueNodeFactory.Create(context, frame, expression, valueNodesContext.ValueNodeEvaluationOptions, valueNodesContext.EvaluationOptions);
+			var res = context.Language.ValueNodeFactory.Create(context, frame, expression, valueNodesContext.ValueNodeEvaluationOptions, valueNodesContext.EvaluationOptions, context.Language.ExpressionEvaluator.CreateExpressionEvaluatorState());
 			return new DbgValueNodeInfo(res.ValueNode, res.CausesSideEffects);
 		}
 
@@ -173,7 +177,14 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 		}
 
 		// UI thread
-		void RecreateRootChildren_UI() {
+		internal void RefreshAllNodes_UI() {
+			valueNodesContext.UIDispatcher.VerifyAccess();
+			valueNodesProvider.RefreshAllNodes();
+			RecreateRootChildren_UI();
+		}
+
+		// UI thread
+		internal void RecreateRootChildren_UI() {
 			valueNodesContext.UIDispatcher.VerifyAccess();
 			refreshNameFields = false;
 			Guid? runtimeKindGuid;
@@ -181,15 +192,17 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 			DbgEvaluationContext evalContext;
 			DbgStackFrame frame;
 			DbgLanguage language;
+			bool forceRecreateAllNodes;
 			if (isOpen) {
-				(evalContext, frame) = valueNodesProvider.TryGetEvaluationContextInfo();
 				var nodeInfo = valueNodesProvider.GetNodes(valueNodesContext.EvaluationOptions, valueNodesContext.ValueNodeEvaluationOptions);
+				(evalContext, frame) = valueNodesProvider.TryGetEvaluationContextInfo();
 				runtimeKindGuid = valueNodesProvider.Language?.RuntimeKindGuid ?? lastRuntimeKindGuid;
 				// Frame got closed. Don't use the new nodes, we'll get new nodes using the new frame in a little while.
 				if (nodeInfo.FrameClosed)
 					return;
 				nodes = nodeInfo.Nodes;
 				language = valueNodesProvider.Language;
+				forceRecreateAllNodes = nodeInfo.RecreateAllNodes;
 			}
 			else {
 				evalContext = null;
@@ -197,6 +210,7 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 				nodes = Array.Empty<DbgValueNodeInfo>();
 				runtimeKindGuid = null;
 				language = null;
+				forceRecreateAllNodes = false;
 			}
 			valueNodesContext.ValueNodeReader.SetEvaluationContext(evalContext, frame);
 			valueNodesContext.EvaluationContext = evalContext;
@@ -205,7 +219,7 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 #if DEBUG
 			var origEditNode = TryGetEditNode();
 #endif
-			RecreateRootChildrenCore_UI(nodes, runtimeKindGuid, language);
+			RecreateRootChildrenCore_UI(nodes, runtimeKindGuid, language, forceRecreateAllNodes);
 			VerifyChildren_UI(nodes);
 #if DEBUG
 			// PERF: make sure edit node was re-used
@@ -263,14 +277,18 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 		}
 
 		// UI thread
-		void RecreateRootChildrenCore_UI(DbgValueNodeInfo[] infos, Guid? runtimeKindGuid, DbgLanguage language) {
+		void RecreateRootChildrenCore_UI(DbgValueNodeInfo[] infos, Guid? runtimeKindGuid, DbgLanguage language, bool forceRecreateAllNodes) {
 			valueNodesContext.UIDispatcher.VerifyAccess();
 
-			bool recreateAll = runtimeKindGuid != lastRuntimeKindGuid || language != lastLanguage;
+			bool recreateAllNodes = forceRecreateAllNodes || runtimeKindGuid != lastRuntimeKindGuid || language != lastLanguage;
 			lastRuntimeKindGuid = runtimeKindGuid;
 			lastLanguage = language;
 
-			if (infos.Length == 0 || rootNode.TreeNode.Children.Count == 0 || recreateAll) {
+			var children = rootNode.TreeNode.Children;
+			int oldChildCount = children.Count;
+			const int maxChildrenDiffCount = 20;
+
+			if (recreateAllNodes || oldChildCount == 0 || infos.Length == 0 || Math.Abs(infos.Length - oldChildCount) > maxChildrenDiffCount) {
 				SetNewRootChildren_UI(infos);
 				return;
 			}
@@ -279,8 +297,6 @@ namespace dnSpy.Debugger.Evaluation.ViewModel.Impl {
 			// Most of the time the node's UI elements don't change (same name, value, and type).
 			// Recreating these elements is slow.
 
-			var children = rootNode.TreeNode.Children;
-			int oldChildCount = children.Count;
 			var toOldIndex = new Dictionary<string, List<int>>(oldChildCount, StringComparer.Ordinal);
 			for (int i = 0; i < oldChildCount; i++) {
 				var node = (ValueNodeImpl)children[i].Data;

@@ -46,11 +46,14 @@
     <Compile Include="Code\DbgDotNetCodeLocation.cs" />
     <Compile Include="Code\DbgDotNetCodeLocationFactory.cs" />
     <Compile Include="Code\DbgDotNetCodeRangeService.cs" />
+    <Compile Include="Code\DbgDotNetDecompilerGuidProvider.cs" />
+    <Compile Include="Code\DbgDotNetDecompilerService.cs" />
     <Compile Include="Code\IDbgDotNetCodeLocation.cs" />
     <Compile Include="DbgDotNetInternalAppDomain.cs" />
     <Compile Include="DbgDotNetInternalModule.cs" />
     <Compile Include="DbgDotNetInternalRuntime.cs" />
     <Compile Include="Evaluation\DbgDotNetAliasInfo.cs" />
+    <Compile Include="Evaluation\DbgDotNetCustomTypeInfo.cs" />
     <Compile Include="Evaluation\DbgDotNetDispatcher.cs" />
     <Compile Include="Evaluation\DbgDotNetExceptionInfo.cs" />
     <Compile Include="Evaluation\DbgDotNetLanguageGuids.cs" />
@@ -68,7 +71,9 @@
     <Compile Include="Evaluation\ExpressionCompiler\DbgModuleReference.cs" />
     <Compile Include="Evaluation\ExpressionCompiler\PredefinedDecompilerGuids.cs" />
     <Compile Include="Evaluation\Formatters\DbgDotNetFormatter.cs" />
+    <Compile Include="Evaluation\Formatters\IDebuggerDisplayAttributeEvaluator.cs" />
     <Compile Include="Evaluation\IDbgDotNetRuntime.cs" />
+    <Compile Include="Evaluation\IDmdEvaluatorContext.cs" />
     <Compile Include="Evaluation\ValueNodes\DbgDotNetValueNode.cs" />
     <Compile Include="Evaluation\ValueNodes\DbgDotNetValueNodeFactory.cs" />
     <Compile Include="Extensions\DbgAppDomainExtensions.cs" />

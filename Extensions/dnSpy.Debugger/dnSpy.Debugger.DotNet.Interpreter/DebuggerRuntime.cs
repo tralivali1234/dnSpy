@@ -32,6 +32,13 @@ namespace dnSpy.Debugger.DotNet.Interpreter {
 		public abstract int PointerSize { get; }
 
 		/// <summary>
+		/// Called before executing the method
+		/// </summary>
+		/// <param name="method">Method</param>
+		/// <param name="body">Method body</param>
+		public abstract void Initialize(DmdMethodBase method, DmdMethodBody body);
+
+		/// <summary>
 		/// Gets an argument value or returns null on failure
 		/// </summary>
 		/// <param name="index">Argument index</param>
@@ -202,6 +209,13 @@ namespace dnSpy.Debugger.DotNet.Interpreter {
 		/// <param name="right">Right operand</param>
 		/// <returns></returns>
 		public abstract bool? Equals(ILValue left, ILValue right);
+
+		/// <summary>
+		/// Gets the size of a value type
+		/// </summary>
+		/// <param name="type">Value type</param>
+		/// <returns></returns>
+		public abstract int GetSizeOfValueType(DmdType type);
 	}
 
 #pragma warning disable 1591 // Missing XML comment for publicly visible type or member
