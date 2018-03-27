@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -51,13 +51,6 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 			if (type == typeof(UIntPtr))
 				return appDomain.System_UIntPtr;
 
-			return null;
-		}
-
-		public static DbgDotNetValue TryCreateSyntheticValue(DmdAppDomain appDomain, object constant) {
-			var type = TryGetType(appDomain, constant);
-			if ((object)type != null)
-				return TryCreateSyntheticValue(type, constant);
 			return null;
 		}
 
@@ -155,7 +148,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 		public override DmdType Type { get; }
 		readonly DbgDotNetRawValue rawValue;
 
-		public SyntheticValue(DmdType type, DbgDotNetRawValue rawValue) {
+		public SyntheticValue(DmdType type, in DbgDotNetRawValue rawValue) {
 			Type = type ?? throw new ArgumentNullException(nameof(type));
 			this.rawValue = rawValue;
 		}

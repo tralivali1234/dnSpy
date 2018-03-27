@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,7 +38,7 @@ namespace dnSpy.Documents {
 		readonly IDsDocumentProvider[] documentProviders;
 
 		// PERF: Must be a struct; class is 9% slower (decompile mscorlib+dnSpy = 83 files)
-		struct DocumentInfo {
+		readonly struct DocumentInfo {
 			readonly List<AssemblyRef> alternativeAssemblyNames;
 			public readonly IDsDocument Document;
 
@@ -213,8 +213,13 @@ namespace dnSpy.Documents {
 			}
 
 			if (result == document)
-				CallCollectionChanged(NotifyDocumentCollectionChangedEventArgs.CreateAdd(result, null));
+				NotifyDocumentAdded(result, null);
 			return result;
+		}
+
+		void NotifyDocumentAdded(IDsDocument document, object data, bool delayLoad = true) {
+			(document as IDsDocument2)?.OnAdded();
+			CallCollectionChanged(NotifyDocumentCollectionChangedEventArgs.CreateAdd(document, data), delayLoad);
 		}
 
 		public IDsDocument ForceAdd(IDsDocument document, bool delayLoad, object data) {
@@ -229,7 +234,7 @@ namespace dnSpy.Documents {
 				rwLock.ExitWriteLock();
 			}
 
-			CallCollectionChanged(NotifyDocumentCollectionChangedEventArgs.CreateAdd(document, data), delayLoad);
+			NotifyDocumentAdded(document, data, delayLoad);
 			return document;
 		}
 
@@ -374,6 +379,7 @@ namespace dnSpy.Documents {
 				if (isDotNet) {
 					try {
 						var options = new ModuleCreationOptions(DsDotNetDocumentBase.CreateModuleContext(AssemblyResolver));
+						options.TryToLoadPdbFromDisk = false;
 						if (isModule)
 							return DsDotNetDocument.CreateModule(documentInfo, ModuleDefMD.Load(peImage, options), true);
 						return DsDotNetDocument.CreateAssembly(documentInfo, ModuleDefMD.Load(peImage, options), true);

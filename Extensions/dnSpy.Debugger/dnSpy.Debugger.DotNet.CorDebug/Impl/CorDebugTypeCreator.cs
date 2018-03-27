@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -38,7 +38,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl {
 			CorType GetTypeCore(DbgEngineImpl engine2, CorAppDomain appDomain2, DmdType type2) => type2.GetOrCreateData(() => new CorDebugTypeCreator(engine2, appDomain2).Create(type2));
 		}
 
-		public CorDebugTypeCreator(DbgEngineImpl engine, CorAppDomain appDomain) {
+		CorDebugTypeCreator(DbgEngineImpl engine, CorAppDomain appDomain) {
 			this.engine = engine;
 			this.appDomain = appDomain;
 			recursionCounter = 0;

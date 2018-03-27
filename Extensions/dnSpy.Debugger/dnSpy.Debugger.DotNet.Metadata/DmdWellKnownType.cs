@@ -312,12 +312,12 @@ namespace dnSpy.Debugger.DotNet.Metadata {
 		System_Collections_Generic_KeyValuePair_T2,
 		System_Linq_SystemCore_EnumerableDebugView,
 		System_Linq_SystemCore_EnumerableDebugView_T,
-		System_Linq_SystemCore_EnumerableDebugViewEmptyException,
 		System_Text_Encoding,
 		System_Runtime_CompilerServices_IsReadOnlyAttribute,
 		System_Runtime_CompilerServices_IsByRefLikeAttribute,
 		System_ObsoleteAttribute,
 		System_Span_T,
+		System_Runtime_InteropServices_GCHandle,
 
 		// When adding more types, update DmdWellKnownTypeUtils
 

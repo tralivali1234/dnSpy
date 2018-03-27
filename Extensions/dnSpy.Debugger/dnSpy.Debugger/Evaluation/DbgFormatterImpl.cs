@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,9 +18,11 @@
 */
 
 using System;
+using System.Globalization;
 using dnSpy.Contracts.Debugger.Engine.Evaluation;
 using dnSpy.Contracts.Debugger.Evaluation;
 using dnSpy.Contracts.Text;
+using dnSpy.Debugger.CallStack;
 
 namespace dnSpy.Debugger.Evaluation {
 	sealed class DbgFormatterImpl : DbgFormatter {
@@ -89,6 +91,64 @@ namespace dnSpy.Debugger.Evaluation {
 			if (output == null)
 				throw new ArgumentNullException(nameof(output));
 			engineFormatter.FormatObjectIdName(context, output, id);
+		}
+
+		public override void FormatFrame(DbgEvaluationInfo evalInfo, ITextColorWriter output, DbgStackFrameFormatterOptions options, DbgValueFormatterOptions valueOptions, CultureInfo cultureInfo) {
+			if (evalInfo == null)
+				throw new ArgumentNullException(nameof(evalInfo));
+			if (!(evalInfo.Context is DbgEvaluationContextImpl))
+				throw new ArgumentException();
+			if (evalInfo.Context.Language != Language)
+				throw new ArgumentException();
+			if (evalInfo.Context.Runtime.RuntimeKindGuid != runtimeKindGuid)
+				throw new ArgumentException();
+			if (output == null)
+				throw new ArgumentNullException(nameof(output));
+			var frameImpl = evalInfo.Frame as DbgStackFrameImpl;
+			if (frameImpl == null)
+				throw new ArgumentException();
+			if (!frameImpl.TryFormat(evalInfo.Context, output, options, valueOptions, cultureInfo, evalInfo.CancellationToken))
+				engineFormatter.FormatFrame(evalInfo, output, options, valueOptions, cultureInfo);
+		}
+
+		public override void FormatValue(DbgEvaluationInfo evalInfo, ITextColorWriter output, DbgValue value, DbgValueFormatterOptions options, CultureInfo cultureInfo) {
+			if (evalInfo == null)
+				throw new ArgumentNullException(nameof(evalInfo));
+			if (!(evalInfo.Context is DbgEvaluationContextImpl))
+				throw new ArgumentException();
+			if (evalInfo.Context.Language != Language)
+				throw new ArgumentException();
+			if (evalInfo.Context.Runtime.RuntimeKindGuid != runtimeKindGuid)
+				throw new ArgumentException();
+			if (output == null)
+				throw new ArgumentNullException(nameof(output));
+			if (value == null)
+				throw new ArgumentNullException(nameof(value));
+			if (!(value is DbgValueImpl valueImpl))
+				throw new ArgumentException();
+			if (value.Runtime.RuntimeKindGuid != runtimeKindGuid)
+				throw new ArgumentException();
+			engineFormatter.FormatValue(evalInfo, output, valueImpl.EngineValue, options, cultureInfo);
+		}
+
+		public override void FormatType(DbgEvaluationInfo evalInfo, ITextColorWriter output, DbgValue value, DbgValueFormatterTypeOptions options, CultureInfo cultureInfo) {
+			if (evalInfo == null)
+				throw new ArgumentNullException(nameof(evalInfo));
+			if (!(evalInfo.Context is DbgEvaluationContextImpl))
+				throw new ArgumentException();
+			if (evalInfo.Context.Language != Language)
+				throw new ArgumentException();
+			if (evalInfo.Context.Runtime.RuntimeKindGuid != runtimeKindGuid)
+				throw new ArgumentException();
+			if (output == null)
+				throw new ArgumentNullException(nameof(output));
+			if (value == null)
+				throw new ArgumentNullException(nameof(value));
+			if (!(value is DbgValueImpl valueImpl))
+				throw new ArgumentException();
+			if (value.Runtime.RuntimeKindGuid != runtimeKindGuid)
+				throw new ArgumentException();
+			engineFormatter.FormatType(evalInfo, output, valueImpl.EngineValue, options, cultureInfo);
 		}
 	}
 }

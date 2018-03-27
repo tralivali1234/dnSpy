@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -22,9 +22,6 @@ using dndbg.COM.CorDebug;
 
 namespace dndbg.Engine {
 	sealed class CorFunctionBreakpoint : COMObject<ICorDebugFunctionBreakpoint>, IEquatable<CorFunctionBreakpoint> {
-		/// <summary>
-		/// Gets the function or null
-		/// </summary>
 		public CorFunction Function {
 			get {
 				int hr = obj.GetFunction(out var func);
@@ -32,9 +29,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets/sets whether the breakpoint is active
-		/// </summary>
 		public bool IsActive {
 			get {
 				int hr = obj.IsActive(out int active);
@@ -45,9 +39,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets the offset of the breakpoint
-		/// </summary>
 		public uint Offset => offset;
 		readonly uint offset;
 
@@ -70,6 +61,6 @@ namespace dndbg.Engine {
 		public bool Equals(CorFunctionBreakpoint other) => !ReferenceEquals(other, null) && RawObject == other.RawObject;
 		public override bool Equals(object obj) => Equals(obj as CorFunctionBreakpoint);
 		public override int GetHashCode() => RawObject.GetHashCode();
-		public override string ToString() => string.Format("[FunctionBreakpoint] Enabled={0}, Offset={1:X4} Method={2}", IsActive ? 1 : 0, Offset, Function);
+		public override string ToString() => $"[FunctionBreakpoint] Enabled={(IsActive ? 1 : 0)}, Offset={Offset:X4} Method={Function}";
 	}
 }

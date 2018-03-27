@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -22,7 +22,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
-using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Debugger.Evaluation;
 using dnSpy.Debugger.Evaluation.UI;
 using dnSpy.Debugger.Evaluation.ViewModel;
@@ -126,7 +125,7 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 			return res;
 		}
 
-		public override ValueNodesProviderResult GetNodes(DbgEvaluationContext context, DbgLanguage language, DbgStackFrame frame, DbgEvaluationOptions evalOptions, DbgValueNodeEvaluationOptions nodeEvalOptions) {
+		public override ValueNodesProviderResult GetNodes(DbgEvaluationInfo evalInfo, DbgLanguage language, DbgEvaluationOptions evalOptions, DbgValueNodeEvaluationOptions nodeEvalOptions, DbgValueFormatterOptions nameFormatterOptions) {
 			if (expressions.Count == 0)
 				return new ValueNodesProviderResult(Array.Empty<DbgValueNodeInfo>(), false);
 
@@ -138,9 +137,9 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 				var realEvalOptions = evalOptions & ~DbgEvaluationOptions.NoFuncEval;
 				var realNodeEvalOptions = nodeEvalOptions & ~DbgValueNodeEvaluationOptions.NoFuncEval;
 				if (info.ForceEval)
-					realEvalOptions = evalOptions & ~DbgEvaluationOptions.NoSideEffects;
+					realEvalOptions &= ~DbgEvaluationOptions.NoSideEffects;
 				else
-					realEvalOptions = evalOptions | DbgEvaluationOptions.NoSideEffects;
+					realEvalOptions |= DbgEvaluationOptions.NoSideEffects;
 				Debug.Assert(((realEvalOptions & DbgEvaluationOptions.NoFuncEval) != 0) == ((realNodeEvalOptions & DbgValueNodeEvaluationOptions.NoFuncEval) != 0));
 				info.ForceEval = false;
 				if (info.ExpressionEvaluatorState == null)
@@ -148,7 +147,7 @@ namespace dnSpy.Debugger.ToolWindows.Watch {
 				infos[i] = new DbgExpressionEvaluationInfo(info.Expression, realNodeEvalOptions, realEvalOptions, info.ExpressionEvaluatorState);
 			}
 
-			var compRes = language.ValueNodeFactory.Create(context, frame, infos);
+			var compRes = language.ValueNodeFactory.Create(evalInfo, infos);
 			Debug.Assert(compRes.Length == infos.Length);
 
 			var res = new DbgValueNodeInfo[compRes.Length];

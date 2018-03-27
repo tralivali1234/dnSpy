@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -94,7 +94,8 @@ namespace dnSpy.Documents {
 		const string DotNetExeName = "dotnet.exe";
 		static IEnumerable<(string path, int bitness)> GetDotNetCoreBaseDirs() {
 			var pathEnvVar = Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
-			foreach (var path in pathEnvVar.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)) {
+			foreach (var tmp in pathEnvVar.Split(new[] { Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries)) {
+				var path = tmp.Trim();
 				if (!Directory.Exists(path))
 					continue;
 				string file;

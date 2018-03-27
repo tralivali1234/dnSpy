@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -46,11 +46,6 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// Gets the expression evaluator
 		/// </summary>
 		public abstract DbgExpressionEvaluator ExpressionEvaluator { get; }
-
-		/// <summary>
-		/// Gets the value formatter
-		/// </summary>
-		public abstract DbgValueFormatter ValueFormatter { get; }
 
 		/// <summary>
 		/// Gets the formatter
@@ -135,5 +130,11 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// lock owned by a suspended thread.
 		/// </summary>
 		RunAllThreads				= 0x00000001,
+
+		/// <summary>
+		/// If method body info isn't needed, this option should be used. It prevents decompiling the
+		/// method to get sequence points and other debug info. Can be used when formatting stack frames.
+		/// </summary>
+		NoMethodBody				= 0x00000002,
 	}
 }

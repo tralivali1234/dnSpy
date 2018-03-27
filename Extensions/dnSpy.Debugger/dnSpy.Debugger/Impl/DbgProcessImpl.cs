@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -35,7 +35,7 @@ using Microsoft.Win32.SafeHandles;
 namespace dnSpy.Debugger.Impl {
 	unsafe sealed class DbgProcessImpl : DbgProcess, IIsRunningProvider {
 		public override DbgManager DbgManager => owner;
-		public override ulong Id { get; }
+		public override int Id { get; }
 		public override int Bitness { get; }
 		public override DbgMachine Machine { get; }
 		public override string Filename { get; }
@@ -132,7 +132,7 @@ namespace dnSpy.Debugger.Impl {
 		readonly SafeProcessHandle hProcess;
 		CurrentObject<DbgRuntimeImpl> currentRuntime;
 
-		public DbgProcessImpl(DbgManagerImpl owner, Dispatcher dispatcher, ulong pid, DbgProcessState state, bool shouldDetach) {
+		public DbgProcessImpl(DbgManagerImpl owner, Dispatcher dispatcher, int pid, DbgProcessState state, bool shouldDetach) {
 			lockObj = new object();
 			engineInfos = new List<EngineInfo>();
 			threads = new List<DbgThread>();
@@ -144,14 +144,15 @@ namespace dnSpy.Debugger.Impl {
 
 			const int dwDesiredAccess = NativeMethods.PROCESS_VM_OPERATION | NativeMethods.PROCESS_VM_READ |
 				NativeMethods.PROCESS_VM_WRITE | NativeMethods.PROCESS_QUERY_LIMITED_INFORMATION;
-			hProcess = NativeMethods.OpenProcess(dwDesiredAccess, false, (int)pid);
+			hProcess = NativeMethods.OpenProcess(dwDesiredAccess, false, pid);
 			if (hProcess.IsInvalid)
 				throw new InvalidOperationException($"Couldn't open process {pid}");
 
 			Bitness = ProcessUtilities.GetBitness(hProcess.DangerousGetHandle());
 			Machine = GetMachine(Bitness);
-			Filename = GetProcessFilename(pid) ?? string.Empty;
-			Name = Path.GetFileName(Filename);
+			var info = GetProcessName(pid);
+			Filename = info.filename ?? string.Empty;
+			Name = info.name ?? string.Empty;
 
 			new DelayedIsRunningHelper(this, dispatcher, RaiseDelayedIsRunningChanged_DbgThread);
 		}
@@ -236,14 +237,20 @@ namespace dnSpy.Debugger.Impl {
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 		}
 
-		static string GetProcessFilename(ulong pid) {
+		static (string filename, string name) GetProcessName(int pid) {
+			string name = null;
+			string filename = null;
 			try {
-				using (var p = Process.GetProcessById((int)pid))
-					return p.MainModule.FileName;
+				using (var p = Process.GetProcessById(pid)) {
+					name = p.ProcessName;
+					// Could throw
+					filename = p.MainModule.FileName;
+					name = Path.GetFileName(filename);
+				}
 			}
 			catch {
 			}
-			return string.Empty;
+			return (filename, name);
 		}
 
 		static DbgMachine GetMachine(int bitness) {

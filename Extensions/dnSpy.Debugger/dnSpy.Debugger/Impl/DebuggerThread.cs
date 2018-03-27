@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -36,7 +36,6 @@ namespace dnSpy.Debugger.Impl {
 			callDispatcherRunEvent = new AutoResetEvent(false);
 			debuggerThread = new Thread(() => DebuggerThreadProc(autoResetEvent));
 			debuggerThread.IsBackground = true;
-			debuggerThread.SetApartmentState(ApartmentState.STA);
 			debuggerThread.Start();
 
 			try {

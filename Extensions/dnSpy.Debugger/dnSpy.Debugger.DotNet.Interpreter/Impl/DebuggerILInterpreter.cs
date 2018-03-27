@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -90,12 +90,12 @@ namespace dnSpy.Debugger.DotNet.Interpreter.Impl {
 			return res;
 		}
 
-		ILValue Convert(ILValue value, DmdType targetType) {
+		ILValue Convert(ILValue value, DmdType targetType, bool boxIfNeeded = true) {
 			// We want to return the same ILValue, if possible, since it can contain extra information,
 			// such as address of value that the caller (debugger) would like to keep.
 			var type = value.Type;
 			if (targetType.IsAssignableFrom(type)) {
-				if (type.IsValueType && type != targetType)
+				if (boxIfNeeded && type.IsValueType && type != targetType)
 					value = debuggerRuntime.Box(value, type) ?? value;
 				return value;
 			}
@@ -165,6 +165,10 @@ namespace dnSpy.Debugger.DotNet.Interpreter.Impl {
 
 			default:
 				if (targetType == targetType.AppDomain.System_IntPtr || targetType == targetType.AppDomain.System_UIntPtr) {
+					if (GetValue(value, out l))
+						return debuggerRuntime.PointerSize == 4 ? ConstantNativeIntILValue.Create32(targetType, (int)l) : ConstantNativeIntILValue.Create64(targetType, l);
+				}
+				if ((type == type.AppDomain.System_IntPtr || type == type.AppDomain.System_UIntPtr) && (targetType.IsPointer || targetType.IsFunctionPointer)) {
 					if (GetValue(value, out l))
 						return debuggerRuntime.PointerSize == 4 ? ConstantNativeIntILValue.Create32(targetType, (int)l) : ConstantNativeIntILValue.Create64(targetType, l);
 				}
@@ -4281,7 +4285,8 @@ namespace dnSpy.Debugger.DotNet.Interpreter.Impl {
 					else {
 						if (ilValueStack.Count != 1)
 							ThrowInvalidMethodBodyInterpreterException();
-						return Convert(Pop1(), currentMethod.GetMethodSignature().ReturnType);
+						const bool IsLastEmulatedMethod = true;
+						return Convert(Pop1(), currentMethod.GetMethodSignature().ReturnType, boxIfNeeded: !IsLastEmulatedMethod);
 					}
 
 				case OpCode.Jmp:
@@ -4768,7 +4773,10 @@ namespace dnSpy.Debugger.DotNet.Interpreter.Impl {
 			if (constrainedType.IsValueType) {
 				if (ImplementsMethod(constrainedType, method.Name, method.GetMethodSignature()))
 					return v1;
-				return v1.LoadIndirect(constrainedType, GetLoadValueType(constrainedType))?.Box(constrainedType);
+				var value = v1.LoadIndirect(constrainedType, GetLoadValueType(constrainedType));
+				if (value == null)
+					return null;
+				return value.Box(constrainedType) ?? debuggerRuntime.Box(value, constrainedType);
 			}
 			else
 				return v1.LoadIndirect(constrainedType.AppDomain.System_Object, LoadValueType.Ref);

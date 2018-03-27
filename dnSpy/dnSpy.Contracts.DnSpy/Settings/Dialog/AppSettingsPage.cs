@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.ComponentModel;
 using System.Windows;
 using dnSpy.Contracts.Images;
 
@@ -25,7 +26,7 @@ namespace dnSpy.Contracts.Settings.Dialog {
 	/// <summary>
 	/// Content shown in the options dialog box
 	/// </summary>
-	public abstract class AppSettingsPage {
+	public abstract class AppSettingsPage : INotifyPropertyChanged {
 		/// <summary>
 		/// Parent <see cref="System.Guid"/> or <see cref="System.Guid.Empty"/> if the root element is the parent
 		/// </summary>
@@ -88,6 +89,17 @@ namespace dnSpy.Contracts.Settings.Dialog {
 		/// </summary>
 		/// <returns></returns>
 		public virtual string[] GetSearchStrings() => null;
+
+		/// <summary>
+		/// Raised when a property is changed
+		/// </summary>
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>
+		/// Raises <see cref="PropertyChanged"/>
+		/// </summary>
+		/// <param name="propName">Name of property that changed</param>
+		protected void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
 		/// <summary>
 		/// Constructor

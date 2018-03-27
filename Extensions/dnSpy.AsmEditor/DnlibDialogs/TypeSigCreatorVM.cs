@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,12 +18,12 @@
 */
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using dnlib.DotNet;
 using dnSpy.AsmEditor.Properties;
 using dnSpy.AsmEditor.ViewHelpers;
-using dnSpy.Contracts.Decompiler;
 using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Search;
 using dnSpy.Contracts.Text;
@@ -59,7 +59,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		}
 
 		public bool IsEnabled {
-			get { return isEnabled; }
+			get => isEnabled;
 			set {
 				if (isEnabled != value) {
 					isEnabled = value;
@@ -73,7 +73,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		bool isEnabled = true;
 
 		public TypeSig TypeSig {
-			get { return typeSig; }
+			get => typeSig;
 			set {
 				if (typeSig != value) {
 					bool nullChange = typeSig == null || value == null;
@@ -98,7 +98,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		public bool CanShowTypeFullName => ShowTypeFullName && IsValidTypeSig;
 
 		public bool ShowTypeFullName {
-			get { return showTypeFullName; }
+			get => showTypeFullName;
 			set {
 				if (showTypeFullName != value) {
 					showTypeFullName = value;
@@ -122,7 +122,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 				if (TypeSig == null)
 					return "null";
 				var output = new StringBuilderTextColorOutput();
-				Language.WriteType(output, TypeSig.ToTypeDefOrRef(), true);
+				Language.Decompiler.WriteType(output, TypeSig.ToTypeDefOrRef(), true);
 				return output.ToString();
 			}
 		}
@@ -142,13 +142,14 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		public ICommand AddCModReqdSigCommand => new RelayCommand(a => AddCModReqdSig(), a => AddCModReqdSigCanExecute());
 		public ICommand AddCModOptSigCommand => new RelayCommand(a => AddCModOptSig(), a => AddCModOptSigCanExecute());
 		public ICommand AddPinnedSigCommand => new RelayCommand(a => AddPinnedSig(), a => AddPinnedSigCanExecute());
-		public IEnumerable<IDecompiler> AllLanguages => options.DecompilerService.AllDecompilers;
+		public ObservableCollection<DecompilerVM> AllLanguages => allDecompilers;
+		readonly ObservableCollection<DecompilerVM> allDecompilers;
 
-		public IDecompiler Language {
-			get { return options.Decompiler; }
+		public DecompilerVM Language {
+			get => allDecompilers.FirstOrDefault(a => a.Decompiler == options.Decompiler);
 			set {
-				if (options.Decompiler != value) {
-					options.Decompiler = value;
+				if (options.Decompiler != value.Decompiler) {
+					options.Decompiler = value.Decompiler;
 					OnPropertyChanged(nameof(Language));
 					OnPropertyChanged(nameof(TypeSigLanguageFullName));
 				}
@@ -173,6 +174,8 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 				Max = ModelUtils.COMPRESSED_INT32_MAX,
 			};
 			GenericVariableNumber = new UInt32VM(0, a => { });
+
+			allDecompilers = new ObservableCollection<DecompilerVM>(options.DecompilerService.AllDecompilers.Select(a => new DecompilerVM(a)));
 
 			Reinitialize();
 		}
@@ -245,7 +248,7 @@ namespace dnSpy.AsmEditor.DnlibDialogs {
 		bool AddFnPtrSigCanExecute() => CanAddFnPtr && CanAddLeafTypeSig;
 
 		public bool CanAddFnPtr {
-			get { return canAddFnPtr; }
+			get => canAddFnPtr;
 			set {
 				if (canAddFnPtr != value) {
 					canAddFnPtr = value;

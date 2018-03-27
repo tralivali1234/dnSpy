@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -26,17 +26,11 @@ using System.Security;
 namespace dndbg.COM.MetaData {
 	[Flags]
 	enum CorPEKind {
-		/// <summary>not a PE file</summary>
 		peNot = 0x00000000,
-		/// <summary>flag IL_ONLY is set in COR header</summary>
 		peILonly = 0x00000001,
-		/// <summary>flag 32BITREQUIRED is set and 32BITPREFERRED is clear in COR header</summary>
 		pe32BitRequired = 0x00000002,
-		/// <summary>PE32+ file (64 bit)</summary>
 		pe32Plus = 0x00000004,
-		/// <summary>PE32 without COR header</summary>
 		pe32Unmanaged = 0x00000008,
-		/// <summary>flags 32BITREQUIRED and 32BITPREFERRED are set in COR header</summary>
 		pe32BitPreferred = 0x00000010,
 	}
 	struct COR_FIELD_OFFSET {

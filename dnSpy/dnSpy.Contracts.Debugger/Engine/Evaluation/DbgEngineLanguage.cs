@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -40,11 +40,6 @@ namespace dnSpy.Contracts.Debugger.Engine.Evaluation {
 		/// Gets the expression evaluator
 		/// </summary>
 		public abstract DbgEngineExpressionEvaluator ExpressionEvaluator { get; }
-
-		/// <summary>
-		/// Gets the value formatter
-		/// </summary>
-		public abstract DbgEngineValueFormatter ValueFormatter { get; }
 
 		/// <summary>
 		/// Gets the formatter

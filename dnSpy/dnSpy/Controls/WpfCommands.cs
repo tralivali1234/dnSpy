@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -33,7 +33,7 @@ namespace dnSpy.Controls {
 		public Guid Guid => guid;
 		readonly Guid guid;
 
-		struct CMKKey : IEquatable<CMKKey> {
+		readonly struct CMKKey : IEquatable<CMKKey> {
 			readonly ICommand command;
 			readonly ModifierKeys modifiers;
 			readonly Key key;
@@ -74,6 +74,11 @@ namespace dnSpy.Controls {
 			}
 		}
 
+		static InputBinding Clone(InputBinding inputBinding) {
+			// We must clone it since it contains a reference to the UIElement
+			return (InputBinding)inputBinding.Clone();
+		}
+
 		public void Add(UIElement elem) {
 			if (elem == null)
 				throw new ArgumentNullException(nameof(elem));
@@ -81,7 +86,7 @@ namespace dnSpy.Controls {
 			foreach (var c in commandBindings)
 				elem.CommandBindings.Add(c);
 			foreach (var i in inputBindings)
-				elem.InputBindings.Add(i);
+				elem.InputBindings.Add(Clone(i));
 		}
 
 		public void Remove(UIElement elem) {
@@ -103,7 +108,7 @@ namespace dnSpy.Controls {
 		void Add(InputBinding inputBinding) {
 			inputBindings.Add(inputBinding);
 			foreach (var u in UIElements)
-				u.InputBindings.Add(inputBinding);
+				u.InputBindings.Add(Clone(inputBinding));
 		}
 
 		void AddIfNotAdded(KeyBinding kb) {

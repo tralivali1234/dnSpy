@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -17,6 +17,7 @@
     along with dnSpy.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+using System.Globalization;
 using dnSpy.Contracts.Text;
 
 namespace dnSpy.Contracts.Debugger.Evaluation {
@@ -60,5 +61,35 @@ namespace dnSpy.Contracts.Debugger.Evaluation {
 		/// <param name="output">Output</param>
 		/// <param name="id">Object id</param>
 		public abstract void FormatObjectIdName(DbgEvaluationContext context, ITextColorWriter output, uint id);
+
+		/// <summary>
+		/// Formats a stack frame
+		/// </summary>
+		/// <param name="evalInfo">Evaluation info</param>
+		/// <param name="output">Output</param>
+		/// <param name="options">Stack frame options</param>
+		/// <param name="valueOptions">Value option</param>
+		/// <param name="cultureInfo">Culture or null to use invariant culture</param>
+		public abstract void FormatFrame(DbgEvaluationInfo evalInfo, ITextColorWriter output, DbgStackFrameFormatterOptions options, DbgValueFormatterOptions valueOptions, CultureInfo cultureInfo);
+
+		/// <summary>
+		/// Formats a value
+		/// </summary>
+		/// <param name="evalInfo">Evaluation info</param>
+		/// <param name="output">Output</param>
+		/// <param name="value">Value to format</param>
+		/// <param name="options">Options</param>
+		/// <param name="cultureInfo">Culture or null to use invariant culture</param>
+		public abstract void FormatValue(DbgEvaluationInfo evalInfo, ITextColorWriter output, DbgValue value, DbgValueFormatterOptions options, CultureInfo cultureInfo);
+
+		/// <summary>
+		/// Formats a value's type
+		/// </summary>
+		/// <param name="evalInfo">Evaluation info</param>
+		/// <param name="output">Output</param>
+		/// <param name="value">Value to format</param>
+		/// <param name="options">Options</param>
+		/// <param name="cultureInfo">Culture or null to use invariant culture</param>
+		public abstract void FormatType(DbgEvaluationInfo evalInfo, ITextColorWriter output, DbgValue value, DbgValueFormatterTypeOptions options, CultureInfo cultureInfo);
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -23,9 +23,6 @@ using dndbg.COM.CorDebug;
 
 namespace dndbg.Engine {
 	sealed class CorAppDomain : COMObject<ICorDebugAppDomain>, IEquatable<CorAppDomain> {
-		/// <summary>
-		/// Gets the process or null
-		/// </summary>
 		public CorProcess Process {
 			get {
 				int hr = obj.GetProcess(out var process);
@@ -33,15 +30,9 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// AppDomain Id
-		/// </summary>
 		public int Id => id;
 		readonly int id;
 
-		/// <summary>
-		/// AppDomain name
-		/// </summary>
 		public string Name => GetName(obj) ?? string.Empty;
 
 		static string GetName(ICorDebugAppDomain appDomain) {
@@ -114,6 +105,6 @@ namespace dndbg.Engine {
 		public bool Equals(CorAppDomain other) => !ReferenceEquals(other, null) && RawObject == other.RawObject;
 		public override bool Equals(object obj) => Equals(obj as CorAppDomain);
 		public override int GetHashCode() => RawObject.GetHashCode();
-		public override string ToString() => string.Format("[AppDomain] {0} {1}", Id, Name);
+		public override string ToString() => $"[AppDomain] {Id} {Name}";
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -73,13 +73,8 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Dialogs.DebugProgram {
 		public ICommand PickFilenameCommand => new RelayCommand(a => PickNewFilename());
 		public ICommand PickWorkingDirectoryCommand => new RelayCommand(a => PickNewWorkingDirectory());
 
-		static readonly EnumVM[] breakProcessKindList = new EnumVM[] {
-			new EnumVM(PredefinedBreakKinds.DontBreak, dnSpy_Debugger_DotNet_CorDebug_Resources.DbgBreak_Dont),
-			new EnumVM(PredefinedBreakKinds.CreateProcess, dnSpy_Debugger_DotNet_CorDebug_Resources.DbgBreak_CreateProcessEvent),
-			new EnumVM(PredefinedBreakKinds.EntryPoint, dnSpy_Debugger_DotNet_CorDebug_Resources.DbgBreak_EntryPoint),
-		};
 		public EnumListVM BreakProcessKindVM => breakProcessKindVM;
-		readonly EnumListVM breakProcessKindVM = new EnumListVM(breakProcessKindList);
+		readonly EnumListVM breakProcessKindVM = new EnumListVM(BreakProcessKindsUtils.BreakProcessKindList);
 
 		public string BreakKind {
 			get => (string)BreakProcessKindVM.SelectedItem;
@@ -132,7 +127,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Dialogs.DebugProgram {
 		}
 
 		static string FilterBreakKind(string breakKind) {
-			foreach (var info in breakProcessKindList) {
+			foreach (var info in BreakProcessKindsUtils.BreakProcessKindList) {
 				if (StringComparer.Ordinal.Equals(breakKind, (string)info.Value))
 					return breakKind;
 			}

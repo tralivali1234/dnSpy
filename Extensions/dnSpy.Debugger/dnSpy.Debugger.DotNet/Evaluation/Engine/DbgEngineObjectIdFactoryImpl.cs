@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,6 +18,7 @@
 */
 
 using System;
+using dnSpy.Contracts.Debugger.DotNet.Evaluation;
 using dnSpy.Contracts.Debugger.Engine.Evaluation;
 
 namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
@@ -31,6 +32,8 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 			var runtime = dnValue.TryGetDotNetRuntime();
 			if (runtime == null)
 				return false;
+			if ((runtime.Features & DbgDotNetRuntimeFeatures.ObjectIds) == 0)
+				return false;
 			return runtime.CanCreateObjectId(dnValue);
 		}
 
@@ -38,6 +41,8 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 			var dnValue = ((DbgEngineValueImpl)value).DotNetValue;
 			var runtime = dnValue.TryGetDotNetRuntime();
 			if (runtime == null)
+				return null;
+			if ((runtime.Features & DbgDotNetRuntimeFeatures.ObjectIds) == 0)
 				return null;
 			var objectId = runtime.CreateObjectId(dnValue, id);
 			if (objectId == null)
@@ -57,12 +62,16 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 			var runtime = dnValue.TryGetDotNetRuntime();
 			if (runtime == null)
 				return false;
+			if ((runtime.Features & DbgDotNetRuntimeFeatures.ObjectIds) == 0)
+				return false;
 			return runtime.Equals(dnObjectId, dnValue);
 		}
 
 		public override int GetHashCode(DbgEngineObjectId objectId) {
 			var impl = (DbgEngineObjectIdImpl)objectId;
 			var dnObjectId = impl.DotNetObjectId;
+			if ((impl.Runtime.Features & DbgDotNetRuntimeFeatures.ObjectIds) == 0)
+				return 0;
 			return impl.Runtime.GetHashCode(dnObjectId);
 		}
 
@@ -70,6 +79,8 @@ namespace dnSpy.Debugger.DotNet.Evaluation.Engine {
 			var dnValue = ((DbgEngineValueImpl)value).DotNetValue;
 			var runtime = dnValue.TryGetDotNetRuntime();
 			if (runtime == null)
+				return 0;
+			if ((runtime.Features & DbgDotNetRuntimeFeatures.ObjectIds) == 0)
 				return 0;
 			return runtime.GetHashCode(dnValue);
 		}

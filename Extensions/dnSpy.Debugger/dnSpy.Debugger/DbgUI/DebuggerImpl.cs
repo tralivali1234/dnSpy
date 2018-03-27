@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,6 +30,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using dnSpy.Contracts.App;
 using dnSpy.Contracts.Debugger;
+using dnSpy.Contracts.Debugger.Attach.Dialogs;
 using dnSpy.Contracts.Debugger.Breakpoints.Code;
 using dnSpy.Contracts.Debugger.CallStack;
 using dnSpy.Contracts.Debugger.Code;
@@ -38,7 +39,6 @@ using dnSpy.Contracts.Documents;
 using dnSpy.Contracts.Documents.Tabs;
 using dnSpy.Debugger.Breakpoints.Code.TextEditor;
 using dnSpy.Debugger.Code.TextEditor;
-using dnSpy.Debugger.Dialogs.AttachToProcess;
 using dnSpy.Debugger.Exceptions;
 using dnSpy.Debugger.Native;
 using dnSpy.Debugger.Properties;
@@ -94,17 +94,12 @@ namespace dnSpy.Debugger.DbgUI {
 
 		public override string GetCurrentExecutableFilename() => startDebuggingOptionsProvider.Value.GetCurrentExecutableFilename();
 
-		public override bool CanStartWithoutDebugging => GetCurrentExecutableFilename() != null;
+		public override bool CanStartWithoutDebugging => startDebuggingOptionsProvider.Value.CanStartWithoutDebugging;
 		public override void StartWithoutDebugging() {
-			var filename = GetCurrentExecutableFilename();
-			if (!File.Exists(filename))
+			if (!CanStartWithoutDebugging)
 				return;
-			try {
-				Process.Start(filename);
-			}
-			catch (Exception ex) {
-				messageBoxService.Value.Show(string.Format(dnSpy_Debugger_Resources.Error_StartWithoutDebuggingCouldNotStart, filename, ex.Message));
-			}
+			if (!startDebuggingOptionsProvider.Value.StartWithoutDebugging(out var error))
+				messageBoxService.Value.Show(error);
 		}
 
 		public override bool CanDebugProgram => !showingDebugProgramDlgBox;
@@ -182,7 +177,7 @@ namespace dnSpy.Debugger.DbgUI {
 			}
 		}
 
-		struct TextViewStatementLocationResult : IDisposable {
+		readonly struct TextViewStatementLocationResult : IDisposable {
 			readonly Lazy<DbgManager> dbgManager;
 			readonly List<DbgCodeLocation> allLocations;
 
@@ -248,11 +243,43 @@ namespace dnSpy.Debugger.DbgUI {
 		public override bool CanStepOutCurrentProcess => CanStepProcessCommand;
 		public override void StepOutCurrentProcess() => Step(DbgStepKind.StepOutProcess);
 
+		sealed class StepperState : IDisposable {
+			public DbgStepper ActiveStepper;
+
+			public void SetStepper(DbgStepper stepper) {
+				var oldStepper = ActiveStepper;
+				ActiveStepper = stepper;
+				oldStepper?.Cancel();
+				oldStepper?.Close();
+			}
+
+			public void Cancel(DbgStepper oldStepper) {
+				if (oldStepper == ActiveStepper) {
+					var stepper = ActiveStepper;
+					ActiveStepper = null;
+					stepper?.Cancel();
+					stepper?.Close();
+				}
+			}
+
+			public void Dispose() {
+				ActiveStepper?.Close();
+				ActiveStepper = null;
+			}
+		}
+
 		void Step(DbgStepKind step) {
 			var thread = dbgManager.Value.CurrentThread.Current;
 			if (thread == null)
 				return;
-			thread.CreateStepper().Step(step, autoClose: true);
+
+			var state = thread.Runtime.GetOrCreateData<StepperState>();
+			var stepper = thread.CreateStepper();
+			// This cancels the old stepper, if any. An old stepper could still be active if
+			// we eg. step out, but hit a BP before we step out, and then we step again.
+			state.SetStepper(stepper);
+			stepper.Closed += (s, e) => UI(() => state.Cancel(stepper));
+			stepper.Step(step, autoClose: true);
 		}
 
 		public override bool CanToggleCreateBreakpoint => textViewBreakpointService.Value.CanToggleCreateBreakpoint;
@@ -477,7 +504,7 @@ namespace dnSpy.Debugger.DbgUI {
 			return result;
 		}
 
-		static int GetPriority(DbgBreakInfo info) {
+		static int GetPriority(in DbgBreakInfo info) {
 			const int defaultPrio = int.MaxValue - 1;
 			if (info.Kind == DbgBreakInfoKind.Message) {
 				var e = (DbgMessageEventArgs)info.Data;

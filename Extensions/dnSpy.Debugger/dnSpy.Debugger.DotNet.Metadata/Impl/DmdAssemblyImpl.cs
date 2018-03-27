@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -26,7 +26,7 @@ using System.Threading;
 
 namespace dnSpy.Debugger.DotNet.Metadata.Impl {
 	sealed class DmdAssemblyImpl : DmdAssembly {
-		internal sealed override void YouCantDeriveFromThisClass() => throw new InvalidOperationException();
+		sealed private protected override void YouCantDeriveFromThisClass() => throw new InvalidOperationException();
 		public override DmdAppDomain AppDomain => appDomain;
 		public override string Location { get; }
 		public override string ImageRuntimeVersion => metadataReader.ImageRuntimeVersion;
@@ -230,17 +230,21 @@ namespace dnSpy.Debugger.DotNet.Metadata.Impl {
 				if (typeNames.Count == 0)
 					return null;
 
-				if (assemblyName != null && !AssemblyNameEqualityComparer.Instance.Equals(assembly.GetName(), assemblyName))
-					return null;
+				var targetAssembly = assembly;
+				if (assemblyName != null && !AssemblyNameEqualityComparer.Instance.Equals(targetAssembly.GetName(), assemblyName)) {
+					targetAssembly = (DmdAssemblyImpl)targetAssembly.AppDomain.GetAssembly(assemblyName);
+					if (targetAssembly == null)
+						return null;
+				}
 
 				DmdTypeDef type;
 				DmdTypeUtilities.SplitFullName(typeNames[0], out string @namespace, out string name);
 
-				var module = assembly.ManifestModule;
+				var module = targetAssembly.ManifestModule;
 				if (module == null)
 					return null;
 				var typeRef = new DmdParsedTypeRef(module, null, DmdTypeScope.Invalid, @namespace, name, null);
-				type = assembly.GetType(typeRef, ignoreCase);
+				type = targetAssembly.GetType(typeRef, ignoreCase);
 
 				if ((object)type == null)
 					return null;

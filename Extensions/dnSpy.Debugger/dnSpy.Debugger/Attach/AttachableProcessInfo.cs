@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using dnSpy.Contracts.Debugger;
 using dnSpy.Contracts.Debugger.Attach;
@@ -25,7 +26,7 @@ using dnSpy.Debugger.Utilities;
 
 namespace dnSpy.Debugger.Attach {
 	sealed class AttachableProcessInfo {
-		public ulong ProcessId { get; }
+		public int ProcessId { get; }
 		public RuntimeId RuntimeId { get; }
 		public Guid RuntimeGuid { get; }
 		public Guid RuntimeKindGuid { get; }
@@ -36,7 +37,7 @@ namespace dnSpy.Debugger.Attach {
 		public string CommandLine { get; }
 		public string Architecture { get; }
 
-		AttachableProcessInfo(ulong processId, RuntimeId runtimeId, Guid runtimeGuid, Guid runtimeKindGuid, string runtimeName, string name, string title, string filename, string commandLine, string architecture) {
+		AttachableProcessInfo(int processId, RuntimeId runtimeId, Guid runtimeGuid, Guid runtimeKindGuid, string runtimeName, string name, string title, string filename, string commandLine, string architecture) {
 			ProcessId = processId;
 			RuntimeId = runtimeId ?? throw new ArgumentNullException(nameof(runtimeId));
 			RuntimeGuid = runtimeGuid;
@@ -84,10 +85,6 @@ namespace dnSpy.Debugger.Attach {
 
 			var process = processProvider.GetProcess(attachProgramOptions.ProcessId);
 			if (process != null) {
-				if (attachProgramOptions.Name == null)
-					name = Path.GetFileName(attachProgramOptions.Filename ?? process.MainModule.FileName);
-				if (attachProgramOptions.Filename == null)
-					filename = process.MainModule.FileName;
 				if (attachProgramOptions.CommandLine == null)
 					commandLine = Win32CommandLineProvider.TryGetCommandLine(process.Handle);
 				if (attachProgramOptions.Title == null)
@@ -99,9 +96,22 @@ namespace dnSpy.Debugger.Attach {
 					default: arch = "???"; break;
 					}
 				}
+				if (attachProgramOptions.Name == null)
+					name = Path.GetFileName(attachProgramOptions.Filename ?? GetProcessName(process));
+				if (attachProgramOptions.Filename == null)
+					filename = GetProcessName(process);
 			}
 
 			return (name, title, filename, commandLine, arch);
+		}
+
+		static string GetProcessName(Process process) {
+			try {
+				return process.MainModule.FileName;
+			}
+			catch {
+			}
+			return process.ProcessName;
 		}
 	}
 }

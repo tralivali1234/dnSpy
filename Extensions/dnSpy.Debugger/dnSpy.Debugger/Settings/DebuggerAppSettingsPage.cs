@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -134,7 +134,7 @@ namespace dnSpy.Debugger.Settings {
 		public (Guid runtimeKindGuid, string languageName) GetSettings() => (runtimeKindGuid, selectedItem.ID);
 	}
 
-	sealed class LanguageVM {
+	sealed class LanguageVM : ViewModelBase {
 		public string Name => info.LanguageDisplayName;
 		public string ID => info.LanguageName;
 		readonly LanguageInfo info;

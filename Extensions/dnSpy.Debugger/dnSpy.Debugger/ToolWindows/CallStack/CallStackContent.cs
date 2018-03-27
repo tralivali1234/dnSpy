@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -23,6 +23,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using dnSpy.Contracts.Controls;
+using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Utilities;
 
 namespace dnSpy.Debugger.ToolWindows.CallStack {
@@ -47,7 +48,7 @@ namespace dnSpy.Debugger.ToolWindows.CallStack {
 		readonly CallStackControl callStackControl;
 		readonly ICallStackVM callStackVM;
 
-		sealed class ControlVM {
+		sealed class ControlVM : ViewModelBase {
 			public ICallStackVM VM { get; }
 			CallStackOperations Operations { get; }
 

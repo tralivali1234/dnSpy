@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,6 +30,7 @@ using System.Windows.Data;
 using dnSpy.Contracts.Decompiler;
 using dnSpy.Contracts.Images;
 using dnSpy.Contracts.Menus;
+using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.ToolBars;
 
 namespace dnSpy.MainApp {
@@ -57,7 +58,7 @@ namespace dnSpy.MainApp {
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		public object SelectedItem {
-			get { return selectedItem; }
+			get => selectedItem;
 			set {
 				if (selectedItem != value) {
 					selectedItem = value;
@@ -68,7 +69,7 @@ namespace dnSpy.MainApp {
 		}
 		object selectedItem;
 
-		sealed class LanguageInfo {
+		sealed class LanguageInfo : ViewModelBase {
 			public IDecompiler Decompiler;
 			public string Name => Decompiler.UniqueNameUI;
 			public override string ToString() => Name;

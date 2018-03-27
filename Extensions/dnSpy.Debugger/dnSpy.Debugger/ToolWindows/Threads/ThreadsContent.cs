@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -51,7 +51,7 @@ namespace dnSpy.Debugger.ToolWindows.Threads {
 		readonly ThreadsControl threadsControl;
 		readonly IThreadsVM threadsVM;
 
-		sealed class ControlVM {
+		sealed class ControlVM : ViewModelBase {
 			public IThreadsVM VM { get; }
 			ThreadsOperations Operations { get; }
 

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -22,6 +22,7 @@ using System.ComponentModel.Composition;
 using dnSpy.Contracts.Debugger;
 using dnSpy.Contracts.Debugger.DotNet.CorDebug;
 using dnSpy.Contracts.Debugger.Engine;
+using dnSpy.Debugger.DotNet.CorDebug.Impl.Attach;
 
 namespace dnSpy.Debugger.DotNet.CorDebug.Impl {
 	[ExportDbgEngineProvider]

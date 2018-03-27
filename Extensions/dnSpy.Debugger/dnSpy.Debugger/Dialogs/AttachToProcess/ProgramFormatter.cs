@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,7 +34,7 @@ namespace dnSpy.Debugger.Dialogs.AttachToProcess {
 		public void WritePid(ITextColorWriter output, ProgramVM vm) => output.Write(BoxedTextColor.Number, vm.Id.ToString());
 		public void WriteTitle(ITextColorWriter output, ProgramVM vm) => output.Write(BoxedTextColor.String, vm.Title);
 		public void WriteType(ITextColorWriter output, ProgramVM vm) => output.Write(BoxedTextColor.Text, vm.RuntimeName);
-		public void WriteMachine(ITextColorWriter output, ProgramVM vm) => output.Write(BoxedTextColor.InstanceMethod, vm.Architecture);
+		public void WriteMachine(ITextColorWriter output, ProgramVM vm) => output.Write(BoxedTextColor.Text, vm.Architecture);
 		public void WritePath(ITextColorWriter output, ProgramVM vm) => output.WriteFilename(vm.Filename);
 		public void WriteCommandLine(ITextColorWriter output, ProgramVM vm) => output.Write(BoxedTextColor.Text, vm.CommandLine);
 	}

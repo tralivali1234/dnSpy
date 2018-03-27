@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -114,7 +114,7 @@ namespace dnSpy.Debugger.Impl {
 			public DbgCurrentThread(DbgManagerImpl owner) => this.owner = owner;
 		}
 
-		void RaiseCurrentObjectEvents_DbgThread(DbgCurrentObjectChangedEventArgs<DbgProcess> processEventArgs, DbgCurrentObjectChangedEventArgs<DbgRuntime> runtimeEventArgs, DbgCurrentObjectChangedEventArgs<DbgThread> threadEventArgs) {
+		void RaiseCurrentObjectEvents_DbgThread(in DbgCurrentObjectChangedEventArgs<DbgProcess> processEventArgs, in DbgCurrentObjectChangedEventArgs<DbgRuntime> runtimeEventArgs, in DbgCurrentObjectChangedEventArgs<DbgThread> threadEventArgs) {
 			Dispatcher.VerifyAccess();
 			if (processEventArgs.CurrentChanged || processEventArgs.BreakChanged)
 				CurrentProcessChanged?.Invoke(this, processEventArgs);
@@ -210,7 +210,7 @@ namespace dnSpy.Debugger.Impl {
 				var runtime = info.Runtime;
 				var newCurrentProcess = new CurrentObject<DbgProcessImpl>(process, process);
 				var newCurrentRuntime = new CurrentObject<DbgRuntimeImpl>(runtime, runtime);
-				var newCurrentThread = runtime.CurrentThread;
+				var newCurrentThread = runtime?.CurrentThread ?? default;
 				processEventArgs = new DbgCurrentObjectChangedEventArgs<DbgProcess>(currentChanged: dbgCurrentProcess.currentProcess.Current != newCurrentProcess.Current, breakChanged: dbgCurrentProcess.currentProcess.Break != newCurrentProcess.Break);
 				runtimeEventArgs = new DbgCurrentObjectChangedEventArgs<DbgRuntime>(currentChanged: dbgCurrentRuntime.currentRuntime.Current != newCurrentRuntime.Current, breakChanged: dbgCurrentRuntime.currentRuntime.Break != newCurrentRuntime.Break);
 				threadEventArgs = new DbgCurrentObjectChangedEventArgs<DbgThread>(currentChanged: dbgCurrentThread.currentThread.Current != newCurrentThread.Current, breakChanged: dbgCurrentThread.currentThread.Break != newCurrentThread.Break);

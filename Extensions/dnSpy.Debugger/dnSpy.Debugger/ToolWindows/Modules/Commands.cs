@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -127,7 +127,19 @@ namespace dnSpy.Debugger.ToolWindows.Modules {
 		}
 	}
 
-	[ExportMenuItem(Header = "res:OpenModuleFromMemoryCommand", Icon = DsImagesAttribute.ModulePublic, Group = MenuConstants.GROUP_CTX_DBG_MODULES_GOTO, Order = 20)]
+	[ExportMenuItem(Header = "res:LoadAllModulesCommand", Icon = DsImagesAttribute.ModulePublic, Group = MenuConstants.GROUP_CTX_DBG_MODULES_GOTO, Order = 20)]
+	sealed class LoadAllModulesModulesCtxMenuCommand : ModulesCtxMenuCommand {
+		[ImportingConstructor]
+		LoadAllModulesModulesCtxMenuCommand(Lazy<IModulesContent> modulesContent)
+			: base(modulesContent) {
+		}
+
+		public override void Execute(ModulesCtxMenuContext context) => context.Operations.LoadAllModules();
+		public override bool IsEnabled(ModulesCtxMenuContext context) => context.Operations.CanLoadAllModules;
+		public override bool IsVisible(ModulesCtxMenuContext context) => IsEnabled(context);
+	}
+
+	[ExportMenuItem(Header = "res:OpenModuleFromMemoryCommand", Icon = DsImagesAttribute.ModulePublic, Group = MenuConstants.GROUP_CTX_DBG_MODULES_GOTO, Order = 30)]
 	sealed class OpemModuleFromMemoryModulesCtxMenuCommand : ModulesCtxMenuCommand {
 		[ImportingConstructor]
 		OpemModuleFromMemoryModulesCtxMenuCommand(Lazy<IModulesContent> modulesContent)

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -74,9 +74,6 @@ namespace dnSpy.Documents {
 			}
 		}
 
-		bool IAssemblyResolver.AddToCache(AssemblyDef asm) => false;
-		void IAssemblyResolver.Clear() { }
-		bool IAssemblyResolver.Remove(AssemblyDef asm) => false;
 		AssemblyDef IAssemblyResolver.Resolve(IAssembly assembly, ModuleDef sourceModule) =>
 			Resolve(assembly, sourceModule)?.AssemblyDef;
 

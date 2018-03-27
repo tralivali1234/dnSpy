@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -113,7 +113,7 @@ namespace dnSpy.AsmEditor.Method {
 		struct DeleteModelNodes {
 			ModelInfo[] infos;
 
-			struct ModelInfo {
+			readonly struct ModelInfo {
 				public readonly TypeDef OwnerType;
 				public readonly int MethodIndex;
 				public readonly List<PropEventInfo> PropEventInfos;
@@ -128,7 +128,7 @@ namespace dnSpy.AsmEditor.Method {
 					EventOther,
 				}
 
-				public struct PropEventInfo {
+				public readonly struct PropEventInfo {
 					public readonly ICodedToken PropOrEvent;
 					public readonly PropEventType PropEventType;
 					public readonly int Index;
@@ -208,7 +208,7 @@ namespace dnSpy.AsmEditor.Method {
 
 				for (int i = infos.Length - 1; i >= 0; i--) {
 					var node = nodes[i];
-					var info = infos[i];
+					ref readonly var info = ref infos[i];
 
 					info.OwnerType.Methods.Insert(info.MethodIndex, node.MethodDef);
 
@@ -501,7 +501,7 @@ namespace dnSpy.AsmEditor.Method {
 
 			nameChanged = origOptions.Name != newOptions.Name;
 			if (nameChanged)
-				memberRefInfos = RefFinder.FindMemberRefsToThisModule(methodNode.GetModule()).Where(a => RefFinder.MethodEqualityComparerInstance.Equals(a, methodNode.MethodDef)).Select(a => new Field.MemberRefInfo(a)).ToArray();
+				memberRefInfos = RefFinder.FindMemberRefsToThisModule(methodNode.GetModule()).Where(a => RefFinder.Equals(a, methodNode.MethodDef)).Select(a => new Field.MemberRefInfo(a)).ToArray();
 		}
 
 		public string Description => dnSpy_AsmEditor_Resources.EditMethodCommand2;

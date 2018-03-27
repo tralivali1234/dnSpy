@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -49,7 +49,7 @@ namespace dnSpy.Contracts.Debugger.StartDebugging.Dialog {
 		public abstract double DisplayOrder { get; }
 
 		/// <summary>
-		/// Name of debugger engine shown in the UI, eg. ".NET Framework" or ".NET Core" or "Mono"
+		/// Name of debug engine shown in the UI, eg. ".NET Framework" or ".NET Core" or "Mono"
 		/// </summary>
 		public abstract string DisplayName { get; }
 
@@ -105,7 +105,7 @@ namespace dnSpy.Contracts.Debugger.StartDebugging.Dialog {
 	/// <summary>
 	/// Contains the options and an optional filename
 	/// </summary>
-	public struct StartDebuggingOptionsInfo {
+	public readonly struct StartDebuggingOptionsInfo {
 		/// <summary>
 		/// Gets the options
 		/// </summary>
@@ -140,5 +140,15 @@ namespace dnSpy.Contracts.Debugger.StartDebugging.Dialog {
 		/// .NET Core
 		/// </summary>
 		public const double DotNetCore = 1000000;
+
+		/// <summary>
+		/// .NET Mono
+		/// </summary>
+		public const double DotNetMono = DotNetFramework + 1;
+
+		/// <summary>
+		/// .NET Unity
+		/// </summary>
+		public const double DotNetUnity = 1000000;
 	}
 }

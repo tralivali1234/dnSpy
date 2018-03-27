@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -21,9 +21,10 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using dnSpy.Contracts.Debugger.StartDebugging.Dialog;
+using dnSpy.Contracts.MVVM;
 
 namespace dnSpy.Debugger.Dialogs.DebugProgram {
-	sealed class OptionsPageVM {
+	sealed class OptionsPageVM : ViewModelBase {
 		internal StartDebuggingOptionsPage StartDebuggingOptionsPage { get; }
 		internal Guid PageGuid => StartDebuggingOptionsPage.Guid;
 

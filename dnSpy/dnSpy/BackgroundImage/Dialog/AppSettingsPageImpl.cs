@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.IO;
@@ -55,21 +54,18 @@ namespace dnSpy.BackgroundImage.Dialog {
 		}
 	}
 
-	sealed class AppSettingsPageImpl : AppSettingsPage, INotifyPropertyChanged {
+	sealed class AppSettingsPageImpl : AppSettingsPage {
 		public override Guid Guid => new Guid("A36F0A79-E8D0-44C5-8F22-A50B28F6117E");
 		public override double Order => AppSettingsConstants.ORDER_BACKGROUNDIMAGE;
 		public override string Title => dnSpy_Resources.BackgroundImageOptDlgTab;
 		public override object UIObject => this;
-
-		public event PropertyChangedEventHandler PropertyChanged;
-		void OnPropertyChanged(string propName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 
 		public ICommand ResetCommand => new RelayCommand(a => ResetSettings(), a => CanResetSettings);
 		public ICommand PickFilenamesCommand => new RelayCommand(a => PickFilenames(), a => CanPickFilenames);
 		public ICommand PickDirectoryCommand => new RelayCommand(a => PickDirectory(), a => CanPickDirectory);
 
 		public Settings CurrentItem {
-			get { return currentItem; }
+			get => currentItem;
 			set {
 				if (currentItem != value) {
 					currentItem = value;
@@ -97,7 +93,7 @@ namespace dnSpy.BackgroundImage.Dialog {
 		Settings currentItem;
 
 		public string Images {
-			get { return currentItem.Images; }
+			get => currentItem.Images;
 			set {
 				if (currentItem.Images != value) {
 					currentItem.Images = value;
@@ -107,7 +103,7 @@ namespace dnSpy.BackgroundImage.Dialog {
 		}
 
 		public bool IsRandom {
-			get { return currentItem.RawSettings.IsRandom; }
+			get => currentItem.RawSettings.IsRandom;
 			set {
 				if (currentItem.RawSettings.IsRandom != value) {
 					currentItem.RawSettings.IsRandom = value;
@@ -117,7 +113,7 @@ namespace dnSpy.BackgroundImage.Dialog {
 		}
 
 		public bool IsEnabled {
-			get { return currentItem.RawSettings.IsEnabled; }
+			get => currentItem.RawSettings.IsEnabled;
 			set {
 				if (currentItem.RawSettings.IsEnabled != value) {
 					currentItem.RawSettings.IsEnabled = value;
@@ -328,14 +324,14 @@ namespace dnSpy.BackgroundImage.Dialog {
 			Concat(Settings.Select(a => a.Name)).ToArray();
 	}
 
-	sealed class Settings {
+	sealed class Settings : ViewModelBase {
 		public RawSettings RawSettings { get; }
 
 		public string Id { get; }
 		public string Name { get; }
 		public string Images { get; set; }
 
-		public Settings(ImageSettingsInfo info) {
+		public Settings(in ImageSettingsInfo info) {
 			RawSettings = info.RawSettings;
 			Id = info.Lazy.Value.Id;
 			Name = info.Lazy.Value.DisplayName;

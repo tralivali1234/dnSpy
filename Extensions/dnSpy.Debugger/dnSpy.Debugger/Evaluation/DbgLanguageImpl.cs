@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -30,7 +30,6 @@ namespace dnSpy.Debugger.Evaluation {
 		public override string Name { get; }
 		public override string DisplayName { get; }
 		public override DbgExpressionEvaluator ExpressionEvaluator { get; }
-		public override DbgValueFormatter ValueFormatter { get; }
 		public override DbgFormatter Formatter { get; }
 		public override DbgLocalsValueNodeProvider LocalsProvider { get; }
 		public override DbgValueNodeProvider AutosProvider { get; }
@@ -47,7 +46,6 @@ namespace dnSpy.Debugger.Evaluation {
 			Name = engineLanguage.Name ?? throw new ArgumentException();
 			DisplayName = engineLanguage.DisplayName ?? throw new ArgumentException();
 			ExpressionEvaluator = new DbgExpressionEvaluatorImpl(this, runtimeKindGuid, engineLanguage.ExpressionEvaluator);
-			ValueFormatter = new DbgValueFormatterImpl(this, runtimeKindGuid, engineLanguage.ValueFormatter);
 			Formatter = new DbgFormatterImpl(this, runtimeKindGuid, engineLanguage.Formatter);
 			LocalsProvider = new DbgLocalsValueNodeProviderImpl(this, runtimeKindGuid, engineLanguage.LocalsProvider);
 			AutosProvider = new DbgValueNodeProviderImpl(this, runtimeKindGuid, engineLanguage.AutosProvider);

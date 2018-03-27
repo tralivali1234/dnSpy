@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -92,11 +92,11 @@ namespace dnSpy.Debugger.ToolWindows.Memory {
 			}
 		}
 
-		string GetProcessHeader(Process process, ulong pid) {
+		string GetProcessHeader(Process process, int pid) {
 			try {
 				if (process != null) {
 					var title = Filter(process.MainWindowTitle, 200);
-					var name = process.MainModule.ModuleName;
+					var name = GetProcessName(process);
 					if (string.IsNullOrWhiteSpace(title))
 						return $"{pid} {name}";
 					return $"{pid} {name} - {title}";
@@ -105,6 +105,15 @@ namespace dnSpy.Debugger.ToolWindows.Memory {
 			catch {
 			}
 			return pid.ToString();
+		}
+
+		static string GetProcessName(Process process) {
+			try {
+				return process.MainModule.ModuleName;
+			}
+			catch {
+			}
+			return process.ProcessName;
 		}
 
 		static string Filter(string s, int maxLength) {

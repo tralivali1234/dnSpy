@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -29,7 +29,7 @@ namespace dnSpy.Contracts.Documents {
 	/// <summary>
 	/// Document base class
 	/// </summary>
-	public abstract class DsDocument : IDsDocument {
+	public abstract class DsDocument : IDsDocument2 {
 		/// <inheritdoc/>
 		public abstract DsDocumentInfo? SerializedDocument { get; }
 		/// <inheritdoc/>
@@ -39,7 +39,7 @@ namespace dnSpy.Contracts.Documents {
 		/// <inheritdoc/>
 		public virtual ModuleDef ModuleDef => null;
 		/// <inheritdoc/>
-		public virtual IPEImage PEImage => (ModuleDef as ModuleDefMD)?.MetaData?.PEImage;
+		public virtual IPEImage PEImage => (ModuleDef as ModuleDefMD)?.Metadata?.PEImage;
 
 		/// <inheritdoc/>
 		public string Filename {
@@ -105,6 +105,8 @@ namespace dnSpy.Contracts.Documents {
 		/// <inheritdoc/>
 		public void RemoveAnnotations<T>() where T : class => annotations.RemoveAnnotations<T>();
 		readonly AnnotationsImpl annotations = new AnnotationsImpl();
+		/// <inheritdoc/>
+		public virtual void OnAdded() { }
 	}
 
 	/// <summary>
@@ -141,7 +143,7 @@ namespace dnSpy.Contracts.Documents {
 		/// <param name="peImage">PE image</param>
 		public DsPEDocument(IPEImage peImage) {
 			PEImage = peImage;
-			Filename = peImage.FileName ?? string.Empty;
+			Filename = peImage.Filename ?? string.Empty;
 		}
 
 		/// <inheritdoc/>
@@ -170,8 +172,13 @@ namespace dnSpy.Contracts.Documents {
 			loadedSymbols = loadSyms;
 			Filename = module.Location ?? string.Empty;
 			module.EnableTypeDefFindCache = true;
-			if (loadSyms)
-				LoadSymbols(module.Location);
+		}
+
+		/// <inheritdoc/>
+		public override void OnAdded() {
+			if (loadedSymbols)
+				LoadSymbols(ModuleDef.Location);
+			base.OnAdded();
 		}
 
 		/// <summary>
@@ -203,8 +210,8 @@ namespace dnSpy.Contracts.Documents {
 				return;
 			try {
 				var pdbFilename = Path.Combine(Path.GetDirectoryName(dotNetFilename), Path.GetFileNameWithoutExtension(dotNetFilename) + ".pdb");
-				if (File.Exists(pdbFilename))
-					m.LoadPdb(pdbFilename);
+				// Don't check if the file exists, it could be an embedded portable PDB file
+				m.LoadPdb(pdbFilename);
 			}
 			catch {
 			}
@@ -329,9 +336,9 @@ namespace dnSpy.Contracts.Documents {
 				return;
 			// Files in the GAC are read-only so there's no need to disable memory mapped I/O to
 			// allow other programs to write to the file.
-			if (GacInfo.IsGacPath(peImage.FileName))
+			if (GacInfo.IsGacPath(peImage.Filename))
 				return;
-			peImage.UnsafeDisableMemoryMappedIO();
+			(peImage as IInternalPEImage)?.UnsafeDisableMemoryMappedIO();
 		}
 	}
 }

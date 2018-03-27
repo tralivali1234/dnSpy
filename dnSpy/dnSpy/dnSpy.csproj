@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>dnSpy</RootNamespace>
     <AssemblyName>dnSpy</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\dnSpy.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -32,7 +32,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -912,6 +913,7 @@
     <Compile Include="Text\CodeEditor\ScrollBarsAppSettingsPage.cs" />
     <Compile Include="Text\CodeEditor\TabsAppSettingsPage.cs" />
     <Compile Include="Text\CodeEditor\TextViewOptionsGroupNameProvider.cs" />
+    <Compile Include="Text\ColorUtils.cs" />
     <Compile Include="Text\ContentType.cs" />
     <Compile Include="Text\ContentTypeDefinitions.cs" />
     <Compile Include="Text\ContentTypeExtensions.cs" />
@@ -1132,6 +1134,7 @@
     <Compile Include="Text\Settings\ICommonEditorOptions.cs" />
     <Compile Include="Text\Settings\ScrollBarsAppSettingsPageBase.cs" />
     <Compile Include="Text\Settings\TabsAppSettingsPageBase.cs" />
+    <Compile Include="Text\SimpleTextImage.cs" />
     <Compile Include="Text\Tagging\BufferTagAggregatorFactoryService.cs" />
     <Compile Include="Text\Tagging\ITaggerFactory.cs" />
     <Compile Include="Text\Tagging\TagAggregatorBase.cs" />
@@ -1152,6 +1155,10 @@
     <Compile Include="Text\TextChange.cs" />
     <Compile Include="Text\TextDataModel.cs" />
     <Compile Include="Text\TextEdit.cs" />
+    <Compile Include="Text\TextImage.cs" />
+    <Compile Include="Text\TextImageFactoryService.cs" />
+    <Compile Include="Text\TextImageUtils.cs" />
+    <Compile Include="Text\TextImageVersion.cs" />
     <Compile Include="Text\TextSnapshot.cs" />
     <Compile Include="Text\TextSnapshotLine.cs" />
     <Compile Include="Text\TextVersion.cs" />
@@ -1191,20 +1198,13 @@
     <EmbeddedResource Include="Properties\dnSpy.Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>dnSpy.Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\dnSpy.Resources.ru.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\dnSpy.Resources.zh-CN.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\dnSpy.Resources.pt-PT.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\dnSpy.Resources.de.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\dnSpy.Resources.ru.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Resources.zh-CN.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Resources.pt-PT.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Resources.de.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Resources.es-ES.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Resources.hu.resx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\dnlib\src\dnlib.csproj">
@@ -1231,13 +1231,17 @@
       <Project>{83bbd76b-4ecd-42e1-bf9c-af8114e52317}</Project>
       <Name>dnSpy.Images</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Roslyn\dnSpy.Roslyn.CSharp.EditorFeatures\dnSpy.Roslyn.CSharp.EditorFeatures.csproj">
+      <Project>{b7cd7df8-1723-43d2-8b8a-063ba033e203}</Project>
+      <Name>dnSpy.Roslyn.CSharp.EditorFeatures</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Roslyn\dnSpy.Roslyn.EditorFeatures\dnSpy.Roslyn.EditorFeatures.csproj">
       <Project>{f10a60da-4716-45f6-ab2e-4690440c0c7c}</Project>
       <Name>dnSpy.Roslyn.EditorFeatures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Roslyn\dnSpy.Roslyn.Shared\dnSpy.Roslyn.Shared.csproj">
+    <ProjectReference Include="..\Roslyn\dnSpy.Roslyn\dnSpy.Roslyn.csproj">
       <Project>{844eef8a-c7b6-4299-8cf0-4bd21dddd4a8}</Project>
-      <Name>dnSpy.Roslyn.Shared</Name>
+      <Name>dnSpy.Roslyn</Name>
     </ProjectReference>
     <ProjectReference Include="..\dnSpy.Decompiler\dnSpy.Decompiler.csproj">
       <Project>{9265e4ea-eb00-4cb6-8a9a-608871e24fd0}</Project>
@@ -1376,8 +1380,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\DefaultWatermarkDark.png" />
-    <Resource Include="Images\DefaultWatermarkLight.png" />
     <Resource Include="Images\dnSpy.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

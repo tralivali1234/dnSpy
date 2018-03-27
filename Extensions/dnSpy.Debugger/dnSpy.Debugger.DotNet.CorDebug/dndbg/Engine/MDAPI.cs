@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -1675,6 +1675,15 @@ namespace dndbg.Engine {
 			uint tkImplementation;
 			int hr = mdai.GetManifestResourceProps(token, IntPtr.Zero, 0, IntPtr.Zero, new IntPtr(&tkImplementation), IntPtr.Zero, IntPtr.Zero);
 			return hr == 0 ? tkImplementation : (uint?)null;
+		}
+	}
+
+	readonly struct MethodOverrideInfo {
+		public uint BodyToken { get; }
+		public uint DeclToken { get; }
+		public MethodOverrideInfo(uint b, uint d) {
+			BodyToken = b;
+			DeclToken = d;
 		}
 	}
 }

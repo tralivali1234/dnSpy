@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -641,14 +641,14 @@ namespace dnSpy.Debugger.ToolWindows.Modules {
 		// UI thread
 		void RemoveProcess_UI(DbgProcess process) {
 			moduleContext.UIDispatcher.VerifyAccess();
-			if (selectedProcess?.Process == process)
-				SelectedProcess = processes.FirstOrDefault();
 			for (int i = 0; i < processes.Count; i++) {
 				if (processes[i].Process == process) {
 					processes.RemoveAt(i);
 					break;
 				}
 			}
+			if (selectedProcess == null || selectedProcess.Process == process)
+				SelectedProcess = processes.FirstOrDefault();
 		}
 
 		// UI thread

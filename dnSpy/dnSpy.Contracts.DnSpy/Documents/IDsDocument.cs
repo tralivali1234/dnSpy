@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -75,6 +75,16 @@ namespace dnSpy.Contracts.Documents {
 		/// true if <see cref="Children"/> has been initialized
 		/// </summary>
 		bool ChildrenLoaded { get; }
+	}
+
+	/// <summary>
+	/// A document
+	/// </summary>
+	public interface IDsDocument2 : IDsDocument {
+		/// <summary>
+		/// Called after it's been added to the documents list
+		/// </summary>
+		void OnAdded();
 	}
 
 	/// <summary>

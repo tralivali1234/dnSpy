@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -28,7 +28,7 @@ using dnSpy.Contracts.Debugger.Evaluation;
 using dnSpy.Debugger.DotNet.Metadata;
 
 namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
-	struct DbgDotNetRawValueFactory {
+	readonly struct DbgDotNetRawValueFactory {
 		readonly DbgEngineImpl engine;
 
 		public DbgDotNetRawValueFactory(DbgEngineImpl engine) => this.engine = engine;
@@ -57,7 +57,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 				return GetRawValueDefault(value, type);
 
 			if (type.IsByRef) {
-				value = value.DereferencedValue;
+				value = value.GetDereferencedValue(out int hr);
 				if (value == null)
 					return new DbgDotNetRawValue(DbgSimpleValueType.Other);
 				type = GetType(type.AppDomain, value);
@@ -69,14 +69,14 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 						return new DbgDotNetRawValue(DbgSimpleValueType.Ptr32, (uint)value.ReferenceAddress);
 					return new DbgDotNetRawValue(DbgSimpleValueType.Ptr64, value.ReferenceAddress);
 				}
-				value = value.DereferencedValue;
+				value = value.GetDereferencedValue(out int hr);
 				if (value == null)
 					return new DbgDotNetRawValue(DbgSimpleValueType.Other);
 				type = GetType(type.AppDomain, value);
 			}
 
 			if (value.IsBox) {
-				value = value.BoxedValue;
+				value = value.GetBoxedValue(out int hr);
 				if (value == null)
 					return new DbgDotNetRawValue(DbgSimpleValueType.Other);
 				type = GetType(type.AppDomain, value);
@@ -244,7 +244,7 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 					return new DbgDotNetRawValue(DbgSimpleValueType.Ptr64, BitConverter.ToUInt64(data, 0));
 				}
 				else if (type.IsNullable) {
-					if (!value.GetNullableValue(out var nullableValue))
+					if (!GetNullableValue(type, value, out var nullableValue))
 						break;
 					if (nullableValue == null)
 						return new DbgDotNetRawValue(DbgSimpleValueType.Other, null);
@@ -258,6 +258,29 @@ namespace dnSpy.Debugger.DotNet.CorDebug.Impl.Evaluation {
 
 		DmdType GetType(DmdAppDomain appDomain, CorValue value) =>
 			new ReflectionTypeCreator(engine, appDomain).Create(value.ExactType);
+
+		bool GetNullableValue(DmdType nullableType, CorValue nullableValue, out CorValue value) {
+			value = null;
+			var info = NullableTypeUtils.TryGetNullableFields(nullableType);
+			if ((object)info.hasValueField == null)
+				return false;
+
+			var cls = nullableValue.ExactType?.Class;
+			var hasValueValue = nullableValue.GetFieldValue(cls, (uint)info.hasValueField.MetadataToken);
+			if (hasValueValue == null)
+				return false;
+			var rawValue = hasValueValue.ReadGenericValue();
+			if (rawValue == null || rawValue.Length != 1)
+				return false;
+			if (rawValue[0] == 0)
+				return true;
+
+			var valueValue = nullableValue.GetFieldValue(cls, (uint)info.valueField.MetadataToken);
+			if (valueValue == null)
+				return false;
+			value = valueValue;
+			return true;
+		}
 
 		DbgDotNetRawValue GetRawValueDefault(CorValue value, DmdType type) {
 			if (value.IsNull)

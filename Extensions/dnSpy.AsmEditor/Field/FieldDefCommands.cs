@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -108,7 +108,7 @@ namespace dnSpy.AsmEditor.Field {
 		struct DeleteModelNodes {
 			ModelInfo[] infos;
 
-			struct ModelInfo {
+			readonly struct ModelInfo {
 				public readonly TypeDef OwnerType;
 				public readonly int FieldIndex;
 
@@ -145,7 +145,7 @@ namespace dnSpy.AsmEditor.Field {
 
 				for (int i = infos.Length - 1; i >= 0; i--) {
 					var node = nodes[i];
-					var info = infos[i];
+					ref readonly var info = ref infos[i];
 					info.OwnerType.Fields.Insert(info.FieldIndex, node.FieldDef);
 				}
 
@@ -310,7 +310,7 @@ namespace dnSpy.AsmEditor.Field {
 		}
 	}
 
-	struct MemberRefInfo {
+	readonly struct MemberRefInfo {
 		public readonly MemberRef MemberRef;
 		public readonly UTF8String OrigName;
 
@@ -413,7 +413,7 @@ namespace dnSpy.AsmEditor.Field {
 
 			nameChanged = origOptions.Name != newOptions.Name;
 			if (nameChanged)
-				memberRefInfos = RefFinder.FindMemberRefsToThisModule(fieldNode.GetModule()).Where(a => RefFinder.FieldEqualityComparerInstance.Equals(a, fieldNode.FieldDef)).Select(a => new MemberRefInfo(a)).ToArray();
+				memberRefInfos = RefFinder.FindMemberRefsToThisModule(fieldNode.GetModule()).Where(a => RefFinder.Equals(a, fieldNode.FieldDef)).Select(a => new MemberRefInfo(a)).ToArray();
 		}
 
 		public string Description => dnSpy_AsmEditor_Resources.EditFieldCommand2;

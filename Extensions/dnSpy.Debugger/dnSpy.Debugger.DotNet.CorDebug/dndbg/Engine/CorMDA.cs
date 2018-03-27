@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -23,9 +23,6 @@ using dndbg.COM.CorDebug;
 
 namespace dndbg.Engine {
 	sealed class CorMDA : COMObject<ICorDebugMDA>, IEquatable<CorMDA> {
-		/// <summary>
-		/// Gets the flags
-		/// </summary>
 		public CorDebugMDAFlags Flags {
 			get {
 				CorDebugMDAFlags flags = 0;
@@ -34,9 +31,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets the OS thread ID. This could be a non-managed thread ID.
-		/// </summary>
 		public uint OSThreadId {
 			get {
 				int hr = obj.GetOSThreadId(out uint osThreadId);
@@ -44,9 +38,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets the name or null on error
-		/// </summary>
 		public string Name {
 			get {
 				int hr = obj.GetName(0, out uint cchName, null);
@@ -59,9 +50,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets the description or null on error
-		/// </summary>
 		public string Description {
 			get {
 				int hr = obj.GetDescription(0, out uint cchName, null);
@@ -74,9 +62,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets the XML or null on error
-		/// </summary>
 		public string XML {
 			get {
 				int hr = obj.GetXML(0, out uint cchName, null);
@@ -105,6 +90,6 @@ namespace dndbg.Engine {
 		public bool Equals(CorMDA other) => !ReferenceEquals(other, null) && RawObject == other.RawObject;
 		public override bool Equals(object obj) => Equals(obj as CorMDA);
 		public override int GetHashCode() => RawObject.GetHashCode();
-		public override string ToString() => string.Format("MDA: TID={0} {1}", OSThreadId, Name);
+		public override string ToString() => $"MDA: TID={OSThreadId} {Name}";
 	}
 }

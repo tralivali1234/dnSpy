@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -34,7 +34,7 @@ namespace dnSpy.Debugger.DotNet.Metadata {
 		/// <param name="name">Name</param>
 		/// <param name="wellKnownType">Updated with well known type if successful</param>
 		/// <returns></returns>
-		public static bool TryGetWellKnownType(DmdTypeName name, out DmdWellKnownType wellKnownType) =>
+		public static bool TryGetWellKnownType(in DmdTypeName name, out DmdWellKnownType wellKnownType) =>
 			toWellKnownType.TryGetValue(name, out wellKnownType);
 
 		/// <summary>
@@ -342,12 +342,12 @@ namespace dnSpy.Debugger.DotNet.Metadata {
 			Add(new DmdTypeName("System.Collections.Generic", "KeyValuePair`2"), DmdWellKnownType.System_Collections_Generic_KeyValuePair_T2);
 			Add(new DmdTypeName("System.Linq", "SystemCore_EnumerableDebugView"), DmdWellKnownType.System_Linq_SystemCore_EnumerableDebugView);
 			Add(new DmdTypeName("System.Linq", "SystemCore_EnumerableDebugView`1"), DmdWellKnownType.System_Linq_SystemCore_EnumerableDebugView_T);
-			Add(new DmdTypeName("System.Linq", "SystemCore_EnumerableDebugViewEmptyException"), DmdWellKnownType.System_Linq_SystemCore_EnumerableDebugViewEmptyException);
 			Add(new DmdTypeName("System.Text", "Encoding"), DmdWellKnownType.System_Text_Encoding);
 			Add(new DmdTypeName("System.Runtime.CompilerServices", "IsReadOnlyAttribute"), DmdWellKnownType.System_Runtime_CompilerServices_IsReadOnlyAttribute);
 			Add(new DmdTypeName("System.Runtime.CompilerServices", "IsByRefLikeAttribute"), DmdWellKnownType.System_Runtime_CompilerServices_IsByRefLikeAttribute);
 			Add(new DmdTypeName("System", "ObsoleteAttribute"), DmdWellKnownType.System_ObsoleteAttribute);
 			Add(new DmdTypeName("System", "Span`1"), DmdWellKnownType.System_Span_T);
+			Add(new DmdTypeName("System.Runtime.InteropServices", "GCHandle"), DmdWellKnownType.System_Runtime_InteropServices_GCHandle);
 
 			Debug.Assert(toWellKnownType.Count == WellKnownTypesCount);
 #if DEBUG

@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -49,7 +49,7 @@ namespace dnSpy.Debugger.ToolWindows.Processes {
 		readonly ProcessesControl processesControl;
 		readonly IProcessesVM processesVM;
 
-		sealed class ControlVM {
+		sealed class ControlVM : ViewModelBase {
 			public IProcessesVM VM { get; }
 			ProcessesOperations Operations { get; }
 

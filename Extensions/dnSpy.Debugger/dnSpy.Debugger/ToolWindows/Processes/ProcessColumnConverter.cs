@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -44,6 +44,8 @@ namespace dnSpy.Debugger.ToolWindows.Processes {
 				formatter.WriteState(writer, obj.VM);
 			else if (obj.Tag == PredefinedTextClassifierTags.ProcessesWindowDebugging)
 				formatter.WriteDebugging(writer, obj.VM.Process);
+			else if (obj.Tag == PredefinedTextClassifierTags.ProcessesWindowMachine)
+				formatter.WriteMachine(writer, obj.VM.Process.Machine);
 			else if (obj.Tag == PredefinedTextClassifierTags.ProcessesWindowPath)
 				formatter.WritePath(writer, obj.VM.Process);
 			else

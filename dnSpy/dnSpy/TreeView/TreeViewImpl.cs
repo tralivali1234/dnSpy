@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -25,6 +25,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using dnSpy.Contracts.Documents.TreeView;
+using dnSpy.Contracts.MVVM;
 using dnSpy.Contracts.Settings.AppearanceCategory;
 using dnSpy.Contracts.Themes;
 using dnSpy.Contracts.TreeView;
@@ -74,8 +75,9 @@ namespace dnSpy.TreeView {
 			sharpTreeView.CanDragAndDrop = options.CanDragAndDrop;
 			sharpTreeView.AllowDrop = options.AllowDrop;
 			sharpTreeView.AllowDropOrder = options.AllowDrop;
-			VirtualizingStackPanel.SetIsVirtualizing(sharpTreeView, options.IsVirtualizing);
-			VirtualizingStackPanel.SetVirtualizationMode(sharpTreeView, options.VirtualizationMode);
+			VirtualizingPanel.SetIsVirtualizing(sharpTreeView, options.IsVirtualizing);
+			VirtualizingPanel.SetVirtualizationMode(sharpTreeView, options.VirtualizationMode);
+			AutomationPeerMemoryLeakWorkaround.SetInitialize(sharpTreeView, true);
 			sharpTreeView.SelectionMode = options.SelectionMode;
 			sharpTreeView.BorderThickness = new Thickness(0);
 			sharpTreeView.ShowRoot = false;
@@ -204,7 +206,7 @@ namespace dnSpy.TreeView {
 			if (ga.Order > gb.Order)
 				return 1;
 			if (ga.GetType() != gb.GetType()) {
-				Debug.Fail(string.Format("Two different groups have identical order: {0} vs {1}", ga.GetType(), gb.GetType()));
+				Debug.Fail($"Two different groups have identical order: {ga.GetType()} vs {gb.GetType()}");
 				return ga.GetType().GetHashCode().CompareTo(gb.GetType().GetHashCode());
 			}
 			return ga.Compare(a, b);

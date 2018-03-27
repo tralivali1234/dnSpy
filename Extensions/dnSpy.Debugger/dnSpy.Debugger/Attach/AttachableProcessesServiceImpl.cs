@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -41,7 +41,7 @@ namespace dnSpy.Debugger.Attach {
 			this.attachProgramOptionsProviderFactories = attachProgramOptionsProviderFactories.ToArray();
 		}
 
-		public override Task<AttachableProcess[]> GetAttachableProcesses(string[] processNames, string[] providerNames, CancellationToken cancellationToken) {
+		public override Task<AttachableProcess[]> GetAttachableProcessesAsync(string[] processNames, string[] providerNames, CancellationToken cancellationToken) {
 			var helper = new Helper(dbgManager, attachProgramOptionsProviderFactories, processNames, providerNames, cancellationToken);
 			return helper.Task;
 		}
@@ -104,10 +104,11 @@ namespace dnSpy.Debugger.Attach {
 				if (providerNames == null)
 					providerNames = Array.Empty<string>();
 				var providerContext = new AttachProgramOptionsProviderContext(cancellationToken);
+				bool allFactories = providerNames.Length == 0;
 				foreach (var lz in attachProgramOptionsProviderFactories) {
 					if (providerNames.Length != 0 && Array.IndexOf(providerNames, lz.Metadata.Name) < 0)
 						continue;
-					var provider = lz.Value.Create();
+					var provider = lz.Value.Create(allFactories);
 					if (provider == null)
 						continue;
 					providerInfos.Add(new ProviderInfo(this, providerContext, provider));

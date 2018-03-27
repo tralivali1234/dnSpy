@@ -1,5 +1,5 @@
 ﻿/*
-    Copyright (C) 2014-2017 de4dot@gmail.com
+    Copyright (C) 2014-2018 de4dot@gmail.com
 
     This file is part of dnSpy
 
@@ -18,6 +18,7 @@
 */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Threading;
 using dndbg.COM.CorDebug;
@@ -27,9 +28,6 @@ using dnlib.DotNet.MD;
 
 namespace dndbg.Engine {
 	sealed class CorModule : COMObject<ICorDebugModule>, IEquatable<CorModule> {
-		/// <summary>
-		/// Gets the process or null
-		/// </summary>
 		public CorProcess Process {
 			get {
 				int hr = obj.GetProcess(out var process);
@@ -37,9 +35,6 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// Gets the assembly or null
-		/// </summary>
 		public CorAssembly Assembly {
 			get {
 				int hr = obj.GetAssembly(out var assembly);
@@ -47,13 +42,11 @@ namespace dndbg.Engine {
 			}
 		}
 
-		/// <summary>
-		/// true if this is the manifest module
-		/// </summary>
-		public bool IsManifestModule {
+		public bool IsManifestModule => Assembly?.ManifestModule == this;
+
+		public bool HasAssemblyRow {
 			get {
 				var mdi = GetMetaDataInterface<IMetaDataImport>();
-				// Only the manifest module should have an assembly row
 				return mdi != null && mdi.IsValidToken(new MDToken(Table.Assembly, 1).Raw);
 			}
 		}
@@ -83,32 +76,16 @@ namespace dndbg.Engine {
 			return DotNet.Utils.GetUTF8String(MDAPI.GetUtf8Name(mdi, token), MDAPI.GetModuleName(mdi) ?? string.Empty);
 		}
 
-		/// <summary>
-		/// Gets the base address of the module or 0
-		/// </summary>
 		public ulong Address => address;
 		readonly ulong address;
 
-		/// <summary>
-		/// Gets the size of the module or 0
-		/// </summary>
 		public uint Size => size;
 		readonly uint size;
 
-		/// <summary>
-		/// Gets the token or 0
-		/// </summary>
 		public uint Token => token;
 		readonly uint token;
 
-		/// <summary>
-		/// true if it's a dynamic module that can add/remove types
-		/// </summary>
 		public bool IsDynamic { get; }
-
-		/// <summary>
-		/// true if this is an in-memory module
-		/// </summary>
 		public bool IsInMemory { get; }
 
 		string GetSerializedName(uint id) {
@@ -124,11 +101,6 @@ namespace dndbg.Engine {
 
 		public DnModuleId GetModuleId(uint id) => new DnModuleId(Assembly?.FullName ?? string.Empty, GetSerializedName(id), IsDynamic, IsInMemory, false);
 
-		/// <summary>
-		/// Gets/sets the JIT compiler flags. The setter can only be called from the
-		/// ICorDebugManagedCallback::LoadModule handler. The getter can only be called when the
-		/// debugged process is synchronized (paused).
-		/// </summary>
 		public CorDebugJITCompilerFlags JITCompilerFlags {
 			get {
 				var m2 = obj as ICorDebugModule2;
@@ -163,6 +135,19 @@ namespace dndbg.Engine {
 			IsDynamic = hr >= 0 && b != 0;
 			hr = module.IsInMemory(out b);
 			IsInMemory = hr >= 0 && b != 0;
+			if (!IsDynamic && !IsInMemory)
+				Name = NormalizeFilename(Name);
+		}
+
+		static string NormalizeFilename(string filename) {
+			if (!File.Exists(filename))
+				return filename;
+			try {
+				return Path.GetFullPath(filename);
+			}
+			catch {
+			}
+			return filename;
 		}
 
 		static string GetName(ICorDebugModule module) {
@@ -196,21 +181,11 @@ namespace dndbg.Engine {
 			int hr = m2.SetJMCStatus(isJustMyCode ? 1 : 0, 0, IntPtr.Zero);
 		}
 
-		/// <summary>
-		/// Gets a class
-		/// </summary>
-		/// <param name="token">TypeDef token</param>
-		/// <returns></returns>
 		public CorClass GetClassFromToken(uint token) {
 			int hr = obj.GetClassFromToken(token, out var cls);
 			return hr < 0 || cls == null ? null : new CorClass(cls);
 		}
 
-		/// <summary>
-		/// Gets a metadata interface, eg. <see cref="IMetaDataImport"/> or <see cref="IMetaDataImport2"/>
-		/// </summary>
-		/// <typeparam name="T">Type of COM metadata interface</typeparam>
-		/// <returns></returns>
 		public T GetMetaDataInterface<T>() where T : class {
 			var riid = typeof(T).GUID;
 			int hr = obj.GetMetaDataInterface(ref riid, out object o);
@@ -229,6 +204,6 @@ namespace dndbg.Engine {
 		public bool Equals(CorModule other) => !ReferenceEquals(other, null) && RawObject == other.RawObject;
 		public override bool Equals(object obj) => Equals(obj as CorModule);
 		public override int GetHashCode() => RawObject.GetHashCode();
-		public override string ToString() => string.Format("[Module] DYN={0} MEM={1} A={2:X8} S={3:X8} {4}", IsDynamic ? 1 : 0, IsInMemory ? 1 : 0, Address, Size, Name);
+		public override string ToString() => $"[Module] DYN={(IsDynamic ? 1 : 0)} MEM={(IsInMemory ? 1 : 0)} A={Address:X8} S={Size:X8} {Name}";
 	}
 }
