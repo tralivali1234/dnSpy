@@ -162,9 +162,6 @@
   <data name="Button_Save" xml:space="preserve">
     <value>Guardar...</value>
   </data>
-  <data name="Button_SaveCode" xml:space="preserve">
-    <value>Guardar Código...</value>
-  </data>
   <data name="Button_Yes" xml:space="preserve">
     <value>Sim</value>
   </data>
@@ -506,9 +503,6 @@
   </data>
   <data name="SaveResourceButton" xml:space="preserve">
     <value>Guardar</value>
-  </data>
-  <data name="SavingCode" xml:space="preserve">
-    <value>Guardando...</value>
   </data>
   <data name="SearchAbortedMessage" xml:space="preserve">
     <value>Pesquisa interrompida, mais de {0:n0} resultados encontrados.</value>
@@ -1917,6 +1911,6 @@ Filtro pode ser alterado nas opções do Explorador Assembly.</value>
     <value>Administrador</value>
   </data>
   <data name="AllowMoreThanOneInstance" xml:space="preserve">
-    <value>Allow more than one instance (restart required)</value>
+    <value>Permitir mais do que uma instância (necessário reiniciar)</value>
   </data>
 </root>

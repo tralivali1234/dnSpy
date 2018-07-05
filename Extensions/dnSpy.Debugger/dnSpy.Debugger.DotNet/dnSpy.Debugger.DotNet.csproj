@@ -155,6 +155,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dnSpy.Debugger.DotNet.Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Steppers\Engine\CompilerUtils.cs" />
     <Compile Include="Steppers\Engine\DbgEngineStepperFactoryImpl.cs" />
     <Compile Include="Steppers\Engine\DbgEngineStepperImpl.cs" />
     <Compile Include="Steppers\Engine\TaskEvalUtils.cs" />
@@ -214,6 +215,8 @@
     <EmbeddedResource Include="Properties\dnSpy.Debugger.DotNet.Resources.de.resx" />
     <EmbeddedResource Include="Properties\dnSpy.Debugger.DotNet.Resources.es-ES.resx" />
     <EmbeddedResource Include="Properties\dnSpy.Debugger.DotNet.Resources.hu.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Debugger.DotNet.Resources.fr.resx" />
+    <EmbeddedResource Include="Properties\dnSpy.Debugger.DotNet.Resources.it.resx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DotNet.ex.xml" />

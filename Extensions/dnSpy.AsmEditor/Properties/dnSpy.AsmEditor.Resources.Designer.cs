@@ -629,6 +629,15 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compiler.
+        /// </summary>
+        public static string CompilerDlgTabTitle {
+            get {
+                return ResourceManager.GetString("CompilerDlgTabTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Constant.
         /// </summary>
         public static string ConstantDlg_Constant {
@@ -5444,6 +5453,15 @@ namespace dnSpy.AsmEditor.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run NGEN.exe if this assembly is installed in the GAC.
+        /// </summary>
+        public static string RerunNgenIfGacAssembly {
+            get {
+                return ResourceManager.GetString("RerunNgenIfGacAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color _Depth.
         /// </summary>
         public static string Resource_ColorDepth {
@@ -5856,6 +5874,15 @@ namespace dnSpy.AsmEditor.Properties {
         public static string SaveModule_PreserveHeapOffsets {
             get {
                 return ResourceManager.GetString("SaveModule_PreserveHeapOffsets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Unkno_wn Metadata Streams.
+        /// </summary>
+        public static string SaveModule_PreserveOtherMetadataStreams {
+            get {
+                return ResourceManager.GetString("SaveModule_PreserveOtherMetadataStreams", resourceCulture);
             }
         }
         

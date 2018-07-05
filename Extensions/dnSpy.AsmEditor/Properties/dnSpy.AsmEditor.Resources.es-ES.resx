@@ -1064,7 +1064,7 @@
     <value>Ensamblado</value>
   </data>
   <data name="ConvAssemblyToNetModuleCommand" xml:space="preserve">
-    <value>Convertir la ensamblado en NetMódulo</value>
+    <value>Convertir ensamblado en NetMódulo</value>
   </data>
   <data name="ConvertUncondBranchCommand" xml:space="preserve">
     <value>Convertir a _Rama Incondicional</value>
@@ -2375,7 +2375,7 @@
     <value>Editar código</value>
   </data>
   <data name="Decompiling" xml:space="preserve">
-    <value>Decompilando...</value>
+    <value>Descompilando...</value>
   </data>
   <data name="CompileDiagnostics_Header_Code" xml:space="preserve">
     <value>Código</value>
@@ -2516,6 +2516,12 @@
     <value>Añadir miembros a la clase</value>
   </data>
   <data name="EditCodeAddClassMembers2" xml:space="preserve">
-    <value>Agregar a miembros a la clase ({0})...</value>
+    <value>Agregar miembros a la clase ({0})...</value>
+  </data>
+  <data name="SaveModule_PreserveOtherMetadataStreams" xml:space="preserve">
+    <value>Copiar secuencias de metadatos desconocida</value>
+  </data>
+  <data name="RerunNgenIfGacAssembly" xml:space="preserve">
+    <value>Ejecuta NGEN.exe si este ensamblado está instalado en el GAC</value>
   </data>
 </root>
